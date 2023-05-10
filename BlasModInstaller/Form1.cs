@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Diagnostics;
-using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,6 +15,7 @@ namespace BlasModInstaller
     public partial class MainForm : Form
     {
         private const int MOD_HEIGHT = 78;
+        private const string BLAS_LOCATION = "C:\\Users\\Brand\\Documents\\Blasphemous";
 
         public MainForm()
         {
@@ -128,7 +129,28 @@ namespace BlasModInstaller
         private void UpdateModSections()
         {
             for (int i = 0; i < mods.Length; i++)
-                UninstallMod(i);
+            {
+                string enabledPath = BLAS_LOCATION + "\\Modding\\plugins\\" + mods[i].Name + ".txt";
+                string disabledPath = BLAS_LOCATION + "\\Modding\\disabled\\" + mods[i].Name + ".txt";
+                if (File.Exists(enabledPath))
+                {
+                    GetEnabledCheckbox(i).Checked = true;
+                    InstallMod_UI(i);
+                    mods[i].Installed = true;
+                    //mods[i].Enabled = true;
+                }
+                else if (File.Exists(disabledPath))
+                {
+                    GetEnabledCheckbox(i).Checked = false;
+                    InstallMod_UI(i);
+                    mods[i].Installed = true;
+                    //mods[i].Enabled = false;
+                }
+                else
+                {
+                    UninstallMod_UI(i);
+                }
+            }
         }
 
         private void ClickedInstall(object sender, EventArgs e)
@@ -178,7 +200,17 @@ namespace BlasModInstaller
 
         private void InstallMod(int modIdx)
         {
+            // Actually install
+            string modPath = BLAS_LOCATION + "\\Modding\\plugins\\" + mods[modIdx].Name + ".txt";
+            File.WriteAllText(modPath, "Fake mod");
             mods[modIdx].Installed = true;
+            // Update UI
+            GetEnabledCheckbox(modIdx).Checked = true;
+            InstallMod_UI(modIdx);
+        }
+
+        private void InstallMod_UI(int modIdx)
+        {
             // Set button status
             Button button = GetInstallButton(modIdx);
             button.Text = "Uninstall";
@@ -197,8 +229,18 @@ namespace BlasModInstaller
 
         private void UninstallMod(int modIdx)
         {
+            // Actually uninstall
+            string modPath = BLAS_LOCATION + "\\Modding\\plugins\\" + mods[modIdx].Name + ".txt";
+            if (File.Exists(modPath))
+                File.Delete(modPath);
             mods[modIdx].Installed = false;
-            mods[modIdx].Enabled = false;
+            //mods[modIdx].Enabled = false;
+            // Update UI
+            UninstallMod_UI(modIdx);
+        }
+
+        private void UninstallMod_UI(int modIdx)
+        {
             // Set button status
             Button button = GetInstallButton(modIdx);
             button.Text = "Install";
@@ -214,12 +256,12 @@ namespace BlasModInstaller
 
         private void EnableMod(int modIdx)
         {
-            mods[modIdx].Enabled = true;
+            //mods[modIdx].Enabled = true;
         }
 
         private void DisableMod(int modIdx)
         {
-            mods[modIdx].Enabled = false;
+            //mods[modIdx].Enabled = false;
         }
 
         private void ShowUpdateAvailable(int modIdx)
@@ -310,6 +352,6 @@ namespace BlasModInstaller
         }
 
         public bool Installed { get; set; }
-        public bool Enabled { get; set; }
+        //public bool Enabled { get; set; }
     }
 }

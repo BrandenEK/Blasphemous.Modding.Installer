@@ -31,6 +31,7 @@ namespace BlasModInstaller
         {
             this.scroll = new System.Windows.Forms.VScrollBar();
             this.modHolder = new System.Windows.Forms.Panel();
+            this.blasLocation = new System.Windows.Forms.Label();
             this.modHolder.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,24 +59,36 @@ namespace BlasModInstaller
             this.modHolder.Size = new System.Drawing.Size(1183, 657);
             this.modHolder.TabIndex = 3;
             // 
+            // blasLocation
+            // 
+            this.blasLocation.AutoSize = true;
+            this.blasLocation.Location = new System.Drawing.Point(12, 9);
+            this.blasLocation.Name = "blasLocation";
+            this.blasLocation.Size = new System.Drawing.Size(414, 17);
+            this.blasLocation.TabIndex = 4;
+            this.blasLocation.Text = "Blasphemous location: C:\\Users\\Brand\\Documents\\Blasphemous";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
             this.ClientSize = new System.Drawing.Size(1182, 753);
+            this.Controls.Add(this.blasLocation);
             this.Controls.Add(this.modHolder);
             this.MinimumSize = new System.Drawing.Size(1200, 800);
             this.Name = "MainForm";
             this.Text = "Blasphemous Mod Installer";
             this.modHolder.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.VScrollBar scroll;
         private System.Windows.Forms.Panel modHolder;
+        private System.Windows.Forms.Label blasLocation;
     }
 }
 
