@@ -17,6 +17,7 @@ namespace BlasModInstaller
         private const int MOD_HEIGHT = 78;
         private const string BLAS_LOCATION = "C:\\Users\\Brand\\Documents\\Blasphemous";
 
+        private int enabledCount = 0;
         public MainForm()
         {
             InitializeComponent();
@@ -134,15 +135,15 @@ namespace BlasModInstaller
                 string disabledPath = BLAS_LOCATION + "\\Modding\\disabled\\" + mods[i].Name + ".txt";
                 if (File.Exists(enabledPath))
                 {
-                    GetEnabledCheckbox(i).Checked = true;
                     InstallMod_UI(i);
+                    EnableMod_UI(i);
                     mods[i].Installed = true;
                     //mods[i].Enabled = true;
                 }
                 else if (File.Exists(disabledPath))
                 {
-                    GetEnabledCheckbox(i).Checked = false;
                     InstallMod_UI(i);
+                    DisableMod_UI(i);
                     mods[i].Installed = true;
                     //mods[i].Enabled = false;
                 }
@@ -205,7 +206,6 @@ namespace BlasModInstaller
             File.WriteAllText(modPath, "Fake mod");
             mods[modIdx].Installed = true;
             // Update UI
-            GetEnabledCheckbox(modIdx).Checked = true;
             InstallMod_UI(modIdx);
         }
 
@@ -219,6 +219,7 @@ namespace BlasModInstaller
             // Set checkbox status
             CheckBox checkbox = GetEnabledCheckbox(modIdx);
             checkbox.Enabled = true;
+            checkbox.Checked = true;
             // Set update status
             int rand = new Random().Next(0, 3);
             if (rand == 1)
@@ -257,11 +258,24 @@ namespace BlasModInstaller
         private void EnableMod(int modIdx)
         {
             //mods[modIdx].Enabled = true;
+            blasLocation.Text = (++enabledCount).ToString();
+        }
+
+        private void EnableMod_UI(int modIdx)
+        {
+            CheckBox checkbox = GetEnabledCheckbox(modIdx);
+            checkbox.Checked = true;
         }
 
         private void DisableMod(int modIdx)
         {
             //mods[modIdx].Enabled = false;
+        }
+
+        private void DisableMod_UI(int modIdx)
+        {
+            CheckBox checkbox = GetEnabledCheckbox(modIdx);
+            checkbox.Checked = false;
         }
 
         private void ShowUpdateAvailable(int modIdx)
