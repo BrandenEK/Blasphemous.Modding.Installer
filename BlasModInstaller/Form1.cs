@@ -40,7 +40,7 @@ namespace BlasModInstaller
             {
                 Panel modSection = new Panel();
                 modSection.Name = "mod" + i;
-                modSection.BackColor = Color.Silver;
+                modSection.BackColor =  i % 2 == 0 ? Color.LightGray : Color.WhiteSmoke;
                 modSection.Parent = modHolder;
                 modSection.Size = new Size(855, MOD_HEIGHT);
                 modSection.Location = new Point(15, 12 + (12 + MOD_HEIGHT) * i);
@@ -48,19 +48,19 @@ namespace BlasModInstaller
 
                 Label modName = new Label();
                 modName.Name = "name" + i;
-                modName.Text = mods[i].Name;
+                modName.Text = $"{mods[i].Name}  v{mods[i].Version}";
                 modName.Parent = modSection;
                 modName.Size = new Size(400, 15);
                 modName.Location = new Point(10, 8);
                 modName.Anchor = AnchorStyles.Top | AnchorStyles.Left;
 
-                Label modVersion = new Label();
-                modVersion.Name = "version" + i;
-                modVersion.Text = "Version: " + mods[i].Version;
-                modVersion.Parent = modSection;
-                modVersion.Size = new Size(400, 15);
-                modVersion.Location = new Point(10, 25);
-                modVersion.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                Label modAuthor = new Label();
+                modAuthor.Name = "author" + i;
+                modAuthor.Text = "Author: " + mods[i].Author;
+                modAuthor.Parent = modSection;
+                modAuthor.Size = new Size(400, 15);
+                modAuthor.Location = new Point(10, 25);
+                modAuthor.Anchor = AnchorStyles.Top | AnchorStyles.Left;
 
                 Label modDescription = new Label();
                 modDescription.Name = "desc" + i;
@@ -99,7 +99,7 @@ namespace BlasModInstaller
 
                 Label updateText = new Label();
                 updateText.Name = "text" + i;
-                updateText.Text = "";
+                updateText.Text = string.Empty;
                 updateText.TextAlign = ContentAlignment.TopCenter;
                 updateText.Parent = modSection;
                 updateText.Size = new Size(120, 15);
@@ -128,7 +128,7 @@ namespace BlasModInstaller
         private void UpdateModSections()
         {
             for (int i = 0; i < mods.Length; i++)
-                UninstalledMod(i);
+                UninstallMod(i);
         }
 
         private void ClickedInstall(object sender, EventArgs e)
@@ -139,12 +139,11 @@ namespace BlasModInstaller
             if (shouldInstall)
             {
                 button.Enabled = false;
-                UpdateUpdated(modIdx, false, true);
                 Download(modIdx);
             }
             else
             {
-                UninstalledMod(modIdx);
+                UninstallMod(modIdx);
             }
         }
 
@@ -152,7 +151,10 @@ namespace BlasModInstaller
         {
             CheckBox checkbox = sender as CheckBox;
             int modIdx = GetEnabledCheckboxMod(checkbox);
-            mods[modIdx].Enabled = checkbox.Checked;
+            if (checkbox.Checked)
+                EnableMod(modIdx);
+            else
+                DisableMod(modIdx);
         }
 
         private void ClickedGithub(object sender, LinkLabelLinkClickedEventArgs e)
@@ -171,11 +173,10 @@ namespace BlasModInstaller
         private void ClickedUpdate(object sender, EventArgs e)
         {
             int modIdx = GetUpdateButtonMod(sender as Button);
-            UpdateUpdated(modIdx, false, true);
             Download(modIdx);
         }
 
-        private void InstalledMod(int modIdx)
+        private void InstallMod(int modIdx)
         {
             mods[modIdx].Installed = true;
             // Set button status
@@ -187,11 +188,14 @@ namespace BlasModInstaller
             CheckBox checkbox = GetEnabledCheckbox(modIdx);
             checkbox.Enabled = true;
             // Set update status
-            int rand = new Random().Next(0, 4);
-            UpdateUpdated(modIdx, rand == 1, false);
+            int rand = new Random().Next(0, 3);
+            if (rand == 1)
+                ShowUpdateAvailable(modIdx);
+            else
+                HideUpdateAvailable(modIdx);
         }
 
-        private void UninstalledMod(int modIdx)
+        private void UninstallMod(int modIdx)
         {
             mods[modIdx].Installed = false;
             mods[modIdx].Enabled = false;
@@ -205,24 +209,66 @@ namespace BlasModInstaller
             checkbox.Enabled = false;
             checkbox.Checked = false;
             // Set update status
-            UpdateUpdated(modIdx, false, false);
+            HideUpdateAvailable(modIdx);
         }
 
-        private void UpdateUpdated(int modIdx, bool needsUpdate, bool download)
+        private void EnableMod(int modIdx)
         {
-            Button button = GetUpdateButton(modIdx);
-            button.Visible = needsUpdate;
-            ProgressBar progressBar = GetProgressBar(modIdx);
-            progressBar.Visible = download;
+            mods[modIdx].Enabled = true;
+        }
+
+        private void DisableMod(int modIdx)
+        {
+            mods[modIdx].Enabled = false;
+        }
+
+        private void ShowUpdateAvailable(int modIdx)
+        {
+            // Set text status
             Label label = GetDownloadText(modIdx);
-            label.Visible = needsUpdate || download;
-            label.Text = needsUpdate ? "An update is available!" : (download ? "Downloading..." : "");
+            label.Visible = true;
+            label.Text = "An update is available!";
+            // Set button status
+            Button button = GetUpdateButton(modIdx);
+            button.Visible = true;
+            // Set progress bar status
+            ProgressBar progressBar = GetProgressBar(modIdx);
+            progressBar.Visible = false;
+        }
+
+        private void HideUpdateAvailable(int modIdx)
+        {
+            // Set text status
+            Label label = GetDownloadText(modIdx);
+            label.Visible = false;
+            label.Text = string.Empty;
+            // Set button status
+            Button button = GetUpdateButton(modIdx);
+            button.Visible = false;
+            // Set progress bar staus
+            ProgressBar progressBar = GetProgressBar(modIdx);
+            progressBar.Visible = false;
+        }
+
+        private void DisplayDownloadBar(int modIdx)
+        {
+            // Set text status
+            Label label = GetDownloadText(modIdx);
+            label.Visible = true;
+            label.Text = "Downloading...";
+            // Set button status
+            Button button = GetUpdateButton(modIdx);
+            button.Visible = false;
+            // Set progress bar status
+            ProgressBar progressBar = GetProgressBar(modIdx);
+            progressBar.Visible = true;
+            progressBar.Value = 0;
         }
 
         private async Task Download(int modIdx)
         {
+            DisplayDownloadBar(modIdx);
             ProgressBar progressBar = GetProgressBar(modIdx);
-            progressBar.Value = 0;
             await Task.Run(() =>
             {
                 for (int i = 0; i < 10; i++)
@@ -231,18 +277,18 @@ namespace BlasModInstaller
                     BeginInvoke(new MethodInvoker(() => progressBar.Value = i * 10));
                 }
             });
-            InstalledMod(modIdx);
+            InstallMod(modIdx);
         }
 
         private Mod[] mods = new Mod[]
         {
-            new Mod("Modding API", "1.3.4", "An API that is required for almost all other mods and allows for custom skins", "https://github.com/BrandenEK/Blasphemous-Modding-API"),
-            new Mod("Randomizer", "1.4.5", "A randomizer mod that can shuffle items, enemies, and doors", "https://github.com/BrandenEK/Blasphemous-Randomizer"),
-            new Mod("Multiworld", "1.0.2", "A multiworld client that allows the randomizer to connect to Archipelago", "https://github.com/BrandenEK/Blasphemous-Multiworld"),
-            new Mod("Multiplayer", "1.0.2", "A multiplayer mod that allows you to play Blasphemous cooperatively or against other people", "https://github.com/BrandenEK/Blasphemous-Multiplayer"),
-            new Mod("Boots of Pleading", "0.1.0", "Adds a new relic called the 'Boots of Pleading' that allows you to survive falling in spikes", "https://github.com/BrandenEK/Blasphemous-Boots-of-Pleading"),
-            new Mod("Double Jump", "0.1.0", "Adds a new relic called the 'Purified Hand of the Nun' that allows you to double jump", "https://github.com/BrandenEK/Blasphemous-Double-Jump"),
-            new Mod("Random Prayer Use", "0.1.0", "Adds a new penitence that randomizes which prayer is used each time you attempt to cast one", "https://github.com/BrandenEK/Blasphemous-Random-Prayer-Use"),
+            new Mod("Modding API", "1.3.4", "Damocles", "An API that is required for almost all other mods and allows for custom skins", "https://github.com/BrandenEK/Blasphemous-Modding-API"),
+            new Mod("Randomizer", "1.4.5", "Damocles", "A randomizer mod that can shuffle items, enemies, and doors", "https://github.com/BrandenEK/Blasphemous-Randomizer"),
+            new Mod("Multiworld", "1.0.2", "Damocles", "A multiworld client that allows the randomizer to connect to Archipelago", "https://github.com/BrandenEK/Blasphemous-Multiworld"),
+            new Mod("Multiplayer", "1.0.2", "Damocles", "A multiplayer mod that allows you to play Blasphemous cooperatively or against other people", "https://github.com/BrandenEK/Blasphemous-Multiplayer"),
+            new Mod("Boots of Pleading", "0.1.0", "Damocles", "Adds a new relic called the 'Boots of Pleading' that allows you to survive falling in spikes", "https://github.com/BrandenEK/Blasphemous-Boots-of-Pleading"),
+            new Mod("Double Jump", "0.1.0", "Damocles", "Adds a new relic called the 'Purified Hand of the Nun' that allows you to double jump", "https://github.com/BrandenEK/Blasphemous-Double-Jump"),
+            new Mod("Random Prayer Use", "0.1.0", "Damocles", "Adds a new penitence that randomizes which prayer is used each time you attempt to cast one", "https://github.com/BrandenEK/Blasphemous-Random-Prayer-Use"),
         };
     }
 
@@ -250,13 +296,15 @@ namespace BlasModInstaller
     {
         public string Name { get; private set; }
         public string Version { get; private set; }
+        public string Author { get; private set; }
         public string Description { get; private set; }
         public string GithubLink { get; private set; }
 
-        public Mod(string name, string version, string description, string githubLink)
+        public Mod(string name, string version, string author, string description, string githubLink)
         {
             Name = name;
             Version = version;
+            Author = author;
             Description = description;
             GithubLink = githubLink;
         }
