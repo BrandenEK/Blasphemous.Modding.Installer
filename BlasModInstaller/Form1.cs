@@ -137,15 +137,11 @@ namespace BlasModInstaller
                 {
                     InstallMod_UI(i);
                     EnableMod_UI(i);
-                    mods[i].Installed = true;
-                    //mods[i].Enabled = true;
                 }
                 else if (File.Exists(GetDisabledPath(i)))
                 {
                     InstallMod_UI(i);
                     DisableMod_UI(i);
-                    mods[i].Installed = true;
-                    //mods[i].Enabled = false;
                 }
                 else
                 {
@@ -156,9 +152,9 @@ namespace BlasModInstaller
 
         private void ClickedInstall(object sender, EventArgs e)
         {
-            int modIdx = GetInstallButtonMod(sender as Button);
-            bool shouldInstall = !mods[modIdx].Installed;
-            if (shouldInstall)
+            Button button = sender as Button;
+            int modIdx = GetInstallButtonMod(button);
+            if (button.Text == "Install")
             {
                 Download(modIdx);
             }
@@ -202,7 +198,6 @@ namespace BlasModInstaller
         {
             // Actually install
             File.WriteAllText(GetEnabledPath(modIdx), "Fake mod");
-            mods[modIdx].Installed = true;
             // Update UI
             InstallMod_UI(modIdx);
         }
@@ -233,8 +228,6 @@ namespace BlasModInstaller
                 File.Delete(GetEnabledPath(modIdx));
             if (File.Exists(GetDisabledPath(modIdx)))
                 File.Delete(GetDisabledPath(modIdx));
-            mods[modIdx].Installed = false;
-            //mods[modIdx].Enabled = false;
             // Update UI
             UninstallMod_UI(modIdx);
         }
@@ -256,7 +249,6 @@ namespace BlasModInstaller
 
         private void EnableMod(int modIdx)
         {
-            //mods[modIdx].Enabled = true;
             string enabled = GetEnabledPath(modIdx);
             string disabled = GetDisabledPath(modIdx);
             if (File.Exists(disabled))
@@ -276,7 +268,6 @@ namespace BlasModInstaller
 
         private void DisableMod(int modIdx)
         {
-            //mods[modIdx].Enabled = false;
             string enabled = GetEnabledPath(modIdx);
             string disabled = GetDisabledPath(modIdx);
             if (File.Exists(enabled))
@@ -382,7 +373,7 @@ namespace BlasModInstaller
             GithubLink = githubLink;
         }
 
-        public bool Installed { get; set; }
+        //public bool Installed { get; set; }
         //public bool Enabled { get; set; }
     }
 }
