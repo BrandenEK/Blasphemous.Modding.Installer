@@ -17,6 +17,8 @@ namespace BlasModInstaller
         private const int MOD_HEIGHT = 78;
         private const string BLAS_LOCATION = "C:\\Users\\Brand\\Documents\\Blasphemous";
 
+        private Random rng = new Random();
+
         public MainForm()
         {
             InitializeComponent();
@@ -137,17 +139,26 @@ namespace BlasModInstaller
                 {
                     InstallMod_UI(i);
                     EnableMod_UI(i);
+                    CheckForUpdates(i);
                 }
                 else if (File.Exists(GetDisabledPath(i)))
                 {
                     InstallMod_UI(i);
                     DisableMod_UI(i);
+                    CheckForUpdates(i);
                 }
                 else
                 {
                     UninstallMod_UI(i);
                 }
             }
+        }
+
+        private void CheckForUpdates(int modIdx)
+        {
+            int rand = rng.Next(0, 4);
+            if (rand == 1)
+                ShowUpdateAvailable(modIdx);
         }
 
         private void ClickedInstall(object sender, EventArgs e)
@@ -214,11 +225,7 @@ namespace BlasModInstaller
             checkbox.Enabled = true;
             checkbox.Checked = true;
             // Set update status
-            int rand = new Random().Next(0, 3);
-            if (rand == 1)
-                ShowUpdateAvailable(modIdx);
-            else
-                HideUpdateAvailable(modIdx);
+            HideUpdateAvailable(modIdx);
         }
 
         private void UninstallMod(int modIdx)
