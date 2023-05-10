@@ -23,6 +23,17 @@ namespace BlasModInstaller
             UpdateModSections();
         }
 
+        private int GetInstallButtonMod(Button button) => int.Parse(button.Name.Substring(7));
+        private int GetEnabledCheckboxMod(CheckBox checkbox) => int.Parse(checkbox.Name.Substring(8));
+        private int GetGithubLinkMod(LinkLabel label) => int.Parse(label.Name.Substring(4));
+        private int GetUpdateButtonMod(Button button) => int.Parse(button.Name.Substring(6));
+
+        private Button GetInstallButton(int modIdx) => Controls.Find("install" + modIdx, true)[0] as Button;
+        private CheckBox GetEnabledCheckbox(int modIdx) => Controls.Find("checkbox" + modIdx, true)[0] as CheckBox;
+        private Button GetUpdateButton(int modIdx) => Controls.Find("update" + modIdx, true)[0] as Button;
+        private ProgressBar GetProgressBar(int modIdx) => Controls.Find("progress" + modIdx, true)[0] as ProgressBar;
+        private Label GetDownloadText(int modIdx) => Controls.Find("text" + modIdx, true)[0] as Label;
+
         private void CreateModSections()
         {
             for (int i = 0; i < mods.Length; i++)
@@ -123,7 +134,7 @@ namespace BlasModInstaller
         private void ClickedInstall(object sender, EventArgs e)
         {
             Button button = sender as Button;
-            int modIdx = int.Parse(button.Name.Substring(7));
+            int modIdx = GetInstallButtonMod(button);
             bool shouldInstall = !mods[modIdx].Installed;
             if (shouldInstall)
             {
@@ -140,13 +151,13 @@ namespace BlasModInstaller
         private void ClickedEnable(object sender, EventArgs e)
         {
             CheckBox checkbox = sender as CheckBox;
-            int modIdx = int.Parse(checkbox.Name.Substring(8));
+            int modIdx = GetEnabledCheckboxMod(checkbox);
             mods[modIdx].Enabled = checkbox.Checked;
         }
 
         private void ClickedGithub(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            int modIdx = int.Parse((sender as LinkLabel).Name.Substring(4));
+            int modIdx = GetGithubLinkMod(sender as LinkLabel);
             try
             {
                 Process.Start(mods[modIdx].GithubLink);
@@ -159,7 +170,7 @@ namespace BlasModInstaller
 
         private void ClickedUpdate(object sender, EventArgs e)
         {
-            int modIdx = int.Parse((sender as Button).Name.Substring(6));
+            int modIdx = GetUpdateButtonMod(sender as Button);
             UpdateUpdated(modIdx, false, true);
             Download(modIdx);
         }
@@ -168,12 +179,12 @@ namespace BlasModInstaller
         {
             mods[modIdx].Installed = true;
             // Set button status
-            Button button = Controls.Find("install" + modIdx, true)[0] as Button;
+            Button button = GetInstallButton(modIdx);
             button.Text = "Uninstall";
-            button.BackColor = Color.WhiteSmoke;
+            button.BackColor = Color.Beige;
             button.Enabled = true;
             // Set checkbox status
-            CheckBox checkbox = Controls.Find("checkbox" + modIdx, true)[0] as CheckBox;
+            CheckBox checkbox = GetEnabledCheckbox(modIdx);
             checkbox.Enabled = true;
             // Set update status
             int rand = new Random().Next(0, 4);
@@ -185,39 +196,32 @@ namespace BlasModInstaller
             mods[modIdx].Installed = false;
             mods[modIdx].Enabled = false;
             // Set button status
-            Button button = Controls.Find("install" + modIdx, true)[0] as Button;
+            Button button = GetInstallButton(modIdx);
             button.Text = "Install";
             button.BackColor = Color.AliceBlue;
             button.Enabled = true;
             // Set checkbox status
-            CheckBox checkbox = Controls.Find("checkbox" + modIdx, true)[0] as CheckBox;
+            CheckBox checkbox = GetEnabledCheckbox(modIdx);
             checkbox.Enabled = false;
             checkbox.Checked = false;
             // Set update status
             UpdateUpdated(modIdx, false, false);
         }
 
-        //private void UpdateEnabled(int modIdx, bool enabled)
-        //{
-        //    mods[modIdx].Enabled = enabled;
-        //    CheckBox checkbox = Controls.Find("checkbox" + modIdx, true)[0] as CheckBox;
-        //    checkbox.Checked = enabled;
-        //}
-
         private void UpdateUpdated(int modIdx, bool needsUpdate, bool download)
         {
-            Button button = Controls.Find("update" + modIdx, true)[0] as Button;
+            Button button = GetUpdateButton(modIdx);
             button.Visible = needsUpdate;
-            ProgressBar progressBar = Controls.Find("progress" + modIdx, true)[0] as ProgressBar;
+            ProgressBar progressBar = GetProgressBar(modIdx);
             progressBar.Visible = download;
-            Label label = Controls.Find("text" + modIdx, true)[0] as Label;
+            Label label = GetDownloadText(modIdx);
             label.Visible = needsUpdate || download;
             label.Text = needsUpdate ? "An update is available!" : (download ? "Downloading..." : "");
         }
 
         private async Task Download(int modIdx)
         {
-            ProgressBar progressBar = Controls.Find("progress" + modIdx, true)[0] as ProgressBar;
+            ProgressBar progressBar = GetProgressBar(modIdx);
             progressBar.Value = 0;
             await Task.Run(() =>
             {
