@@ -117,7 +117,7 @@ namespace BlasModInstaller
         private void UpdateModSections()
         {
             for (int i = 0; i < mods.Length; i++)
-                UpdateInstalled(i, false);
+                UninstalledMod(i);
         }
 
         private void ClickedInstall(object sender, EventArgs e)
@@ -133,7 +133,7 @@ namespace BlasModInstaller
             }
             else
             {
-                UpdateInstalled(modIdx, false);
+                UninstalledMod(modIdx);
             }
         }
 
@@ -164,31 +164,37 @@ namespace BlasModInstaller
             Download(modIdx);
         }
 
-        private void UpdateInstalled(int modIdx, bool installed)
-        {
-            mods[modIdx].Installed = installed;
-            Button button = Controls.Find("install" + modIdx, true)[0] as Button;
-            button.Text = installed ? "Uninstall" : "Install";
-            button.BackColor = installed ? Color.AntiqueWhite : Color.AliceBlue;
-            button.Enabled = true;
-            CheckBox checkbox = Controls.Find("checkbox" + modIdx, true)[0] as CheckBox;
-            checkbox.Enabled = installed;
-            if (!installed)
-            {
-                checkbox.Checked = false;
-                mods[modIdx].Enabled = false;
-            }
-            UpdateUpdated(modIdx, installed, false);
-        }
-
         private void InstalledMod(int modIdx)
         {
-
+            mods[modIdx].Installed = true;
+            // Set button status
+            Button button = Controls.Find("install" + modIdx, true)[0] as Button;
+            button.Text = "Uninstall";
+            button.BackColor = Color.WhiteSmoke;
+            button.Enabled = true;
+            // Set checkbox status
+            CheckBox checkbox = Controls.Find("checkbox" + modIdx, true)[0] as CheckBox;
+            checkbox.Enabled = true;
+            // Set update status
+            int rand = new Random().Next(0, 4);
+            UpdateUpdated(modIdx, rand == 1, false);
         }
 
         private void UninstalledMod(int modIdx)
         {
-
+            mods[modIdx].Installed = false;
+            mods[modIdx].Enabled = false;
+            // Set button status
+            Button button = Controls.Find("install" + modIdx, true)[0] as Button;
+            button.Text = "Install";
+            button.BackColor = Color.AliceBlue;
+            button.Enabled = true;
+            // Set checkbox status
+            CheckBox checkbox = Controls.Find("checkbox" + modIdx, true)[0] as CheckBox;
+            checkbox.Enabled = false;
+            checkbox.Checked = false;
+            // Set update status
+            UpdateUpdated(modIdx, false, false);
         }
 
         //private void UpdateEnabled(int modIdx, bool enabled)
@@ -221,7 +227,7 @@ namespace BlasModInstaller
                     BeginInvoke(new MethodInvoker(() => progressBar.Value = i * 10));
                 }
             });
-            UpdateInstalled(modIdx, true);
+            InstalledMod(modIdx);
         }
 
         private Mod[] mods = new Mod[]
