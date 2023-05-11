@@ -46,8 +46,8 @@ namespace BlasModInstaller
         private Label GetDownloadText(int modIdx) => Controls.Find("text" + modIdx, true)[0] as Label;
         private Label GetNameText(int modIdx) => Controls.Find("name" + modIdx, true)[0] as Label;
 
-        private string GetEnabledPath(int modIdx) => $"{BLAS_LOCATION}\\Modding\\plugins\\{mods[modIdx].Name}.txt";
-        private string GetDisabledPath(int modIdx) => $"{BLAS_LOCATION}\\Modding\\disabled\\{mods[modIdx].Name}.txt";
+        private string GetEnabledPath(int modIdx) => $"{BLAS_LOCATION}\\Modding\\plugins\\{mods[modIdx].PluginFile}";
+        private string GetDisabledPath(int modIdx) => $"{BLAS_LOCATION}\\Modding\\disabled\\{mods[modIdx].PluginFile}";
         private string SavedModsPath => Environment.CurrentDirectory + "\\downloads\\mods.json";
         private string DownloadsPath => Environment.CurrentDirectory + "\\downloads\\";
         private string ModdingFolder => $"{BLAS_LOCATION}\\Modding";
@@ -176,10 +176,11 @@ namespace BlasModInstaller
         private void InstallMod(int modIdx, string newVersion, string zipPath)
         {
             // Actually install
+            string installPath = mods[modIdx].Name == "Modding API" ? BLAS_LOCATION : ModdingFolder;
             using (ZipFile zipFile = ZipFile.Read(zipPath))
             {
                 foreach (ZipEntry file in zipFile)
-                    file.Extract(ModdingFolder, ExtractExistingFileAction.OverwriteSilently);
+                    file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
             }
             mods[modIdx].Version = newVersion;
             SaveMods();

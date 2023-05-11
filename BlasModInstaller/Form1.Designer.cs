@@ -41,7 +41,7 @@ namespace BlasModInstaller
             | System.Windows.Forms.AnchorStyles.Right)));
             this.scroll.Location = new System.Drawing.Point(1142, 12);
             this.scroll.Name = "scroll";
-            this.scroll.Size = new System.Drawing.Size(20, 632);
+            this.scroll.Size = new System.Drawing.Size(20, 635);
             this.scroll.TabIndex = 2;
             this.scroll.Visible = false;
             // 
@@ -56,7 +56,7 @@ namespace BlasModInstaller
             this.modHolder.Controls.Add(this.scroll);
             this.modHolder.Location = new System.Drawing.Point(0, 100);
             this.modHolder.Name = "modHolder";
-            this.modHolder.Size = new System.Drawing.Size(1183, 657);
+            this.modHolder.Size = new System.Drawing.Size(1183, 660);
             this.modHolder.TabIndex = 3;
             // 
             // blasLocation
