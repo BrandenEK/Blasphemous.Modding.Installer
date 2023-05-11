@@ -48,7 +48,7 @@
 	"PluginFile": "BlasDoubleJump.dll"
   },
   {
-    "Name": "Random Prayer Use",
+    "Name": "Random Prayer",
     "Author": "Damocles",
     "Description": "Adds a new penitence that randomizes which prayer is used each time you attempt to cast one",
     "GithubAuthor": "BrandenEK",

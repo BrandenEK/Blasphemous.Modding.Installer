@@ -48,6 +48,12 @@ namespace BlasModInstaller
 
         private string GetEnabledPath(int modIdx) => $"{BLAS_LOCATION}\\Modding\\plugins\\{mods[modIdx].PluginFile}";
         private string GetDisabledPath(int modIdx) => $"{BLAS_LOCATION}\\Modding\\disabled\\{mods[modIdx].PluginFile}";
+        private string GetConfigFile(int modIdx) => $"{BLAS_LOCATION}\\Modding\\config\\{mods[modIdx].Name}.cfg";
+        private string GetLocalizationFile(int modIdx) => $"{BLAS_LOCATION}\\Modding\\localization\\{mods[modIdx].Name}.txt";
+        private string GetLogFile(int modIdx) => $"{BLAS_LOCATION}\\Modding\\logs\\{mods[modIdx].Name}.log";
+        private string GetDataFolder(int modIdx) => $"{BLAS_LOCATION}\\Modding\\data\\{mods[modIdx].Name}";
+        private string GetLevelsFolder(int modIdx) => $"{BLAS_LOCATION}\\Modding\\levels\\{mods[modIdx].Name}";
+
         private string SavedModsPath => Environment.CurrentDirectory + "\\downloads\\mods.json";
         private string DownloadsPath => Environment.CurrentDirectory + "\\downloads\\";
         private string ModdingFolder => $"{BLAS_LOCATION}\\Modding";
@@ -211,8 +217,16 @@ namespace BlasModInstaller
                 File.Delete(GetEnabledPath(modIdx));
             if (File.Exists(GetDisabledPath(modIdx)))
                 File.Delete(GetDisabledPath(modIdx));
-
-            // Also uninstall all data/levels/localization/config/logs stuff
+            if (File.Exists(GetConfigFile(modIdx)))
+                File.Delete(GetConfigFile(modIdx));
+            if (File.Exists(GetLocalizationFile(modIdx)))
+                File.Delete(GetLocalizationFile(modIdx));
+            if (File.Exists(GetLogFile(modIdx)))
+                File.Delete(GetLogFile(modIdx));
+            if (Directory.Exists(GetDataFolder(modIdx)))
+                Directory.Delete(GetDataFolder(modIdx), true);
+            if (Directory.Exists(GetLevelsFolder(modIdx)))
+                Directory.Delete(GetLevelsFolder(modIdx), true);
 
             // Update UI
             UninstallMod_UI(modIdx);
