@@ -1,7 +1,6 @@
 [
   {
     "Name": "Modding API",
-    "Version": "1.3.4",
     "Author": "Damocles",
     "Description": "An API that is required for almost all other mods and allows for custom skins",
     "GithubAuthor": "BrandenEK",
@@ -9,7 +8,6 @@
   },
   {
     "Name": "Randomizer",
-    "Version": "1.4.5",
     "Author": "Damocles",
     "Description": "A randomizer mod that can shuffle items, enemies, and doors",
     "GithubAuthor": "BrandenEK",
@@ -17,7 +15,6 @@
   },
   {
     "Name": "Multiworld",
-    "Version": "1.0.2",
     "Author": "Damocles",
     "Description": "A multiworld client that allows the randomizer to connect to Archipelago",
     "GithubAuthor": "BrandenEK",
@@ -25,7 +22,6 @@
   },
   {
     "Name": "Multiplayer",
-    "Version": "1.0.2",
     "Author": "Damocles",
     "Description": "A multiplayer mod that allows you to play Blasphemous cooperatively or against other people",
     "GithubAuthor": "BrandenEK",
@@ -33,7 +29,6 @@
   },
   {
     "Name": "Boots of Pleading",
-    "Version": "0.1.0",
     "Author": "Damocles",
     "Description": "Adds a new relic called the 'Boots of Pleading' that allows you to survive falling in spikes",
     "GithubAuthor": "BrandenEK",
@@ -41,7 +36,6 @@
   },
   {
     "Name": "Double Jump",
-    "Version": "0.1.0",
     "Author": "Damocles",
     "Description": "Adds a new relic called the 'Purified Hand of the Nun' that allows you to double jump",
     "GithubAuthor": "BrandenEK",
@@ -49,7 +43,6 @@
   },
   {
     "Name": "Random Prayer Use",
-    "Version": "0.1.0",
     "Author": "Damocles",
     "Description": "Adds a new penitence that randomizes which prayer is used each time you attempt to cast one",
     "GithubAuthor": "BrandenEK",

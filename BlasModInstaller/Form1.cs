@@ -64,9 +64,45 @@ namespace BlasModInstaller
             }
         }
 
-        private void LoadModsFromWeb()
+        private async Task LoadModsFromWeb()
         {
+            using (HttpClient client = new HttpClient())
+            {
+                string json = await client.GetStringAsync("https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/mods.json");
+                Mod[] webMods = JsonConvert.DeserializeObject<Mod[]>(json);
 
+                foreach (Mod webMod in webMods)
+                {
+                    bool modExists = false;
+                    foreach (Mod mod in mods)
+                    {
+                        if (mod.Name == webMod.Name)
+                        {
+                            modExists = true;
+                            break;
+                        }
+                    }
+
+                    if (modExists)
+                    {
+                        // Check version and display if needs an update ?
+                    }
+                    else
+                    {
+                        webMod.Version = "0.0.0";
+                        mods.Add(webMod);
+                        CreateModSection(webMod, mods.Count - 1);
+                    }
+                }
+            }
+
+            SaveMods();
+        }
+
+        // After loading more mods from web or updating version, need to save new json
+        private void SaveMods()
+        {
+            File.WriteAllText(SavedModsPath, JsonConvert.SerializeObject(mods));
         }
 
         private void CreateGithubClient()
@@ -384,19 +420,20 @@ namespace BlasModInstaller
         }
     }
 
+    [Serializable]
     public class Mod
     {
         public string Name { get; private set; }
-        public string Version { get; private set; }
         public string Author { get; private set; }
         public string Description { get; private set; }
         public string GithubAuthor { get; private set; }
         public string GithubRepo { get; private set; }
 
-        public Mod(string name, string version, string author, string description, string githubAuthor, string githubRepo)
+        public string Version { get; set; }
+
+        public Mod(string name, string author, string description, string githubAuthor, string githubRepo)
         {
             Name = name;
-            Version = version;
             Author = author;
             Description = description;
             GithubAuthor = githubAuthor;
