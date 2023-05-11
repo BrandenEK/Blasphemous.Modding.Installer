@@ -230,6 +230,15 @@ namespace BlasModInstaller
             if (Directory.Exists(GetLevelsFolder(modIdx)))
                 Directory.Delete(GetLevelsFolder(modIdx), true);
 
+            string[] dlls = mods[modIdx].RequiredDlls;
+            if (dlls != null && dlls.Length > 0)
+            {
+                foreach (string dll in dlls)
+                {
+                    blasLocation.Text += dll + " ";
+                }
+            }
+
             // Update UI
             UninstallMod_UI(modIdx);
         }

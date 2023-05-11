@@ -11,10 +11,11 @@ namespace BlasModInstaller
         public string GithubAuthor { get; private set; }
         public string GithubRepo { get; private set; }
         public string PluginFile { get; private set; }
+        public string[] RequiredDlls { get; private set; }
 
         public string Version { get; set; }
 
-        public Mod(string name, string author, string description, string githubAuthor, string githubRepo, string pluginFile)
+        public Mod(string name, string author, string description, string githubAuthor, string githubRepo, string pluginFile, string[] requiredDlls)
         {
             Name = name;
             Author = author;
@@ -22,6 +23,7 @@ namespace BlasModInstaller
             GithubAuthor = githubAuthor;
             GithubRepo = githubRepo;
             PluginFile = pluginFile;
+            RequiredDlls = requiredDlls;
         }
 
         public void CopyData(Mod other)
@@ -32,6 +34,7 @@ namespace BlasModInstaller
             GithubAuthor = other.GithubAuthor;
             GithubRepo = other.GithubRepo;
             PluginFile = other.PluginFile;
+            RequiredDlls = other.RequiredDlls;
         }
     }
 }

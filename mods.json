@@ -13,7 +13,12 @@
     "Description": "A randomizer mod that can shuffle items, enemies, and doors",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Randomizer",
-	"PluginFile": "BlasphemousRandomizer.dll"
+	"PluginFile": "BlasphemousRandomizer.dll",
+	"RequiredDlls":
+	[
+		"LogicParser.dll",
+		"websocket-sharp.dll"
+	]
   },
   {
     "Name": "Multiworld",
@@ -21,7 +26,12 @@
     "Description": "A multiworld client that allows the randomizer to connect to Archipelago",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Multiworld",
-	"PluginFile": "BlasphemousMultiworld.dll"
+	"PluginFile": "BlasphemousMultiworld.dll",
+	"RequiredDlls":
+	[
+		"Archipelago.MultiClient.Net.dll",
+		"websocket-sharp.dll"
+	]
   },
   {
     "Name": "Multiplayer",
@@ -29,7 +39,11 @@
     "Description": "A multiplayer mod that allows you to play Blasphemous cooperatively or against other people",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Multiplayer",
-	"PluginFile": "BlasClient.dll"
+	"PluginFile": "BlasClient.dll",
+	"RequiredDlls":
+	[
+		"SimpleTCP.dll"
+	]
   },
   {
     "Name": "Boots of Pleading",
