@@ -58,7 +58,7 @@
   {
     "Name": "Debug Mod",
     "Author": "Damocles",
-    "Description": "Allows for hitbox viewer and other features useful for testing and development",
+    "Description": "Enables the hitbox viewer and other features useful for testing and development",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Debug-Mod",
 	"PluginFile": "DebugMod.dll"

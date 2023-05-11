@@ -99,6 +99,7 @@ namespace BlasModInstaller
                     if (modExistsIdx >= 0)
                     {
                         Mod localMod = mods[modExistsIdx];
+                        localMod.CopyData(webMod);
                         Version localVersion = new Version(localMod.Version);
                         if (webVersion.CompareTo(localVersion) > 0)
                         {
@@ -190,6 +191,7 @@ namespace BlasModInstaller
             }
             mods[modIdx].Version = newVersion;
             SaveMods();
+            File.Delete(zipPath);
             // Update UI
             GetNameText(modIdx).Text = $"{mods[modIdx].Name} v{newVersion}";
             InstallMod_UI(modIdx);
@@ -454,29 +456,6 @@ namespace BlasModInstaller
             {
                 UninstallMod_UI(modIdx);
             }
-        }
-    }
-
-    [Serializable]
-    public class Mod
-    {
-        public string Name { get; private set; }
-        public string Author { get; private set; }
-        public string Description { get; private set; }
-        public string GithubAuthor { get; private set; }
-        public string GithubRepo { get; private set; }
-        public string PluginFile { get; private set; }
-
-        public string Version { get; set; }
-
-        public Mod(string name, string author, string description, string githubAuthor, string githubRepo, string pluginFile)
-        {
-            Name = name;
-            Author = author;
-            Description = description;
-            GithubAuthor = githubAuthor;
-            GithubRepo = githubRepo;
-            PluginFile = pluginFile;
         }
     }
 }
