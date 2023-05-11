@@ -21,12 +21,14 @@ namespace BlasModInstaller
 
         private Random rng = new Random();
         private Octokit.GitHubClient client;
+        private List<Mod> mods;
 
         public MainForm()
         {
             InitializeComponent();
+            LoadMods();
+
             CreateGithubClient();
-            CreateModSections();
             UpdateModSections();
         }
 
@@ -43,101 +45,29 @@ namespace BlasModInstaller
 
         private string GetEnabledPath(int modIdx) => $"{BLAS_LOCATION}\\Modding\\plugins\\{mods[modIdx].Name}.txt";
         private string GetDisabledPath(int modIdx) => $"{BLAS_LOCATION}\\Modding\\disabled\\{mods[modIdx].Name}.txt";
+        private string SavedModsPath => Environment.CurrentDirectory + "\\downloads\\mods.json";
 
-        private void CreateModSections()
+        private void LoadMods()
         {
-            for (int i = 0; i < mods.Length; i++)
+            if (File.Exists(SavedModsPath))
             {
-                Panel modSection = new Panel();
-                modSection.Name = "mod" + i;
-                modSection.BackColor =  i % 2 == 0 ? Color.LightGray : Color.WhiteSmoke;
-                modSection.Parent = modHolder;
-                modSection.Size = new Size(855, MOD_HEIGHT);
-                modSection.Location = new Point(15, 12 + (12 + MOD_HEIGHT) * i);
-                modSection.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                string json = File.ReadAllText(SavedModsPath);
+                mods = JsonConvert.DeserializeObject<List<Mod>>(json);
 
-                Label modName = new Label();
-                modName.Name = "name" + i;
-                modName.Text = $"{mods[i].Name}  v{mods[i].Version}";
-                modName.Parent = modSection;
-                modName.Size = new Size(400, 15);
-                modName.Location = new Point(10, 8);
-                modName.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-
-                Label modAuthor = new Label();
-                modAuthor.Name = "author" + i;
-                modAuthor.Text = "Author: " + mods[i].Author;
-                modAuthor.Parent = modSection;
-                modAuthor.Size = new Size(400, 15);
-                modAuthor.Location = new Point(10, 25);
-                modAuthor.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-
-                Label modDescription = new Label();
-                modDescription.Name = "desc" + i;
-                modDescription.Text = mods[i].Description;
-                modDescription.Parent = modSection;
-                modDescription.Size = new Size(450, 15);
-                modDescription.Location = new Point(10, 42);
-                modDescription.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-
-                LinkLabel modLink = new LinkLabel();
-                modLink.Name = "link" + i;
-                modLink.Text = "Github Repo";
-                modLink.Parent = modSection;
-                modLink.Size = new Size(400, 15);
-                modLink.Location = new Point(10, 59);
-                modLink.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-                modLink.LinkClicked += ClickedGithub;
-
-                Button installButton = new Button();
-                installButton.Name = "install" + i;
-                installButton.Text = "Install";
-                installButton.Parent = modSection;
-                installButton.Size = new Size(70, 30);
-                installButton.Location = new Point(700, 20);
-                installButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-                installButton.Click += ClickedInstall;
-                
-                CheckBox enabledCheckbox = new CheckBox();
-                enabledCheckbox.Name = "checkbox" + i;
-                enabledCheckbox.Text = "Enabled";
-                enabledCheckbox.Parent = modSection;
-                enabledCheckbox.Size = new Size(70, 40);
-                enabledCheckbox.Location = new Point(780, 17);
-                enabledCheckbox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-                enabledCheckbox.Click += ClickedEnable;
-
-                Label updateText = new Label();
-                updateText.Name = "text" + i;
-                updateText.Text = string.Empty;
-                updateText.TextAlign = ContentAlignment.TopCenter;
-                updateText.Parent = modSection;
-                updateText.Size = new Size(120, 15);
-                updateText.Location = new Point(520, 17);
-                updateText.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-
-                Button updateButton = new Button();
-                updateButton.Name = "update" + i;
-                updateButton.Text = "Download";
-                updateButton.BackColor = Color.White;
-                updateButton.Parent = modSection;
-                updateButton.Size = new Size(72, 25);
-                updateButton.Location = new Point(544, 36);
-                updateButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-                updateButton.Click += ClickedUpdate;
-
-                ProgressBar progressBar = new ProgressBar();
-                progressBar.Name = "progress" + i;
-                progressBar.Parent = modSection;
-                progressBar.Size = new Size(130, 22);
-                progressBar.Location = new Point(512, 36);
-                progressBar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                for (int i = 0; i < mods.Count; i++)
+                {
+                    CreateModSection(mods[i], i);
+                }
+            }
+            else
+            {
+                mods = new List<Mod>();
             }
         }
 
         private void UpdateModSections()
         {
-            for (int i = 0; i < mods.Length; i++)
+            for (int i = 0; i < mods.Count; i++)
             {
                 if (File.Exists(GetEnabledPath(i)))
                 {
@@ -369,16 +299,93 @@ namespace BlasModInstaller
             InstallMod(modIdx);
         }
 
-        private Mod[] mods = new Mod[]
+        private void CreateModSection(Mod mod, int modIdx)
         {
-            new Mod("Modding API", "1.3.4", "Damocles", "An API that is required for almost all other mods and allows for custom skins", "BrandenEK", "Blasphemous-Modding-API"),
-            new Mod("Randomizer", "1.4.5", "Damocles", "A randomizer mod that can shuffle items, enemies, and doors", "BrandenEK", "Blasphemous-Randomizer"),
-            new Mod("Multiworld", "1.0.2", "Damocles", "A multiworld client that allows the randomizer to connect to Archipelago", "BrandenEK", "Blasphemous-Multiworld"),
-            new Mod("Multiplayer", "1.0.2", "Damocles", "A multiplayer mod that allows you to play Blasphemous cooperatively or against other people", "BrandenEK", "Blasphemous-Multiplayer"),
-            new Mod("Boots of Pleading", "0.1.0", "Damocles", "Adds a new relic called the 'Boots of Pleading' that allows you to survive falling in spikes", "BrandenEK", "Blasphemous-Boots-of-Pleading"),
-            new Mod("Double Jump", "0.1.0", "Damocles", "Adds a new relic called the 'Purified Hand of the Nun' that allows you to double jump", "BrandenEK", "Blasphemous-Double-Jump"),
-            new Mod("Random Prayer Use", "0.1.0", "Damocles", "Adds a new penitence that randomizes which prayer is used each time you attempt to cast one", "BrandenEK", "Blasphemous-Random-Prayer-Use"),
-        };
+            Panel modSection = new Panel();
+            modSection.Name = "mod" + modIdx;
+            modSection.BackColor = modIdx % 2 == 0 ? Color.LightGray : Color.WhiteSmoke;
+            modSection.Parent = modHolder;
+            modSection.Size = new Size(855, MOD_HEIGHT);
+            modSection.Location = new Point(15, 12 + (12 + MOD_HEIGHT) * modIdx);
+            modSection.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+
+            Label modName = new Label();
+            modName.Name = "name" + modIdx;
+            modName.Text = $"{mod.Name}";
+            modName.Parent = modSection;
+            modName.Size = new Size(400, 15);
+            modName.Location = new Point(10, 8);
+            modName.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+
+            Label modAuthor = new Label();
+            modAuthor.Name = "author" + modIdx;
+            modAuthor.Text = "Author: " + mod.Author;
+            modAuthor.Parent = modSection;
+            modAuthor.Size = new Size(400, 15);
+            modAuthor.Location = new Point(10, 25);
+            modAuthor.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+
+            Label modDescription = new Label();
+            modDescription.Name = "desc" + modIdx;
+            modDescription.Text = mod.Description;
+            modDescription.Parent = modSection;
+            modDescription.Size = new Size(450, 15);
+            modDescription.Location = new Point(10, 42);
+            modDescription.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+
+            LinkLabel modLink = new LinkLabel();
+            modLink.Name = "link" + modIdx;
+            modLink.Text = "Github Repo";
+            modLink.Parent = modSection;
+            modLink.Size = new Size(400, 15);
+            modLink.Location = new Point(10, 59);
+            modLink.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            modLink.LinkClicked += ClickedGithub;
+
+            Button installButton = new Button();
+            installButton.Name = "install" + modIdx;
+            installButton.Text = "Install";
+            installButton.Parent = modSection;
+            installButton.Size = new Size(70, 30);
+            installButton.Location = new Point(700, 20);
+            installButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            installButton.Click += ClickedInstall;
+
+            CheckBox enabledCheckbox = new CheckBox();
+            enabledCheckbox.Name = "checkbox" + modIdx;
+            enabledCheckbox.Text = "Enabled";
+            enabledCheckbox.Parent = modSection;
+            enabledCheckbox.Size = new Size(70, 40);
+            enabledCheckbox.Location = new Point(780, 17);
+            enabledCheckbox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            enabledCheckbox.Click += ClickedEnable;
+
+            Label updateText = new Label();
+            updateText.Name = "text" + modIdx;
+            updateText.Text = string.Empty;
+            updateText.TextAlign = ContentAlignment.TopCenter;
+            updateText.Parent = modSection;
+            updateText.Size = new Size(120, 15);
+            updateText.Location = new Point(520, 17);
+            updateText.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+
+            Button updateButton = new Button();
+            updateButton.Name = "update" + modIdx;
+            updateButton.Text = "Download";
+            updateButton.BackColor = Color.White;
+            updateButton.Parent = modSection;
+            updateButton.Size = new Size(72, 25);
+            updateButton.Location = new Point(544, 36);
+            updateButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            updateButton.Click += ClickedUpdate;
+
+            ProgressBar progressBar = new ProgressBar();
+            progressBar.Name = "progress" + modIdx;
+            progressBar.Parent = modSection;
+            progressBar.Size = new Size(130, 22);
+            progressBar.Location = new Point(512, 36);
+            progressBar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        }
     }
 
     public class Mod
@@ -399,8 +406,5 @@ namespace BlasModInstaller
             GithubAuthor = githubAuthor;
             GithubRepo = githubRepo;
         }
-
-        //public bool Installed { get; set; }
-        //public bool Enabled { get; set; }
     }
 }
