@@ -5,12 +5,14 @@ using System.Data;
 using System.Drawing;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using Ionic.Zip;
 
 namespace BlasModInstaller
 {
@@ -20,7 +22,7 @@ namespace BlasModInstaller
         private const string BLAS_LOCATION = "C:\\Users\\Brand\\Documents\\Blasphemous";
 
         private Random rng = new Random();
-        private Octokit.GitHubClient client;
+        private Octokit.GitHubClient github;
         private List<Mod> mods;
 
         public MainForm()
@@ -30,7 +32,6 @@ namespace BlasModInstaller
             
             LoadModsFromJson();
             LoadModsFromWeb();
-            CheckForUpdates();
         }
 
         private int GetInstallButtonMod(Button button) => int.Parse(button.Name.Substring(7));
@@ -43,10 +44,13 @@ namespace BlasModInstaller
         private Button GetUpdateButton(int modIdx) => Controls.Find("update" + modIdx, true)[0] as Button;
         private ProgressBar GetProgressBar(int modIdx) => Controls.Find("progress" + modIdx, true)[0] as ProgressBar;
         private Label GetDownloadText(int modIdx) => Controls.Find("text" + modIdx, true)[0] as Label;
+        private Label GetNameText(int modIdx) => Controls.Find("name" + modIdx, true)[0] as Label;
 
         private string GetEnabledPath(int modIdx) => $"{BLAS_LOCATION}\\Modding\\plugins\\{mods[modIdx].Name}.txt";
         private string GetDisabledPath(int modIdx) => $"{BLAS_LOCATION}\\Modding\\disabled\\{mods[modIdx].Name}.txt";
         private string SavedModsPath => Environment.CurrentDirectory + "\\downloads\\mods.json";
+        private string DownloadsPath => Environment.CurrentDirectory + "\\downloads\\";
+        private string ModdingFolder => $"{BLAS_LOCATION}\\Modding";
 
         private void LoadModsFromJson()
         {
@@ -73,23 +77,31 @@ namespace BlasModInstaller
 
                 foreach (Mod webMod in webMods)
                 {
-                    bool modExists = false;
-                    foreach (Mod mod in mods)
+                    int modExistsIdx = -1;
+                    for (int i = 0; i < mods.Count; i++)
                     {
-                        if (mod.Name == webMod.Name)
+                        if (mods[i].Name == webMod.Name)
                         {
-                            modExists = true;
+                            modExistsIdx = i;
                             break;
                         }
                     }
+                    
+                    Octokit.Release latestRelease = await github.Repository.Release.GetLatest(webMod.GithubAuthor, webMod.GithubRepo);
+                    Version webVersion = new Version(latestRelease.TagName);
 
-                    if (modExists)
+                    if (modExistsIdx >= 0)
                     {
-                        // Check version and display if needs an update ?
+                        Mod localMod = mods[modExistsIdx];
+                        Version localVersion = new Version(localMod.Version);
+                        if (webVersion.CompareTo(localVersion) > 0)
+                        {
+                            ShowUpdateAvailable(modExistsIdx);
+                        }
                     }
                     else
                     {
-                        webMod.Version = "0.0.0";
+                        webMod.Version = webVersion.ToString();
                         mods.Add(webMod);
                         CreateModSection(webMod, mods.Count - 1);
                     }
@@ -107,23 +119,14 @@ namespace BlasModInstaller
 
         private void CreateGithubClient()
         {
-            client = new Octokit.GitHubClient(new Octokit.ProductHeaderValue("BlasModInstaller"));
+            github = new Octokit.GitHubClient(new Octokit.ProductHeaderValue("BlasModInstaller"));
 
             string tokenPath = Environment.CurrentDirectory + "\\token.txt";
             if (File.Exists(tokenPath))
             {
                 string token = File.ReadAllText(tokenPath);
-                client.Credentials = new Octokit.Credentials(token);
+                github.Credentials = new Octokit.Credentials(token);
             }
-        }
-
-        private async Task CheckForUpdates()
-        {
-            //Octokit.Release latestRelease = await client.Repository.Release.GetLatest(mods[modIdx].GithubAuthor, mods[modIdx].GithubRepo);
-            //blasLocation.Text += latestRelease.TagName + "  ";
-            //int rand = rng.Next(0, 4);
-            //if (rand == 1)
-            //    ShowUpdateAvailable(modIdx);
         }
 
         private void ClickedInstall(object sender, EventArgs e)
@@ -170,11 +173,18 @@ namespace BlasModInstaller
             Download(modIdx);
         }
 
-        private void InstallMod(int modIdx)
+        private void InstallMod(int modIdx, string newVersion, string zipPath)
         {
             // Actually install
-            File.WriteAllText(GetEnabledPath(modIdx), "Fake mod");
+            using (ZipFile zipFile = ZipFile.Read(zipPath))
+            {
+                foreach (ZipEntry file in zipFile)
+                    file.Extract(ModdingFolder, ExtractExistingFileAction.OverwriteSilently);
+            }
+            mods[modIdx].Version = newVersion;
+            SaveMods();
             // Update UI
+            GetNameText(modIdx).Text = $"{mods[modIdx].Name} v{newVersion}";
             InstallMod_UI(modIdx);
         }
 
@@ -200,6 +210,9 @@ namespace BlasModInstaller
                 File.Delete(GetEnabledPath(modIdx));
             if (File.Exists(GetDisabledPath(modIdx)))
                 File.Delete(GetDisabledPath(modIdx));
+
+            // Also uninstall all data/levels/localization/config/logs stuff
+
             // Update UI
             UninstallMod_UI(modIdx);
         }
@@ -305,15 +318,24 @@ namespace BlasModInstaller
         {
             DisplayDownloadBar(modIdx);
             ProgressBar progressBar = GetProgressBar(modIdx);
-            await Task.Run(() =>
+
+            Octokit.Release latestRelease = await github.Repository.Release.GetLatest(mods[modIdx].GithubAuthor, mods[modIdx].GithubRepo);
+            string newVersion = latestRelease.TagName;
+            string downloadUrl = latestRelease.Assets[0].BrowserDownloadUrl;
+            string downloadPath = $"{DownloadsPath}{mods[modIdx].Name.Replace(' ', '_')}_{newVersion}.zip";
+
+            using (WebClient client = new WebClient())
             {
-                for (int i = 0; i < 10; i++)
+                client.DownloadProgressChanged += (object sender, DownloadProgressChangedEventArgs e) => 
                 {
-                    Thread.Sleep(100);
-                    BeginInvoke(new MethodInvoker(() => progressBar.Value = i * 10));
-                }
-            });
-            InstallMod(modIdx);
+                    BeginInvoke(new MethodInvoker(() => progressBar.Value = e.ProgressPercentage));
+                };
+                client.DownloadFileCompleted += (object sender, AsyncCompletedEventArgs e) =>
+                {
+                    BeginInvoke(new MethodInvoker(() => InstallMod(modIdx, newVersion, downloadPath)));
+                };
+                client.DownloadFileAsync(new Uri(downloadUrl), downloadPath);
+            }
         }
 
         private void CreateModSection(Mod mod, int modIdx)
@@ -328,7 +350,7 @@ namespace BlasModInstaller
 
             Label modName = new Label();
             modName.Name = "name" + modIdx;
-            modName.Text = $"{mod.Name}";
+            modName.Text = $"{mod.Name} v{mod.Version}";
             modName.Parent = modSection;
             modName.Size = new Size(400, 15);
             modName.Location = new Point(10, 8);
@@ -428,16 +450,18 @@ namespace BlasModInstaller
         public string Description { get; private set; }
         public string GithubAuthor { get; private set; }
         public string GithubRepo { get; private set; }
+        public string PluginFile { get; private set; }
 
         public string Version { get; set; }
 
-        public Mod(string name, string author, string description, string githubAuthor, string githubRepo)
+        public Mod(string name, string author, string description, string githubAuthor, string githubRepo, string pluginFile)
         {
             Name = name;
             Author = author;
             Description = description;
             GithubAuthor = githubAuthor;
             GithubRepo = githubRepo;
+            PluginFile = pluginFile;
         }
     }
 }
