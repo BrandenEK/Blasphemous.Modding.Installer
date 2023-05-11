@@ -26,10 +26,11 @@ namespace BlasModInstaller
         public MainForm()
         {
             InitializeComponent();
-            LoadMods();
-
             CreateGithubClient();
-            UpdateModSections();
+            
+            LoadModsFromJson();
+            LoadModsFromWeb();
+            CheckForUpdates();
         }
 
         private int GetInstallButtonMod(Button button) => int.Parse(button.Name.Substring(7));
@@ -47,7 +48,7 @@ namespace BlasModInstaller
         private string GetDisabledPath(int modIdx) => $"{BLAS_LOCATION}\\Modding\\disabled\\{mods[modIdx].Name}.txt";
         private string SavedModsPath => Environment.CurrentDirectory + "\\downloads\\mods.json";
 
-        private void LoadMods()
+        private void LoadModsFromJson()
         {
             if (File.Exists(SavedModsPath))
             {
@@ -55,9 +56,7 @@ namespace BlasModInstaller
                 mods = JsonConvert.DeserializeObject<List<Mod>>(json);
 
                 for (int i = 0; i < mods.Count; i++)
-                {
                     CreateModSection(mods[i], i);
-                }
             }
             else
             {
@@ -65,27 +64,9 @@ namespace BlasModInstaller
             }
         }
 
-        private void UpdateModSections()
+        private void LoadModsFromWeb()
         {
-            for (int i = 0; i < mods.Count; i++)
-            {
-                if (File.Exists(GetEnabledPath(i)))
-                {
-                    InstallMod_UI(i);
-                    EnableMod_UI(i);
-                    CheckForUpdates(i);
-                }
-                else if (File.Exists(GetDisabledPath(i)))
-                {
-                    InstallMod_UI(i);
-                    DisableMod_UI(i);
-                    CheckForUpdates(i);
-                }
-                else
-                {
-                    UninstallMod_UI(i);
-                }
-            }
+
         }
 
         private void CreateGithubClient()
@@ -100,13 +81,13 @@ namespace BlasModInstaller
             }
         }
 
-        private async Task CheckForUpdates(int modIdx)
+        private async Task CheckForUpdates()
         {
             //Octokit.Release latestRelease = await client.Repository.Release.GetLatest(mods[modIdx].GithubAuthor, mods[modIdx].GithubRepo);
             //blasLocation.Text += latestRelease.TagName + "  ";
-            int rand = rng.Next(0, 4);
-            if (rand == 1)
-                ShowUpdateAvailable(modIdx);
+            //int rand = rng.Next(0, 4);
+            //if (rand == 1)
+            //    ShowUpdateAvailable(modIdx);
         }
 
         private void ClickedInstall(object sender, EventArgs e)
@@ -385,6 +366,21 @@ namespace BlasModInstaller
             progressBar.Size = new Size(130, 22);
             progressBar.Location = new Point(512, 36);
             progressBar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+
+            if (File.Exists(GetEnabledPath(modIdx)))
+            {
+                InstallMod_UI(modIdx);
+                EnableMod_UI(modIdx);
+            }
+            else if (File.Exists(GetDisabledPath(modIdx)))
+            {
+                InstallMod_UI(modIdx);
+                DisableMod_UI(modIdx);
+            }
+            else
+            {
+                UninstallMod_UI(modIdx);
+            }
         }
     }
 
