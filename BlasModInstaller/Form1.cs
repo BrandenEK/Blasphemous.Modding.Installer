@@ -5,10 +5,12 @@ using System.Data;
 using System.Drawing;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace BlasModInstaller
 {
@@ -18,10 +20,12 @@ namespace BlasModInstaller
         private const string BLAS_LOCATION = "C:\\Users\\Brand\\Documents\\Blasphemous";
 
         private Random rng = new Random();
+        private Octokit.GitHubClient client;
 
         public MainForm()
         {
             InitializeComponent();
+            CreateGithubClient();
             CreateModSections();
             UpdateModSections();
         }
@@ -154,8 +158,22 @@ namespace BlasModInstaller
             }
         }
 
-        private void CheckForUpdates(int modIdx)
+        private void CreateGithubClient()
         {
+            client = new Octokit.GitHubClient(new Octokit.ProductHeaderValue("BlasModInstaller"));
+
+            string tokenPath = Environment.CurrentDirectory + "\\token.txt";
+            if (File.Exists(tokenPath))
+            {
+                string token = File.ReadAllText(tokenPath);
+                client.Credentials = new Octokit.Credentials(token);
+            }
+        }
+
+        private async Task CheckForUpdates(int modIdx)
+        {
+            //Octokit.Release latestRelease = await client.Repository.Release.GetLatest(mods[modIdx].GithubAuthor, mods[modIdx].GithubRepo);
+            //blasLocation.Text += latestRelease.TagName + "  ";
             int rand = rng.Next(0, 4);
             if (rand == 1)
                 ShowUpdateAvailable(modIdx);
@@ -190,7 +208,7 @@ namespace BlasModInstaller
             int modIdx = GetGithubLinkMod(sender as LinkLabel);
             try
             {
-                Process.Start(mods[modIdx].GithubLink);
+                Process.Start($"https://github.com/{mods[modIdx].GithubAuthor}/{mods[modIdx].GithubRepo}");
             }
             catch (Exception)
             {
@@ -353,13 +371,13 @@ namespace BlasModInstaller
 
         private Mod[] mods = new Mod[]
         {
-            new Mod("Modding API", "1.3.4", "Damocles", "An API that is required for almost all other mods and allows for custom skins", "https://github.com/BrandenEK/Blasphemous-Modding-API"),
-            new Mod("Randomizer", "1.4.5", "Damocles", "A randomizer mod that can shuffle items, enemies, and doors", "https://github.com/BrandenEK/Blasphemous-Randomizer"),
-            new Mod("Multiworld", "1.0.2", "Damocles", "A multiworld client that allows the randomizer to connect to Archipelago", "https://github.com/BrandenEK/Blasphemous-Multiworld"),
-            new Mod("Multiplayer", "1.0.2", "Damocles", "A multiplayer mod that allows you to play Blasphemous cooperatively or against other people", "https://github.com/BrandenEK/Blasphemous-Multiplayer"),
-            new Mod("Boots of Pleading", "0.1.0", "Damocles", "Adds a new relic called the 'Boots of Pleading' that allows you to survive falling in spikes", "https://github.com/BrandenEK/Blasphemous-Boots-of-Pleading"),
-            new Mod("Double Jump", "0.1.0", "Damocles", "Adds a new relic called the 'Purified Hand of the Nun' that allows you to double jump", "https://github.com/BrandenEK/Blasphemous-Double-Jump"),
-            new Mod("Random Prayer Use", "0.1.0", "Damocles", "Adds a new penitence that randomizes which prayer is used each time you attempt to cast one", "https://github.com/BrandenEK/Blasphemous-Random-Prayer-Use"),
+            new Mod("Modding API", "1.3.4", "Damocles", "An API that is required for almost all other mods and allows for custom skins", "BrandenEK", "Blasphemous-Modding-API"),
+            new Mod("Randomizer", "1.4.5", "Damocles", "A randomizer mod that can shuffle items, enemies, and doors", "BrandenEK", "Blasphemous-Randomizer"),
+            new Mod("Multiworld", "1.0.2", "Damocles", "A multiworld client that allows the randomizer to connect to Archipelago", "BrandenEK", "Blasphemous-Multiworld"),
+            new Mod("Multiplayer", "1.0.2", "Damocles", "A multiplayer mod that allows you to play Blasphemous cooperatively or against other people", "BrandenEK", "Blasphemous-Multiplayer"),
+            new Mod("Boots of Pleading", "0.1.0", "Damocles", "Adds a new relic called the 'Boots of Pleading' that allows you to survive falling in spikes", "BrandenEK", "Blasphemous-Boots-of-Pleading"),
+            new Mod("Double Jump", "0.1.0", "Damocles", "Adds a new relic called the 'Purified Hand of the Nun' that allows you to double jump", "BrandenEK", "Blasphemous-Double-Jump"),
+            new Mod("Random Prayer Use", "0.1.0", "Damocles", "Adds a new penitence that randomizes which prayer is used each time you attempt to cast one", "BrandenEK", "Blasphemous-Random-Prayer-Use"),
         };
     }
 
@@ -369,15 +387,17 @@ namespace BlasModInstaller
         public string Version { get; private set; }
         public string Author { get; private set; }
         public string Description { get; private set; }
-        public string GithubLink { get; private set; }
+        public string GithubAuthor { get; private set; }
+        public string GithubRepo { get; private set; }
 
-        public Mod(string name, string version, string author, string description, string githubLink)
+        public Mod(string name, string version, string author, string description, string githubAuthor, string githubRepo)
         {
             Name = name;
             Version = version;
             Author = author;
             Description = description;
-            GithubLink = githubLink;
+            GithubAuthor = githubAuthor;
+            GithubRepo = githubRepo;
         }
 
         //public bool Installed { get; set; }
