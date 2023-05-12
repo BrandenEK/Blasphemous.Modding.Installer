@@ -27,6 +27,7 @@ namespace BlasModInstaller
         public MainForm()
         {
             BlasExePath = "C:\\Users\\Brand\\Documents\\Blasphemous";
+            Directory.CreateDirectory(DownloadsPath);
             if (Instance == null)
                 Instance = this;
 
