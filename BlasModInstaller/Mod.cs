@@ -36,5 +36,14 @@ namespace BlasModInstaller
             PluginFile = other.PluginFile;
             RequiredDlls = other.RequiredDlls;
         }
+
+        // Install paths
+        public string PathToEnabledPlugin => $"{MainForm.BlasExePath}\\Modding\\plugins\\{PluginFile}";
+        public string PathToDisabledPlugin => $"{MainForm.BlasExePath}\\Modding\\disabled\\{PluginFile}";
+        public string PathToConfigFile => $"{MainForm.BlasExePath}\\Modding\\config\\{Name}.cfg";
+        public string PathToLocalizationFile => $"{MainForm.BlasExePath}\\Modding\\localization\\{Name}.txt";
+        public string PathToLogFile => $"{MainForm.BlasExePath}\\Modding\\logs\\{Name}.log";
+        public string PathToDataFolder => $"{MainForm.BlasExePath}\\Modding\\data\\{Name}";
+        public string PathToLevelsFolder => $"{MainForm.BlasExePath}\\Modding\\levels\\{Name}";
     }
 }

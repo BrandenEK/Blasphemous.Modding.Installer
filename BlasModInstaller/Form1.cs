@@ -19,14 +19,15 @@ namespace BlasModInstaller
     public partial class MainForm : Form
     {
         private const int MOD_HEIGHT = 78;
-        private const string BLAS_LOCATION = "C:\\Users\\Brand\\Documents\\Blasphemous";
 
-        private Random rng = new Random();
+        public static string BlasExePath { get; private set; }
+
         private Octokit.GitHubClient github;
         private List<Mod> mods;
 
         public MainForm()
         {
+            BlasExePath = "C:\\Users\\Brand\\Documents\\Blasphemous";
             InitializeComponent();
             CreateGithubClient();
             
@@ -46,17 +47,9 @@ namespace BlasModInstaller
         private Label GetDownloadText(int modIdx) => Controls.Find("text" + modIdx, true)[0] as Label;
         private Label GetNameText(int modIdx) => Controls.Find("name" + modIdx, true)[0] as Label;
 
-        private string GetEnabledPath(int modIdx) => $"{BLAS_LOCATION}\\Modding\\plugins\\{mods[modIdx].PluginFile}";
-        private string GetDisabledPath(int modIdx) => $"{BLAS_LOCATION}\\Modding\\disabled\\{mods[modIdx].PluginFile}";
-        private string GetConfigFile(int modIdx) => $"{BLAS_LOCATION}\\Modding\\config\\{mods[modIdx].Name}.cfg";
-        private string GetLocalizationFile(int modIdx) => $"{BLAS_LOCATION}\\Modding\\localization\\{mods[modIdx].Name}.txt";
-        private string GetLogFile(int modIdx) => $"{BLAS_LOCATION}\\Modding\\logs\\{mods[modIdx].Name}.log";
-        private string GetDataFolder(int modIdx) => $"{BLAS_LOCATION}\\Modding\\data\\{mods[modIdx].Name}";
-        private string GetLevelsFolder(int modIdx) => $"{BLAS_LOCATION}\\Modding\\levels\\{mods[modIdx].Name}";
-
         private string SavedModsPath => Environment.CurrentDirectory + "\\downloads\\mods.json";
         private string DownloadsPath => Environment.CurrentDirectory + "\\downloads\\";
-        private string ModdingFolder => $"{BLAS_LOCATION}\\Modding";
+        private string ModdingFolder => $"{BlasExePath}\\Modding";
 
         private void LoadModsFromJson()
         {
@@ -192,7 +185,7 @@ namespace BlasModInstaller
         private void InstallMod(int modIdx, string newVersion, string zipPath)
         {
             // Actually install
-            string installPath = mods[modIdx].Name == "Modding API" ? BLAS_LOCATION : ModdingFolder;
+            string installPath = mods[modIdx].Name == "Modding API" ? BlasExePath : ModdingFolder;
             using (ZipFile zipFile = ZipFile.Read(zipPath))
             {
                 foreach (ZipEntry file in zipFile)
@@ -224,20 +217,20 @@ namespace BlasModInstaller
         private void UninstallMod(int modIdx)
         {
             // Actually uninstall
-            if (File.Exists(GetEnabledPath(modIdx)))
-                File.Delete(GetEnabledPath(modIdx));
-            if (File.Exists(GetDisabledPath(modIdx)))
-                File.Delete(GetDisabledPath(modIdx));
-            if (File.Exists(GetConfigFile(modIdx)))
-                File.Delete(GetConfigFile(modIdx));
-            if (File.Exists(GetLocalizationFile(modIdx)))
-                File.Delete(GetLocalizationFile(modIdx));
-            if (File.Exists(GetLogFile(modIdx)))
-                File.Delete(GetLogFile(modIdx));
-            if (Directory.Exists(GetDataFolder(modIdx)))
-                Directory.Delete(GetDataFolder(modIdx), true);
-            if (Directory.Exists(GetLevelsFolder(modIdx)))
-                Directory.Delete(GetLevelsFolder(modIdx), true);
+            if (File.Exists(mods[modIdx].PathToEnabledPlugin))
+                File.Delete(mods[modIdx].PathToEnabledPlugin);
+            if (File.Exists(mods[modIdx].PathToDisabledPlugin))
+                File.Delete(mods[modIdx].PathToDisabledPlugin);
+            if (File.Exists(mods[modIdx].PathToConfigFile))
+                File.Delete(mods[modIdx].PathToConfigFile);
+            if (File.Exists(mods[modIdx].PathToLocalizationFile))
+                File.Delete(mods[modIdx].PathToLocalizationFile);
+            if (File.Exists(mods[modIdx].PathToLogFile))
+                File.Delete(mods[modIdx].PathToLogFile);
+            if (Directory.Exists(mods[modIdx].PathToDataFolder))
+                Directory.Delete(mods[modIdx].PathToDataFolder, true);
+            if (Directory.Exists(mods[modIdx].PathToLevelsFolder))
+                Directory.Delete(mods[modIdx].PathToLevelsFolder, true);
 
             //string[] dlls = mods[modIdx].RequiredDlls;
             //if (dlls != null && dlls.Length > 0)
@@ -269,8 +262,8 @@ namespace BlasModInstaller
 
         private void EnableMod(int modIdx)
         {
-            string enabled = GetEnabledPath(modIdx);
-            string disabled = GetDisabledPath(modIdx);
+            string enabled = mods[modIdx].PathToEnabledPlugin;
+            string disabled = mods[modIdx].PathToDisabledPlugin;
             if (File.Exists(disabled))
             {
                 if (!File.Exists(enabled))
@@ -288,8 +281,8 @@ namespace BlasModInstaller
 
         private void DisableMod(int modIdx)
         {
-            string enabled = GetEnabledPath(modIdx);
-            string disabled = GetDisabledPath(modIdx);
+            string enabled = mods[modIdx].PathToEnabledPlugin;
+            string disabled = mods[modIdx].PathToDisabledPlugin;
             if (File.Exists(enabled))
             {
                 if (!File.Exists(disabled))
@@ -464,12 +457,12 @@ namespace BlasModInstaller
 
             modHolder.AutoScroll = true;
 
-            if (File.Exists(GetEnabledPath(modIdx)))
+            if (File.Exists(mods[modIdx].PathToEnabledPlugin))
             {
                 InstallMod_UI(modIdx);
                 EnableMod_UI(modIdx);
             }
-            else if (File.Exists(GetDisabledPath(modIdx)))
+            else if (File.Exists(mods[modIdx].PathToDisabledPlugin))
             {
                 InstallMod_UI(modIdx);
                 DisableMod_UI(modIdx);
