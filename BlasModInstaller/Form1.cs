@@ -18,8 +18,6 @@ namespace BlasModInstaller
 {
     public partial class MainForm : Form
     {
-        private const int MOD_HEIGHT = 78;
-
         public static string BlasExePath { get; private set; }
 
         private Octokit.GitHubClient github;
@@ -59,7 +57,7 @@ namespace BlasModInstaller
                 mods = JsonConvert.DeserializeObject<List<Mod>>(json);
 
                 for (int i = 0; i < mods.Count; i++)
-                    CreateModSection(mods[i], i);
+                    mods[i].UI.CreateUI(modHolder, Width, i);
             }
             else
             {
@@ -93,6 +91,7 @@ namespace BlasModInstaller
                     {
                         Mod localMod = mods[modExistsIdx];
                         localMod.CopyData(webMod);
+                        localMod.UI.UpdateUI();
                         Version localVersion = new Version(localMod.Version);
                         if (webVersion.CompareTo(localVersion) > 0)
                         {
@@ -103,7 +102,7 @@ namespace BlasModInstaller
                     {
                         webMod.Version = webVersion.ToString();
                         mods.Add(webMod);
-                        CreateModSection(webMod, mods.Count - 1);
+                        webMod.UI.CreateUI(modHolder, Width, mods.Count - 1);
                     }
                 }
             }
@@ -175,11 +174,11 @@ namespace BlasModInstaller
 
         private void ClickedDebug(object sender, EventArgs e)
         {
-            for (int i = 0; i < mods.Count; i++)
-            {
-                bool scrollPresent = modHolder.VerticalScroll.Visible;
-                Controls.Find("mod" + i, true)[0].Size = new Size(Width - (scrollPresent ? 67 : 50), MOD_HEIGHT);
-            }
+            //for (int i = 0; i < mods.Count; i++)
+            //{
+            //    bool scrollPresent = modHolder.VerticalScroll.Visible;
+            //    Controls.Find("mod" + i, true)[0].Size = new Size(Width - (scrollPresent ? 67 : 50), 78);
+            //}
         }
 
         private void InstallMod(int modIdx, string newVersion, string zipPath)
@@ -368,95 +367,6 @@ namespace BlasModInstaller
 
         private void CreateModSection(Mod mod, int modIdx)
         {
-            modHolder.AutoScroll = false;
-
-            Panel modSection = new Panel();
-            modSection.Name = "mod" + modIdx;
-            modSection.BackColor = modIdx % 2 == 0 ? Color.LightGray : Color.WhiteSmoke;
-            modSection.Parent = modHolder;
-            modSection.Size = new Size(Width - 50, MOD_HEIGHT);
-            modSection.Location = new Point(15, 12 + (12 + MOD_HEIGHT) * modIdx);
-            modSection.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-
-            Label modName = new Label();
-            modName.Name = "name" + modIdx;
-            modName.Text = $"{mod.Name} v{mod.Version}";
-            modName.Parent = modSection;
-            modName.Size = new Size(400, 15);
-            modName.Location = new Point(10, 8);
-            modName.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-
-            Label modAuthor = new Label();
-            modAuthor.Name = "author" + modIdx;
-            modAuthor.Text = "Author: " + mod.Author;
-            modAuthor.Parent = modSection;
-            modAuthor.Size = new Size(400, 15);
-            modAuthor.Location = new Point(10, 25);
-            modAuthor.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-
-            Label modDescription = new Label();
-            modDescription.Name = "desc" + modIdx;
-            modDescription.Text = mod.Description;
-            modDescription.Parent = modSection;
-            modDescription.Size = new Size(450, 15);
-            modDescription.Location = new Point(10, 42);
-            modDescription.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-
-            LinkLabel modLink = new LinkLabel();
-            modLink.Name = "link" + modIdx;
-            modLink.Text = "Github Repo";
-            modLink.Parent = modSection;
-            modLink.Size = new Size(400, 15);
-            modLink.Location = new Point(10, 59);
-            modLink.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-            modLink.LinkClicked += ClickedGithub;
-
-            Button installButton = new Button();
-            installButton.Name = "install" + modIdx;
-            installButton.Text = "Install";
-            installButton.Parent = modSection;
-            installButton.Size = new Size(70, 30);
-            installButton.Location = new Point(modSection.Width - 155, 20);
-            installButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            installButton.Click += ClickedInstall;
-
-            CheckBox enabledCheckbox = new CheckBox();
-            enabledCheckbox.Name = "checkbox" + modIdx;
-            enabledCheckbox.Text = "Enabled";
-            enabledCheckbox.Parent = modSection;
-            enabledCheckbox.Size = new Size(70, 40);
-            enabledCheckbox.Location = new Point(modSection.Width - 75, 17);
-            enabledCheckbox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            enabledCheckbox.Click += ClickedEnable;
-
-            Label updateText = new Label();
-            updateText.Name = "text" + modIdx;
-            updateText.Text = string.Empty;
-            updateText.TextAlign = ContentAlignment.TopCenter;
-            updateText.Parent = modSection;
-            updateText.Size = new Size(120, 15);
-            updateText.Location = new Point(modSection.Width - 335, 17);
-            updateText.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-
-            Button updateButton = new Button();
-            updateButton.Name = "update" + modIdx;
-            updateButton.Text = "Download";
-            updateButton.BackColor = Color.White;
-            updateButton.Parent = modSection;
-            updateButton.Size = new Size(72, 25);
-            updateButton.Location = new Point(modSection.Width - 311, 36);
-            updateButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            updateButton.Click += ClickedUpdate;
-
-            ProgressBar progressBar = new ProgressBar();
-            progressBar.Name = "progress" + modIdx;
-            progressBar.Parent = modSection;
-            progressBar.Size = new Size(130, 22);
-            progressBar.Location = new Point(modSection.Width - 343, 36);
-            progressBar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-
-            modHolder.AutoScroll = true;
-
             if (File.Exists(mods[modIdx].PathToEnabledPlugin))
             {
                 InstallMod_UI(modIdx);
