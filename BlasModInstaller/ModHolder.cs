@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows.Forms;
 using System.Drawing;
 
@@ -36,6 +37,14 @@ namespace BlasModInstaller
 
         private void ClickedGithub(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            try
+            {
+                Process.Start($"https://github.com/{mod.GithubAuthor}/{mod.GithubRepo}");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Link does not exist!", "Invalid Link");
+            }
         }
 
         private void ClickedUpdate(object sender, EventArgs e)

@@ -152,19 +152,6 @@ namespace BlasModInstaller
                 DisableMod(modIdx);
         }
 
-        private void ClickedGithub(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            int modIdx = GetGithubLinkMod(sender as LinkLabel);
-            try
-            {
-                Process.Start($"https://github.com/{mods[modIdx].GithubAuthor}/{mods[modIdx].GithubRepo}");
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Link does not exist!", "Invalid Link");
-            }
-        }
-
         private void ClickedUpdate(object sender, EventArgs e)
         {
             int modIdx = GetUpdateButtonMod(sender as Button);
@@ -174,11 +161,6 @@ namespace BlasModInstaller
 
         private void ClickedDebug(object sender, EventArgs e)
         {
-            //for (int i = 0; i < mods.Count; i++)
-            //{
-            //    bool scrollPresent = modHolder.VerticalScroll.Visible;
-            //    Controls.Find("mod" + i, true)[0].Size = new Size(Width - (scrollPresent ? 67 : 50), 78);
-            //}
         }
 
         private void InstallMod(int modIdx, string newVersion, string zipPath)
