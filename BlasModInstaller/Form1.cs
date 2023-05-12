@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
@@ -19,6 +16,8 @@ namespace BlasModInstaller
     {
         public static string BlasExePath { get; private set; }
         public static string ModdingFolderPath => $"{BlasExePath}\\Modding";
+        private string SavedModsPath => Environment.CurrentDirectory + "\\downloads\\mods.json";
+        private string DownloadsPath => Environment.CurrentDirectory + "\\downloads\\";
 
         public static MainForm Instance { get; private set; }
 
@@ -37,9 +36,6 @@ namespace BlasModInstaller
             LoadModsFromJson();
             LoadModsFromWeb();
         }
-
-        private string SavedModsPath => Environment.CurrentDirectory + "\\downloads\\mods.json";
-        private string DownloadsPath => Environment.CurrentDirectory + "\\downloads\\";
 
         private void LoadModsFromJson()
         {
@@ -153,6 +149,14 @@ namespace BlasModInstaller
                     BeginInvoke(new MethodInvoker(() => mod.InstallMod(newVersion, downloadPath)));
                 };
                 client.DownloadFileAsync(new Uri(downloadUrl), downloadPath);
+            }
+        }
+
+        private void ChooseBlasLocation(object sender, EventArgs e)
+        {
+            if (blasLocDialog.ShowDialog() == DialogResult.OK)
+            {
+                blasLocBox.Text = blasLocDialog.FileName;
             }
         }
     }
