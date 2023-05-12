@@ -91,12 +91,10 @@ namespace BlasModInstaller
                     {
                         Mod localMod = mods[modExistsIdx];
                         localMod.CopyData(webMod);
-                        localMod.UI.UpdateUI();
+
                         Version localVersion = new Version(localMod.Version);
-                        if (webVersion.CompareTo(localVersion) > 0)
-                        {
-                            ShowUpdateAvailable(modExistsIdx);
-                        }
+                        bool updateAvailable = webVersion.CompareTo(localVersion) > 0;
+                        localMod.UI.UpdateUI(updateAvailable);
                     }
                     else
                     {
@@ -177,22 +175,7 @@ namespace BlasModInstaller
             File.Delete(zipPath);
             // Update UI
             GetNameText(modIdx).Text = $"{mods[modIdx].Name} v{newVersion}";
-            InstallMod_UI(modIdx);
-        }
-
-        private void InstallMod_UI(int modIdx)
-        {
-            // Set button status
-            Button button = GetInstallButton(modIdx);
-            button.Text = "Uninstall";
-            button.BackColor = Color.Beige;
-            button.Enabled = true;
-            // Set checkbox status
-            CheckBox checkbox = GetEnabledCheckbox(modIdx);
-            checkbox.Enabled = true;
-            checkbox.Checked = true;
-            // Set update status
-            HideUpdateAvailable(modIdx);
+            mods[modIdx].UI.UpdateUI(false);
         }
 
         private void UninstallMod(int modIdx)
@@ -223,22 +206,7 @@ namespace BlasModInstaller
             //}
 
             // Update UI
-            UninstallMod_UI(modIdx);
-        }
-
-        private void UninstallMod_UI(int modIdx)
-        {
-            // Set button status
-            Button button = GetInstallButton(modIdx);
-            button.Text = "Install";
-            button.BackColor = Color.AliceBlue;
-            button.Enabled = true;
-            // Set checkbox status
-            CheckBox checkbox = GetEnabledCheckbox(modIdx);
-            checkbox.Enabled = false;
-            checkbox.Checked = false;
-            // Set update status
-            HideUpdateAvailable(modIdx);
+            mods[modIdx].UI.UpdateUI(false);
         }
 
         private void EnableMod(int modIdx)
@@ -254,12 +222,6 @@ namespace BlasModInstaller
             }
         }
 
-        private void EnableMod_UI(int modIdx)
-        {
-            CheckBox checkbox = GetEnabledCheckbox(modIdx);
-            checkbox.Checked = true;
-        }
-
         private void DisableMod(int modIdx)
         {
             string enabled = mods[modIdx].PathToEnabledPlugin;
@@ -271,40 +233,6 @@ namespace BlasModInstaller
                 else
                     File.Delete(enabled);
             }
-        }
-
-        private void DisableMod_UI(int modIdx)
-        {
-            CheckBox checkbox = GetEnabledCheckbox(modIdx);
-            checkbox.Checked = false;
-        }
-
-        private void ShowUpdateAvailable(int modIdx)
-        {
-            // Set text status
-            Label label = GetDownloadText(modIdx);
-            label.Visible = true;
-            label.Text = "An update is available!";
-            // Set button status
-            Button button = GetUpdateButton(modIdx);
-            button.Visible = true;
-            // Set progress bar status
-            ProgressBar progressBar = GetProgressBar(modIdx);
-            progressBar.Visible = false;
-        }
-
-        private void HideUpdateAvailable(int modIdx)
-        {
-            // Set text status
-            Label label = GetDownloadText(modIdx);
-            label.Visible = false;
-            label.Text = string.Empty;
-            // Set button status
-            Button button = GetUpdateButton(modIdx);
-            button.Visible = false;
-            // Set progress bar staus
-            ProgressBar progressBar = GetProgressBar(modIdx);
-            progressBar.Visible = false;
         }
 
         private void DisplayDownloadBar(int modIdx)
@@ -344,24 +272,6 @@ namespace BlasModInstaller
                     BeginInvoke(new MethodInvoker(() => InstallMod(modIdx, newVersion, downloadPath)));
                 };
                 client.DownloadFileAsync(new Uri(downloadUrl), downloadPath);
-            }
-        }
-
-        private void CreateModSection(Mod mod, int modIdx)
-        {
-            if (File.Exists(mods[modIdx].PathToEnabledPlugin))
-            {
-                InstallMod_UI(modIdx);
-                EnableMod_UI(modIdx);
-            }
-            else if (File.Exists(mods[modIdx].PathToDisabledPlugin))
-            {
-                InstallMod_UI(modIdx);
-                DisableMod_UI(modIdx);
-            }
-            else
-            {
-                UninstallMod_UI(modIdx);
             }
         }
     }

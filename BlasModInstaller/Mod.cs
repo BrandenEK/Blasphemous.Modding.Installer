@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Windows.Forms;
 using Newtonsoft.Json;
 
 namespace BlasModInstaller
@@ -16,17 +19,9 @@ namespace BlasModInstaller
 
         public string Version { get; set; }
 
-        private ModHolder m_UI;
-        [JsonIgnore]
-        public ModHolder UI
-        {
-            get
-            {
-                if (m_UI == null)
-                    m_UI = new ModHolder(this);
-                return m_UI;
-            }
-        }
+        // Temp ?
+        public bool Installed => File.Exists(PathToEnabledPlugin) || File.Exists(PathToDisabledPlugin);
+        public bool Enabled => File.Exists(PathToEnabledPlugin);
 
         public Mod(string name, string author, string description, string githubAuthor, string githubRepo, string pluginFile, string[] requiredDlls)
         {
@@ -39,6 +34,18 @@ namespace BlasModInstaller
             RequiredDlls = requiredDlls;
         }
 
+        public void ClickedGithub()
+        {
+            try
+            {
+                Process.Start($"https://github.com/{GithubAuthor}/{GithubRepo}");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Link does not exist!", "Invalid Link");
+            }
+        }
+
         public void CopyData(Mod other)
         {
             // Name is already going to be the same
@@ -48,6 +55,18 @@ namespace BlasModInstaller
             GithubRepo = other.GithubRepo;
             PluginFile = other.PluginFile;
             RequiredDlls = other.RequiredDlls;
+        }
+
+        private ModHolder m_UI;
+        [JsonIgnore]
+        public ModHolder UI
+        {
+            get
+            {
+                if (m_UI == null)
+                    m_UI = new ModHolder(this);
+                return m_UI;
+            }
         }
 
         // Install paths

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
 using System.Windows.Forms;
 using System.Drawing;
 
@@ -35,17 +30,7 @@ namespace BlasModInstaller
         {
         }
 
-        private void ClickedGithub(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try
-            {
-                Process.Start($"https://github.com/{mod.GithubAuthor}/{mod.GithubRepo}");
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Link does not exist!", "Invalid Link");
-            }
-        }
+        private void ClickedGithub(object sender, LinkLabelLinkClickedEventArgs e) => mod.ClickedGithub();
 
         private void ClickedUpdate(object sender, EventArgs e)
         {
@@ -56,15 +41,27 @@ namespace BlasModInstaller
             this.mod = mod;
         }
 
-        public void UpdateUI()
+        public void UpdateUI(bool updateAvailable)
         {
+            // Text
             nameText.Text = $"{mod.Name} v{mod.Version}";
             authorText.Text = "Author: " + mod.Author;
             descriptionText.Text = mod.Description;
 
-            // Conditional
-            installButton.Text = "Install";
+            // Install/Enable buttons
+            bool modInstalled = mod.Installed;
+            bool modEnabled = mod.Enabled;
+            installButton.Enabled = true;
+            installButton.Text = modInstalled ? "Uninstall" : "Install";
+            installButton.BackColor = modInstalled ? Color.Beige : Color.AliceBlue;
+            enabledCheckbox.Enabled = modInstalled;
+            enabledCheckbox.Checked = modInstalled && modEnabled;
 
+            // Update text/button
+            updateText.Visible = updateAvailable;
+            updateText.Text = updateAvailable ? "An update is available!" : string.Empty;
+            updateButton.Visible = updateAvailable;
+            progressBar.Visible = false;
         }
 
         public void CreateUI(Panel modHolder, int formWidth, int modIdx)
@@ -153,7 +150,7 @@ namespace BlasModInstaller
             progressBar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 
             modHolder.AutoScroll = true;
-            UpdateUI();
+            UpdateUI(false);
         }
     }
 }
