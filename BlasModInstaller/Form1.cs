@@ -180,6 +180,15 @@ namespace BlasModInstaller
             Download(modIdx);
         }
 
+        private void ClickedDebug(object sender, EventArgs e)
+        {
+            for (int i = 0; i < mods.Count; i++)
+            {
+                bool scrollPresent = modHolder.VerticalScroll.Visible;
+                Controls.Find("mod" + i, true)[0].Size = new Size(Width - (scrollPresent ? 67 : 50), MOD_HEIGHT);
+            }
+        }
+
         private void InstallMod(int modIdx, string newVersion, string zipPath)
         {
             // Actually install
@@ -230,14 +239,14 @@ namespace BlasModInstaller
             if (Directory.Exists(GetLevelsFolder(modIdx)))
                 Directory.Delete(GetLevelsFolder(modIdx), true);
 
-            string[] dlls = mods[modIdx].RequiredDlls;
-            if (dlls != null && dlls.Length > 0)
-            {
-                foreach (string dll in dlls)
-                {
-                    blasLocation.Text += dll + " ";
-                }
-            }
+            //string[] dlls = mods[modIdx].RequiredDlls;
+            //if (dlls != null && dlls.Length > 0)
+            //{
+            //    foreach (string dll in dlls)
+            //    {
+            //        blasLocation.Text += dll + " ";
+            //    }
+            //}
 
             // Update UI
             UninstallMod_UI(modIdx);
@@ -366,11 +375,13 @@ namespace BlasModInstaller
 
         private void CreateModSection(Mod mod, int modIdx)
         {
+            modHolder.AutoScroll = false;
+
             Panel modSection = new Panel();
             modSection.Name = "mod" + modIdx;
             modSection.BackColor = modIdx % 2 == 0 ? Color.LightGray : Color.WhiteSmoke;
             modSection.Parent = modHolder;
-            modSection.Size = new Size(855, MOD_HEIGHT);
+            modSection.Size = new Size(Width - 50, MOD_HEIGHT);
             modSection.Location = new Point(15, 12 + (12 + MOD_HEIGHT) * modIdx);
             modSection.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 
@@ -412,7 +423,7 @@ namespace BlasModInstaller
             installButton.Text = "Install";
             installButton.Parent = modSection;
             installButton.Size = new Size(70, 30);
-            installButton.Location = new Point(700, 20);
+            installButton.Location = new Point(modSection.Width - 155, 20);
             installButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             installButton.Click += ClickedInstall;
 
@@ -421,7 +432,7 @@ namespace BlasModInstaller
             enabledCheckbox.Text = "Enabled";
             enabledCheckbox.Parent = modSection;
             enabledCheckbox.Size = new Size(70, 40);
-            enabledCheckbox.Location = new Point(780, 17);
+            enabledCheckbox.Location = new Point(modSection.Width - 75, 17);
             enabledCheckbox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             enabledCheckbox.Click += ClickedEnable;
 
@@ -431,7 +442,7 @@ namespace BlasModInstaller
             updateText.TextAlign = ContentAlignment.TopCenter;
             updateText.Parent = modSection;
             updateText.Size = new Size(120, 15);
-            updateText.Location = new Point(520, 17);
+            updateText.Location = new Point(modSection.Width - 335, 17);
             updateText.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 
             Button updateButton = new Button();
@@ -440,7 +451,7 @@ namespace BlasModInstaller
             updateButton.BackColor = Color.White;
             updateButton.Parent = modSection;
             updateButton.Size = new Size(72, 25);
-            updateButton.Location = new Point(544, 36);
+            updateButton.Location = new Point(modSection.Width - 311, 36);
             updateButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             updateButton.Click += ClickedUpdate;
 
@@ -448,8 +459,10 @@ namespace BlasModInstaller
             progressBar.Name = "progress" + modIdx;
             progressBar.Parent = modSection;
             progressBar.Size = new Size(130, 22);
-            progressBar.Location = new Point(512, 36);
+            progressBar.Location = new Point(modSection.Width - 343, 36);
             progressBar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+
+            modHolder.AutoScroll = true;
 
             if (File.Exists(GetEnabledPath(modIdx)))
             {
