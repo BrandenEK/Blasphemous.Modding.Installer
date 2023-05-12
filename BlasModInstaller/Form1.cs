@@ -65,28 +65,25 @@ namespace BlasModInstaller
                 Mod[] webMods = JsonConvert.DeserializeObject<Mod[]>(json);
 
                 foreach (Mod webMod in webMods)
-                {
-                    int modExistsIdx = -1;
-                    for (int i = 0; i < mods.Count; i++)
-                    {
-                        if (mods[i].Name == webMod.Name)
-                        {
-                            modExistsIdx = i;
-                            break;
-                        }
-                    }
-                    
+                {                    
                     Octokit.Release latestRelease = await github.Repository.Release.GetLatest(webMod.GithubAuthor, webMod.GithubRepo);
                     Version webVersion = new Version(latestRelease.TagName);
 
-                    if (modExistsIdx >= 0)
+                    if (ModExists(webMod.Name, out Mod localMod))
                     {
-                        Mod localMod = mods[modExistsIdx];
                         localMod.CopyData(webMod);
 
-                        Version localVersion = new Version(localMod.Version);
-                        bool updateAvailable = webVersion.CompareTo(localVersion) > 0;
-                        localMod.UI.UpdateUI(updateAvailable);
+                        bool displayUpdate = false;
+                        if (localMod.Installed)
+                        {
+                            Version localVersion = new Version(localMod.Version);
+                            displayUpdate = webVersion.CompareTo(localVersion) > 0;
+                        }
+                        else
+                        {
+                            localMod.Version = webVersion.ToString();
+                        }
+                        localMod.UI.UpdateUI(displayUpdate);
                     }
                     else
                     {
@@ -104,6 +101,20 @@ namespace BlasModInstaller
         public void SaveMods()
         {
             File.WriteAllText(SavedModsPath, JsonConvert.SerializeObject(mods));
+        }
+
+        private bool ModExists(string name, out Mod foundMod)
+        {
+            foundMod = null;
+            foreach (Mod mod in mods)
+            {
+                if (name == mod.Name)
+                {
+                    foundMod = mod;
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void CreateGithubClient()
