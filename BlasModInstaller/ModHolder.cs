@@ -24,16 +24,27 @@ namespace BlasModInstaller
 
         private void ClickedInstall(object sender, EventArgs e)
         {
+            if (mod.Installed)
+                mod.UninstallMod();
+            else
+                MainForm.Instance.Download(mod);
         }
 
         private void ClickedEnable(object sender, EventArgs e)
         {
+            bool isChecked = (sender as CheckBox).Checked;
+            if (isChecked)
+                mod.EnableMod();
+            else
+                mod.DisableMod();
         }
 
-        private void ClickedGithub(object sender, LinkLabelLinkClickedEventArgs e) => mod.ClickedGithub();
+        private void ClickedGithub(object sender, LinkLabelLinkClickedEventArgs e) => mod.OpenGithubLink();
 
         private void ClickedUpdate(object sender, EventArgs e)
         {
+            mod.UninstallMod();
+            MainForm.Instance.Download(mod);
         }
 
         public ModHolder(Mod mod)
@@ -62,6 +73,22 @@ namespace BlasModInstaller
             updateText.Text = updateAvailable ? "An update is available!" : string.Empty;
             updateButton.Visible = updateAvailable;
             progressBar.Visible = false;
+        }
+
+        public void DisplayDownloadBar()
+        {
+            updateText.Visible = true;
+            updateText.Text = "Downloading...";
+            updateButton.Visible = false;
+
+            installButton.Enabled = false;
+            progressBar.Visible = true;
+            progressBar.Value = 0;
+        }
+
+        public void UpdateDownloadBar(int percentage)
+        {
+            progressBar.Value = percentage;
         }
 
         public void CreateUI(Panel modHolder, int formWidth, int modIdx)

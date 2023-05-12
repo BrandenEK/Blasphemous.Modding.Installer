@@ -12,13 +12,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using Ionic.Zip;
 
 namespace BlasModInstaller
 {
     public partial class MainForm : Form
     {
         public static string BlasExePath { get; private set; }
+        public static string ModdingFolderPath => $"{BlasExePath}\\Modding";
+
+        public static MainForm Instance { get; private set; }
 
         private Octokit.GitHubClient github;
         private List<Mod> mods;
@@ -26,6 +28,9 @@ namespace BlasModInstaller
         public MainForm()
         {
             BlasExePath = "C:\\Users\\Brand\\Documents\\Blasphemous";
+            if (Instance == null)
+                Instance = this;
+
             InitializeComponent();
             CreateGithubClient();
             
@@ -33,21 +38,8 @@ namespace BlasModInstaller
             LoadModsFromWeb();
         }
 
-        private int GetInstallButtonMod(Button button) => int.Parse(button.Name.Substring(7));
-        private int GetEnabledCheckboxMod(CheckBox checkbox) => int.Parse(checkbox.Name.Substring(8));
-        private int GetGithubLinkMod(LinkLabel label) => int.Parse(label.Name.Substring(4));
-        private int GetUpdateButtonMod(Button button) => int.Parse(button.Name.Substring(6));
-
-        private Button GetInstallButton(int modIdx) => Controls.Find("install" + modIdx, true)[0] as Button;
-        private CheckBox GetEnabledCheckbox(int modIdx) => Controls.Find("checkbox" + modIdx, true)[0] as CheckBox;
-        private Button GetUpdateButton(int modIdx) => Controls.Find("update" + modIdx, true)[0] as Button;
-        private ProgressBar GetProgressBar(int modIdx) => Controls.Find("progress" + modIdx, true)[0] as ProgressBar;
-        private Label GetDownloadText(int modIdx) => Controls.Find("text" + modIdx, true)[0] as Label;
-        private Label GetNameText(int modIdx) => Controls.Find("name" + modIdx, true)[0] as Label;
-
         private string SavedModsPath => Environment.CurrentDirectory + "\\downloads\\mods.json";
         private string DownloadsPath => Environment.CurrentDirectory + "\\downloads\\";
-        private string ModdingFolder => $"{BlasExePath}\\Modding";
 
         private void LoadModsFromJson()
         {
@@ -109,7 +101,7 @@ namespace BlasModInstaller
         }
 
         // After loading more mods from web or updating version, need to save new json
-        private void SaveMods()
+        public void SaveMods()
         {
             File.WriteAllText(SavedModsPath, JsonConvert.SerializeObject(mods));
         }
@@ -126,150 +118,28 @@ namespace BlasModInstaller
             }
         }
 
-        private void ClickedInstall(object sender, EventArgs e)
-        {
-            Button button = sender as Button;
-            int modIdx = GetInstallButtonMod(button);
-            if (button.Text == "Install")
-            {
-                Download(modIdx);
-            }
-            else
-            {
-                UninstallMod(modIdx);
-            }
-        }
-
-        private void ClickedEnable(object sender, EventArgs e)
-        {
-            CheckBox checkbox = sender as CheckBox;
-            int modIdx = GetEnabledCheckboxMod(checkbox);
-            if (checkbox.Checked)
-                EnableMod(modIdx);
-            else
-                DisableMod(modIdx);
-        }
-
-        private void ClickedUpdate(object sender, EventArgs e)
-        {
-            int modIdx = GetUpdateButtonMod(sender as Button);
-            UninstallMod(modIdx);
-            Download(modIdx);
-        }
-
         private void ClickedDebug(object sender, EventArgs e)
         {
         }
 
-        private void InstallMod(int modIdx, string newVersion, string zipPath)
+        public async Task Download(Mod mod)
         {
-            // Actually install
-            string installPath = mods[modIdx].Name == "Modding API" ? BlasExePath : ModdingFolder;
-            using (ZipFile zipFile = ZipFile.Read(zipPath))
-            {
-                foreach (ZipEntry file in zipFile)
-                    file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
-            }
-            mods[modIdx].Version = newVersion;
-            SaveMods();
-            File.Delete(zipPath);
-            // Update UI
-            GetNameText(modIdx).Text = $"{mods[modIdx].Name} v{newVersion}";
-            mods[modIdx].UI.UpdateUI(false);
-        }
+            mod.UI.DisplayDownloadBar();
 
-        private void UninstallMod(int modIdx)
-        {
-            // Actually uninstall
-            if (File.Exists(mods[modIdx].PathToEnabledPlugin))
-                File.Delete(mods[modIdx].PathToEnabledPlugin);
-            if (File.Exists(mods[modIdx].PathToDisabledPlugin))
-                File.Delete(mods[modIdx].PathToDisabledPlugin);
-            if (File.Exists(mods[modIdx].PathToConfigFile))
-                File.Delete(mods[modIdx].PathToConfigFile);
-            if (File.Exists(mods[modIdx].PathToLocalizationFile))
-                File.Delete(mods[modIdx].PathToLocalizationFile);
-            if (File.Exists(mods[modIdx].PathToLogFile))
-                File.Delete(mods[modIdx].PathToLogFile);
-            if (Directory.Exists(mods[modIdx].PathToDataFolder))
-                Directory.Delete(mods[modIdx].PathToDataFolder, true);
-            if (Directory.Exists(mods[modIdx].PathToLevelsFolder))
-                Directory.Delete(mods[modIdx].PathToLevelsFolder, true);
-
-            //string[] dlls = mods[modIdx].RequiredDlls;
-            //if (dlls != null && dlls.Length > 0)
-            //{
-            //    foreach (string dll in dlls)
-            //    {
-            //        blasLocation.Text += dll + " ";
-            //    }
-            //}
-
-            // Update UI
-            mods[modIdx].UI.UpdateUI(false);
-        }
-
-        private void EnableMod(int modIdx)
-        {
-            string enabled = mods[modIdx].PathToEnabledPlugin;
-            string disabled = mods[modIdx].PathToDisabledPlugin;
-            if (File.Exists(disabled))
-            {
-                if (!File.Exists(enabled))
-                    File.Move(disabled, enabled);
-                else
-                    File.Delete(disabled);
-            }
-        }
-
-        private void DisableMod(int modIdx)
-        {
-            string enabled = mods[modIdx].PathToEnabledPlugin;
-            string disabled = mods[modIdx].PathToDisabledPlugin;
-            if (File.Exists(enabled))
-            {
-                if (!File.Exists(disabled))
-                    File.Move(enabled, disabled);
-                else
-                    File.Delete(enabled);
-            }
-        }
-
-        private void DisplayDownloadBar(int modIdx)
-        {
-            // Set text status
-            Label label = GetDownloadText(modIdx);
-            label.Visible = true;
-            label.Text = "Downloading...";
-            // Set install button status
-            GetInstallButton(modIdx).Enabled = false;
-            // Set update button status
-            GetUpdateButton(modIdx).Visible = false;
-            // Set progress bar status
-            ProgressBar progressBar = GetProgressBar(modIdx);
-            progressBar.Visible = true;
-            progressBar.Value = 0;
-        }
-
-        private async Task Download(int modIdx)
-        {
-            DisplayDownloadBar(modIdx);
-            ProgressBar progressBar = GetProgressBar(modIdx);
-
-            Octokit.Release latestRelease = await github.Repository.Release.GetLatest(mods[modIdx].GithubAuthor, mods[modIdx].GithubRepo);
+            Octokit.Release latestRelease = await github.Repository.Release.GetLatest(mod.GithubAuthor, mod.GithubRepo);
             string newVersion = latestRelease.TagName;
             string downloadUrl = latestRelease.Assets[0].BrowserDownloadUrl;
-            string downloadPath = $"{DownloadsPath}{mods[modIdx].Name.Replace(' ', '_')}_{newVersion}.zip";
+            string downloadPath = $"{DownloadsPath}{mod.Name.Replace(' ', '_')}_{newVersion}.zip";
 
             using (WebClient client = new WebClient())
             {
                 client.DownloadProgressChanged += (object sender, DownloadProgressChangedEventArgs e) => 
                 {
-                    BeginInvoke(new MethodInvoker(() => progressBar.Value = e.ProgressPercentage));
+                    BeginInvoke(new MethodInvoker(() => mod.UI.UpdateDownloadBar(e.ProgressPercentage)));
                 };
                 client.DownloadFileCompleted += (object sender, AsyncCompletedEventArgs e) =>
                 {
-                    BeginInvoke(new MethodInvoker(() => InstallMod(modIdx, newVersion, downloadPath)));
+                    BeginInvoke(new MethodInvoker(() => mod.InstallMod(newVersion, downloadPath)));
                 };
                 client.DownloadFileAsync(new Uri(downloadUrl), downloadPath);
             }

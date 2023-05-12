@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using Ionic.Zip;
 using Newtonsoft.Json;
 
 namespace BlasModInstaller
@@ -19,8 +20,9 @@ namespace BlasModInstaller
 
         public string Version { get; set; }
 
-        // Temp ?
+        [JsonIgnore]
         public bool Installed => File.Exists(PathToEnabledPlugin) || File.Exists(PathToDisabledPlugin);
+        [JsonIgnore]
         public bool Enabled => File.Exists(PathToEnabledPlugin);
 
         public Mod(string name, string author, string description, string githubAuthor, string githubRepo, string pluginFile, string[] requiredDlls)
@@ -34,7 +36,79 @@ namespace BlasModInstaller
             RequiredDlls = requiredDlls;
         }
 
-        public void ClickedGithub()
+        public void InstallMod(string newVersion, string zipPath)
+        {
+            // Actually install
+            string installPath = Name == "Modding API" ? MainForm.BlasExePath : MainForm.ModdingFolderPath;
+            using (ZipFile zipFile = ZipFile.Read(zipPath))
+            {
+                foreach (ZipEntry file in zipFile)
+                    file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
+            }
+            Version = newVersion;
+            MainForm.Instance.SaveMods();
+            File.Delete(zipPath);
+            UI.UpdateUI(false);
+        }
+
+        public void UninstallMod()
+        {
+            // Actually uninstall
+            if (File.Exists(PathToEnabledPlugin))
+                File.Delete(PathToEnabledPlugin);
+            if (File.Exists(PathToDisabledPlugin))
+                File.Delete(PathToDisabledPlugin);
+            if (File.Exists(PathToConfigFile))
+                File.Delete(PathToConfigFile);
+            if (File.Exists(PathToLocalizationFile))
+                File.Delete(PathToLocalizationFile);
+            if (File.Exists(PathToLogFile))
+                File.Delete(PathToLogFile);
+            if (Directory.Exists(PathToDataFolder))
+                Directory.Delete(PathToDataFolder, true);
+            if (Directory.Exists(PathToLevelsFolder))
+                Directory.Delete(PathToLevelsFolder, true);
+
+            //string[] dlls = mods[modIdx].RequiredDlls;
+            //if (dlls != null && dlls.Length > 0)
+            //{
+            //    foreach (string dll in dlls)
+            //    {
+            //        blasLocation.Text += dll + " ";
+            //    }
+            //}
+
+            // Update UI
+            UI.UpdateUI(false);
+        }
+
+        public void EnableMod()
+        {
+            string enabled = PathToEnabledPlugin;
+            string disabled = PathToDisabledPlugin;
+            if (File.Exists(disabled))
+            {
+                if (!File.Exists(enabled))
+                    File.Move(disabled, enabled);
+                else
+                    File.Delete(disabled);
+            }
+        }
+
+        public void DisableMod()
+        {
+            string enabled = PathToEnabledPlugin;
+            string disabled = PathToDisabledPlugin;
+            if (File.Exists(enabled))
+            {
+                if (!File.Exists(disabled))
+                    File.Move(enabled, disabled);
+                else
+                    File.Delete(enabled);
+            }
+        }
+
+        public void OpenGithubLink()
         {
             try
             {
