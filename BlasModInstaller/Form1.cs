@@ -35,9 +35,14 @@ namespace BlasModInstaller
 
             InitializeComponent();
             CreateGithubClient();
-            
-            LoadModsFromJson();
-            LoadModsFromWeb();
+
+            if (File.Exists(BlasRootFolder + "\\Blasphemous.exe"))
+            {
+                Directory.CreateDirectory(BlasRootFolder + "\\Modding\\disabled"); // Only because its not included in the API
+                fakePanel.Visible = false;
+                LoadModsFromJson();
+                LoadModsFromWeb();
+            }
         }
 
         private void LoadModsFromJson()
@@ -180,13 +185,16 @@ namespace BlasModInstaller
         {
             if (blasLocDialog.ShowDialog() == DialogResult.OK)
             {
-                string text = blasLocDialog.FileName;
-                int exeIdx = text.IndexOf("Blasphemous.exe");
-                if (exeIdx >= 0 && File.Exists(text))
+                string path = blasLocDialog.FileName;
+                int exeIdx = path.LastIndexOf("Blasphemous.exe");
+                if (exeIdx >= 0 && File.Exists(path))
                 {
-                    config.BlasRootFolder = text.Substring(0, exeIdx - 1);
+                    config.BlasRootFolder = path.Substring(0, exeIdx - 1);
+                    Directory.CreateDirectory(BlasRootFolder + "\\Modding\\disabled"); // Only because its not included in the API
                     SaveConfig();
-                    // Remove fake panel & load mods
+                    fakePanel.Visible = false;
+                    LoadModsFromJson();
+                    LoadModsFromWeb();
                 }
             }
         }
