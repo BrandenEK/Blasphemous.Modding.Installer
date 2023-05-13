@@ -76,14 +76,18 @@ namespace BlasModInstaller
             if (Directory.Exists(PathToLevelsFolder))
                 Directory.Delete(PathToLevelsFolder, true);
 
-            //string[] dlls = mods[modIdx].RequiredDlls;
-            //if (dlls != null && dlls.Length > 0)
-            //{
-            //    foreach (string dll in dlls)
-            //    {
-            //        blasLocation.Text += dll + " ";
-            //    }
-            //}
+            if (RequiredDlls != null && RequiredDlls.Length > 0)
+            {
+                foreach (string dll in RequiredDlls)
+                {
+                    if (MainForm.Instance.InstalledModsThatRequireDll(dll) == 0)
+                    {
+                        string dllPath = MainForm.BlasRootFolder + "\\Modding\\data\\" + dll;
+                        if (File.Exists(dllPath))
+                            File.Delete(dllPath);
+                    }
+                }
+            }
 
             // Update UI
             UI.UpdateUI(false);
@@ -140,6 +144,18 @@ namespace BlasModInstaller
             GithubRepo = other.GithubRepo;
             PluginFile = other.PluginFile;
             RequiredDlls = other.RequiredDlls;
+        }
+
+        public bool RequiresDll(string dllName)
+        {
+            if (RequiredDlls == null) return false;
+
+            foreach (string dll in RequiredDlls)
+            {
+                if (dll == dllName)
+                    return true;
+            }
+            return false;
         }
 
         private ModHolder m_UI;

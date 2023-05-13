@@ -198,5 +198,16 @@ namespace BlasModInstaller
                 }
             }
         }
+
+        public int InstalledModsThatRequireDll(string dllName)
+        {
+            int count = 0;
+            foreach (Mod mod in mods)
+            {
+                if (mod.RequiresDll(dllName) && mod.Installed)
+                    count++;
+            }
+            return count;
+        }
     }
 }
