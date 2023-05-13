@@ -14,22 +14,24 @@ namespace BlasModInstaller
 {
     public partial class MainForm : Form
     {
-        public static string BlasExePath { get; private set; }
-        public static string ModdingFolderPath => $"{BlasExePath}\\Modding";
         private string SavedModsPath => Environment.CurrentDirectory + "\\downloads\\mods.json";
         private string DownloadsPath => Environment.CurrentDirectory + "\\downloads\\";
+        private string ConfigPath => Environment.CurrentDirectory + "\\installer.cfg";
 
         public static MainForm Instance { get; private set; }
+
+        private Config config;
+        public static string BlasRootFolder => Instance.config.BlasRootFolder;
 
         private Octokit.GitHubClient github;
         private List<Mod> mods;
 
         public MainForm()
         {
-            BlasExePath = "C:\\Users\\Brand\\Documents\\Blasphemous";
             Directory.CreateDirectory(DownloadsPath);
             if (Instance == null)
                 Instance = this;
+            LoadConfig();
 
             InitializeComponent();
             CreateGithubClient();
@@ -128,10 +130,13 @@ namespace BlasModInstaller
 
         private void ClickedDebug(object sender, EventArgs e)
         {
+            fakePanel.Visible = !fakePanel.Visible;
         }
 
         public async Task Download(Mod mod)
         {
+            if (BlasRootFolder == null) return;
+
             mod.UI.DisplayDownloadBar();
 
             Octokit.Release latestRelease = await github.Repository.Release.GetLatest(mod.GithubAuthor, mod.GithubRepo);
@@ -153,11 +158,38 @@ namespace BlasModInstaller
             }
         }
 
+        private void LoadConfig()
+        {
+            if (File.Exists(ConfigPath))
+            {
+                // Load config
+                config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(ConfigPath));
+            }
+            else
+            {
+                // Create new config
+                config = new Config();
+                SaveConfig();
+            }
+        }
+
+        private void SaveConfig()
+        {
+            File.WriteAllText(ConfigPath, JsonConvert.SerializeObject(config, Formatting.Indented));
+        }
+
         private void ChooseBlasLocation(object sender, EventArgs e)
         {
             if (blasLocDialog.ShowDialog() == DialogResult.OK)
             {
-                blasLocBox.Text = blasLocDialog.FileName;
+                string text = blasLocDialog.FileName;
+                int exeIdx = text.IndexOf("Blasphemous.exe");
+                if (exeIdx >= 0 && File.Exists(text))
+                {
+                    config.BlasRootFolder = text.Substring(0, exeIdx - 1);
+                    SaveConfig();
+                    // Remove fake panel & load mods
+                }
             }
         }
     }

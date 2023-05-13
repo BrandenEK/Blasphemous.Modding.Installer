@@ -38,8 +38,13 @@ namespace BlasModInstaller
 
         public void InstallMod(string newVersion, string zipPath)
         {
+            if (MainForm.BlasRootFolder == null) return;
+
             // Actually install
-            string installPath = Name == "Modding API" ? MainForm.BlasExePath : MainForm.ModdingFolderPath;
+            string installPath = MainForm.BlasRootFolder;
+            if (Name != "Modding API")
+                installPath += "\\Modding";
+
             using (ZipFile zipFile = ZipFile.Read(zipPath))
             {
                 foreach (ZipEntry file in zipFile)
@@ -53,6 +58,8 @@ namespace BlasModInstaller
 
         public void UninstallMod()
         {
+            if (MainForm.BlasRootFolder == null) return;
+
             // Actually uninstall
             if (File.Exists(PathToEnabledPlugin))
                 File.Delete(PathToEnabledPlugin);
@@ -84,6 +91,8 @@ namespace BlasModInstaller
 
         public void EnableMod()
         {
+            if (MainForm.BlasRootFolder == null) return;
+
             string enabled = PathToEnabledPlugin;
             string disabled = PathToDisabledPlugin;
             if (File.Exists(disabled))
@@ -97,6 +106,8 @@ namespace BlasModInstaller
 
         public void DisableMod()
         {
+            if (MainForm.BlasRootFolder == null) return;
+
             string enabled = PathToEnabledPlugin;
             string disabled = PathToDisabledPlugin;
             if (File.Exists(enabled))
@@ -145,18 +156,18 @@ namespace BlasModInstaller
 
         // Install paths
         [JsonIgnore]
-        public string PathToEnabledPlugin => $"{MainForm.BlasExePath}\\Modding\\plugins\\{PluginFile}";
+        public string PathToEnabledPlugin => $"{MainForm.BlasRootFolder}\\Modding\\plugins\\{PluginFile}";
         [JsonIgnore]
-        public string PathToDisabledPlugin => $"{MainForm.BlasExePath}\\Modding\\disabled\\{PluginFile}";
+        public string PathToDisabledPlugin => $"{MainForm.BlasRootFolder}\\Modding\\disabled\\{PluginFile}";
         [JsonIgnore]
-        public string PathToConfigFile => $"{MainForm.BlasExePath}\\Modding\\config\\{Name}.cfg";
+        public string PathToConfigFile => $"{MainForm.BlasRootFolder}\\Modding\\config\\{Name}.cfg";
         [JsonIgnore]
-        public string PathToLocalizationFile => $"{MainForm.BlasExePath}\\Modding\\localization\\{Name}.txt";
+        public string PathToLocalizationFile => $"{MainForm.BlasRootFolder}\\Modding\\localization\\{Name}.txt";
         [JsonIgnore]
-        public string PathToLogFile => $"{MainForm.BlasExePath}\\Modding\\logs\\{Name}.log";
+        public string PathToLogFile => $"{MainForm.BlasRootFolder}\\Modding\\logs\\{Name}.log";
         [JsonIgnore]
-        public string PathToDataFolder => $"{MainForm.BlasExePath}\\Modding\\data\\{Name}";
+        public string PathToDataFolder => $"{MainForm.BlasRootFolder}\\Modding\\data\\{Name}";
         [JsonIgnore]
-        public string PathToLevelsFolder => $"{MainForm.BlasExePath}\\Modding\\levels\\{Name}";
+        public string PathToLevelsFolder => $"{MainForm.BlasRootFolder}\\Modding\\levels\\{Name}";
     }
 }
