@@ -93,6 +93,7 @@ namespace BlasModInstaller
                 }
             }
 
+            debugText.Text = github.GetLastApiInfo().RateLimit.Remaining.ToString();
             SaveMods();
         }
 
@@ -119,12 +120,9 @@ namespace BlasModInstaller
         private void CreateGithubClient()
         {
             github = new Octokit.GitHubClient(new Octokit.ProductHeaderValue("BlasModInstaller"));
-
-            string tokenPath = Environment.CurrentDirectory + "\\token.txt";
-            if (File.Exists(tokenPath))
+            if (config.GithubToken != null)
             {
-                string token = File.ReadAllText(tokenPath);
-                github.Credentials = new Octokit.Credentials(token);
+                github.Credentials = new Octokit.Credentials(config.GithubToken);
             }
         }
 

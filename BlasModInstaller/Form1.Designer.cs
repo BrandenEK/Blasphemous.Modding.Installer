@@ -37,6 +37,7 @@ namespace BlasModInstaller
             this.blasLocDialog = new System.Windows.Forms.OpenFileDialog();
             this.fakePanel = new System.Windows.Forms.Panel();
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
+            this.debugText = new System.Windows.Forms.Label();
             this.modHolder.SuspendLayout();
             this.fakePanel.SuspendLayout();
             this.SuspendLayout();
@@ -116,12 +117,22 @@ namespace BlasModInstaller
             this.vScrollBar1.TabIndex = 2;
             this.vScrollBar1.Visible = false;
             // 
+            // debugText
+            // 
+            this.debugText.AutoSize = true;
+            this.debugText.Location = new System.Drawing.Point(93, 17);
+            this.debugText.Name = "debugText";
+            this.debugText.Size = new System.Drawing.Size(50, 17);
+            this.debugText.TabIndex = 6;
+            this.debugText.Text = "Debug";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
             this.ClientSize = new System.Drawing.Size(1182, 753);
+            this.Controls.Add(this.debugText);
             this.Controls.Add(this.fakePanel);
             this.Controls.Add(this.debugBtn);
             this.Controls.Add(this.modHolder);
@@ -131,6 +142,7 @@ namespace BlasModInstaller
             this.modHolder.ResumeLayout(false);
             this.fakePanel.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -143,6 +155,7 @@ namespace BlasModInstaller
         private System.Windows.Forms.OpenFileDialog blasLocDialog;
         private System.Windows.Forms.Panel fakePanel;
         private System.Windows.Forms.VScrollBar vScrollBar1;
+        private System.Windows.Forms.Label debugText;
     }
 }
 
