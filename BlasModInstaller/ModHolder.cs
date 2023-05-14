@@ -7,6 +7,12 @@ namespace BlasModInstaller
     public class ModHolder
     {
         private const int MOD_HEIGHT = 80;
+
+        private static Font smallFont = new Font("Trebuchet MS", 8);
+        private static Font largeFont = new Font("Trebuchet MS", 12);
+        private static Font installFont = new Font("Trebuchet MS", 8, FontStyle.Bold);
+        private static Font enableFont = new Font("Arial", 8, FontStyle.Bold);
+
         private Mod mod;
 
         private Panel outerPanel;
@@ -58,7 +64,7 @@ namespace BlasModInstaller
         {
             // Text
             nameText.Text = $"{mod.Name} v{mod.Version}";
-            authorText.Text = "Author: " + mod.Author;
+            //authorText.Text = "Author: " + mod.Author;
             descriptionText.Text = mod.Description;
 
             // Install button
@@ -123,44 +129,47 @@ namespace BlasModInstaller
             nameText = new Label();
             nameText.Name = mod.Name;
             nameText.Parent = innerPanel;
+            nameText.Font = largeFont;
             nameText.ForeColor = Color.LightGray;
-            nameText.Size = new Size(400, 15);
+            nameText.Size = new Size(400, 20);
             nameText.Location = new Point(10, 8);
             nameText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
 
-            authorText = new Label();
-            authorText.Name = mod.Name;
-            authorText.Parent = innerPanel;
-            authorText.ForeColor = Color.LightGray;
-            authorText.Size = new Size(400, 15);
-            authorText.Location = new Point(10, 25);
-            authorText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            //authorText = new Label();
+            //authorText.Name = mod.Name;
+            //authorText.Parent = innerPanel;
+            //authorText.ForeColor = Color.LightGray;
+            //authorText.Size = new Size(400, 15);
+            //authorText.Location = new Point(10, 25);
+            //authorText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
 
             descriptionText = new Label();
             descriptionText.Name = mod.Name;
             descriptionText.Parent = innerPanel;
+            descriptionText.Font = smallFont;
             descriptionText.ForeColor = Color.LightGray;
             descriptionText.Size = new Size(450, 15);
             descriptionText.Location = new Point(10, 42);
             descriptionText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
 
-            linkText = new LinkLabel();
-            linkText.Name = mod.Name;
-            linkText.Text = "Github Repo";
-            linkText.Parent = innerPanel;
-            linkText.LinkColor = Color.FromArgb(0, 128, 255);
-            linkText.Size = new Size(400, 15);
-            linkText.Location = new Point(10, 59);
-            linkText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-            linkText.LinkClicked += ClickedGithub;
+            //linkText = new LinkLabel();
+            //linkText.Name = mod.Name;
+            //linkText.Text = "Github Repo";
+            //linkText.Parent = innerPanel;
+            //linkText.LinkColor = Color.FromArgb(0, 128, 255);
+            //linkText.Size = new Size(400, 15);
+            //linkText.Location = new Point(10, 59);
+            //linkText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            //linkText.LinkClicked += ClickedGithub;
 
             installButton = new Button();
             installButton.Name = mod.Name;
             installButton.Parent = innerPanel;
             installButton.FlatStyle = FlatStyle.Flat;
+            installButton.Font = installFont;
             installButton.FlatAppearance.BorderColor = Color.White;
             installButton.Size = new Size(70, 30);
-            installButton.Location = new Point(innerPanel.Width - 155, 23);
+            installButton.Location = new Point(innerPanel.Width - 158, 23);
             installButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             installButton.Click += ClickedInstall;
 
@@ -168,9 +177,10 @@ namespace BlasModInstaller
             enableButton.Name = mod.Name;
             enableButton.Parent = innerPanel;
             enableButton.FlatStyle = FlatStyle.Flat;
+            enableButton.Font = enableFont;
             enableButton.BackColor = backgroundColor;
-            enableButton.Size = new Size(60, 22);
-            enableButton.Location = new Point(innerPanel.Width - 72, 27);
+            enableButton.Size = new Size(64, 22);
+            enableButton.Location = new Point(innerPanel.Width - 75, 27);
             enableButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             enableButton.Click += ClickedEnable;
 

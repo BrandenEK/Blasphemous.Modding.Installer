@@ -31,12 +31,12 @@ namespace BlasModInstaller
         {
             this.scroll = new System.Windows.Forms.VScrollBar();
             this.modHolder = new System.Windows.Forms.Panel();
-            this.debugBtn = new System.Windows.Forms.Button();
-            this.blasLocButton = new System.Windows.Forms.Button();
-            this.blasLocFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.blasLocDialog = new System.Windows.Forms.OpenFileDialog();
             this.fakePanel = new System.Windows.Forms.Panel();
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
+            this.blasLocButton = new System.Windows.Forms.Button();
+            this.debugBtn = new System.Windows.Forms.Button();
+            this.blasLocFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.blasLocDialog = new System.Windows.Forms.OpenFileDialog();
             this.debugText = new System.Windows.Forms.Label();
             this.modHolder.SuspendLayout();
             this.fakePanel.SuspendLayout();
@@ -46,9 +46,9 @@ namespace BlasModInstaller
             // 
             this.scroll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.scroll.Location = new System.Drawing.Point(1143, 12);
+            this.scroll.Location = new System.Drawing.Point(849, 14);
             this.scroll.Name = "scroll";
-            this.scroll.Size = new System.Drawing.Size(20, 635);
+            this.scroll.Size = new System.Drawing.Size(20, 420);
             this.scroll.TabIndex = 2;
             this.scroll.Visible = false;
             // 
@@ -62,38 +62,10 @@ namespace BlasModInstaller
             this.modHolder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.modHolder.Controls.Add(this.scroll);
             this.modHolder.Controls.Add(this.fakePanel);
-            this.modHolder.Location = new System.Drawing.Point(0, 100);
+            this.modHolder.Location = new System.Drawing.Point(0, 80);
             this.modHolder.Name = "modHolder";
-            this.modHolder.Size = new System.Drawing.Size(1184, 660);
+            this.modHolder.Size = new System.Drawing.Size(885, 481);
             this.modHolder.TabIndex = 3;
-            // 
-            // debugBtn
-            // 
-            this.debugBtn.Location = new System.Drawing.Point(12, 12);
-            this.debugBtn.Name = "debugBtn";
-            this.debugBtn.Size = new System.Drawing.Size(75, 26);
-            this.debugBtn.TabIndex = 5;
-            this.debugBtn.Text = "Debug";
-            this.debugBtn.UseVisualStyleBackColor = true;
-            this.debugBtn.Click += new System.EventHandler(this.ClickedDebug);
-            // 
-            // blasLocButton
-            // 
-            this.blasLocButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.blasLocButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.blasLocButton.Location = new System.Drawing.Point(461, 300);
-            this.blasLocButton.Name = "blasLocButton";
-            this.blasLocButton.Size = new System.Drawing.Size(260, 50);
-            this.blasLocButton.TabIndex = 7;
-            this.blasLocButton.Text = "Locate Blasphemous.exe";
-            this.blasLocButton.UseVisualStyleBackColor = true;
-            this.blasLocButton.Click += new System.EventHandler(this.ChooseBlasLocation);
-            // 
-            // blasLocDialog
-            // 
-            this.blasLocDialog.FileName = "Blasphemous.exe";
-            this.blasLocDialog.Filter = "Exe files (*.exe)|*.exe";
-            this.blasLocDialog.Title = "Choose Blasphemous.exe location";
             // 
             // fakePanel
             // 
@@ -105,37 +77,67 @@ namespace BlasModInstaller
             this.fakePanel.Controls.Add(this.blasLocButton);
             this.fakePanel.Location = new System.Drawing.Point(0, 0);
             this.fakePanel.Name = "fakePanel";
-            this.fakePanel.Size = new System.Drawing.Size(1184, 660);
+            this.fakePanel.Size = new System.Drawing.Size(885, 448);
             this.fakePanel.TabIndex = 4;
             // 
             // vScrollBar1
             // 
             this.vScrollBar1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.vScrollBar1.Location = new System.Drawing.Point(1201, 12);
+            this.vScrollBar1.Location = new System.Drawing.Point(900, -133);
             this.vScrollBar1.Name = "vScrollBar1";
-            this.vScrollBar1.Size = new System.Drawing.Size(20, 635);
+            this.vScrollBar1.Size = new System.Drawing.Size(20, 714);
             this.vScrollBar1.TabIndex = 2;
             this.vScrollBar1.Visible = false;
+            // 
+            // blasLocButton
+            // 
+            this.blasLocButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.blasLocButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.blasLocButton.Location = new System.Drawing.Point(327, 338);
+            this.blasLocButton.Name = "blasLocButton";
+            this.blasLocButton.Size = new System.Drawing.Size(228, 56);
+            this.blasLocButton.TabIndex = 7;
+            this.blasLocButton.Text = "Locate Blasphemous.exe";
+            this.blasLocButton.UseVisualStyleBackColor = true;
+            this.blasLocButton.Click += new System.EventHandler(this.ChooseBlasLocation);
+            // 
+            // debugBtn
+            // 
+            this.debugBtn.Location = new System.Drawing.Point(10, 14);
+            this.debugBtn.Name = "debugBtn";
+            this.debugBtn.Size = new System.Drawing.Size(66, 29);
+            this.debugBtn.TabIndex = 5;
+            this.debugBtn.Text = "Debug";
+            this.debugBtn.UseVisualStyleBackColor = true;
+            this.debugBtn.Click += new System.EventHandler(this.ClickedDebug);
+            // 
+            // blasLocDialog
+            // 
+            this.blasLocDialog.FileName = "Blasphemous.exe";
+            this.blasLocDialog.Filter = "Exe files (*.exe)|*.exe";
+            this.blasLocDialog.Title = "Choose Blasphemous.exe location";
             // 
             // debugText
             // 
             this.debugText.AutoSize = true;
-            this.debugText.Location = new System.Drawing.Point(93, 17);
+            this.debugText.Font = new System.Drawing.Font("Trebuchet MS", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.debugText.Location = new System.Drawing.Point(81, 19);
             this.debugText.Name = "debugText";
-            this.debugText.Size = new System.Drawing.Size(50, 17);
+            this.debugText.Size = new System.Drawing.Size(48, 18);
             this.debugText.TabIndex = 6;
             this.debugText.Text = "Debug";
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(1182, 753);
+            this.ClientSize = new System.Drawing.Size(882, 553);
             this.Controls.Add(this.debugText);
             this.Controls.Add(this.debugBtn);
             this.Controls.Add(this.modHolder);
-            this.MinimumSize = new System.Drawing.Size(1200, 800);
+            this.Font = new System.Drawing.Font("Trebuchet MS", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MinimumSize = new System.Drawing.Size(900, 600);
             this.Name = "MainForm";
             this.Text = "Blasphemous Mod Installer";
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
