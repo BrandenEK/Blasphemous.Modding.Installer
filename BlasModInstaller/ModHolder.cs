@@ -32,7 +32,10 @@ namespace BlasModInstaller
         private void ClickedInstall(object sender, EventArgs e)
         {
             if (mod.Installed)
-                mod.UninstallMod();
+            {
+                if (MessageBox.Show("Are you sure you want to uninstall this mod?", nameText.Text, MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    mod.UninstallMod();
+            }
             else
                 MainForm.Instance.Download(mod);
         }
