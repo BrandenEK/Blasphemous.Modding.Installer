@@ -6,8 +6,7 @@ namespace BlasModInstaller
 {
     public class ModHolder
     {
-        private const int MOD_HEIGHT = 78;
-        private Color BACKGROUND_COLOR = Color.FromArgb(33, 33, 36);
+        private const int MOD_HEIGHT = 80;
         private Mod mod;
 
         private Panel rowBox;
@@ -100,10 +99,11 @@ namespace BlasModInstaller
         public void CreateUI(Panel modHolder, int formWidth, int modIdx)
         {
             modHolder.AutoScroll = false;
+            Color backgroundColor = modIdx % 2 == 0 ? Color.FromArgb(52, 52, 52) : Color.FromArgb(64, 64, 64);
 
             Panel background = new Panel();
             background.Name = mod.Name;
-            background.BackColor = Color.White;
+            background.BackColor = Color.Black;
             background.Parent = modHolder;
             background.Size = new Size(formWidth - 50, MOD_HEIGHT);
             //rowBox.Location = new Point(15, 12 + (12 + MOD_HEIGHT) * modIdx);
@@ -112,7 +112,7 @@ namespace BlasModInstaller
 
             rowBox = new Panel();
             rowBox.Name = mod.Name;
-            rowBox.BackColor = BACKGROUND_COLOR;//modIdx % 2 == 0 ? Color.LightGray : Color.WhiteSmoke;
+            rowBox.BackColor = backgroundColor;
             rowBox.Parent = background;
             rowBox.Size = new Size(formWidth - 52, MOD_HEIGHT - 2);
             //rowBox.Location = new Point(15, 12 + (12 + MOD_HEIGHT) * modIdx);
@@ -122,7 +122,7 @@ namespace BlasModInstaller
             nameText = new Label();
             nameText.Name = mod.Name;
             nameText.Parent = rowBox;
-            nameText.ForeColor = Color.White;
+            nameText.ForeColor = Color.LightGray;
             nameText.Size = new Size(400, 15);
             nameText.Location = new Point(10, 8);
             nameText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
@@ -130,7 +130,7 @@ namespace BlasModInstaller
             authorText = new Label();
             authorText.Name = mod.Name;
             authorText.Parent = rowBox;
-            authorText.ForeColor = Color.White;
+            authorText.ForeColor = Color.LightGray;
             authorText.Size = new Size(400, 15);
             authorText.Location = new Point(10, 25);
             authorText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
@@ -138,7 +138,7 @@ namespace BlasModInstaller
             descriptionText = new Label();
             descriptionText.Name = mod.Name;
             descriptionText.Parent = rowBox;
-            descriptionText.ForeColor = Color.White;
+            descriptionText.ForeColor = Color.LightGray;
             descriptionText.Size = new Size(450, 15);
             descriptionText.Location = new Point(10, 42);
             descriptionText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
@@ -147,6 +147,7 @@ namespace BlasModInstaller
             linkText.Name = mod.Name;
             linkText.Text = "Github Repo";
             linkText.Parent = rowBox;
+            linkText.LinkColor = Color.FromArgb(0, 128, 255);
             linkText.Size = new Size(400, 15);
             linkText.Location = new Point(10, 59);
             linkText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
@@ -158,7 +159,7 @@ namespace BlasModInstaller
             installButton.FlatStyle = FlatStyle.Flat;
             installButton.FlatAppearance.BorderColor = Color.White;
             installButton.Size = new Size(70, 30);
-            installButton.Location = new Point(rowBox.Width - 155, 20);
+            installButton.Location = new Point(rowBox.Width - 155, 23);
             installButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             installButton.Click += ClickedInstall;
 
@@ -166,9 +167,9 @@ namespace BlasModInstaller
             enableButton.Name = mod.Name;
             enableButton.Parent = rowBox;
             enableButton.FlatStyle = FlatStyle.Flat;
-            enableButton.BackColor = BACKGROUND_COLOR;
+            enableButton.BackColor = backgroundColor;
             enableButton.Size = new Size(60, 22);
-            enableButton.Location = new Point(rowBox.Width - 72, 24);
+            enableButton.Location = new Point(rowBox.Width - 72, 27);
             enableButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             enableButton.Click += ClickedEnable;
 
@@ -177,7 +178,7 @@ namespace BlasModInstaller
             updateText.Text = string.Empty;
             updateText.TextAlign = ContentAlignment.TopCenter;
             updateText.Parent = rowBox;
-            updateText.ForeColor = Color.White;
+            updateText.ForeColor = Color.LightGray;
             updateText.Size = new Size(120, 15);
             updateText.Location = new Point(rowBox.Width - 335, 17);
             updateText.Anchor = AnchorStyles.Top | AnchorStyles.Right;
