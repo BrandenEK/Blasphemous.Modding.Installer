@@ -6,10 +6,10 @@ namespace BlasModInstaller
 {
     public class ModHolder
     {
-        private const int MOD_HEIGHT = 80;
+        private const int MOD_HEIGHT = 82;
 
-        private static Font smallFont = new Font("Trebuchet MS", 8);
-        private static Font largeFont = new Font("Trebuchet MS", 12);
+        private static Font smallFont = new Font("Verdana", 9);
+        private static Font largeFont = new Font("Verdana", 16);
         private static Font installFont = new Font("Trebuchet MS", 8, FontStyle.Bold);
         private static Font enableFont = new Font("Arial", 8, FontStyle.Bold);
 
@@ -131,8 +131,8 @@ namespace BlasModInstaller
             nameText.Parent = innerPanel;
             nameText.Font = largeFont;
             nameText.ForeColor = Color.LightGray;
-            nameText.Size = new Size(400, 20);
-            nameText.Location = new Point(10, 8);
+            nameText.Size = new Size(400, 28);
+            nameText.Location = new Point(10, 10);
             nameText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
 
             //authorText = new Label();
@@ -148,8 +148,8 @@ namespace BlasModInstaller
             descriptionText.Parent = innerPanel;
             descriptionText.Font = smallFont;
             descriptionText.ForeColor = Color.LightGray;
-            descriptionText.Size = new Size(450, 15);
-            descriptionText.Location = new Point(10, 42);
+            descriptionText.Size = new Size(450, 30);
+            descriptionText.Location = new Point(12, 41);
             descriptionText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
 
             //linkText = new LinkLabel();
@@ -157,8 +157,8 @@ namespace BlasModInstaller
             //linkText.Text = "Github Repo";
             //linkText.Parent = innerPanel;
             //linkText.LinkColor = Color.FromArgb(0, 128, 255);
-            //linkText.Size = new Size(400, 15);
-            //linkText.Location = new Point(10, 59);
+            //linkText.Size = new Size(400, 20);
+            //linkText.Location = new Point(12, 40);
             //linkText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             //linkText.LinkClicked += ClickedGithub;
 

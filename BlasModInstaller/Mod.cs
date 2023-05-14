@@ -127,7 +127,7 @@ namespace BlasModInstaller
         {
             try
             {
-                Process.Start($"https://github.com/{GithubAuthor}/{GithubRepo}");
+                Process.Start(GithubLink);
             }
             catch (Exception)
             {
@@ -185,5 +185,7 @@ namespace BlasModInstaller
         public string PathToDataFolder => $"{MainForm.BlasRootFolder}\\Modding\\data\\{Name}";
         [JsonIgnore]
         public string PathToLevelsFolder => $"{MainForm.BlasRootFolder}\\Modding\\levels\\{Name}";
+        [JsonIgnore]
+        public string GithubLink => $"https://github.com/{GithubAuthor}/{GithubRepo}";
     }
 }
