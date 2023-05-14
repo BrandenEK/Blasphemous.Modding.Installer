@@ -37,6 +37,10 @@ namespace BlasModInstaller
                 if (MessageBox.Show("Are you sure you want to uninstall this mod?", nameText.Text, MessageBoxButtons.OKCancel) == DialogResult.OK)
                     mod.UninstallMod();
             }
+            else if (mod.Downloading)
+            {
+                // Cancel download
+            }
             else
                 MainForm.Instance.Download(mod);
         }
@@ -78,7 +82,7 @@ namespace BlasModInstaller
 
             // Install button
             bool modInstalled = mod.Installed;
-            installButton.Enabled = true;
+            //installButton.Enabled = true;
             installButton.Text = modInstalled ? "Uninstall" : "Install";
             installButton.BackColor = modInstalled ? Color.FromArgb(255, 102, 102) : Color.FromArgb(102, 255, 102);
 
@@ -102,7 +106,9 @@ namespace BlasModInstaller
             updateText.Text = "Downloading...";
             updateButton.Visible = false;
 
-            installButton.Enabled = false;
+            //installButton.Enabled = false;
+            installButton.Text = "Cancel";
+            installButton.BackColor = Color.FromArgb(255, 178, 102);
             progressBar.Visible = true;
             progressBar.Value = 0;
         }

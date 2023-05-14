@@ -142,6 +142,7 @@ namespace BlasModInstaller
         {
             if (BlasRootFolder == null) return;
 
+            mod.Downloading = true;
             mod.UI.DisplayDownloadBar();
 
             Octokit.Release latestRelease = await github.Repository.Release.GetLatest(mod.GithubAuthor, mod.GithubRepo);
@@ -157,7 +158,9 @@ namespace BlasModInstaller
                 };
                 client.DownloadFileCompleted += (object sender, AsyncCompletedEventArgs e) =>
                 {
-                    BeginInvoke(new MethodInvoker(() => mod.InstallMod(newVersion, downloadPath)));
+                    mod.Downloading = false;
+                    if (!e.Cancelled)
+                        BeginInvoke(new MethodInvoker(() => mod.InstallMod(newVersion, downloadPath)));
                 };
                 client.DownloadFileAsync(new Uri(downloadUrl), downloadPath);
             }
