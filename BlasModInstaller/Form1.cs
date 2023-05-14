@@ -133,7 +133,7 @@ namespace BlasModInstaller
 
         private void ClickedDebug(object sender, EventArgs e)
         {
-            fakePanel.Visible = !fakePanel.Visible;
+            //fakePanel.Visible = !fakePanel.Visible;
         }
 
         public async Task Download(Mod mod)

@@ -7,6 +7,7 @@ namespace BlasModInstaller
     public class ModHolder
     {
         private const int MOD_HEIGHT = 78;
+        private Color BACKGROUND_COLOR = Color.FromArgb(33, 33, 36);
         private Mod mod;
 
         private Panel rowBox;
@@ -64,7 +65,7 @@ namespace BlasModInstaller
             bool modEnabled = mod.Enabled;
             installButton.Enabled = true;
             installButton.Text = modInstalled ? "Uninstall" : "Install";
-            installButton.BackColor = modInstalled ? Color.Beige : Color.AliceBlue;
+            installButton.BackColor = modInstalled ? Color.FromArgb(255, 102, 102) : Color.FromArgb(102, 255, 102);
             enabledCheckbox.Enabled = modInstalled;
             enabledCheckbox.Checked = modInstalled && modEnabled;
 
@@ -95,17 +96,28 @@ namespace BlasModInstaller
         {
             modHolder.AutoScroll = false;
 
+            Panel background = new Panel();
+            background.Name = mod.Name;
+            background.BackColor = Color.White;
+            background.Parent = modHolder;
+            background.Size = new Size(formWidth - 50, MOD_HEIGHT);
+            //rowBox.Location = new Point(15, 12 + (12 + MOD_HEIGHT) * modIdx);
+            background.Location = new Point(0, MOD_HEIGHT * modIdx);
+            background.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+
             rowBox = new Panel();
             rowBox.Name = mod.Name;
-            rowBox.BackColor = modIdx % 2 == 0 ? Color.LightGray : Color.WhiteSmoke;
-            rowBox.Parent = modHolder;
-            rowBox.Size = new Size(formWidth - 50, MOD_HEIGHT);
-            rowBox.Location = new Point(15, 12 + (12 + MOD_HEIGHT) * modIdx);
-            rowBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            rowBox.BackColor = BACKGROUND_COLOR;//modIdx % 2 == 0 ? Color.LightGray : Color.WhiteSmoke;
+            rowBox.Parent = background;
+            rowBox.Size = new Size(formWidth - 52, MOD_HEIGHT - 2);
+            //rowBox.Location = new Point(15, 12 + (12 + MOD_HEIGHT) * modIdx);
+            rowBox.Location = new Point(1, 1);
+            rowBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
 
             nameText = new Label();
             nameText.Name = mod.Name;
             nameText.Parent = rowBox;
+            nameText.ForeColor = Color.White;
             nameText.Size = new Size(400, 15);
             nameText.Location = new Point(10, 8);
             nameText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
@@ -113,6 +125,7 @@ namespace BlasModInstaller
             authorText = new Label();
             authorText.Name = mod.Name;
             authorText.Parent = rowBox;
+            authorText.ForeColor = Color.White;
             authorText.Size = new Size(400, 15);
             authorText.Location = new Point(10, 25);
             authorText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
@@ -120,6 +133,7 @@ namespace BlasModInstaller
             descriptionText = new Label();
             descriptionText.Name = mod.Name;
             descriptionText.Parent = rowBox;
+            descriptionText.ForeColor = Color.White;
             descriptionText.Size = new Size(450, 15);
             descriptionText.Location = new Point(10, 42);
             descriptionText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
@@ -136,6 +150,8 @@ namespace BlasModInstaller
             installButton = new Button();
             installButton.Name = mod.Name;
             installButton.Parent = rowBox;
+            installButton.FlatStyle = FlatStyle.Flat;
+            installButton.FlatAppearance.BorderColor = Color.White;
             installButton.Size = new Size(70, 30);
             installButton.Location = new Point(rowBox.Width - 155, 20);
             installButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -145,16 +161,45 @@ namespace BlasModInstaller
             enabledCheckbox.Name = mod.Name;
             enabledCheckbox.Text = "Enabled";
             enabledCheckbox.Parent = rowBox;
-            enabledCheckbox.Size = new Size(70, 40);
+            enabledCheckbox.BackColor = BACKGROUND_COLOR;
+            enabledCheckbox.ForeColor = Color.White;
+            enabledCheckbox.Size = new Size(70, 30);
             enabledCheckbox.Location = new Point(rowBox.Width - 75, 17);
             enabledCheckbox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             enabledCheckbox.Click += ClickedEnable;
+            enabledCheckbox.Visible = false;
+
+            //Button enabledButton = new Button();
+            //enabledButton.Name = mod.Name;
+            //enabledButton.Text = "Disabled";
+            //enabledButton.Parent = rowBox;
+            //enabledButton.FlatStyle = FlatStyle.Flat;
+            //enabledButton.FlatAppearance.BorderColor = Color.White;
+            //enabledButton.BackColor = BACKGROUND_COLOR;
+            ////enabledCheckbox.Appearance = Appearance.Button;
+            //enabledButton.ForeColor = Color.White;
+            //enabledButton.Size = new Size(70, 30);
+            //enabledButton.Location = new Point(rowBox.Width - 75, 17);
+            //enabledButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Button enabledButton = new Button();
+            enabledButton.Name = mod.Name;
+            enabledButton.Text = "Enabled";
+            enabledButton.Parent = rowBox;
+            enabledButton.FlatStyle = FlatStyle.Flat;
+            enabledButton.FlatAppearance.BorderColor = Color.Yellow;
+            enabledButton.BackColor = BACKGROUND_COLOR;
+            //enabledCheckbox.Appearance = Appearance.Button;
+            enabledButton.ForeColor = Color.Yellow;
+            enabledButton.Size = new Size(70, 30);
+            enabledButton.Location = new Point(rowBox.Width - 75, 17);
+            enabledButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 
             updateText = new Label();
             updateText.Name = mod.Name;
             updateText.Text = string.Empty;
             updateText.TextAlign = ContentAlignment.TopCenter;
             updateText.Parent = rowBox;
+            updateText.ForeColor = Color.White;
             updateText.Size = new Size(120, 15);
             updateText.Location = new Point(rowBox.Width - 335, 17);
             updateText.Anchor = AnchorStyles.Top | AnchorStyles.Right;
