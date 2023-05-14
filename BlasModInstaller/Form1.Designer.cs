@@ -46,7 +46,7 @@ namespace BlasModInstaller
             // 
             this.scroll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.scroll.Location = new System.Drawing.Point(1142, 12);
+            this.scroll.Location = new System.Drawing.Point(1143, 12);
             this.scroll.Name = "scroll";
             this.scroll.Size = new System.Drawing.Size(20, 635);
             this.scroll.TabIndex = 2;
@@ -61,9 +61,10 @@ namespace BlasModInstaller
             this.modHolder.AutoScrollMargin = new System.Drawing.Size(0, 15);
             this.modHolder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.modHolder.Controls.Add(this.scroll);
+            this.modHolder.Controls.Add(this.fakePanel);
             this.modHolder.Location = new System.Drawing.Point(0, 100);
             this.modHolder.Name = "modHolder";
-            this.modHolder.Size = new System.Drawing.Size(1183, 660);
+            this.modHolder.Size = new System.Drawing.Size(1184, 660);
             this.modHolder.TabIndex = 3;
             // 
             // debugBtn
@@ -80,7 +81,7 @@ namespace BlasModInstaller
             // 
             this.blasLocButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.blasLocButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.blasLocButton.Location = new System.Drawing.Point(460, 300);
+            this.blasLocButton.Location = new System.Drawing.Point(461, 300);
             this.blasLocButton.Name = "blasLocButton";
             this.blasLocButton.Size = new System.Drawing.Size(260, 50);
             this.blasLocButton.TabIndex = 7;
@@ -102,16 +103,15 @@ namespace BlasModInstaller
             this.fakePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.fakePanel.Controls.Add(this.vScrollBar1);
             this.fakePanel.Controls.Add(this.blasLocButton);
-            this.fakePanel.Location = new System.Drawing.Point(0, 100);
+            this.fakePanel.Location = new System.Drawing.Point(0, 0);
             this.fakePanel.Name = "fakePanel";
-            this.fakePanel.Size = new System.Drawing.Size(1183, 660);
+            this.fakePanel.Size = new System.Drawing.Size(1184, 660);
             this.fakePanel.TabIndex = 4;
             // 
             // vScrollBar1
             // 
-            this.vScrollBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.vScrollBar1.Location = new System.Drawing.Point(1142, 12);
+            this.vScrollBar1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.vScrollBar1.Location = new System.Drawing.Point(1201, 12);
             this.vScrollBar1.Name = "vScrollBar1";
             this.vScrollBar1.Size = new System.Drawing.Size(20, 635);
             this.vScrollBar1.TabIndex = 2;
@@ -133,12 +133,12 @@ namespace BlasModInstaller
             this.BackColor = System.Drawing.Color.Gray;
             this.ClientSize = new System.Drawing.Size(1182, 753);
             this.Controls.Add(this.debugText);
-            this.Controls.Add(this.fakePanel);
             this.Controls.Add(this.debugBtn);
             this.Controls.Add(this.modHolder);
             this.MinimumSize = new System.Drawing.Size(1200, 800);
             this.Name = "MainForm";
             this.Text = "Blasphemous Mod Installer";
+            this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             this.modHolder.ResumeLayout(false);
             this.fakePanel.ResumeLayout(false);
             this.ResumeLayout(false);

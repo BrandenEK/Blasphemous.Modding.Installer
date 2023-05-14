@@ -53,7 +53,7 @@ namespace BlasModInstaller
                 mods = JsonConvert.DeserializeObject<List<Mod>>(json);
 
                 for (int i = 0; i < mods.Count; i++)
-                    mods[i].UI.CreateUI(modHolder, Width, i);
+                    mods[i].UI.CreateUI(modHolder, i);
             }
             else
             {
@@ -93,7 +93,7 @@ namespace BlasModInstaller
                     {
                         webMod.Version = webVersion.ToString();
                         mods.Add(webMod);
-                        webMod.UI.CreateUI(modHolder, Width, mods.Count - 1);
+                        webMod.UI.CreateUI(modHolder, mods.Count - 1);
                     }
                 }
             }
@@ -134,6 +134,8 @@ namespace BlasModInstaller
         private void ClickedDebug(object sender, EventArgs e)
         {
             //fakePanel.Visible = !fakePanel.Visible;
+            //Mod newMod = new Mod("Test", "", "", "", "", "", null);
+            //newMod.UI.CreateUI(modHolder, mods.Count);
         }
 
         public async Task Download(Mod mod)
@@ -208,6 +210,19 @@ namespace BlasModInstaller
                     count++;
             }
             return count;
+        }
+
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            if (mods != null)
+                AdjustHolderWidth();
+
+        }
+
+        public void AdjustHolderWidth()
+        {
+            bool scrollVisible = modHolder.VerticalScroll.Visible;
+            modHolder.Width = Width - (scrollVisible ? 17 : 16);
         }
     }
 }
