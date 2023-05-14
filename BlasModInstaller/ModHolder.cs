@@ -22,6 +22,7 @@ namespace BlasModInstaller
         private Label descriptionText;
         private LinkLabel linkText;
 
+        private Button infoButton;
         private Button installButton;
         private Button enableButton;
 
@@ -56,6 +57,11 @@ namespace BlasModInstaller
         {
             mod.UninstallMod();
             MainForm.Instance.Download(mod);
+        }
+
+        private void ClickedInfo(object sender, EventArgs e)
+        {
+            mod.OpenGithubLink();
         }
 
         public ModHolder(Mod mod)
@@ -165,6 +171,20 @@ namespace BlasModInstaller
             //linkText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             //linkText.LinkClicked += ClickedGithub;
 
+            infoButton = new Button();
+            infoButton.Name = mod.Name;
+            infoButton.Parent = innerPanel;
+            infoButton.Font = installFont;
+            infoButton.BackColor = Color.FromArgb(51, 153, 255);
+            infoButton.FlatStyle = FlatStyle.Flat;
+            infoButton.FlatAppearance.BorderColor = Color.White;
+            infoButton.Text = "INFO";
+            infoButton.Size = new Size(42, 25);
+            infoButton.Location = new Point(innerPanel.Width - 212, 26);
+            infoButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            infoButton.Cursor = Cursors.Hand;
+            infoButton.Click += ClickedInfo;
+
             installButton = new Button();
             installButton.Name = mod.Name;
             installButton.Parent = innerPanel;
@@ -197,7 +217,7 @@ namespace BlasModInstaller
             updateText.Parent = innerPanel;
             updateText.ForeColor = Color.LightGray;
             updateText.Size = new Size(120, 15);
-            updateText.Location = new Point(innerPanel.Width - 335, 17);
+            updateText.Location = new Point(innerPanel.Width - 358, 17);
             updateText.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 
             updateButton = new Button();
@@ -206,7 +226,7 @@ namespace BlasModInstaller
             updateButton.BackColor = Color.White;
             updateButton.Parent = innerPanel;
             updateButton.Size = new Size(72, 25);
-            updateButton.Location = new Point(innerPanel.Width - 311, 36);
+            updateButton.Location = new Point(innerPanel.Width - 334, 36);
             updateButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             updateButton.Cursor = Cursors.Hand;
             updateButton.Click += ClickedUpdate;
@@ -215,7 +235,7 @@ namespace BlasModInstaller
             progressBar.Name = mod.Name;
             progressBar.Parent = innerPanel;
             progressBar.Size = new Size(130, 22);
-            progressBar.Location = new Point(innerPanel.Width - 343, 36);
+            progressBar.Location = new Point(innerPanel.Width - 366, 36);
             progressBar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 
             modHolder.AutoScroll = true;
