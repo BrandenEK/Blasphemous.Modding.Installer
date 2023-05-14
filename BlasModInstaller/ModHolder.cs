@@ -17,7 +17,7 @@ namespace BlasModInstaller
         private LinkLabel linkText;
 
         private Button installButton;
-        private CheckBox enabledCheckbox;
+        private Button enableButton;
 
         private Label updateText;
         private Button updateButton;
@@ -33,11 +33,12 @@ namespace BlasModInstaller
 
         private void ClickedEnable(object sender, EventArgs e)
         {
-            bool isChecked = (sender as CheckBox).Checked;
-            if (isChecked)
-                mod.EnableMod();
-            else
+            if (mod.Enabled)
                 mod.DisableMod();
+            else
+                mod.EnableMod();
+
+            UpdateUI(false);
         }
 
         private void ClickedGithub(object sender, LinkLabelLinkClickedEventArgs e) => mod.OpenGithubLink();
@@ -60,14 +61,18 @@ namespace BlasModInstaller
             authorText.Text = "Author: " + mod.Author;
             descriptionText.Text = mod.Description;
 
-            // Install/Enable buttons
+            // Install button
             bool modInstalled = mod.Installed;
-            bool modEnabled = mod.Enabled;
             installButton.Enabled = true;
             installButton.Text = modInstalled ? "Uninstall" : "Install";
             installButton.BackColor = modInstalled ? Color.FromArgb(255, 102, 102) : Color.FromArgb(102, 255, 102);
-            enabledCheckbox.Enabled = modInstalled;
-            enabledCheckbox.Checked = modInstalled && modEnabled;
+
+            // Enable button
+            bool modEnabled = mod.Enabled;
+            enableButton.Visible = modInstalled;
+            enableButton.Text = modEnabled ? "Enabled" : "Disabled";
+            enableButton.ForeColor = modEnabled ? Color.Yellow : Color.White;
+            enableButton.FlatAppearance.BorderColor = modEnabled ? Color.Yellow : Color.White;
 
             // Update text/button
             updateText.Visible = updateAvailable;
@@ -157,42 +162,15 @@ namespace BlasModInstaller
             installButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             installButton.Click += ClickedInstall;
 
-            enabledCheckbox = new CheckBox();
-            enabledCheckbox.Name = mod.Name;
-            enabledCheckbox.Text = "Enabled";
-            enabledCheckbox.Parent = rowBox;
-            enabledCheckbox.BackColor = BACKGROUND_COLOR;
-            enabledCheckbox.ForeColor = Color.White;
-            enabledCheckbox.Size = new Size(70, 30);
-            enabledCheckbox.Location = new Point(rowBox.Width - 75, 17);
-            enabledCheckbox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            enabledCheckbox.Click += ClickedEnable;
-            enabledCheckbox.Visible = false;
-
-            //Button enabledButton = new Button();
-            //enabledButton.Name = mod.Name;
-            //enabledButton.Text = "Disabled";
-            //enabledButton.Parent = rowBox;
-            //enabledButton.FlatStyle = FlatStyle.Flat;
-            //enabledButton.FlatAppearance.BorderColor = Color.White;
-            //enabledButton.BackColor = BACKGROUND_COLOR;
-            ////enabledCheckbox.Appearance = Appearance.Button;
-            //enabledButton.ForeColor = Color.White;
-            //enabledButton.Size = new Size(70, 30);
-            //enabledButton.Location = new Point(rowBox.Width - 75, 17);
-            //enabledButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            Button enabledButton = new Button();
-            enabledButton.Name = mod.Name;
-            enabledButton.Text = "Enabled";
-            enabledButton.Parent = rowBox;
-            enabledButton.FlatStyle = FlatStyle.Flat;
-            enabledButton.FlatAppearance.BorderColor = Color.Yellow;
-            enabledButton.BackColor = BACKGROUND_COLOR;
-            //enabledCheckbox.Appearance = Appearance.Button;
-            enabledButton.ForeColor = Color.Yellow;
-            enabledButton.Size = new Size(70, 30);
-            enabledButton.Location = new Point(rowBox.Width - 75, 17);
-            enabledButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            enableButton = new Button();
+            enableButton.Name = mod.Name;
+            enableButton.Parent = rowBox;
+            enableButton.FlatStyle = FlatStyle.Flat;
+            enableButton.BackColor = BACKGROUND_COLOR;
+            enableButton.Size = new Size(60, 22);
+            enableButton.Location = new Point(rowBox.Width - 72, 24);
+            enableButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            enableButton.Click += ClickedEnable;
 
             updateText = new Label();
             updateText.Name = mod.Name;
