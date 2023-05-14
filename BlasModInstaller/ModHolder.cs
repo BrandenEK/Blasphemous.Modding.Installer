@@ -171,6 +171,7 @@ namespace BlasModInstaller
             installButton.Size = new Size(70, 30);
             installButton.Location = new Point(innerPanel.Width - 158, 23);
             installButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            installButton.Cursor = Cursors.Hand;
             installButton.Click += ClickedInstall;
 
             enableButton = new Button();
@@ -182,12 +183,14 @@ namespace BlasModInstaller
             enableButton.Size = new Size(64, 22);
             enableButton.Location = new Point(innerPanel.Width - 75, 27);
             enableButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            enableButton.Cursor = Cursors.Hand;
             enableButton.Click += ClickedEnable;
 
             updateText = new Label();
             updateText.Name = mod.Name;
             updateText.Text = string.Empty;
             updateText.TextAlign = ContentAlignment.TopCenter;
+            updateText.Font = smallFont;
             updateText.Parent = innerPanel;
             updateText.ForeColor = Color.LightGray;
             updateText.Size = new Size(120, 15);
@@ -202,6 +205,7 @@ namespace BlasModInstaller
             updateButton.Size = new Size(72, 25);
             updateButton.Location = new Point(innerPanel.Width - 311, 36);
             updateButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            updateButton.Cursor = Cursors.Hand;
             updateButton.Click += ClickedUpdate;
 
             progressBar = new ProgressBar();
