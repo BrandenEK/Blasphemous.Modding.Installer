@@ -93,7 +93,7 @@ namespace BlasModInstaller
             // 
             this.blasLocButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.blasLocButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.blasLocButton.Location = new System.Drawing.Point(327, 338);
+            this.blasLocButton.Location = new System.Drawing.Point(327, 200);
             this.blasLocButton.Name = "blasLocButton";
             this.blasLocButton.Size = new System.Drawing.Size(228, 56);
             this.blasLocButton.TabIndex = 7;
@@ -123,16 +123,16 @@ namespace BlasModInstaller
             this.debugText.Font = new System.Drawing.Font("Trebuchet MS", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.debugText.Location = new System.Drawing.Point(81, 19);
             this.debugText.Name = "debugText";
-            this.debugText.Size = new System.Drawing.Size(48, 18);
+            this.debugText.Size = new System.Drawing.Size(39, 16);
             this.debugText.TabIndex = 6;
             this.debugText.Text = "Debug";
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(882, 553);
+            this.ClientSize = new System.Drawing.Size(884, 561);
             this.Controls.Add(this.debugText);
             this.Controls.Add(this.debugBtn);
             this.Controls.Add(this.modHolder);
