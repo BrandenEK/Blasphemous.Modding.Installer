@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Windows.Forms;
 using Ionic.Zip;
 using Newtonsoft.Json;
@@ -24,8 +25,6 @@ namespace BlasModInstaller
         public bool Installed => File.Exists(PathToEnabledPlugin) || File.Exists(PathToDisabledPlugin);
         [JsonIgnore]
         public bool Enabled => File.Exists(PathToEnabledPlugin);
-        [JsonIgnore]
-        public bool Downloading { get; set; }
 
         public Mod(string name, string author, string description, string githubAuthor, string githubRepo, string pluginFile, string[] requiredDlls)
         {
@@ -170,6 +169,37 @@ namespace BlasModInstaller
                     m_UI = new ModHolder(this);
                 return m_UI;
             }
+        }
+
+        // Download stuff
+
+        [JsonIgnore]
+        public bool Downloading { get; private set; }
+        private WebClient client;
+
+        public void StartDownload()
+        {
+            client = new WebClient();
+            Downloading = true;
+            UI.DisplayDownloadBar();
+            MainForm.Instance.DownloadMod(this, client);
+        }
+
+        public void FinishDownload()
+        {
+            Downloading = false;
+            client.Dispose();
+            client = null;
+        }
+
+        public void CancelDownload()
+        {
+            if (client != null)
+            {
+                client.CancelAsync();
+                FinishDownload();
+            }
+            UI.UpdateUI(false);
         }
 
         // Install paths

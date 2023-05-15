@@ -41,7 +41,7 @@ namespace BlasModInstaller
                 Directory.CreateDirectory(BlasRootFolder + "\\Modding\\disabled"); // Only because its not included in the API
                 fakePanel.Visible = false;
                 LoadModsFromJson();
-                LoadModsFromWeb();
+                //LoadModsFromWeb();
             }
         }
 
@@ -138,32 +138,29 @@ namespace BlasModInstaller
             //newMod.UI.CreateUI(modHolder, mods.Count);
         }
 
-        public async Task Download(Mod mod)
+        public async Task DownloadMod(Mod mod, WebClient client)
         {
             if (BlasRootFolder == null) return;
-
-            mod.Downloading = true;
-            mod.UI.DisplayDownloadBar();
 
             Octokit.Release latestRelease = await github.Repository.Release.GetLatest(mod.GithubAuthor, mod.GithubRepo);
             string newVersion = latestRelease.TagName;
             string downloadUrl = latestRelease.Assets[0].BrowserDownloadUrl;
             string downloadPath = $"{DownloadsPath}{mod.Name.Replace(' ', '_')}_{newVersion}.zip";
 
-            using (WebClient client = new WebClient())
+            // Update download bar
+            client.DownloadProgressChanged += (object sender, DownloadProgressChangedEventArgs e) =>
             {
-                client.DownloadProgressChanged += (object sender, DownloadProgressChangedEventArgs e) => 
-                {
-                    BeginInvoke(new MethodInvoker(() => mod.UI.UpdateDownloadBar(e.ProgressPercentage)));
-                };
-                client.DownloadFileCompleted += (object sender, AsyncCompletedEventArgs e) =>
-                {
-                    mod.Downloading = false;
-                    if (!e.Cancelled)
-                        BeginInvoke(new MethodInvoker(() => mod.InstallMod(newVersion, downloadPath)));
-                };
-                client.DownloadFileAsync(new Uri(downloadUrl), downloadPath);
-            }
+                BeginInvoke(new MethodInvoker(() => mod.UI.UpdateDownloadBar(e.ProgressPercentage)));
+            };
+            // Finish download
+            client.DownloadFileCompleted += (object sender, AsyncCompletedEventArgs e) =>
+            {
+                mod.FinishDownload();
+                if (!e.Cancelled)
+                    BeginInvoke(new MethodInvoker(() => mod.InstallMod(newVersion, downloadPath)));
+            };
+            // Start download
+            client.DownloadFileAsync(new Uri(downloadUrl), downloadPath);
         }
 
         private void LoadConfig()
@@ -226,6 +223,11 @@ namespace BlasModInstaller
         {
             bool scrollVisible = modHolder.VerticalScroll.Visible;
             modHolder.Width = Width - (scrollVisible ? 17 : 16);
+        }
+
+        public static void Debug(string message)
+        {
+            Instance.debugText.Text += message + " ";
         }
     }
 }

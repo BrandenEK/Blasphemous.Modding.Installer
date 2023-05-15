@@ -39,10 +39,12 @@ namespace BlasModInstaller
             }
             else if (mod.Downloading)
             {
-                // Cancel download
+                mod.CancelDownload();
             }
             else
-                MainForm.Instance.Download(mod);
+            {
+                mod.StartDownload();
+            }
         }
 
         private void ClickedEnable(object sender, EventArgs e)
@@ -60,7 +62,7 @@ namespace BlasModInstaller
         private void ClickedUpdate(object sender, EventArgs e)
         {
             mod.UninstallMod();
-            MainForm.Instance.Download(mod);
+            mod.StartDownload();
         }
 
         private void ClickedInfo(object sender, EventArgs e)
@@ -222,8 +224,8 @@ namespace BlasModInstaller
             updateText.Font = smallFont;
             updateText.Parent = innerPanel;
             updateText.ForeColor = Color.LightGray;
-            updateText.Size = new Size(120, 15);
-            updateText.Location = new Point(innerPanel.Width - 358, 17);
+            updateText.Size = new Size(200, 15);
+            updateText.Location = new Point(innerPanel.Width - 400, 17);
             updateText.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 
             updateButton = new Button();
@@ -231,8 +233,10 @@ namespace BlasModInstaller
             updateButton.Text = "Download";
             updateButton.BackColor = Color.White;
             updateButton.Parent = innerPanel;
+            updateButton.FlatStyle = FlatStyle.Flat;
+            updateButton.Font = installFont;
             updateButton.Size = new Size(72, 25);
-            updateButton.Location = new Point(innerPanel.Width - 334, 36);
+            updateButton.Location = new Point(innerPanel.Width - 334, 40);
             updateButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             updateButton.Cursor = Cursors.Hand;
             updateButton.Click += ClickedUpdate;
@@ -247,6 +251,8 @@ namespace BlasModInstaller
             modHolder.AutoScroll = true;
             MainForm.Instance.AdjustHolderWidth();
             UpdateUI(false);
+
+            UpdateUI(true);
         }
     }
 }
