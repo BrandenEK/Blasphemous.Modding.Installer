@@ -133,7 +133,7 @@ namespace BlasModInstaller
             outerPanel.Name = mod.Name;
             outerPanel.BackColor = Color.Black;
             outerPanel.Parent = modHolder;
-            outerPanel.Size = new Size(modHolder.Width, MOD_HEIGHT);
+            outerPanel.Size = new Size(modHolder.Width, MOD_HEIGHT + (modIdx == 0 ? 3 : 2));
             //rowBox.Location = new Point(15, 12 + (12 + MOD_HEIGHT) * modIdx);
             outerPanel.Location = new Point(0, MOD_HEIGHT * modIdx);
             outerPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
@@ -142,9 +142,9 @@ namespace BlasModInstaller
             innerPanel.Name = mod.Name;
             innerPanel.BackColor = backgroundColor;
             innerPanel.Parent = outerPanel;
-            innerPanel.Size = new Size(modHolder.Width - 2, MOD_HEIGHT - 2);
+            innerPanel.Size = new Size(modHolder.Width, MOD_HEIGHT - 1);
             //rowBox.Location = new Point(15, 12 + (12 + MOD_HEIGHT) * modIdx);
-            innerPanel.Location = new Point(1, 1);
+            innerPanel.Location = new Point(0, modIdx == 0 ? 2 : 1);
             innerPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
 
             nameText = new Label();
