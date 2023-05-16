@@ -52,9 +52,10 @@ namespace BlasModInstaller
                     file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
             }
             Version = newVersion;
+            UpdateAvailable = false;
             MainForm.Instance.SaveMods();
             File.Delete(zipPath);
-            UI.UpdateUI(false);
+            UI.UpdateUI();
         }
 
         public void UninstallMod()
@@ -91,7 +92,8 @@ namespace BlasModInstaller
             }
 
             // Update UI
-            UI.UpdateUI(false);
+            UpdateAvailable = false;
+            UI.UpdateUI();
         }
 
         public void EnableMod()
@@ -175,6 +177,9 @@ namespace BlasModInstaller
 
         [JsonIgnore]
         public bool Downloading { get; private set; }
+        [JsonIgnore]
+        public bool UpdateAvailable { get; set; }
+
         private WebClient client;
 
         public void StartDownload()
@@ -199,7 +204,7 @@ namespace BlasModInstaller
                 client.CancelAsync();
                 FinishDownload();
             }
-            UI.UpdateUI(false);
+            UI.UpdateUI();
         }
 
         // Install paths

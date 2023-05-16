@@ -41,7 +41,7 @@ namespace BlasModInstaller
                 Directory.CreateDirectory(BlasRootFolder + "\\Modding\\disabled"); // Only because its not included in the API
                 fakePanel.Visible = false;
                 LoadModsFromJson();
-                //LoadModsFromWeb();
+                LoadModsFromWeb();
             }
         }
 
@@ -77,17 +77,16 @@ namespace BlasModInstaller
                     {
                         localMod.CopyData(webMod);
 
-                        bool displayUpdate = false;
                         if (localMod.Installed)
                         {
                             Version localVersion = new Version(localMod.Version);
-                            displayUpdate = webVersion.CompareTo(localVersion) > 0;
+                            localMod.UpdateAvailable = webVersion.CompareTo(localVersion) > 0;
                         }
                         else
                         {
                             localMod.Version = webVersion.ToString();
                         }
-                        localMod.UI.UpdateUI(displayUpdate);
+                        localMod.UI.UpdateUI();
                     }
                     else
                     {

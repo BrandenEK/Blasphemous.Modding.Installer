@@ -54,7 +54,7 @@ namespace BlasModInstaller
             else
                 mod.EnableMod();
 
-            UpdateUI(false);
+            UpdateUI();
         }
 
         private void ClickedGithub(object sender, LinkLabelLinkClickedEventArgs e) => mod.OpenGithubLink();
@@ -75,7 +75,7 @@ namespace BlasModInstaller
             this.mod = mod;
         }
 
-        public void UpdateUI(bool updateAvailable)
+        public void UpdateUI()
         {
             // Text
             nameText.Text = $"{mod.Name} v{mod.Version}";
@@ -84,7 +84,6 @@ namespace BlasModInstaller
 
             // Install button
             bool modInstalled = mod.Installed;
-            //installButton.Enabled = true;
             installButton.Text = modInstalled ? "Uninstall" : "Install";
             installButton.BackColor = modInstalled ? Color.FromArgb(255, 102, 102) : Color.FromArgb(102, 255, 102);
 
@@ -96,9 +95,10 @@ namespace BlasModInstaller
             enableButton.FlatAppearance.BorderColor = modEnabled ? Color.Yellow : Color.White;
 
             // Update text/button
-            updateText.Visible = updateAvailable;
-            updateText.Text = updateAvailable ? "An update is available!" : string.Empty;
-            updateButton.Visible = updateAvailable;
+            bool canUpdate = mod.UpdateAvailable;
+            updateText.Visible = canUpdate;
+            updateText.Text = canUpdate ? "An update is available!" : string.Empty;
+            updateButton.Visible = canUpdate;
             progressBar.Visible = false;
         }
 
@@ -108,7 +108,6 @@ namespace BlasModInstaller
             updateText.Text = "Downloading...";
             updateButton.Visible = false;
 
-            //installButton.Enabled = false;
             installButton.Text = "Cancel";
             installButton.BackColor = Color.FromArgb(255, 178, 102);
             progressBar.Visible = true;
@@ -250,9 +249,7 @@ namespace BlasModInstaller
 
             modHolder.AutoScroll = true;
             MainForm.Instance.AdjustHolderWidth();
-            UpdateUI(false);
-
-            UpdateUI(true);
+            UpdateUI();
         }
     }
 }
