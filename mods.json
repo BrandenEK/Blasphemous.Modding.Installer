@@ -5,7 +5,7 @@
     "Description": "An API that is required for almost all other mods and allows for custom skins",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Modding-API",
-	"PluginFile": "ModdingAPI.dll"
+    "PluginFile": "ModdingAPI.dll"
   },
   {
     "Name": "Randomizer",
@@ -13,12 +13,12 @@
     "Description": "A randomizer mod that can shuffle items, enemies, and doors",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Randomizer",
-	"PluginFile": "BlasphemousRandomizer.dll",
-	"RequiredDlls":
-	[
-		"LogicParser.dll",
-		"websocket-sharp.dll"
-	]
+    "PluginFile": "BlasphemousRandomizer.dll",
+    "RequiredDlls":
+    [
+        "LogicParser.dll",
+        "websocket-sharp.dll"
+    ]
   },
   {
     "Name": "Multiworld",
@@ -26,12 +26,12 @@
     "Description": "A multiworld client that allows the randomizer to connect to Archipelago",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Multiworld",
-	"PluginFile": "BlasphemousMultiworld.dll",
-	"RequiredDlls":
-	[
-		"Archipelago.MultiClient.Net.dll",
-		"websocket-sharp.dll"
-	]
+    "PluginFile": "BlasphemousMultiworld.dll",
+    "RequiredDlls":
+    [
+        "Archipelago.MultiClient.Net.dll",
+        "websocket-sharp.dll"
+    ]
   },
   {
     "Name": "Multiplayer",
@@ -39,11 +39,11 @@
     "Description": "A multiplayer mod that allows you to play Blasphemous cooperatively or against other people",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Multiplayer",
-	"PluginFile": "BlasClient.dll",
-	"RequiredDlls":
-	[
-		"SimpleTCP.dll"
-	]
+    "PluginFile": "BlasClient.dll",
+    "RequiredDlls":
+    [
+        "SimpleTCP.dll"
+    ]
   },
   {
     "Name": "Boots of Pleading",
@@ -51,7 +51,7 @@
     "Description": "Adds a new relic called the 'Boots of Pleading' that allows you to survive falling in spikes",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Boots-of-Pleading",
-	"PluginFile": "BootsOfPleading.dll"
+    "PluginFile": "BootsOfPleading.dll"
   },
   {
     "Name": "Double Jump",
@@ -59,7 +59,7 @@
     "Description": "Adds a new relic called the 'Purified Hand of the Nun' that allows you to double jump",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Double-Jump",
-	"PluginFile": "BlasDoubleJump.dll"
+    "PluginFile": "BlasDoubleJump.dll"
   },
   {
     "Name": "Random Prayer",
@@ -67,7 +67,7 @@
     "Description": "Adds a new penitence that randomizes which prayer is used each time you attempt to cast one",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Random-Prayer-Use",
-	"PluginFile": "RandomPrayerUse.dll"
+    "PluginFile": "RandomPrayerUse.dll"
   },
   {
     "Name": "Debug Mod",
@@ -75,6 +75,6 @@
     "Description": "Enables the hitbox viewer and other features useful for testing and development",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Debug-Mod",
-	"PluginFile": "DebugMod.dll"
+    "PluginFile": "DebugMod.dll"
   }
 ]
