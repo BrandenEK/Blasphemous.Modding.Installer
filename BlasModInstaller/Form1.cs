@@ -226,7 +226,7 @@ namespace BlasModInstaller
 
         public void RemoveButtonFocus()
         {
-            debugText.Focus();
+            titleLabel.Focus();
         }
 
         public static void Debug(string message)
