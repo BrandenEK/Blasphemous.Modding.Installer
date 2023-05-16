@@ -119,6 +119,11 @@ namespace BlasModInstaller
             progressBar.Value = percentage;
         }
 
+        private void UnselectButton(object sender, EventArgs e)
+        {
+            MainForm.Instance.RemoveButtonFocus();
+        }
+
         public void CreateUI(Panel modHolder, int modIdx)
         {
             modHolder.AutoScroll = false;
@@ -191,6 +196,9 @@ namespace BlasModInstaller
             infoButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             infoButton.Cursor = Cursors.Hand;
             infoButton.Click += ClickedInfo;
+            infoButton.MouseUp += UnselectButton;
+            infoButton.MouseLeave += UnselectButton;
+            infoButton.TabStop = false;
 
             installButton = new Button();
             installButton.Name = mod.Name;
@@ -203,6 +211,9 @@ namespace BlasModInstaller
             installButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             installButton.Cursor = Cursors.Hand;
             installButton.Click += ClickedInstall;
+            installButton.MouseUp += UnselectButton;
+            installButton.MouseLeave += UnselectButton;
+            installButton.TabStop = false;
 
             enableButton = new Button();
             enableButton.Name = mod.Name;
@@ -215,6 +226,9 @@ namespace BlasModInstaller
             enableButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             enableButton.Cursor = Cursors.Hand;
             enableButton.Click += ClickedEnable;
+            enableButton.MouseUp += UnselectButton;
+            enableButton.MouseLeave += UnselectButton;
+            enableButton.TabStop = false;
 
             updateText = new Label();
             updateText.Name = mod.Name;
@@ -239,6 +253,9 @@ namespace BlasModInstaller
             updateButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             updateButton.Cursor = Cursors.Hand;
             updateButton.Click += ClickedUpdate;
+            updateButton.MouseUp += UnselectButton;
+            updateButton.MouseLeave += UnselectButton;
+            updateButton.TabStop = false;
 
             progressBar = new ProgressBar();
             progressBar.Name = mod.Name;

@@ -106,7 +106,7 @@ namespace BlasModInstaller
             this.debugBtn.Location = new System.Drawing.Point(10, 14);
             this.debugBtn.Name = "debugBtn";
             this.debugBtn.Size = new System.Drawing.Size(66, 29);
-            this.debugBtn.TabIndex = 5;
+            this.debugBtn.TabIndex = 0;
             this.debugBtn.Text = "Debug";
             this.debugBtn.UseVisualStyleBackColor = true;
             this.debugBtn.Click += new System.EventHandler(this.ClickedDebug);

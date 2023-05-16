@@ -224,6 +224,11 @@ namespace BlasModInstaller
             modHolder.Width = Width - (scrollVisible ? 17 : 16);
         }
 
+        public void RemoveButtonFocus()
+        {
+            debugText.Focus();
+        }
+
         public static void Debug(string message)
         {
             Instance.debugText.Text += message + " ";
