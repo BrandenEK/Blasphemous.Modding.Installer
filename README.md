@@ -1,6 +1,8 @@
 # Blasphemous Mod Installer
 A mod installer for the game Blasphemous that allows mods to be installed, updated, and enabled/disabled with only one click.
 
+<br>
+
 ## How to use
 
 1. Download the most recent version of the installer from the [Releases](https://github.com/BrandenEK/Blasphemous-Mod-Installer/releases) page
