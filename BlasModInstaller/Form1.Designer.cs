@@ -29,6 +29,7 @@ namespace BlasModInstaller
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.scroll = new System.Windows.Forms.VScrollBar();
             this.modHolder = new System.Windows.Forms.Panel();
             this.fakePanel = new System.Windows.Forms.Panel();
@@ -152,6 +153,7 @@ namespace BlasModInstaller
             this.Controls.Add(this.debugBtn);
             this.Controls.Add(this.modHolder);
             this.Font = new System.Drawing.Font("Trebuchet MS", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(900, 600);
             this.Name = "MainForm";
             this.Text = "Blasphemous Mod Installer";
