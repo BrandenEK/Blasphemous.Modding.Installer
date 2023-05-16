@@ -127,7 +127,7 @@ namespace BlasModInstaller
         public void CreateUI(Panel modHolder, int modIdx)
         {
             modHolder.AutoScroll = false;
-            Color backgroundColor = modIdx % 2 == 0 ? Color.FromArgb(52, 52, 52) : Color.FromArgb(64, 64, 64);
+            Color backgroundColor = modIdx % 2 == 0 ? MainForm.DARK_GRAY : MainForm.LIGHT_GRAY;
 
             outerPanel = new Panel();
             outerPanel.Name = mod.Name;

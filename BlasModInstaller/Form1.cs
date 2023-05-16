@@ -14,6 +14,9 @@ namespace BlasModInstaller
 {
     public partial class MainForm : Form
     {
+        public static Color LIGHT_GRAY => Color.FromArgb(64, 64, 64);
+        public static Color DARK_GRAY => Color.FromArgb(52, 52, 52);
+
         private string SavedModsPath => Environment.CurrentDirectory + "\\downloads\\mods.json";
         private string DownloadsPath => Environment.CurrentDirectory + "\\downloads\\";
         private string ConfigPath => Environment.CurrentDirectory + "\\installer.cfg";
@@ -59,6 +62,7 @@ namespace BlasModInstaller
             {
                 mods = new List<Mod>();
             }
+            SetBackgroundColor();
         }
 
         private async Task LoadModsFromWeb()
@@ -97,7 +101,8 @@ namespace BlasModInstaller
                 }
             }
 
-            debugText.Text = github.GetLastApiInfo().RateLimit.Remaining.ToString();
+            //debugText.Text = github.GetLastApiInfo().RateLimit.Remaining.ToString();
+            SetBackgroundColor();
             SaveMods();
         }
 
@@ -216,6 +221,11 @@ namespace BlasModInstaller
             if (mods != null)
                 AdjustHolderWidth();
 
+        }
+
+        private void SetBackgroundColor()
+        {
+            modHolder.BackColor = mods.Count % 2 == 0 ? DARK_GRAY : LIGHT_GRAY;
         }
 
         public void AdjustHolderWidth()
