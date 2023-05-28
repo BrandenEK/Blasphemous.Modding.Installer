@@ -21,6 +21,18 @@
     ]
   },
   {
+    "Name": "Rando Map",
+    "Author": "Damocles",
+    "Description": "An in-game map tracker for the Blasphemous Randomizer",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "Blasphemous-Rando-Map",
+    "PluginFile": "RandoMap.dll",
+    "RequiredDlls":
+    [
+        "LogicParser.dll"
+    ]
+  },
+  {
     "Name": "Multiworld",
     "Author": "Damocles",
     "Description": "A multiworld client that allows the randomizer to connect to Archipelago",
