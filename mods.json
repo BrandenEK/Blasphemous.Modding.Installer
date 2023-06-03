@@ -46,6 +46,14 @@
     ]
   },
   {
+    "Name": "PrieWarp",
+    "Author": "BadMagic",
+    "Description": "A mod which allows easily warping between unlocked Prie Dieus with mnemonic hotkeys.",
+    "GithubAuthor": "BadMagic100",
+    "GithubRepo": "Blasphemous-PrieWarp",
+    "PluginFile": "PrieWarp.dll"
+  },
+  {
     "Name": "Multiplayer",
     "Author": "Damocles",
     "Description": "A multiplayer mod that allows you to play Blasphemous cooperatively or against other people",
