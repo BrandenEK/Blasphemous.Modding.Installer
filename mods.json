@@ -96,5 +96,13 @@
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Debug-Mod",
     "PluginFile": "DebugMod.dll"
-  }
+  },
+  {
+    "Name": "OHKO",
+    "Author": "Damocles",
+    "Description": "A mod that makes any source of damage instantly kill the player",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "Blasphemous-OHKO",
+    "PluginFile": "OneHitKO.dll"
+  },
 ]
