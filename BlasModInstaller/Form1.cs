@@ -129,7 +129,7 @@ namespace BlasModInstaller
         private void CreateGithubClient()
         {
             github = new Octokit.GitHubClient(new Octokit.ProductHeaderValue("BlasModInstaller"));
-            if (config.GithubToken != null)
+            if (config.GithubToken != null && config.GithubToken != string.Empty)
             {
                 github.Credentials = new Octokit.Credentials(config.GithubToken);
             }
@@ -231,7 +231,7 @@ namespace BlasModInstaller
         public void AdjustHolderWidth()
         {
             bool scrollVisible = modSection.VerticalScroll.Visible;
-            modSection.Width = Width - (scrollVisible ? 17 : 16);
+            modSection.Width = mainSection.Width - (scrollVisible ? 17 : 16);
         }
 
         public void RemoveButtonFocus()

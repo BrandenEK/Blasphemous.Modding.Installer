@@ -6,6 +6,7 @@ namespace BlasModInstaller
 {
     public class ModHolder
     {
+        private const int MOD_WIDTH = 900;
         private const int MOD_HEIGHT = 82;
 
         private static Font smallFont = new Font("Verdana", 9);
@@ -204,7 +205,7 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(innerPanel.Width - 212, 26),
+                Location = new Point(modHolder.Width - 212, 26),
                 Size = new Size(42, 25),
                 BackColor = Color.FromArgb(51, 153, 255),
                 Font = installFont,
@@ -223,7 +224,7 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(innerPanel.Width - 158, 23),
+                Location = new Point(modHolder.Width - 158, 23),
                 Size = new Size(70, 30),
                 Font = installFont,
                 FlatStyle = FlatStyle.Flat,
@@ -240,7 +241,7 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(innerPanel.Width - 75, 27),
+                Location = new Point(modHolder.Width - 75, 27),
                 Size = new Size(64, 22),
                 BackColor = backgroundColor,
                 Font = enableFont,
@@ -257,7 +258,7 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(innerPanel.Width - 400, 17),
+                Location = new Point(modHolder.Width - 400, 17),
                 Size = new Size(200, 15),
                 ForeColor = Color.LightGray,
                 Font = smallFont,
@@ -270,7 +271,7 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(innerPanel.Width - 334, 40),
+                Location = new Point(modHolder.Width - 334, 40),
                 Size = new Size(72, 25),
                 BackColor = Color.White,
                 Font = installFont,
@@ -288,7 +289,7 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(innerPanel.Width - 366, 36),
+                Location = new Point(modHolder.Width - 366, 36),
                 Size = new Size(130, 22),
             };
 

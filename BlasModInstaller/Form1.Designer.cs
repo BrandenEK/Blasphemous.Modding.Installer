@@ -53,9 +53,9 @@ namespace BlasModInstaller
             // 
             this.scroll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.scroll.Location = new System.Drawing.Point(864, 14);
+            this.scroll.Location = new System.Drawing.Point(914, 14);
             this.scroll.Name = "scroll";
-            this.scroll.Size = new System.Drawing.Size(20, 440);
+            this.scroll.Size = new System.Drawing.Size(20, 640);
             this.scroll.TabIndex = 2;
             this.scroll.Visible = false;
             // 
@@ -68,16 +68,17 @@ namespace BlasModInstaller
             this.modSection.AutoScrollMargin = new System.Drawing.Size(0, 15);
             this.modSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
             this.modSection.Controls.Add(this.scroll);
+            this.modSection.Controls.Add(this.vScrollBar1);
             this.modSection.Location = new System.Drawing.Point(0, 60);
             this.modSection.Name = "modSection";
-            this.modSection.Size = new System.Drawing.Size(900, 501);
+            this.modSection.Size = new System.Drawing.Size(950, 701);
             this.modSection.TabIndex = 3;
             // 
             // blasLocButton
             // 
             this.blasLocButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.blasLocButton.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.blasLocButton.Location = new System.Drawing.Point(350, 225);
+            this.blasLocButton.Location = new System.Drawing.Point(375, 325);
             this.blasLocButton.Name = "blasLocButton";
             this.blasLocButton.Size = new System.Drawing.Size(200, 50);
             this.blasLocButton.TabIndex = 7;
@@ -91,17 +92,16 @@ namespace BlasModInstaller
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.locationSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.locationSection.Controls.Add(this.vScrollBar1);
             this.locationSection.Controls.Add(this.blasLocButton);
             this.locationSection.Location = new System.Drawing.Point(0, 60);
             this.locationSection.Name = "locationSection";
-            this.locationSection.Size = new System.Drawing.Size(900, 501);
+            this.locationSection.Size = new System.Drawing.Size(950, 701);
             this.locationSection.TabIndex = 4;
             // 
             // vScrollBar1
             // 
             this.vScrollBar1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.vScrollBar1.Location = new System.Drawing.Point(915, -107);
+            this.vScrollBar1.Location = new System.Drawing.Point(965, -7);
             this.vScrollBar1.Name = "vScrollBar1";
             this.vScrollBar1.Size = new System.Drawing.Size(20, 714);
             this.vScrollBar1.TabIndex = 2;
@@ -141,7 +141,7 @@ namespace BlasModInstaller
             this.titleLabel.Font = new System.Drawing.Font("Trebuchet MS", 20F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleLabel.Location = new System.Drawing.Point(0, 0);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(900, 60);
+            this.titleLabel.Size = new System.Drawing.Size(950, 60);
             this.titleLabel.TabIndex = 0;
             this.titleLabel.Text = "Blasphemous Mods";
             this.titleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -155,9 +155,9 @@ namespace BlasModInstaller
             this.mainSection.Controls.Add(this.titleSection);
             this.mainSection.Controls.Add(this.modSection);
             this.mainSection.Controls.Add(this.locationSection);
-            this.mainSection.Location = new System.Drawing.Point(200, 0);
+            this.mainSection.Location = new System.Drawing.Point(250, 0);
             this.mainSection.Name = "mainSection";
-            this.mainSection.Size = new System.Drawing.Size(900, 600);
+            this.mainSection.Size = new System.Drawing.Size(950, 800);
             this.mainSection.TabIndex = 7;
             // 
             // titleSection
@@ -168,7 +168,7 @@ namespace BlasModInstaller
             this.titleSection.Controls.Add(this.titleLabel);
             this.titleSection.Location = new System.Drawing.Point(0, 0);
             this.titleSection.Name = "titleSection";
-            this.titleSection.Size = new System.Drawing.Size(900, 60);
+            this.titleSection.Size = new System.Drawing.Size(950, 60);
             this.titleSection.TabIndex = 9;
             // 
             // sideSection
@@ -178,7 +178,7 @@ namespace BlasModInstaller
             this.sideSection.BackColor = System.Drawing.Color.Black;
             this.sideSection.Location = new System.Drawing.Point(0, 0);
             this.sideSection.Name = "sideSection";
-            this.sideSection.Size = new System.Drawing.Size(200, 600);
+            this.sideSection.Size = new System.Drawing.Size(250, 800);
             this.sideSection.TabIndex = 8;
             // 
             // MainForm
@@ -186,14 +186,14 @@ namespace BlasModInstaller
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(1084, 561);
+            this.ClientSize = new System.Drawing.Size(1184, 761);
             this.Controls.Add(this.debugText);
             this.Controls.Add(this.debugBtn);
             this.Controls.Add(this.mainSection);
             this.Controls.Add(this.sideSection);
             this.Font = new System.Drawing.Font("Trebuchet MS", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(1100, 600);
+            this.MinimumSize = new System.Drawing.Size(1200, 800);
             this.Name = "MainForm";
             this.Text = "Blasphemous Mod Installer";
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
