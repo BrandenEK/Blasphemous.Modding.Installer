@@ -129,140 +129,168 @@ namespace BlasModInstaller
             modHolder.AutoScroll = false;
             Color backgroundColor = modIdx % 2 == 0 ? MainForm.DARK_GRAY : MainForm.LIGHT_GRAY;
 
-            outerPanel = new Panel();
-            outerPanel.Name = mod.Name;
-            outerPanel.BackColor = Color.Black;
-            outerPanel.Parent = modHolder;
-            outerPanel.Size = new Size(modHolder.Width, MOD_HEIGHT + (modIdx == 0 ? 3 : 2));
-            //rowBox.Location = new Point(15, 12 + (12 + MOD_HEIGHT) * modIdx);
-            outerPanel.Location = new Point(0, MOD_HEIGHT * modIdx);
-            outerPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            // Panels
 
-            innerPanel = new Panel();
-            innerPanel.Name = mod.Name;
-            innerPanel.BackColor = backgroundColor;
-            innerPanel.Parent = outerPanel;
-            innerPanel.Size = new Size(modHolder.Width, MOD_HEIGHT - 1);
-            //rowBox.Location = new Point(15, 12 + (12 + MOD_HEIGHT) * modIdx);
-            innerPanel.Location = new Point(0, modIdx == 0 ? 2 : 1);
-            innerPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
+            outerPanel = new Panel
+            {
+                Name = mod.Name,
+                Parent = modHolder,
+                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
+                Location = new Point(0, MOD_HEIGHT * modIdx),
+                Size = new Size(modHolder.Width, MOD_HEIGHT + (modIdx == 0 ? 3 : 2)),
+                BackColor = Color.Black,
+            };
 
-            nameText = new Label();
-            nameText.Name = mod.Name;
-            nameText.Parent = innerPanel;
-            nameText.Font = largeFont;
-            nameText.ForeColor = Color.LightGray;
-            nameText.Size = new Size(400, 28);
-            nameText.Location = new Point(10, 10);
-            nameText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            innerPanel = new Panel
+            {
+                Name = mod.Name,
+                Parent = outerPanel,
+                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
+                Location = new Point(0, modIdx == 0 ? 2 : 1),
+                Size = new Size(modHolder.Width, MOD_HEIGHT - 1),
+                BackColor = backgroundColor,
+            };
 
-            //authorText = new Label();
-            //authorText.Name = mod.Name;
-            //authorText.Parent = innerPanel;
-            //authorText.ForeColor = Color.LightGray;
-            //authorText.Size = new Size(400, 15);
-            //authorText.Location = new Point(10, 25);
-            //authorText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            // Left stuff
 
-            descriptionText = new Label();
-            descriptionText.Name = mod.Name;
-            descriptionText.Parent = innerPanel;
-            descriptionText.Font = smallFont;
-            descriptionText.ForeColor = Color.LightGray;
-            descriptionText.Size = new Size(450, 30);
-            descriptionText.Location = new Point(12, 41);
-            descriptionText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            nameText = new Label
+            {
+                Name = mod.Name,
+                Parent = innerPanel,
+                Anchor = AnchorStyles.Top | AnchorStyles.Left,
+                Location = new Point(10, 10),
+                Size = new Size(400, 28),
+                ForeColor = Color.LightGray,
+                Font = largeFont,
+            };
 
-            //linkText = new LinkLabel();
-            //linkText.Name = mod.Name;
-            //linkText.Text = "Github Repo";
-            //linkText.Parent = innerPanel;
-            //linkText.LinkColor = Color.FromArgb(0, 128, 255);
-            //linkText.Size = new Size(400, 20);
-            //linkText.Location = new Point(12, 40);
-            //linkText.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            descriptionText = new Label
+            {
+                Name = mod.Name,
+                Parent = innerPanel,
+                Anchor = AnchorStyles.Top | AnchorStyles.Left,
+                Location = new Point(12, 41),
+                Size = new Size(450, 30),
+                ForeColor = Color.LightGray,
+                Font = smallFont,
+            };
+
+            //authorText = new Label
+            //{
+            //    Name = mod.Name,
+            //    Parent = innerPanel,
+            //    ForeColor = Color.LightGray,
+            //    Size = new Size(400, 15),
+            //    Location = new Point(10, 25),
+            //    Anchor = AnchorStyles.Top | AnchorStyles.Left
+            //};
+
+            //linkText = new LinkLabel
+            //{
+            //    Name = mod.Name,
+            //    Text = "Github Repo",
+            //    Parent = innerPanel,
+            //    LinkColor = Color.FromArgb(0, 128, 255),
+            //    Size = new Size(400, 20),
+            //    Location = new Point(12, 40),
+            //    Anchor = AnchorStyles.Top | AnchorStyles.Left
+            //};
             //linkText.LinkClicked += ClickedGithub;
 
-            infoButton = new Button();
-            infoButton.Name = mod.Name;
-            infoButton.Parent = innerPanel;
-            infoButton.Font = installFont;
-            infoButton.BackColor = Color.FromArgb(51, 153, 255);
-            infoButton.FlatStyle = FlatStyle.Flat;
+            // Right stuff
+
+            infoButton = new Button
+            {
+                Name = mod.Name,
+                Parent = innerPanel,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                Location = new Point(innerPanel.Width - 212, 26),
+                Size = new Size(42, 25),
+                BackColor = Color.FromArgb(51, 153, 255),
+                Font = installFont,
+                Text = "INFO",
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand,
+                TabStop = false,
+            };
             infoButton.FlatAppearance.BorderColor = Color.White;
-            infoButton.Text = "INFO";
-            infoButton.Size = new Size(42, 25);
-            infoButton.Location = new Point(innerPanel.Width - 212, 26);
-            infoButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            infoButton.Cursor = Cursors.Hand;
             infoButton.Click += ClickedInfo;
             infoButton.MouseUp += UnselectButton;
             infoButton.MouseLeave += UnselectButton;
-            infoButton.TabStop = false;
 
-            installButton = new Button();
-            installButton.Name = mod.Name;
-            installButton.Parent = innerPanel;
-            installButton.FlatStyle = FlatStyle.Flat;
-            installButton.Font = installFont;
+            installButton = new Button
+            {
+                Name = mod.Name,
+                Parent = innerPanel,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                Location = new Point(innerPanel.Width - 158, 23),
+                Size = new Size(70, 30),
+                Font = installFont,
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand,
+                TabStop = false
+            };
             installButton.FlatAppearance.BorderColor = Color.White;
-            installButton.Size = new Size(70, 30);
-            installButton.Location = new Point(innerPanel.Width - 158, 23);
-            installButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            installButton.Cursor = Cursors.Hand;
             installButton.Click += ClickedInstall;
             installButton.MouseUp += UnselectButton;
             installButton.MouseLeave += UnselectButton;
-            installButton.TabStop = false;
 
-            enableButton = new Button();
-            enableButton.Name = mod.Name;
-            enableButton.Parent = innerPanel;
-            enableButton.FlatStyle = FlatStyle.Flat;
-            enableButton.Font = enableFont;
-            enableButton.BackColor = backgroundColor;
-            enableButton.Size = new Size(64, 22);
-            enableButton.Location = new Point(innerPanel.Width - 75, 27);
-            enableButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            enableButton.Cursor = Cursors.Hand;
+            enableButton = new Button
+            {
+                Name = mod.Name,
+                Parent = innerPanel,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                Location = new Point(innerPanel.Width - 75, 27),
+                Size = new Size(64, 22),
+                BackColor = backgroundColor,
+                Font = enableFont,
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand,
+                TabStop = false
+            };
             enableButton.Click += ClickedEnable;
             enableButton.MouseUp += UnselectButton;
             enableButton.MouseLeave += UnselectButton;
-            enableButton.TabStop = false;
 
-            updateText = new Label();
-            updateText.Name = mod.Name;
-            updateText.Text = string.Empty;
-            updateText.TextAlign = ContentAlignment.TopCenter;
-            updateText.Font = smallFont;
-            updateText.Parent = innerPanel;
-            updateText.ForeColor = Color.LightGray;
-            updateText.Size = new Size(200, 15);
-            updateText.Location = new Point(innerPanel.Width - 400, 17);
-            updateText.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            updateText = new Label
+            {
+                Name = mod.Name,
+                Parent = innerPanel,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                Location = new Point(innerPanel.Width - 400, 17),
+                Size = new Size(200, 15),
+                ForeColor = Color.LightGray,
+                Font = smallFont,
+                TextAlign = ContentAlignment.TopCenter,
+                Text = string.Empty,
+            };
 
-            updateButton = new Button();
-            updateButton.Name = mod.Name;
-            updateButton.Text = "Download";
-            updateButton.BackColor = Color.White;
-            updateButton.Parent = innerPanel;
-            updateButton.FlatStyle = FlatStyle.Flat;
-            updateButton.Font = installFont;
-            updateButton.Size = new Size(72, 25);
-            updateButton.Location = new Point(innerPanel.Width - 334, 40);
-            updateButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            updateButton.Cursor = Cursors.Hand;
+            updateButton = new Button
+            {
+                Name = mod.Name,
+                Parent = innerPanel,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                Location = new Point(innerPanel.Width - 334, 40),
+                Size = new Size(72, 25),
+                BackColor = Color.White,
+                Font = installFont,
+                Text = "Download",
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand
+            };
             updateButton.Click += ClickedUpdate;
             updateButton.MouseUp += UnselectButton;
             updateButton.MouseLeave += UnselectButton;
             updateButton.TabStop = false;
 
-            progressBar = new ProgressBar();
-            progressBar.Name = mod.Name;
-            progressBar.Parent = innerPanel;
-            progressBar.Size = new Size(130, 22);
-            progressBar.Location = new Point(innerPanel.Width - 366, 36);
-            progressBar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            progressBar = new ProgressBar
+            {
+                Name = mod.Name,
+                Parent = innerPanel,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                Location = new Point(innerPanel.Width - 366, 36),
+                Size = new Size(130, 22),
+            };
 
             modHolder.AutoScroll = true;
             MainForm.Instance.AdjustHolderWidth();
