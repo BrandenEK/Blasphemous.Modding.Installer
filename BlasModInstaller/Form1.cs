@@ -42,7 +42,7 @@ namespace BlasModInstaller
             if (File.Exists(BlasRootFolder + "\\Blasphemous.exe"))
             {
                 Directory.CreateDirectory(BlasRootFolder + "\\Modding\\disabled"); // Only because its not included in the API
-                fakePanel.Visible = false;
+                locationSection.Visible = false;
                 LoadModsFromJson();
                 LoadModsFromWeb();
             }
@@ -56,7 +56,7 @@ namespace BlasModInstaller
                 mods = JsonConvert.DeserializeObject<List<Mod>>(json);
 
                 for (int i = 0; i < mods.Count; i++)
-                    mods[i].UI.CreateUI(modHolder, i);
+                    mods[i].UI.CreateUI(modSection, i);
             }
             else
             {
@@ -96,7 +96,7 @@ namespace BlasModInstaller
                     {
                         webMod.Version = webVersion.ToString();
                         mods.Add(webMod);
-                        webMod.UI.CreateUI(modHolder, mods.Count - 1);
+                        webMod.UI.CreateUI(modSection, mods.Count - 1);
                     }
                 }
             }
@@ -198,7 +198,7 @@ namespace BlasModInstaller
                     config.BlasRootFolder = path.Substring(0, exeIdx - 1);
                     Directory.CreateDirectory(BlasRootFolder + "\\Modding\\disabled"); // Only because its not included in the API
                     SaveConfig();
-                    fakePanel.Visible = false;
+                    locationSection.Visible = false;
                     LoadModsFromJson();
                     LoadModsFromWeb();
                 }
@@ -225,13 +225,13 @@ namespace BlasModInstaller
 
         private void SetBackgroundColor()
         {
-            modHolder.BackColor = mods.Count % 2 == 0 ? DARK_GRAY : LIGHT_GRAY;
+            modSection.BackColor = mods.Count % 2 == 0 ? DARK_GRAY : LIGHT_GRAY;
         }
 
         public void AdjustHolderWidth()
         {
-            bool scrollVisible = modHolder.VerticalScroll.Visible;
-            modHolder.Width = Width - (scrollVisible ? 17 : 16);
+            bool scrollVisible = modSection.VerticalScroll.Visible;
+            modSection.Width = Width - (scrollVisible ? 17 : 16);
         }
 
         public void RemoveButtonFocus()
