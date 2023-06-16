@@ -64,7 +64,10 @@ namespace BlasModInstaller
                 blas1mods = JsonConvert.DeserializeObject<List<Mod>>(json);
 
                 for (int i = 0; i < blas1mods.Count; i++)
+                {
                     blas1mods[i].UI.CreateUI(blas1modSection, i);
+                    Log(blas1mods[i].Installed ? blas1mods[i].LocalVersion.ToString() : "Not installed");
+                }
             }
             else
             {

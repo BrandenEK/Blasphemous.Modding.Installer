@@ -26,6 +26,23 @@ namespace BlasModInstaller
         [JsonIgnore]
         public bool Enabled => File.Exists(PathToEnabledPlugin);
 
+        [JsonIgnore]
+        public Version LocalVersion
+        {
+            get
+            {
+                string filePath;
+                if (File.Exists(PathToEnabledPlugin))
+                    filePath = PathToEnabledPlugin;
+                else if (File.Exists(PathToDisabledPlugin))
+                    filePath = PathToDisabledPlugin;
+                else
+                    return null;
+                    
+                return new Version(FileVersionInfo.GetVersionInfo(filePath).FileVersion);
+            }
+        }
+
         public Mod(string name, string author, string description, string githubAuthor, string githubRepo, string pluginFile, string[] requiredDlls)
         {
             Name = name;
