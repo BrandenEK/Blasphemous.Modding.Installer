@@ -21,6 +21,7 @@ namespace BlasModInstaller
         public string[] RequiredDlls { get; private set; }
         // This data is set whenever loading mods from web
         public string LatestVersion { get; set; }
+        public string LatestDownloadURL { get; set; }
 
         [JsonIgnore]
         public bool Installed => File.Exists(PathToEnabledPlugin) || File.Exists(PathToDisabledPlugin);

@@ -95,11 +95,13 @@ namespace BlasModInstaller
                 {                    
                     Octokit.Release latestRelease = await github.Repository.Release.GetLatest(webMod.GithubAuthor, webMod.GithubRepo);
                     Version webVersion = new Version(CleanVersion(latestRelease.TagName));
+                    string downloadURL = latestRelease.Assets[0].BrowserDownloadUrl;
 
                     if (ModExists(webMod.Name, out Mod localMod))
                     {
                         localMod.CopyData(webMod);
                         localMod.LatestVersion = webVersion.ToString();
+                        localMod.LatestDownloadURL = downloadURL;
 
                         if (localMod.Installed)
                         {
@@ -110,6 +112,7 @@ namespace BlasModInstaller
                     else
                     {
                         webMod.LatestVersion = webVersion.ToString();
+                        webMod.LatestDownloadURL = downloadURL;
                         blas1mods.Add(webMod);
                         webMod.UI.CreateUI(blas1modSection, blas1mods.Count - 1);
                     }
@@ -157,9 +160,7 @@ namespace BlasModInstaller
         {
             if (BlasRootFolder == null) return;
 
-            Octokit.Release latestRelease = await github.Repository.Release.GetLatest(mod.GithubAuthor, mod.GithubRepo);
-            string newVersion = CleanVersion(latestRelease.TagName);
-            string downloadUrl = latestRelease.Assets[0].BrowserDownloadUrl;
+            string newVersion = CleanVersion(mod.LatestVersion);
             string downloadPath = $"{DownloadsPath}{mod.Name.Replace(' ', '_')}_{newVersion}.zip";
 
             // Update download bar
@@ -175,7 +176,7 @@ namespace BlasModInstaller
                     BeginInvoke(new MethodInvoker(() => mod.InstallMod(newVersion, downloadPath)));
             };
             // Start download
-            client.DownloadFileAsync(new Uri(downloadUrl), downloadPath);
+            client.DownloadFileAsync(new Uri(mod.LatestDownloadURL), downloadPath);
         }
 
         // Config
