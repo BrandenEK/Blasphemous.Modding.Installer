@@ -24,7 +24,15 @@ namespace BlasModInstaller
         public static MainForm Instance { get; private set; }
 
         private Config config;
-        public static string BlasRootFolder => Instance.config.BlasRootFolder;
+        public static string BlasRootFolder
+        {
+            get => Instance.config.BlasRootFolder;
+            private set
+            {
+                Instance.config.BlasRootFolder = value;
+                Instance.SaveConfig();
+            }
+        }
 
         private Octokit.GitHubClient github;
         private List<Mod> mods;
@@ -159,6 +167,8 @@ namespace BlasModInstaller
             client.DownloadFileAsync(new Uri(downloadUrl), downloadPath);
         }
 
+        // Config
+
         private void LoadConfig()
         {
             if (File.Exists(ConfigPath))
@@ -179,22 +189,14 @@ namespace BlasModInstaller
             File.WriteAllText(ConfigPath, JsonConvert.SerializeObject(config, Formatting.Indented));
         }
 
+        // ...
+
         private void ChooseBlasLocation(object sender, EventArgs e)
         {
             if (blasLocDialog.ShowDialog() == DialogResult.OK)
             {
-                string path = blasLocDialog.FileName;
-                int exeIdx = path.LastIndexOf("Blasphemous.exe");
-                if (exeIdx >= 0 && File.Exists(path))
-                {
-                    config.BlasRootFolder = path.Substring(0, exeIdx - 1);
-                    Directory.CreateDirectory(BlasRootFolder + "\\Modding\\disabled"); // Only because its not included in the API
-                    SaveConfig();
-                    blas1locationSection.Visible = false;
-                    blas1modSection.Visible = true;
-                    LoadModsFromJson();
-                    LoadModsFromWeb();
-                }
+                string rootPath = Path.GetDirectoryName(blasLocDialog.FileName);
+                ValidateBlas1Directory(rootPath);
             }
         }
 
@@ -213,7 +215,6 @@ namespace BlasModInstaller
         {
             if (mods != null)
                 AdjustHolderWidth();
-
         }
 
         private void SetBackgroundColor()
@@ -255,20 +256,7 @@ namespace BlasModInstaller
         {
             if (section == SectionType.Blas1Mods)
             {
-                if (File.Exists(BlasRootFolder + "\\Blasphemous.exe"))
-                {
-                    Directory.CreateDirectory(BlasRootFolder + "\\Modding\\disabled"); // Only because its not included in the API
-                    blas1locationSection.Visible = false;
-                    blas1modSection.Visible = true;
-                    LoadModsFromJson();
-                    LoadModsFromWeb();
-                }
-                else
-                {
-                    blas1locationSection.Visible = true;
-                    blas1modSection.Visible = false;
-                }
-
+                ValidateBlas1Directory(BlasRootFolder);
                 blas2modSection.Visible = false;
             }
             else if (section == SectionType.Blas2Mods)
@@ -279,9 +267,25 @@ namespace BlasModInstaller
             }
         }
 
-        //private bool ValidateBlas1Directory()
-        //{
+        private bool ValidateBlas1Directory(string blasRootPath)
+        {
+            if (File.Exists(blasRootPath + "\\Blasphemous.exe"))
+            {
+                Log("Blas1 exe path validated!");
+                Directory.CreateDirectory(blasRootPath + "\\Modding\\disabled"); // Only because its not included in the API
+                BlasRootFolder = blasRootPath;
 
-        //}
+                blas1locationSection.Visible = false;
+                blas1modSection.Visible = true;
+                LoadModsFromJson();
+                LoadModsFromWeb();
+                return true;
+            }
+
+            Log("Blas1 exe path not found!");
+            blas1locationSection.Visible = true;
+            blas1modSection.Visible = false;
+            return false;
+        }
     }
 }
