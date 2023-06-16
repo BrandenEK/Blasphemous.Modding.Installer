@@ -40,6 +40,10 @@ namespace BlasModInstaller
             this.titleLabel = new System.Windows.Forms.Label();
             this.mainSection = new System.Windows.Forms.Panel();
             this.titleSection = new System.Windows.Forms.Panel();
+            this.blas1skinSection = new System.Windows.Forms.Panel();
+            this.blas1skinText = new System.Windows.Forms.Label();
+            this.vScrollBar4 = new System.Windows.Forms.VScrollBar();
+            this.vScrollBar5 = new System.Windows.Forms.VScrollBar();
             this.blas2modSection = new System.Windows.Forms.Panel();
             this.blas2modText = new System.Windows.Forms.Label();
             this.vScrollBar2 = new System.Windows.Forms.VScrollBar();
@@ -57,6 +61,7 @@ namespace BlasModInstaller
             this.blas1locationSection.SuspendLayout();
             this.mainSection.SuspendLayout();
             this.titleSection.SuspendLayout();
+            this.blas1skinSection.SuspendLayout();
             this.blas2modSection.SuspendLayout();
             this.sideSection.SuspendLayout();
             this.warningSection.SuspendLayout();
@@ -147,9 +152,10 @@ namespace BlasModInstaller
             | System.Windows.Forms.AnchorStyles.Right)));
             this.mainSection.BackColor = System.Drawing.Color.White;
             this.mainSection.Controls.Add(this.titleSection);
-            this.mainSection.Controls.Add(this.blas2modSection);
             this.mainSection.Controls.Add(this.blas1modSection);
+            this.mainSection.Controls.Add(this.blas1skinSection);
             this.mainSection.Controls.Add(this.blas1locationSection);
+            this.mainSection.Controls.Add(this.blas2modSection);
             this.mainSection.Location = new System.Drawing.Point(250, 0);
             this.mainSection.Name = "mainSection";
             this.mainSection.Size = new System.Drawing.Size(950, 800);
@@ -165,6 +171,52 @@ namespace BlasModInstaller
             this.titleSection.Name = "titleSection";
             this.titleSection.Size = new System.Drawing.Size(950, 60);
             this.titleSection.TabIndex = 9;
+            // 
+            // blas1skinSection
+            // 
+            this.blas1skinSection.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.blas1skinSection.AutoScroll = true;
+            this.blas1skinSection.AutoScrollMargin = new System.Drawing.Size(0, 15);
+            this.blas1skinSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.blas1skinSection.Controls.Add(this.blas1skinText);
+            this.blas1skinSection.Controls.Add(this.vScrollBar4);
+            this.blas1skinSection.Controls.Add(this.vScrollBar5);
+            this.blas1skinSection.Location = new System.Drawing.Point(0, 60);
+            this.blas1skinSection.Name = "blas1skinSection";
+            this.blas1skinSection.Size = new System.Drawing.Size(950, 701);
+            this.blas1skinSection.TabIndex = 5;
+            // 
+            // blas1skinText
+            // 
+            this.blas1skinText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.blas1skinText.Font = new System.Drawing.Font("Trebuchet MS", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.blas1skinText.Location = new System.Drawing.Point(0, 0);
+            this.blas1skinText.Name = "blas1skinText";
+            this.blas1skinText.Size = new System.Drawing.Size(950, 701);
+            this.blas1skinText.TabIndex = 3;
+            this.blas1skinText.Text = "Skin support coming soon!";
+            this.blas1skinText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // vScrollBar4
+            // 
+            this.vScrollBar4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.vScrollBar4.Location = new System.Drawing.Point(914, 15);
+            this.vScrollBar4.Name = "vScrollBar4";
+            this.vScrollBar4.Size = new System.Drawing.Size(20, 640);
+            this.vScrollBar4.TabIndex = 2;
+            this.vScrollBar4.Visible = false;
+            // 
+            // vScrollBar5
+            // 
+            this.vScrollBar5.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.vScrollBar5.Location = new System.Drawing.Point(965, -7);
+            this.vScrollBar5.Name = "vScrollBar5";
+            this.vScrollBar5.Size = new System.Drawing.Size(20, 714);
+            this.vScrollBar5.TabIndex = 2;
+            this.vScrollBar5.Visible = false;
             // 
             // blas2modSection
             // 
@@ -359,6 +411,7 @@ namespace BlasModInstaller
             this.blas1locationSection.ResumeLayout(false);
             this.mainSection.ResumeLayout(false);
             this.titleSection.ResumeLayout(false);
+            this.blas1skinSection.ResumeLayout(false);
             this.blas2modSection.ResumeLayout(false);
             this.sideSection.ResumeLayout(false);
             this.sideSection.PerformLayout();
@@ -393,6 +446,10 @@ namespace BlasModInstaller
         private System.Windows.Forms.Label warningText;
         private System.Windows.Forms.Panel warningSection;
         private System.Windows.Forms.Panel warningInner;
+        private System.Windows.Forms.Panel blas1skinSection;
+        private System.Windows.Forms.Label blas1skinText;
+        private System.Windows.Forms.VScrollBar vScrollBar4;
+        private System.Windows.Forms.VScrollBar vScrollBar5;
     }
 }
 

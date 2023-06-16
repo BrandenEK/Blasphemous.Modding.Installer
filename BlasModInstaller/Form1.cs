@@ -282,14 +282,26 @@ namespace BlasModInstaller
         {
             if (section == SectionType.Blas1Mods)
             {
+                titleLabel.Text = "Blasphemous Mods";
                 ValidateBlas1Directory(BlasRootFolder);
+                blas1skinSection.Visible = false;
                 blas2modSection.Visible = false;
+            }
+            else if (section == SectionType.Blas1Skins)
+            {
+                titleLabel.Text = "Blasphemous Skins";
+                blas1modSection.Visible = false;
+                blas1locationSection.Visible = false;
+                blas1skinSection.Visible = true;
+                blas2modSection.Visible = true;
             }
             else if (section == SectionType.Blas2Mods)
             {
-                blas2modSection.Visible = true;
-                blas1locationSection.Visible = false;
+                titleLabel.Text = "Blasphemous II Mods";
                 blas1modSection.Visible = false;
+                blas1locationSection.Visible = false;
+                blas1skinSection.Visible = false;
+                blas2modSection.Visible = true;
             }
         }
 
