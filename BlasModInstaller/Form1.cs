@@ -243,5 +243,20 @@ namespace BlasModInstaller
         {
             Instance.debugText.Text += message + " ";
         }
+
+        private void blas1modsBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ShowSideButtonBorder(object sender, EventArgs e)
+        {
+            (sender as Button).FlatAppearance.BorderColor = Color.White;
+        }
+
+        private void HideSideButtonBorder(object sender, EventArgs e)
+        {
+            (sender as Button).FlatAppearance.BorderColor = Color.Black;
+        }
     }
 }

@@ -6,13 +6,12 @@ namespace BlasModInstaller
 {
     public class ModHolder
     {
-        private const int MOD_WIDTH = 900;
         private const int MOD_HEIGHT = 82;
 
-        private static Font smallFont = new Font("Verdana", 9);
-        private static Font largeFont = new Font("Verdana", 16);
-        private static Font installFont = new Font("Trebuchet MS", 8, FontStyle.Bold);
-        private static Font enableFont = new Font("Arial", 8, FontStyle.Bold);
+        private readonly static Font smallFont = new Font("Verdana", 9);
+        private readonly static Font largeFont = new Font("Verdana", 16);
+        private readonly static Font installFont = new Font("Trebuchet MS", 8, FontStyle.Bold);
+        private readonly static Font enableFont = new Font("Arial", 8, FontStyle.Bold);
 
         private Mod mod;
 
