@@ -13,7 +13,7 @@ namespace BlasModInstaller
         private readonly static Font installFont = new Font("Trebuchet MS", 8, FontStyle.Bold);
         private readonly static Font enableFont = new Font("Arial", 8, FontStyle.Bold);
 
-        private Mod mod;
+        private readonly Mod mod;
 
         private Panel outerPanel;
         private Panel innerPanel;

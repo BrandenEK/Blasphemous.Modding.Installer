@@ -69,6 +69,8 @@ namespace BlasModInstaller
                 File.Delete(PathToDisabledPlugin);
             if (File.Exists(PathToConfigFile))
                 File.Delete(PathToConfigFile);
+            if (File.Exists(PathToKeybindingsFile))
+                File.Delete(PathToKeybindingsFile);
             if (File.Exists(PathToLocalizationFile))
                 File.Delete(PathToLocalizationFile);
             if (File.Exists(PathToLogFile))
@@ -215,13 +217,15 @@ namespace BlasModInstaller
         [JsonIgnore]
         public string PathToConfigFile => $"{MainForm.BlasRootFolder}\\Modding\\config\\{Name}.cfg";
         [JsonIgnore]
+        public string PathToDataFolder => $"{MainForm.BlasRootFolder}\\Modding\\data\\{Name}";
+        [JsonIgnore]
+        public string PathToKeybindingsFile => $"{MainForm.BlasRootFolder}\\Modding\\keybindings\\{Name}.txt";
+        [JsonIgnore]
+        public string PathToLevelsFolder => $"{MainForm.BlasRootFolder}\\Modding\\levels\\{Name}";
+        [JsonIgnore]
         public string PathToLocalizationFile => $"{MainForm.BlasRootFolder}\\Modding\\localization\\{Name}.txt";
         [JsonIgnore]
         public string PathToLogFile => $"{MainForm.BlasRootFolder}\\Modding\\logs\\{Name}.log";
-        [JsonIgnore]
-        public string PathToDataFolder => $"{MainForm.BlasRootFolder}\\Modding\\data\\{Name}";
-        [JsonIgnore]
-        public string PathToLevelsFolder => $"{MainForm.BlasRootFolder}\\Modding\\levels\\{Name}";
         [JsonIgnore]
         public string GithubLink => $"https://github.com/{GithubAuthor}/{GithubRepo}";
     }
