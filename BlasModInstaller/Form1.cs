@@ -35,7 +35,10 @@ namespace BlasModInstaller
         }
 
         private Octokit.GitHubClient github;
-        private List<Mod> mods;
+
+        // Keep this as null until mods are loaded
+        private List<Mod> blas1mods;
+        private bool checkedWebMods = false;
 
         public MainForm()
         {
@@ -52,25 +55,31 @@ namespace BlasModInstaller
 
         private void LoadModsFromJson()
         {
+            if (blas1mods != null)
+                return;
+
             if (File.Exists(SavedModsPath))
             {
                 string json = File.ReadAllText(SavedModsPath);
-                mods = JsonConvert.DeserializeObject<List<Mod>>(json);
+                blas1mods = JsonConvert.DeserializeObject<List<Mod>>(json);
 
-                for (int i = 0; i < mods.Count; i++)
-                    mods[i].UI.CreateUI(blas1modSection, i);
+                for (int i = 0; i < blas1mods.Count; i++)
+                    blas1mods[i].UI.CreateUI(blas1modSection, i);
             }
             else
             {
-                mods = new List<Mod>();
+                blas1mods = new List<Mod>();
             }
 
-            Log($"Loaded {mods.Count} mods from json");
+            Log($"Loaded {blas1mods.Count} mods from json");
             SetBackgroundColor();
         }
 
         private async Task LoadModsFromWeb()
         {
+            if (checkedWebMods)
+                return;
+
             using (HttpClient client = new HttpClient())
             {
                 string json = await client.GetStringAsync("https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/mods.json");
@@ -100,12 +109,13 @@ namespace BlasModInstaller
                     else
                     {
                         webMod.Version = webVersion.ToString();
-                        mods.Add(webMod);
-                        webMod.UI.CreateUI(blas1modSection, mods.Count - 1);
+                        blas1mods.Add(webMod);
+                        webMod.UI.CreateUI(blas1modSection, blas1mods.Count - 1);
                     }
                 }
 
                 Log($"Loaded {webMods.Length} mods from the web");
+                checkedWebMods = true;
             }
 
             Log($"Github API calls remaining: {github.GetLastApiInfo().RateLimit.Remaining}");
@@ -116,13 +126,13 @@ namespace BlasModInstaller
         // After loading more mods from web or updating version, need to save new json
         public void SaveMods()
         {
-            File.WriteAllText(SavedModsPath, JsonConvert.SerializeObject(mods));
+            File.WriteAllText(SavedModsPath, JsonConvert.SerializeObject(blas1mods));
         }
 
         private bool ModExists(string name, out Mod foundMod)
         {
             foundMod = null;
-            foreach (Mod mod in mods)
+            foreach (Mod mod in blas1mods)
             {
                 if (name == mod.Name)
                 {
@@ -203,7 +213,7 @@ namespace BlasModInstaller
         public int InstalledModsThatRequireDll(string dllName)
         {
             int count = 0;
-            foreach (Mod mod in mods)
+            foreach (Mod mod in blas1mods)
             {
                 if (mod.RequiresDll(dllName) && mod.Installed)
                     count++;
@@ -213,13 +223,13 @@ namespace BlasModInstaller
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
-            if (mods != null)
+            if (blas1mods != null)
                 AdjustHolderWidth();
         }
 
         private void SetBackgroundColor()
         {
-            blas1modSection.BackColor = mods.Count % 2 == 0 ? DARK_GRAY : LIGHT_GRAY;
+            blas1modSection.BackColor = blas1mods.Count % 2 == 0 ? DARK_GRAY : LIGHT_GRAY;
         }
 
         public void AdjustHolderWidth()
