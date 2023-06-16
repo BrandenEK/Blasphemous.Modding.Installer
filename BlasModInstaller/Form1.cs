@@ -14,6 +14,8 @@ namespace BlasModInstaller
 {
     public partial class MainForm : Form
     {
+        private readonly Version CurrentInstallerVersion = new Version(1, 0, 0);
+
         public static Color LIGHT_GRAY => Color.FromArgb(64, 64, 64);
         public static Color DARK_GRAY => Color.FromArgb(52, 52, 52);
 
@@ -50,6 +52,7 @@ namespace BlasModInstaller
             InitializeComponent();
             CreateGithubClient();
 
+            CheckForNewerInstallerRelease();
             OpenSection(SectionType.Blas1Mods);
         }
 
@@ -91,8 +94,7 @@ namespace BlasModInstaller
                 foreach (Mod webMod in webMods)
                 {                    
                     Octokit.Release latestRelease = await github.Repository.Release.GetLatest(webMod.GithubAuthor, webMod.GithubRepo);
-                    string cleanVersion = latestRelease.TagName.ToLower().Replace("v", "");
-                    Version webVersion = new Version(cleanVersion);
+                    Version webVersion = new Version(CleanVersion(latestRelease.TagName));
 
                     if (ModExists(webMod.Name, out Mod localMod))
                     {
@@ -160,7 +162,7 @@ namespace BlasModInstaller
             if (BlasRootFolder == null) return;
 
             Octokit.Release latestRelease = await github.Repository.Release.GetLatest(mod.GithubAuthor, mod.GithubRepo);
-            string newVersion = latestRelease.TagName;
+            string newVersion = CleanVersion(latestRelease.TagName);
             string downloadUrl = latestRelease.Assets[0].BrowserDownloadUrl;
             string downloadPath = $"{DownloadsPath}{mod.Name.Replace(' ', '_')}_{newVersion}.zip";
 
@@ -204,6 +206,15 @@ namespace BlasModInstaller
 
         // ...
 
+        private async Task CheckForNewerInstallerRelease()
+        {
+            Octokit.Release latestRelease = await github.Repository.Release.GetLatest("BrandenEK", "Blasphemous-Mod-Installer");
+            Version newestVersion = new Version(CleanVersion(latestRelease.TagName));
+
+            if (newestVersion > CurrentInstallerVersion)
+                warningSection.Visible = true;
+        }
+
         private void ChooseBlasLocation(object sender, EventArgs e)
         {
             if (blasLocDialog.ShowDialog() == DialogResult.OK)
@@ -222,6 +233,11 @@ namespace BlasModInstaller
                     count++;
             }
             return count;
+        }
+
+        private string CleanVersion(string version)
+        {
+            return version.ToLower().Replace("v", "");
         }
 
         private void MainForm_SizeChanged(object sender, EventArgs e)

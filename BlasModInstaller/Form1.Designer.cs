@@ -45,23 +45,23 @@ namespace BlasModInstaller
             this.vScrollBar2 = new System.Windows.Forms.VScrollBar();
             this.vScrollBar3 = new System.Windows.Forms.VScrollBar();
             this.sideSection = new System.Windows.Forms.Panel();
+            this.warningSection = new System.Windows.Forms.Panel();
+            this.warningInner = new System.Windows.Forms.Panel();
+            this.warningImage = new System.Windows.Forms.PictureBox();
+            this.warningText = new System.Windows.Forms.Label();
             this.debugLog = new System.Windows.Forms.TextBox();
             this.blas2modsBtn = new System.Windows.Forms.Button();
             this.blas1skinsBtn = new System.Windows.Forms.Button();
             this.blas1modsBtn = new System.Windows.Forms.Button();
-            this.warningImage = new System.Windows.Forms.PictureBox();
-            this.warningText = new System.Windows.Forms.Label();
-            this.warningSection = new System.Windows.Forms.Panel();
-            this.warningInner = new System.Windows.Forms.Panel();
             this.blas1modSection.SuspendLayout();
             this.blas1locationSection.SuspendLayout();
             this.mainSection.SuspendLayout();
             this.titleSection.SuspendLayout();
             this.blas2modSection.SuspendLayout();
             this.sideSection.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.warningImage)).BeginInit();
             this.warningSection.SuspendLayout();
             this.warningInner.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.warningImage)).BeginInit();
             this.SuspendLayout();
             // 
             // scroll
@@ -227,6 +227,52 @@ namespace BlasModInstaller
             this.sideSection.Size = new System.Drawing.Size(250, 800);
             this.sideSection.TabIndex = 8;
             // 
+            // warningSection
+            // 
+            this.warningSection.BackColor = System.Drawing.Color.White;
+            this.warningSection.Controls.Add(this.warningInner);
+            this.warningSection.Location = new System.Drawing.Point(15, 645);
+            this.warningSection.Name = "warningSection";
+            this.warningSection.Size = new System.Drawing.Size(220, 100);
+            this.warningSection.TabIndex = 6;
+            this.warningSection.Visible = false;
+            // 
+            // warningInner
+            // 
+            this.warningInner.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.warningInner.BackColor = System.Drawing.Color.Black;
+            this.warningInner.Controls.Add(this.warningImage);
+            this.warningInner.Controls.Add(this.warningText);
+            this.warningInner.Location = new System.Drawing.Point(2, 2);
+            this.warningInner.Name = "warningInner";
+            this.warningInner.Size = new System.Drawing.Size(216, 96);
+            this.warningInner.TabIndex = 0;
+            // 
+            // warningImage
+            // 
+            this.warningImage.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.warningImage.BackColor = System.Drawing.Color.Black;
+            this.warningImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.warningImage.Image = global::BlasModInstaller.Properties.Resources.warning;
+            this.warningImage.Location = new System.Drawing.Point(10, 30);
+            this.warningImage.Name = "warningImage";
+            this.warningImage.Size = new System.Drawing.Size(36, 36);
+            this.warningImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.warningImage.TabIndex = 4;
+            this.warningImage.TabStop = false;
+            // 
+            // warningText
+            // 
+            this.warningText.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.warningText.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.warningText.Location = new System.Drawing.Point(52, 20);
+            this.warningText.Name = "warningText";
+            this.warningText.Size = new System.Drawing.Size(160, 56);
+            this.warningText.TabIndex = 5;
+            this.warningText.Text = "A new update is available for the mod installer.  Please download it now.";
+            // 
             // debugLog
             // 
             this.debugLog.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -295,51 +341,6 @@ namespace BlasModInstaller
             this.blas1modsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
             this.blas1modsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
             // 
-            // warningImage
-            // 
-            this.warningImage.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.warningImage.BackColor = System.Drawing.Color.Black;
-            this.warningImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.warningImage.Image = global::BlasModInstaller.Properties.Resources.warning;
-            this.warningImage.Location = new System.Drawing.Point(10, 30);
-            this.warningImage.Name = "warningImage";
-            this.warningImage.Size = new System.Drawing.Size(36, 36);
-            this.warningImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.warningImage.TabIndex = 4;
-            this.warningImage.TabStop = false;
-            // 
-            // warningText
-            // 
-            this.warningText.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.warningText.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.warningText.Location = new System.Drawing.Point(52, 20);
-            this.warningText.Name = "warningText";
-            this.warningText.Size = new System.Drawing.Size(160, 56);
-            this.warningText.TabIndex = 5;
-            this.warningText.Text = "A new update is available for the mod installer.  Please download it now.";
-            // 
-            // warningSection
-            // 
-            this.warningSection.BackColor = System.Drawing.Color.White;
-            this.warningSection.Controls.Add(this.warningInner);
-            this.warningSection.Location = new System.Drawing.Point(15, 645);
-            this.warningSection.Name = "warningSection";
-            this.warningSection.Size = new System.Drawing.Size(220, 100);
-            this.warningSection.TabIndex = 6;
-            // 
-            // warningInner
-            // 
-            this.warningInner.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.warningInner.BackColor = System.Drawing.Color.Black;
-            this.warningInner.Controls.Add(this.warningImage);
-            this.warningInner.Controls.Add(this.warningText);
-            this.warningInner.Location = new System.Drawing.Point(2, 2);
-            this.warningInner.Name = "warningInner";
-            this.warningInner.Size = new System.Drawing.Size(216, 96);
-            this.warningInner.TabIndex = 0;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -361,9 +362,9 @@ namespace BlasModInstaller
             this.blas2modSection.ResumeLayout(false);
             this.sideSection.ResumeLayout(false);
             this.sideSection.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.warningImage)).EndInit();
             this.warningSection.ResumeLayout(false);
             this.warningInner.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.warningImage)).EndInit();
             this.ResumeLayout(false);
 
         }
