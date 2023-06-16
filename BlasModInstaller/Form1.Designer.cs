@@ -41,6 +41,7 @@ namespace BlasModInstaller
             this.mainSection = new System.Windows.Forms.Panel();
             this.titleSection = new System.Windows.Forms.Panel();
             this.blas2modSection = new System.Windows.Forms.Panel();
+            this.blas2modText = new System.Windows.Forms.Label();
             this.vScrollBar2 = new System.Windows.Forms.VScrollBar();
             this.vScrollBar3 = new System.Windows.Forms.VScrollBar();
             this.sideSection = new System.Windows.Forms.Panel();
@@ -48,13 +49,19 @@ namespace BlasModInstaller
             this.blas2modsBtn = new System.Windows.Forms.Button();
             this.blas1skinsBtn = new System.Windows.Forms.Button();
             this.blas1modsBtn = new System.Windows.Forms.Button();
-            this.blas2modText = new System.Windows.Forms.Label();
+            this.warningImage = new System.Windows.Forms.PictureBox();
+            this.warningText = new System.Windows.Forms.Label();
+            this.warningSection = new System.Windows.Forms.Panel();
+            this.warningInner = new System.Windows.Forms.Panel();
             this.blas1modSection.SuspendLayout();
             this.blas1locationSection.SuspendLayout();
             this.mainSection.SuspendLayout();
             this.titleSection.SuspendLayout();
             this.blas2modSection.SuspendLayout();
             this.sideSection.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.warningImage)).BeginInit();
+            this.warningSection.SuspendLayout();
+            this.warningInner.SuspendLayout();
             this.SuspendLayout();
             // 
             // scroll
@@ -175,6 +182,17 @@ namespace BlasModInstaller
             this.blas2modSection.Size = new System.Drawing.Size(950, 701);
             this.blas2modSection.TabIndex = 4;
             // 
+            // blas2modText
+            // 
+            this.blas2modText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.blas2modText.Font = new System.Drawing.Font("Trebuchet MS", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.blas2modText.Location = new System.Drawing.Point(0, 0);
+            this.blas2modText.Name = "blas2modText";
+            this.blas2modText.Size = new System.Drawing.Size(950, 701);
+            this.blas2modText.TabIndex = 3;
+            this.blas2modText.Text = "There is nothing here yet...";
+            this.blas2modText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // vScrollBar2
             // 
             this.vScrollBar2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -199,6 +217,7 @@ namespace BlasModInstaller
             this.sideSection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.sideSection.BackColor = System.Drawing.Color.Black;
+            this.sideSection.Controls.Add(this.warningSection);
             this.sideSection.Controls.Add(this.debugLog);
             this.sideSection.Controls.Add(this.blas2modsBtn);
             this.sideSection.Controls.Add(this.blas1skinsBtn);
@@ -212,7 +231,7 @@ namespace BlasModInstaller
             // 
             this.debugLog.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.debugLog.ForeColor = System.Drawing.SystemColors.Menu;
-            this.debugLog.Location = new System.Drawing.Point(15, 320);
+            this.debugLog.Location = new System.Drawing.Point(15, 248);
             this.debugLog.Multiline = true;
             this.debugLog.Name = "debugLog";
             this.debugLog.ReadOnly = true;
@@ -276,16 +295,50 @@ namespace BlasModInstaller
             this.blas1modsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
             this.blas1modsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
             // 
-            // blas2modText
+            // warningImage
             // 
-            this.blas2modText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.blas2modText.Font = new System.Drawing.Font("Trebuchet MS", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.blas2modText.Location = new System.Drawing.Point(0, 0);
-            this.blas2modText.Name = "blas2modText";
-            this.blas2modText.Size = new System.Drawing.Size(950, 701);
-            this.blas2modText.TabIndex = 3;
-            this.blas2modText.Text = "There is nothing here yet...";
-            this.blas2modText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.warningImage.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.warningImage.BackColor = System.Drawing.Color.Black;
+            this.warningImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.warningImage.Image = global::BlasModInstaller.Properties.Resources.warning;
+            this.warningImage.Location = new System.Drawing.Point(10, 30);
+            this.warningImage.Name = "warningImage";
+            this.warningImage.Size = new System.Drawing.Size(36, 36);
+            this.warningImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.warningImage.TabIndex = 4;
+            this.warningImage.TabStop = false;
+            // 
+            // warningText
+            // 
+            this.warningText.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.warningText.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.warningText.Location = new System.Drawing.Point(52, 20);
+            this.warningText.Name = "warningText";
+            this.warningText.Size = new System.Drawing.Size(160, 56);
+            this.warningText.TabIndex = 5;
+            this.warningText.Text = "A new update is available for the mod installer.  Please download it now.";
+            // 
+            // warningSection
+            // 
+            this.warningSection.BackColor = System.Drawing.Color.White;
+            this.warningSection.Controls.Add(this.warningInner);
+            this.warningSection.Location = new System.Drawing.Point(15, 645);
+            this.warningSection.Name = "warningSection";
+            this.warningSection.Size = new System.Drawing.Size(220, 100);
+            this.warningSection.TabIndex = 6;
+            // 
+            // warningInner
+            // 
+            this.warningInner.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.warningInner.BackColor = System.Drawing.Color.Black;
+            this.warningInner.Controls.Add(this.warningImage);
+            this.warningInner.Controls.Add(this.warningText);
+            this.warningInner.Location = new System.Drawing.Point(2, 2);
+            this.warningInner.Name = "warningInner";
+            this.warningInner.Size = new System.Drawing.Size(216, 96);
+            this.warningInner.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -308,6 +361,9 @@ namespace BlasModInstaller
             this.blas2modSection.ResumeLayout(false);
             this.sideSection.ResumeLayout(false);
             this.sideSection.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.warningImage)).EndInit();
+            this.warningSection.ResumeLayout(false);
+            this.warningInner.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -332,6 +388,10 @@ namespace BlasModInstaller
         private System.Windows.Forms.VScrollBar vScrollBar2;
         private System.Windows.Forms.VScrollBar vScrollBar3;
         private System.Windows.Forms.Label blas2modText;
+        private System.Windows.Forms.PictureBox warningImage;
+        private System.Windows.Forms.Label warningText;
+        private System.Windows.Forms.Panel warningSection;
+        private System.Windows.Forms.Panel warningInner;
     }
 }
 
