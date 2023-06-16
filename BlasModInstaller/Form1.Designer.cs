@@ -35,17 +35,16 @@ namespace BlasModInstaller
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
             this.blasLocButton = new System.Windows.Forms.Button();
             this.locationSection = new System.Windows.Forms.Panel();
-            this.debugBtn = new System.Windows.Forms.Button();
             this.blasLocFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.blasLocDialog = new System.Windows.Forms.OpenFileDialog();
-            this.debugText = new System.Windows.Forms.Label();
             this.titleLabel = new System.Windows.Forms.Label();
             this.mainSection = new System.Windows.Forms.Panel();
             this.titleSection = new System.Windows.Forms.Panel();
             this.sideSection = new System.Windows.Forms.Panel();
+            this.debugLog = new System.Windows.Forms.TextBox();
+            this.blas2modsBtn = new System.Windows.Forms.Button();
             this.blas1skinsBtn = new System.Windows.Forms.Button();
             this.blas1modsBtn = new System.Windows.Forms.Button();
-            this.blas2modsBtn = new System.Windows.Forms.Button();
             this.modSection.SuspendLayout();
             this.locationSection.SuspendLayout();
             this.mainSection.SuspendLayout();
@@ -111,33 +110,11 @@ namespace BlasModInstaller
             this.locationSection.Size = new System.Drawing.Size(950, 701);
             this.locationSection.TabIndex = 4;
             // 
-            // debugBtn
-            // 
-            this.debugBtn.Location = new System.Drawing.Point(10, 14);
-            this.debugBtn.Name = "debugBtn";
-            this.debugBtn.Size = new System.Drawing.Size(66, 29);
-            this.debugBtn.TabIndex = 0;
-            this.debugBtn.Text = "Debug";
-            this.debugBtn.UseVisualStyleBackColor = true;
-            this.debugBtn.Visible = false;
-            this.debugBtn.Click += new System.EventHandler(this.ClickedDebug);
-            // 
             // blasLocDialog
             // 
             this.blasLocDialog.FileName = "Blasphemous.exe";
             this.blasLocDialog.Filter = "Exe files (*.exe)|*.exe";
             this.blasLocDialog.Title = "Choose Blasphemous.exe location";
-            // 
-            // debugText
-            // 
-            this.debugText.AutoSize = true;
-            this.debugText.Font = new System.Drawing.Font("Trebuchet MS", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.debugText.Location = new System.Drawing.Point(81, 19);
-            this.debugText.Name = "debugText";
-            this.debugText.Size = new System.Drawing.Size(39, 16);
-            this.debugText.TabIndex = 6;
-            this.debugText.Text = "Debug";
-            this.debugText.Visible = false;
             // 
             // titleLabel
             // 
@@ -181,6 +158,7 @@ namespace BlasModInstaller
             this.sideSection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.sideSection.BackColor = System.Drawing.Color.Black;
+            this.sideSection.Controls.Add(this.debugLog);
             this.sideSection.Controls.Add(this.blas2modsBtn);
             this.sideSection.Controls.Add(this.blas1skinsBtn);
             this.sideSection.Controls.Add(this.blas1modsBtn);
@@ -188,6 +166,35 @@ namespace BlasModInstaller
             this.sideSection.Name = "sideSection";
             this.sideSection.Size = new System.Drawing.Size(250, 800);
             this.sideSection.TabIndex = 8;
+            // 
+            // debugLog
+            // 
+            this.debugLog.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.debugLog.ForeColor = System.Drawing.SystemColors.Menu;
+            this.debugLog.Location = new System.Drawing.Point(15, 320);
+            this.debugLog.Multiline = true;
+            this.debugLog.Name = "debugLog";
+            this.debugLog.ReadOnly = true;
+            this.debugLog.Size = new System.Drawing.Size(220, 300);
+            this.debugLog.TabIndex = 3;
+            // 
+            // blas2modsBtn
+            // 
+            this.blas2modsBtn.BackColor = System.Drawing.Color.Black;
+            this.blas2modsBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.blas2modsBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.blas2modsBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.blas2modsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.blas2modsBtn.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.blas2modsBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.blas2modsBtn.Location = new System.Drawing.Point(15, 165);
+            this.blas2modsBtn.Name = "blas2modsBtn";
+            this.blas2modsBtn.Size = new System.Drawing.Size(220, 35);
+            this.blas2modsBtn.TabIndex = 2;
+            this.blas2modsBtn.Text = "Blasphemous II Mods";
+            this.blas2modsBtn.UseVisualStyleBackColor = false;
+            this.blas2modsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
+            this.blas2modsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
             // 
             // blas1skinsBtn
             // 
@@ -226,32 +233,12 @@ namespace BlasModInstaller
             this.blas1modsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
             this.blas1modsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
             // 
-            // blas2modsBtn
-            // 
-            this.blas2modsBtn.BackColor = System.Drawing.Color.Black;
-            this.blas2modsBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.blas2modsBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.blas2modsBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.blas2modsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.blas2modsBtn.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.blas2modsBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.blas2modsBtn.Location = new System.Drawing.Point(15, 165);
-            this.blas2modsBtn.Name = "blas2modsBtn";
-            this.blas2modsBtn.Size = new System.Drawing.Size(220, 35);
-            this.blas2modsBtn.TabIndex = 2;
-            this.blas2modsBtn.Text = "Blasphemous II Mods";
-            this.blas2modsBtn.UseVisualStyleBackColor = false;
-            this.blas2modsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
-            this.blas2modsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
             this.ClientSize = new System.Drawing.Size(1184, 761);
-            this.Controls.Add(this.debugText);
-            this.Controls.Add(this.debugBtn);
             this.Controls.Add(this.mainSection);
             this.Controls.Add(this.sideSection);
             this.Font = new System.Drawing.Font("Trebuchet MS", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -265,21 +252,19 @@ namespace BlasModInstaller
             this.mainSection.ResumeLayout(false);
             this.titleSection.ResumeLayout(false);
             this.sideSection.ResumeLayout(false);
+            this.sideSection.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.VScrollBar scroll;
         private System.Windows.Forms.Panel modSection;
-        private System.Windows.Forms.Button debugBtn;
         private System.Windows.Forms.Button blasLocButton;
         private System.Windows.Forms.FolderBrowserDialog blasLocFolderDialog;
         private System.Windows.Forms.OpenFileDialog blasLocDialog;
         private System.Windows.Forms.Panel locationSection;
         private System.Windows.Forms.VScrollBar vScrollBar1;
-        private System.Windows.Forms.Label debugText;
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Panel mainSection;
         private System.Windows.Forms.Panel sideSection;
@@ -287,6 +272,7 @@ namespace BlasModInstaller
         private System.Windows.Forms.Button blas1modsBtn;
         private System.Windows.Forms.Button blas1skinsBtn;
         private System.Windows.Forms.Button blas2modsBtn;
+        private System.Windows.Forms.TextBox debugLog;
     }
 }
 

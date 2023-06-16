@@ -62,6 +62,8 @@ namespace BlasModInstaller
             {
                 mods = new List<Mod>();
             }
+
+            Log($"Loaded {mods.Count} mods from json");
             SetBackgroundColor();
         }
 
@@ -75,7 +77,8 @@ namespace BlasModInstaller
                 foreach (Mod webMod in webMods)
                 {                    
                     Octokit.Release latestRelease = await github.Repository.Release.GetLatest(webMod.GithubAuthor, webMod.GithubRepo);
-                    Version webVersion = new Version(latestRelease.TagName);
+                    string cleanVersion = latestRelease.TagName.ToLower().Replace("v", "");
+                    Version webVersion = new Version(cleanVersion);
 
                     if (ModExists(webMod.Name, out Mod localMod))
                     {
@@ -99,9 +102,11 @@ namespace BlasModInstaller
                         webMod.UI.CreateUI(modSection, mods.Count - 1);
                     }
                 }
+
+                Log($"Loaded {webMods.Length} mods from the web");
             }
 
-            //debugText.Text = github.GetLastApiInfo().RateLimit.Remaining.ToString();
+            Log($"Github API calls remaining: {github.GetLastApiInfo().RateLimit.Remaining}");
             SetBackgroundColor();
             SaveMods();
         }
@@ -133,13 +138,6 @@ namespace BlasModInstaller
             {
                 github.Credentials = new Octokit.Credentials(config.GithubToken);
             }
-        }
-
-        private void ClickedDebug(object sender, EventArgs e)
-        {
-            //fakePanel.Visible = !fakePanel.Visible;
-            //Mod newMod = new Mod("Test", "", "", "", "", "", null);
-            //newMod.UI.CreateUI(modHolder, mods.Count);
         }
 
         public async Task DownloadMod(Mod mod, WebClient client)
@@ -239,9 +237,9 @@ namespace BlasModInstaller
             titleLabel.Focus();
         }
 
-        public static void Debug(string message)
+        public static void Log(string message)
         {
-            Instance.debugText.Text += message + " ";
+            Instance.debugLog.Text += message + "\r\n";
         }
 
         private void blas1modsBtn_Click(object sender, EventArgs e)
