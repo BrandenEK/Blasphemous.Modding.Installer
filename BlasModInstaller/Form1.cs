@@ -39,13 +39,7 @@ namespace BlasModInstaller
             InitializeComponent();
             CreateGithubClient();
 
-            if (File.Exists(BlasRootFolder + "\\Blasphemous.exe"))
-            {
-                Directory.CreateDirectory(BlasRootFolder + "\\Modding\\disabled"); // Only because its not included in the API
-                locationSection.Visible = false;
-                LoadModsFromJson();
-                LoadModsFromWeb();
-            }
+            OpenSection(SectionType.Blas1Mods);
         }
 
         private void LoadModsFromJson()
@@ -56,7 +50,7 @@ namespace BlasModInstaller
                 mods = JsonConvert.DeserializeObject<List<Mod>>(json);
 
                 for (int i = 0; i < mods.Count; i++)
-                    mods[i].UI.CreateUI(modSection, i);
+                    mods[i].UI.CreateUI(blas1modSection, i);
             }
             else
             {
@@ -99,7 +93,7 @@ namespace BlasModInstaller
                     {
                         webMod.Version = webVersion.ToString();
                         mods.Add(webMod);
-                        webMod.UI.CreateUI(modSection, mods.Count - 1);
+                        webMod.UI.CreateUI(blas1modSection, mods.Count - 1);
                     }
                 }
 
@@ -196,7 +190,8 @@ namespace BlasModInstaller
                     config.BlasRootFolder = path.Substring(0, exeIdx - 1);
                     Directory.CreateDirectory(BlasRootFolder + "\\Modding\\disabled"); // Only because its not included in the API
                     SaveConfig();
-                    locationSection.Visible = false;
+                    blas1locationSection.Visible = false;
+                    blas1modSection.Visible = true;
                     LoadModsFromJson();
                     LoadModsFromWeb();
                 }
@@ -223,13 +218,13 @@ namespace BlasModInstaller
 
         private void SetBackgroundColor()
         {
-            modSection.BackColor = mods.Count % 2 == 0 ? DARK_GRAY : LIGHT_GRAY;
+            blas1modSection.BackColor = mods.Count % 2 == 0 ? DARK_GRAY : LIGHT_GRAY;
         }
 
         public void AdjustHolderWidth()
         {
-            bool scrollVisible = modSection.VerticalScroll.Visible;
-            modSection.Width = mainSection.Width - (scrollVisible ? 17 : 16);
+            bool scrollVisible = blas1modSection.VerticalScroll.Visible;
+            blas1modSection.Width = mainSection.Width - (scrollVisible ? 17 : 16);
         }
 
         public void RemoveButtonFocus()
@@ -242,11 +237,6 @@ namespace BlasModInstaller
             Instance.debugLog.Text += message + "\r\n";
         }
 
-        private void blas1modsBtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void ShowSideButtonBorder(object sender, EventArgs e)
         {
             (sender as Button).FlatAppearance.BorderColor = Color.White;
@@ -256,5 +246,42 @@ namespace BlasModInstaller
         {
             (sender as Button).FlatAppearance.BorderColor = Color.Black;
         }
+
+        private void blas1modsBtn_Click(object sender, EventArgs e) => OpenSection(SectionType.Blas1Mods);
+        private void blas1skinsBtn_Click(object sender, EventArgs e) => OpenSection(SectionType.Blas1Skins);
+        private void blas2modsBtn_Click(object sender, EventArgs e) => OpenSection(SectionType.Blas2Mods);
+
+        private void OpenSection(SectionType section)
+        {
+            if (section == SectionType.Blas1Mods)
+            {
+                if (File.Exists(BlasRootFolder + "\\Blasphemous.exe"))
+                {
+                    Directory.CreateDirectory(BlasRootFolder + "\\Modding\\disabled"); // Only because its not included in the API
+                    blas1locationSection.Visible = false;
+                    blas1modSection.Visible = true;
+                    LoadModsFromJson();
+                    LoadModsFromWeb();
+                }
+                else
+                {
+                    blas1locationSection.Visible = true;
+                    blas1modSection.Visible = false;
+                }
+
+                blas2modSection.Visible = false;
+            }
+            else if (section == SectionType.Blas2Mods)
+            {
+                blas2modSection.Visible = true;
+                blas1locationSection.Visible = false;
+                blas1modSection.Visible = false;
+            }
+        }
+
+        //private bool ValidateBlas1Directory()
+        //{
+
+        //}
     }
 }

@@ -31,24 +31,29 @@ namespace BlasModInstaller
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.scroll = new System.Windows.Forms.VScrollBar();
-            this.modSection = new System.Windows.Forms.Panel();
+            this.blas1modSection = new System.Windows.Forms.Panel();
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
             this.blasLocButton = new System.Windows.Forms.Button();
-            this.locationSection = new System.Windows.Forms.Panel();
+            this.blas1locationSection = new System.Windows.Forms.Panel();
             this.blasLocFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.blasLocDialog = new System.Windows.Forms.OpenFileDialog();
             this.titleLabel = new System.Windows.Forms.Label();
             this.mainSection = new System.Windows.Forms.Panel();
             this.titleSection = new System.Windows.Forms.Panel();
+            this.blas2modSection = new System.Windows.Forms.Panel();
+            this.vScrollBar2 = new System.Windows.Forms.VScrollBar();
+            this.vScrollBar3 = new System.Windows.Forms.VScrollBar();
             this.sideSection = new System.Windows.Forms.Panel();
             this.debugLog = new System.Windows.Forms.TextBox();
             this.blas2modsBtn = new System.Windows.Forms.Button();
             this.blas1skinsBtn = new System.Windows.Forms.Button();
             this.blas1modsBtn = new System.Windows.Forms.Button();
-            this.modSection.SuspendLayout();
-            this.locationSection.SuspendLayout();
+            this.blas2modText = new System.Windows.Forms.Label();
+            this.blas1modSection.SuspendLayout();
+            this.blas1locationSection.SuspendLayout();
             this.mainSection.SuspendLayout();
             this.titleSection.SuspendLayout();
+            this.blas2modSection.SuspendLayout();
             this.sideSection.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,20 +67,20 @@ namespace BlasModInstaller
             this.scroll.TabIndex = 2;
             this.scroll.Visible = false;
             // 
-            // modSection
+            // blas1modSection
             // 
-            this.modSection.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.blas1modSection.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.modSection.AutoScroll = true;
-            this.modSection.AutoScrollMargin = new System.Drawing.Size(0, 15);
-            this.modSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.modSection.Controls.Add(this.scroll);
-            this.modSection.Controls.Add(this.vScrollBar1);
-            this.modSection.Location = new System.Drawing.Point(0, 60);
-            this.modSection.Name = "modSection";
-            this.modSection.Size = new System.Drawing.Size(950, 701);
-            this.modSection.TabIndex = 3;
+            this.blas1modSection.AutoScroll = true;
+            this.blas1modSection.AutoScrollMargin = new System.Drawing.Size(0, 15);
+            this.blas1modSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.blas1modSection.Controls.Add(this.scroll);
+            this.blas1modSection.Controls.Add(this.vScrollBar1);
+            this.blas1modSection.Location = new System.Drawing.Point(0, 60);
+            this.blas1modSection.Name = "blas1modSection";
+            this.blas1modSection.Size = new System.Drawing.Size(950, 701);
+            this.blas1modSection.TabIndex = 3;
             // 
             // vScrollBar1
             // 
@@ -98,17 +103,17 @@ namespace BlasModInstaller
             this.blasLocButton.UseVisualStyleBackColor = true;
             this.blasLocButton.Click += new System.EventHandler(this.ChooseBlasLocation);
             // 
-            // locationSection
+            // blas1locationSection
             // 
-            this.locationSection.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.blas1locationSection.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.locationSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.locationSection.Controls.Add(this.blasLocButton);
-            this.locationSection.Location = new System.Drawing.Point(0, 60);
-            this.locationSection.Name = "locationSection";
-            this.locationSection.Size = new System.Drawing.Size(950, 701);
-            this.locationSection.TabIndex = 4;
+            this.blas1locationSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.blas1locationSection.Controls.Add(this.blasLocButton);
+            this.blas1locationSection.Location = new System.Drawing.Point(0, 60);
+            this.blas1locationSection.Name = "blas1locationSection";
+            this.blas1locationSection.Size = new System.Drawing.Size(950, 701);
+            this.blas1locationSection.TabIndex = 4;
             // 
             // blasLocDialog
             // 
@@ -135,8 +140,9 @@ namespace BlasModInstaller
             | System.Windows.Forms.AnchorStyles.Right)));
             this.mainSection.BackColor = System.Drawing.Color.White;
             this.mainSection.Controls.Add(this.titleSection);
-            this.mainSection.Controls.Add(this.modSection);
-            this.mainSection.Controls.Add(this.locationSection);
+            this.mainSection.Controls.Add(this.blas2modSection);
+            this.mainSection.Controls.Add(this.blas1modSection);
+            this.mainSection.Controls.Add(this.blas1locationSection);
             this.mainSection.Location = new System.Drawing.Point(250, 0);
             this.mainSection.Name = "mainSection";
             this.mainSection.Size = new System.Drawing.Size(950, 800);
@@ -152,6 +158,41 @@ namespace BlasModInstaller
             this.titleSection.Name = "titleSection";
             this.titleSection.Size = new System.Drawing.Size(950, 60);
             this.titleSection.TabIndex = 9;
+            // 
+            // blas2modSection
+            // 
+            this.blas2modSection.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.blas2modSection.AutoScroll = true;
+            this.blas2modSection.AutoScrollMargin = new System.Drawing.Size(0, 15);
+            this.blas2modSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.blas2modSection.Controls.Add(this.blas2modText);
+            this.blas2modSection.Controls.Add(this.vScrollBar2);
+            this.blas2modSection.Controls.Add(this.vScrollBar3);
+            this.blas2modSection.Location = new System.Drawing.Point(0, 60);
+            this.blas2modSection.Name = "blas2modSection";
+            this.blas2modSection.Size = new System.Drawing.Size(950, 701);
+            this.blas2modSection.TabIndex = 4;
+            // 
+            // vScrollBar2
+            // 
+            this.vScrollBar2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.vScrollBar2.Location = new System.Drawing.Point(914, 15);
+            this.vScrollBar2.Name = "vScrollBar2";
+            this.vScrollBar2.Size = new System.Drawing.Size(20, 640);
+            this.vScrollBar2.TabIndex = 2;
+            this.vScrollBar2.Visible = false;
+            // 
+            // vScrollBar3
+            // 
+            this.vScrollBar3.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.vScrollBar3.Location = new System.Drawing.Point(965, -7);
+            this.vScrollBar3.Name = "vScrollBar3";
+            this.vScrollBar3.Size = new System.Drawing.Size(20, 714);
+            this.vScrollBar3.TabIndex = 2;
+            this.vScrollBar3.Visible = false;
             // 
             // sideSection
             // 
@@ -193,6 +234,7 @@ namespace BlasModInstaller
             this.blas2modsBtn.TabIndex = 2;
             this.blas2modsBtn.Text = "Blasphemous II Mods";
             this.blas2modsBtn.UseVisualStyleBackColor = false;
+            this.blas2modsBtn.Click += new System.EventHandler(this.blas2modsBtn_Click);
             this.blas2modsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
             this.blas2modsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
             // 
@@ -211,6 +253,7 @@ namespace BlasModInstaller
             this.blas1skinsBtn.TabIndex = 1;
             this.blas1skinsBtn.Text = "Blasphemous Skins";
             this.blas1skinsBtn.UseVisualStyleBackColor = false;
+            this.blas1skinsBtn.Click += new System.EventHandler(this.blas1skinsBtn_Click);
             this.blas1skinsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
             this.blas1skinsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
             // 
@@ -233,6 +276,17 @@ namespace BlasModInstaller
             this.blas1modsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
             this.blas1modsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
             // 
+            // blas2modText
+            // 
+            this.blas2modText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.blas2modText.Font = new System.Drawing.Font("Trebuchet MS", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.blas2modText.Location = new System.Drawing.Point(0, 0);
+            this.blas2modText.Name = "blas2modText";
+            this.blas2modText.Size = new System.Drawing.Size(950, 701);
+            this.blas2modText.TabIndex = 3;
+            this.blas2modText.Text = "There is nothing here yet...";
+            this.blas2modText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -247,10 +301,11 @@ namespace BlasModInstaller
             this.Name = "MainForm";
             this.Text = "Blasphemous Mod Installer";
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
-            this.modSection.ResumeLayout(false);
-            this.locationSection.ResumeLayout(false);
+            this.blas1modSection.ResumeLayout(false);
+            this.blas1locationSection.ResumeLayout(false);
             this.mainSection.ResumeLayout(false);
             this.titleSection.ResumeLayout(false);
+            this.blas2modSection.ResumeLayout(false);
             this.sideSection.ResumeLayout(false);
             this.sideSection.PerformLayout();
             this.ResumeLayout(false);
@@ -259,11 +314,11 @@ namespace BlasModInstaller
 
         #endregion
         private System.Windows.Forms.VScrollBar scroll;
-        private System.Windows.Forms.Panel modSection;
+        private System.Windows.Forms.Panel blas1modSection;
         private System.Windows.Forms.Button blasLocButton;
         private System.Windows.Forms.FolderBrowserDialog blasLocFolderDialog;
         private System.Windows.Forms.OpenFileDialog blasLocDialog;
-        private System.Windows.Forms.Panel locationSection;
+        private System.Windows.Forms.Panel blas1locationSection;
         private System.Windows.Forms.VScrollBar vScrollBar1;
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Panel mainSection;
@@ -273,6 +328,10 @@ namespace BlasModInstaller
         private System.Windows.Forms.Button blas1skinsBtn;
         private System.Windows.Forms.Button blas2modsBtn;
         private System.Windows.Forms.TextBox debugLog;
+        private System.Windows.Forms.Panel blas2modSection;
+        private System.Windows.Forms.VScrollBar vScrollBar2;
+        private System.Windows.Forms.VScrollBar vScrollBar3;
+        private System.Windows.Forms.Label blas2modText;
     }
 }
 
