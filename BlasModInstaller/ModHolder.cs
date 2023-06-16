@@ -9,7 +9,7 @@ namespace BlasModInstaller
         private const int MOD_HEIGHT = 82;
 
         private readonly static Font smallFont = new Font("Verdana", 9);
-        private readonly static Font largeFont = new Font("Verdana", 16);
+        private readonly static Font largeFont = new Font("Verdana", 16, FontStyle.Bold);
         private readonly static Font installFont = new Font("Trebuchet MS", 8, FontStyle.Bold);
         private readonly static Font enableFont = new Font("Arial", 8, FontStyle.Bold);
 
@@ -78,7 +78,7 @@ namespace BlasModInstaller
         public void UpdateUI()
         {
             // Text
-            nameText.Text = $"{mod.Name} v{mod.Version}";
+            nameText.Text = $"{mod.Name} v{(mod.Installed ? mod.LocalVersion.ToString(3) : mod.LatestVersion)}";
             //authorText.Text = "Author: " + mod.Author;
             descriptionText.Text = mod.Description;
 

@@ -11,6 +11,7 @@ namespace BlasModInstaller
     [Serializable]
     public class Mod
     {
+        // This data will generally always stay the same
         public string Name { get; private set; }
         public string Author { get; private set; }
         public string Description { get; private set; }
@@ -18,8 +19,8 @@ namespace BlasModInstaller
         public string GithubRepo { get; private set; }
         public string PluginFile { get; private set; }
         public string[] RequiredDlls { get; private set; }
-
-        public string Version { get; set; }
+        // This data is set whenever loading mods from web
+        public string LatestVersion { get; set; }
 
         [JsonIgnore]
         public bool Installed => File.Exists(PathToEnabledPlugin) || File.Exists(PathToDisabledPlugin);
@@ -68,7 +69,6 @@ namespace BlasModInstaller
                 foreach (ZipEntry file in zipFile)
                     file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
             }
-            Version = newVersion;
             UpdateAvailable = false;
             MainForm.Instance.SaveMods();
             File.Delete(zipPath);

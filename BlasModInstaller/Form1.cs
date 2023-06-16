@@ -99,21 +99,17 @@ namespace BlasModInstaller
                     if (ModExists(webMod.Name, out Mod localMod))
                     {
                         localMod.CopyData(webMod);
+                        localMod.LatestVersion = webVersion.ToString();
 
                         if (localMod.Installed)
                         {
-                            Version localVersion = new Version(localMod.Version);
-                            localMod.UpdateAvailable = webVersion.CompareTo(localVersion) > 0;
-                        }
-                        else
-                        {
-                            localMod.Version = webVersion.ToString();
+                            localMod.UpdateAvailable = webVersion.CompareTo(localMod.LocalVersion) > 0;
                         }
                         localMod.UI.UpdateUI();
                     }
                     else
                     {
-                        webMod.Version = webVersion.ToString();
+                        webMod.LatestVersion = webVersion.ToString();
                         blas1mods.Add(webMod);
                         webMod.UI.CreateUI(blas1modSection, blas1mods.Count - 1);
                     }
