@@ -24,6 +24,20 @@ namespace BlasModInstaller.Pages
             _pageSection = pageSection;
         }
 
+        protected bool DataExists(T searchData, out T foundData)
+        {
+            foreach (T data in dataCollection)
+            {
+                if (searchData.Equals(data))
+                {
+                    foundData = data;
+                    return true;
+                }
+            }
+            foundData = default;
+            return false;
+        }
+
         // Save the current list of skins/mods to a json file
         protected virtual void SaveLocalData()
         {
@@ -40,6 +54,8 @@ namespace BlasModInstaller.Pages
                 dataCollection.AddRange(localData);
             }
         }
+
+
 
         public void LoadData()
         {

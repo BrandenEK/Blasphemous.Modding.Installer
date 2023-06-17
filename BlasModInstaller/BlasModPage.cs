@@ -18,7 +18,7 @@ namespace BlasModInstaller.Pages
         protected override void LoadExternalData()
         {
             LoadLocalData();
-            LoadModsFromWeb();
+            LoadGlobalData();
         }
 
         protected override void LoadLocalData()
@@ -32,11 +32,11 @@ namespace BlasModInstaller.Pages
                 MainForm.Log(localMod.Installed ? localMod.LocalVersion.ToString() : "Not installed");
             }
 
-            MainForm.Log($"Loaded {dataCollection.Count} mods from json");
+            MainForm.Log($"Loaded {dataCollection.Count} local mods");
             SetBackgroundColor();
         }
 
-        private async Task LoadModsFromWeb()
+        private async Task LoadGlobalData()
         {
             using (HttpClient client = new HttpClient())
             {
@@ -49,7 +49,7 @@ namespace BlasModInstaller.Pages
                     Version webVersion = new Version(Mod.CleanSemanticVersion(latestRelease.TagName));
                     string downloadURL = latestRelease.Assets[0].BrowserDownloadUrl;
 
-                    if (ModExists(webMod.Name, out Mod localMod))
+                    if (DataExists(webMod, out Mod localMod))
                     {
                         localMod.CopyData(webMod);
                         localMod.LatestVersion = webVersion.ToString();
@@ -70,26 +70,12 @@ namespace BlasModInstaller.Pages
                     }
                 }
 
-                MainForm.Log($"Loaded {webMods.Length} mods from the web");
+                MainForm.Log($"Loaded {webMods.Length} global mods");
             }
 
             //MainForm.Log($"Github API calls remaining: {github.GetLastApiInfo().RateLimit.Remaining}");
             SetBackgroundColor();
             SaveLocalData();
-        }
-
-        private bool ModExists(string name, out Mod foundMod)
-        {
-            foundMod = null;
-            foreach (Mod mod in dataCollection)
-            {
-                if (name == mod.Name)
-                {
-                    foundMod = mod;
-                    return true;
-                }
-            }
-            return false;
         }
 
         private void SetBackgroundColor()

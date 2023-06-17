@@ -56,6 +56,13 @@ namespace BlasModInstaller
             RequiredDlls = requiredDlls;
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj is Mod mod)
+                return Name == mod.Name;
+            return base.Equals(obj);
+        }
+
         public void InstallMod(string zipPath)
         {
             if (MainForm.BlasRootFolder == null) return;

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace BlasModInstaller.Pages
 {
@@ -15,17 +16,40 @@ namespace BlasModInstaller.Pages
 
         protected override void LoadExternalData()
         {
-            LoadSkinsFromWeb();
+            LoadLocalData();
+            MainForm.Log($"Loaded {dataCollection.Count} local skins");
+            LoadGlobalData();
         }
 
-        private async Task LoadSkinsFromWeb()
+        private async Task LoadGlobalData()
         {
-            IReadOnlyList<Octokit.RepositoryContent> contents = await MainForm.GetRepositoryContents("BrandenEK", "Blasphemous-Custom-Skins");
-            foreach (var item in contents)
+            using (HttpClient client = new HttpClient())
             {
-                MainForm.Log(item.Name);
-            }
-        }
+                IReadOnlyList<Octokit.RepositoryContent> contents = await MainForm.GetRepositoryContents("BrandenEK", "Blasphemous-Custom-Skins");
+                foreach (var item in contents)
+                {
+                    // Temp - get rid of other files
+                    if (item.Name.StartsWith("#") || item.Name.StartsWith("R"))
+                        continue;
 
+                    string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{item.Name}/info.txt");
+                    Skin globalSkin = JsonConvert.DeserializeObject<Skin>(json);
+                    MainForm.Log($"Name: {globalSkin.name}, Author: {globalSkin.author}");
+
+                    if (DataExists(globalSkin, out Skin localSkin))
+                    {
+                        localSkin.UpdateLocalData(globalSkin);
+                    }
+                    else
+                    {
+                        dataCollection.Add(globalSkin);
+                    }
+                }
+
+                MainForm.Log($"Loaded {contents.Count} global skins");
+            }
+
+            SaveLocalData();
+        }
     }
 }
