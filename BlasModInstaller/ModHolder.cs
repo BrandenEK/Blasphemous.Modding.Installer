@@ -119,15 +119,10 @@ namespace BlasModInstaller
             progressBar.Value = percentage;
         }
 
-        private void UnselectButton(object sender, EventArgs e)
-        {
-            MainForm.Instance.RemoveButtonFocus();
-        }
-
         public void CreateUI(Panel modHolder, int modIdx)
         {
             modHolder.AutoScroll = false;
-            Color backgroundColor = modIdx % 2 == 0 ? MainForm.DARK_GRAY : MainForm.LIGHT_GRAY;
+            Color backgroundColor = modIdx % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
 
             // Panels
 
@@ -215,8 +210,8 @@ namespace BlasModInstaller
             };
             infoButton.FlatAppearance.BorderColor = Color.White;
             infoButton.Click += ClickedInfo;
-            infoButton.MouseUp += UnselectButton;
-            infoButton.MouseLeave += UnselectButton;
+            infoButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
+            infoButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
 
             installButton = new Button
             {
@@ -232,8 +227,8 @@ namespace BlasModInstaller
             };
             installButton.FlatAppearance.BorderColor = Color.White;
             installButton.Click += ClickedInstall;
-            installButton.MouseUp += UnselectButton;
-            installButton.MouseLeave += UnselectButton;
+            installButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
+            installButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
 
             enableButton = new Button
             {
@@ -249,8 +244,8 @@ namespace BlasModInstaller
                 TabStop = false
             };
             enableButton.Click += ClickedEnable;
-            enableButton.MouseUp += UnselectButton;
-            enableButton.MouseLeave += UnselectButton;
+            enableButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
+            enableButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
 
             updateText = new Label
             {
@@ -279,8 +274,8 @@ namespace BlasModInstaller
                 Cursor = Cursors.Hand
             };
             updateButton.Click += ClickedUpdate;
-            updateButton.MouseUp += UnselectButton;
-            updateButton.MouseLeave += UnselectButton;
+            updateButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
+            updateButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
             updateButton.TabStop = false;
 
             progressBar = new ProgressBar

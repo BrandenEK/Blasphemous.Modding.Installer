@@ -56,7 +56,7 @@ namespace BlasModInstaller
             RequiredDlls = requiredDlls;
         }
 
-        public void InstallMod(string newVersion, string zipPath)
+        public void InstallMod(string zipPath)
         {
             if (MainForm.BlasRootFolder == null) return;
 
@@ -71,7 +71,7 @@ namespace BlasModInstaller
                     file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
             }
             UpdateAvailable = false;
-            MainForm.Instance.SaveMods();
+            MainForm.Instance.BlasModPage.SaveMods();
             File.Delete(zipPath);
             UI.UpdateUI();
         }
@@ -102,7 +102,7 @@ namespace BlasModInstaller
             {
                 foreach (string dll in RequiredDlls)
                 {
-                    if (MainForm.Instance.InstalledModsThatRequireDll(dll) == 0)
+                    if (MainForm.Instance.BlasModPage.InstalledModsThatRequireDll(dll) == 0)
                     {
                         string dllPath = MainForm.BlasRootFolder + "\\Modding\\data\\" + dll;
                         if (File.Exists(dllPath))
@@ -246,5 +246,10 @@ namespace BlasModInstaller
         public string PathToLogFile => $"{MainForm.BlasRootFolder}\\Modding\\logs\\{Name}.log";
         [JsonIgnore]
         public string GithubLink => $"https://github.com/{GithubAuthor}/{GithubRepo}";
+
+        public static string CleanSemanticVersion(string version)
+        {
+            return version.ToLower().Replace("v", "");
+        }
     }
 }

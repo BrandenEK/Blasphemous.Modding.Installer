@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using BlasModInstaller.Pages;
 
 namespace BlasModInstaller
 {
@@ -16,10 +17,6 @@ namespace BlasModInstaller
     {
         private readonly Version CurrentInstallerVersion = new Version(1, 0, 0);
 
-        public static Color LIGHT_GRAY => Color.FromArgb(64, 64, 64);
-        public static Color DARK_GRAY => Color.FromArgb(52, 52, 52);
-
-        private string SavedModsPath => Environment.CurrentDirectory + "\\downloads\\mods.json";
         private string DownloadsPath => Environment.CurrentDirectory + "\\downloads\\";
         private string ConfigPath => Environment.CurrentDirectory + "\\installer.cfg";
 
@@ -36,116 +33,41 @@ namespace BlasModInstaller
             }
         }
 
-        private Octokit.GitHubClient github;
+        public BlasModPage BlasModPage { get; private set; }
+        public BlasSkinPage BlasSkinPage { get; private set; }
+        public BlasIIModPage BlasIIModPage { get; private set; }
+        private InstallerPage currentPage;
 
-        // Keep this as null until mods are loaded
-        private List<Mod> blas1mods;
-        private bool checkedWebMods = false;
+        private Octokit.GitHubClient github;
 
         public MainForm()
         {
             Directory.CreateDirectory(DownloadsPath);
             if (Instance == null)
                 Instance = this;
-            LoadConfig();
-
             InitializeComponent();
+            BlasModPage = new BlasModPage(blas1modSection);
+            BlasSkinPage = new BlasSkinPage(blas1skinSection);
+            BlasIIModPage = new BlasIIModPage(blas2modSection);
+
+            LoadConfig();
             CreateGithubClient();
 
             CheckForNewerInstallerRelease();
             OpenSection(SectionType.Blas1Mods);
         }
 
-        private void LoadModsFromJson()
+        public static async Task<Octokit.Release> GetLatestRelease(string owner, string repo)
         {
-            if (blas1mods != null)
-                return;
-
-            if (File.Exists(SavedModsPath))
-            {
-                string json = File.ReadAllText(SavedModsPath);
-                blas1mods = JsonConvert.DeserializeObject<List<Mod>>(json);
-
-                for (int i = 0; i < blas1mods.Count; i++)
-                {
-                    blas1mods[i].UI.CreateUI(blas1modSection, i);
-                    Log(blas1mods[i].Installed ? blas1mods[i].LocalVersion.ToString() : "Not installed");
-                }
-            }
-            else
-            {
-                blas1mods = new List<Mod>();
-            }
-
-            Log($"Loaded {blas1mods.Count} mods from json");
-            SetBackgroundColor();
+            return await Instance.github.Repository.Release.GetLatest(owner, repo);
         }
 
-        private async Task LoadModsFromWeb()
+        public static async Task<IReadOnlyList<Octokit.RepositoryContent>> GetRepositoryContents(string owner, string repo)
         {
-            if (checkedWebMods)
-                return;
-
-            using (HttpClient client = new HttpClient())
-            {
-                string json = await client.GetStringAsync("https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/mods.json");
-                Mod[] webMods = JsonConvert.DeserializeObject<Mod[]>(json);
-
-                foreach (Mod webMod in webMods)
-                {                    
-                    Octokit.Release latestRelease = await github.Repository.Release.GetLatest(webMod.GithubAuthor, webMod.GithubRepo);
-                    Version webVersion = new Version(CleanVersion(latestRelease.TagName));
-                    string downloadURL = latestRelease.Assets[0].BrowserDownloadUrl;
-
-                    if (ModExists(webMod.Name, out Mod localMod))
-                    {
-                        localMod.CopyData(webMod);
-                        localMod.LatestVersion = webVersion.ToString();
-                        localMod.LatestDownloadURL = downloadURL;
-
-                        if (localMod.Installed)
-                        {
-                            localMod.UpdateAvailable = webVersion.CompareTo(localMod.LocalVersion) > 0;
-                        }
-                        localMod.UI.UpdateUI();
-                    }
-                    else
-                    {
-                        webMod.LatestVersion = webVersion.ToString();
-                        webMod.LatestDownloadURL = downloadURL;
-                        blas1mods.Add(webMod);
-                        webMod.UI.CreateUI(blas1modSection, blas1mods.Count - 1);
-                    }
-                }
-
-                Log($"Loaded {webMods.Length} mods from the web");
-                checkedWebMods = true;
-            }
-
-            Log($"Github API calls remaining: {github.GetLastApiInfo().RateLimit.Remaining}");
-            SetBackgroundColor();
-            SaveMods();
+            return await Instance.github.Repository.Content.GetAllContents(owner, repo);
         }
 
-        // After loading more mods from web or updating version, need to save new json
-        public void SaveMods()
-        {
-            File.WriteAllText(SavedModsPath, JsonConvert.SerializeObject(blas1mods));
-        }
 
-        private bool ModExists(string name, out Mod foundMod)
-        {
-            foundMod = null;
-            foreach (Mod mod in blas1mods)
-            {
-                if (name == mod.Name)
-                {
-                    foundMod = mod;
-                    return true;
-                }
-            }
-            return false;
-        }
 
         private void CreateGithubClient()
         {
@@ -160,8 +82,7 @@ namespace BlasModInstaller
         {
             if (BlasRootFolder == null) return;
 
-            string newVersion = CleanVersion(mod.LatestVersion);
-            string downloadPath = $"{DownloadsPath}{mod.Name.Replace(' ', '_')}_{newVersion}.zip";
+            string downloadPath = $"{DownloadsPath}{mod.Name.Replace(' ', '_')}_{Mod.CleanSemanticVersion(mod.LatestVersion)}.zip";
 
             // Update download bar
             client.DownloadProgressChanged += (object sender, DownloadProgressChangedEventArgs e) =>
@@ -173,7 +94,7 @@ namespace BlasModInstaller
             {
                 mod.FinishDownload();
                 if (!e.Cancelled)
-                    BeginInvoke(new MethodInvoker(() => mod.InstallMod(newVersion, downloadPath)));
+                    BeginInvoke(new MethodInvoker(() => mod.InstallMod(downloadPath)));
             };
             // Start download
             client.DownloadFileAsync(new Uri(mod.LatestDownloadURL), downloadPath);
@@ -206,7 +127,7 @@ namespace BlasModInstaller
         private async Task CheckForNewerInstallerRelease()
         {
             Octokit.Release latestRelease = await github.Repository.Release.GetLatest("BrandenEK", "Blasphemous-Mod-Installer");
-            Version newestVersion = new Version(CleanVersion(latestRelease.TagName));
+            Version newestVersion = new Version(Mod.CleanSemanticVersion(latestRelease.TagName));
 
             if (newestVersion > CurrentInstallerVersion)
                 warningSection.Visible = true;
@@ -221,32 +142,12 @@ namespace BlasModInstaller
             }
         }
 
-        public int InstalledModsThatRequireDll(string dllName)
-        {
-            int count = 0;
-            foreach (Mod mod in blas1mods)
-            {
-                if (mod.RequiresDll(dllName) && mod.Installed)
-                    count++;
-            }
-            return count;
-        }
-
-        private string CleanVersion(string version)
-        {
-            return version.ToLower().Replace("v", "");
-        }
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
-            if (blas1mods != null)
-                AdjustHolderWidth();
+            AdjustHolderWidth();
         }
 
-        private void SetBackgroundColor()
-        {
-            blas1modSection.BackColor = blas1mods.Count % 2 == 0 ? DARK_GRAY : LIGHT_GRAY;
-        }
 
         public void AdjustHolderWidth()
         {
@@ -254,7 +155,7 @@ namespace BlasModInstaller
             blas1modSection.Width = mainSection.Width - (scrollVisible ? 17 : 16);
         }
 
-        public void RemoveButtonFocus()
+        public void RemoveButtonFocus(object sender, EventArgs e)
         {
             titleLabel.Focus();
         }
@@ -283,6 +184,8 @@ namespace BlasModInstaller
             if (section == SectionType.Blas1Mods)
             {
                 titleLabel.Text = "Blasphemous Mods";
+                currentPage = BlasModPage;
+
                 ValidateBlas1Directory(BlasRootFolder);
                 blas1skinSection.Visible = false;
                 blas2modSection.Visible = false;
@@ -290,6 +193,9 @@ namespace BlasModInstaller
             else if (section == SectionType.Blas1Skins)
             {
                 titleLabel.Text = "Blasphemous Skins";
+                currentPage = BlasSkinPage;
+
+                BlasSkinPage.LoadData();
                 blas1modSection.Visible = false;
                 blas1locationSection.Visible = false;
                 blas1skinSection.Visible = true;
@@ -298,6 +204,8 @@ namespace BlasModInstaller
             else if (section == SectionType.Blas2Mods)
             {
                 titleLabel.Text = "Blasphemous II Mods";
+                currentPage = BlasIIModPage;
+
                 blas1modSection.Visible = false;
                 blas1locationSection.Visible = false;
                 blas1skinSection.Visible = false;
@@ -315,8 +223,7 @@ namespace BlasModInstaller
 
                 blas1locationSection.Visible = false;
                 blas1modSection.Visible = true;
-                LoadModsFromJson();
-                LoadModsFromWeb();
+                BlasModPage.LoadData();
                 return true;
             }
 

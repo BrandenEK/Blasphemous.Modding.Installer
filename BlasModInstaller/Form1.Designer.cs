@@ -301,7 +301,7 @@ namespace BlasModInstaller
             this.debugLog.Name = "debugLog";
             this.debugLog.ReadOnly = true;
             this.debugLog.Size = new System.Drawing.Size(220, 300);
-            this.debugLog.TabIndex = 3;
+            this.debugLog.TabIndex = 0;
             // 
             // blas2modsBtn
             // 
@@ -321,6 +321,8 @@ namespace BlasModInstaller
             this.blas2modsBtn.Click += new System.EventHandler(this.blas2modsBtn_Click);
             this.blas2modsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
             this.blas2modsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
+            this.blas2modsBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
+            this.blas2modsBtn.MouseLeave += new System.EventHandler(this.RemoveButtonFocus);
             // 
             // blas1skinsBtn
             // 
@@ -340,6 +342,8 @@ namespace BlasModInstaller
             this.blas1skinsBtn.Click += new System.EventHandler(this.blas1skinsBtn_Click);
             this.blas1skinsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
             this.blas1skinsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
+            this.blas1skinsBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
+            this.blas1skinsBtn.MouseLeave += new System.EventHandler(this.RemoveButtonFocus);
             // 
             // blas1modsBtn
             // 
@@ -353,12 +357,14 @@ namespace BlasModInstaller
             this.blas1modsBtn.Location = new System.Drawing.Point(15, 75);
             this.blas1modsBtn.Name = "blas1modsBtn";
             this.blas1modsBtn.Size = new System.Drawing.Size(220, 35);
-            this.blas1modsBtn.TabIndex = 0;
+            this.blas1modsBtn.TabIndex = 3;
             this.blas1modsBtn.Text = "Blasphemous Mods";
             this.blas1modsBtn.UseVisualStyleBackColor = false;
             this.blas1modsBtn.Click += new System.EventHandler(this.blas1modsBtn_Click);
             this.blas1modsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
             this.blas1modsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
+            this.blas1modsBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
+            this.blas1modsBtn.MouseLeave += new System.EventHandler(this.RemoveButtonFocus);
             // 
             // MainForm
             // 
