@@ -71,7 +71,6 @@ namespace BlasModInstaller
                     file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
             }
             UpdateAvailable = false;
-            MainForm.Instance.BlasModPage.SaveMods();
             File.Delete(zipPath);
             UI.UpdateUI();
         }

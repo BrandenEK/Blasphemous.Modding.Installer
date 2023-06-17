@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Net;
@@ -13,11 +11,11 @@ namespace BlasModInstaller.Pages
 {
     public class BlasModPage : InstallerPage
     {
-        private readonly List<Mod> blas1mods = new List<Mod>();
+        public BlasModPage(Panel pageSection) : base(pageSection) { }
 
         protected override string SaveDataPath => Environment.CurrentDirectory + "\\downloads\\BlasphemousMods.json";
 
-        public BlasModPage(Panel pageSection) : base(pageSection) { }
+        private readonly List<Mod> blas1mods = new List<Mod>();
 
         protected override void LoadExternalData()
         {
@@ -84,7 +82,7 @@ namespace BlasModInstaller.Pages
 
             //MainForm.Log($"Github API calls remaining: {github.GetLastApiInfo().RateLimit.Remaining}");
             SetBackgroundColor();
-            SaveMods();
+            SaveLocalData();
         }
 
         private bool ModExists(string name, out Mod foundMod)
@@ -106,8 +104,7 @@ namespace BlasModInstaller.Pages
             PageSection.BackColor = blas1mods.Count % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
         }
 
-        // After loading more mods from web or updating version, need to save new json
-        public void SaveMods()
+        public override void SaveLocalData()
         {
             File.WriteAllText(SaveDataPath, JsonConvert.SerializeObject(blas1mods));
         }
