@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace BlasModInstaller
 {
+    [Serializable]
     public class Skin
     {
         public string Name { get; set; }
+        public string DownloadURL { get; set; }
     }
 }

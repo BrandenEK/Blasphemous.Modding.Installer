@@ -7,18 +7,11 @@ using Newtonsoft.Json;
 
 namespace BlasModInstaller.Pages
 {
-    public class BlasSkinPage : InstallerPage
+    public class BlasSkinPage : InstallerPage<Skin>
     {
         public BlasSkinPage(Panel pageSection) : base(pageSection) { }
 
         protected override string SaveDataPath => Environment.CurrentDirectory + "\\downloads\\BlasphemousSkins.json";
-
-        private readonly List<Skin> blas1skins = new List<Skin>();
-
-        public override void SaveLocalData()
-        {
-            File.WriteAllText(SaveDataPath, JsonConvert.SerializeObject(blas1skins));
-        }
 
         protected override void LoadExternalData()
         {

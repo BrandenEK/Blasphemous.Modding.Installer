@@ -6,18 +6,11 @@ using Newtonsoft.Json;
 
 namespace BlasModInstaller.Pages
 {
-    public class BlasIIModPage : InstallerPage
+    public class BlasIIModPage : InstallerPage<Mod>
     {
         public BlasIIModPage(Panel pageSection) : base(pageSection) { }
 
         protected override string SaveDataPath => Environment.CurrentDirectory + "\\downloads\\BlasphemousIIMods.json";
-
-        private readonly List<Mod> blas2mods = new List<Mod>();
-
-        public override void SaveLocalData()
-        {
-            File.WriteAllText(SaveDataPath, JsonConvert.SerializeObject(blas2mods));
-        }
 
         protected override void LoadExternalData()
         {

@@ -9,37 +9,30 @@ using System.Windows.Forms;
 
 namespace BlasModInstaller.Pages
 {
-    public class BlasModPage : InstallerPage
+    public class BlasModPage : InstallerPage<Mod>
     {
         public BlasModPage(Panel pageSection) : base(pageSection) { }
 
         protected override string SaveDataPath => Environment.CurrentDirectory + "\\downloads\\BlasphemousMods.json";
 
-        private readonly List<Mod> blas1mods = new List<Mod>();
-
         protected override void LoadExternalData()
         {
-            LoadModsFromJson();
+            LoadLocalData();
             LoadModsFromWeb();
         }
 
-        private void LoadModsFromJson()
+        protected override void LoadLocalData()
         {
-            if (File.Exists(SaveDataPath))
-            {
-                string json = File.ReadAllText(SaveDataPath);
-                List<Mod> localMods = JsonConvert.DeserializeObject<List<Mod>>(json);
+            base.LoadLocalData();
 
-                for (int i = 0; i < localMods.Count; i++)
-                {
-                    Mod localMod = localMods[i];
-                    blas1mods.Add(localMod);
-                    localMod.UI.CreateUI(PageSection, i);
-                    MainForm.Log(localMod.Installed ? localMod.LocalVersion.ToString() : "Not installed");
-                }
+            for (int i = 0; i < dataCollection.Count; i++)
+            {
+                Mod localMod = dataCollection[i];
+                localMod.UI.CreateUI(PageSection, i);
+                MainForm.Log(localMod.Installed ? localMod.LocalVersion.ToString() : "Not installed");
             }
 
-            MainForm.Log($"Loaded {blas1mods.Count} mods from json");
+            MainForm.Log($"Loaded {dataCollection.Count} mods from json");
             SetBackgroundColor();
         }
 
@@ -72,8 +65,8 @@ namespace BlasModInstaller.Pages
                     {
                         webMod.LatestVersion = webVersion.ToString();
                         webMod.LatestDownloadURL = downloadURL;
-                        blas1mods.Add(webMod);
-                        webMod.UI.CreateUI(PageSection, blas1mods.Count - 1);
+                        dataCollection.Add(webMod);
+                        webMod.UI.CreateUI(PageSection, dataCollection.Count - 1);
                     }
                 }
 
@@ -88,7 +81,7 @@ namespace BlasModInstaller.Pages
         private bool ModExists(string name, out Mod foundMod)
         {
             foundMod = null;
-            foreach (Mod mod in blas1mods)
+            foreach (Mod mod in dataCollection)
             {
                 if (name == mod.Name)
                 {
@@ -101,18 +94,13 @@ namespace BlasModInstaller.Pages
 
         private void SetBackgroundColor()
         {
-            PageSection.BackColor = blas1mods.Count % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
-        }
-
-        public override void SaveLocalData()
-        {
-            File.WriteAllText(SaveDataPath, JsonConvert.SerializeObject(blas1mods));
+            PageSection.BackColor = dataCollection.Count % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
         }
 
         public int InstalledModsThatRequireDll(string dllName)
         {
             int count = 0;
-            foreach (Mod mod in blas1mods)
+            foreach (Mod mod in dataCollection)
             {
                 if (mod.RequiresDll(dllName) && mod.Installed)
                     count++;

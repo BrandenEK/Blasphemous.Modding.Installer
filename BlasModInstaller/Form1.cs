@@ -36,7 +36,7 @@ namespace BlasModInstaller
         public BlasModPage BlasModPage { get; private set; }
         public BlasSkinPage BlasSkinPage { get; private set; }
         public BlasIIModPage BlasIIModPage { get; private set; }
-        private InstallerPage currentPage;
+        //private InstallerPage currentPage;
 
         private Octokit.GitHubClient github;
 
@@ -66,8 +66,6 @@ namespace BlasModInstaller
         {
             return await Instance.github.Repository.Content.GetAllContents(owner, repo);
         }
-
-
 
         private void CreateGithubClient()
         {
@@ -184,7 +182,7 @@ namespace BlasModInstaller
             if (section == SectionType.Blas1Mods)
             {
                 titleLabel.Text = "Blasphemous Mods";
-                currentPage = BlasModPage;
+                //currentPage = BlasModPage;
 
                 ValidateBlas1Directory(BlasRootFolder);
                 blas1skinSection.Visible = false;
@@ -193,7 +191,7 @@ namespace BlasModInstaller
             else if (section == SectionType.Blas1Skins)
             {
                 titleLabel.Text = "Blasphemous Skins";
-                currentPage = BlasSkinPage;
+                //currentPage = BlasSkinPage;
 
                 BlasSkinPage.LoadData();
                 blas1modSection.Visible = false;
@@ -204,7 +202,7 @@ namespace BlasModInstaller
             else if (section == SectionType.Blas2Mods)
             {
                 titleLabel.Text = "Blasphemous II Mods";
-                currentPage = BlasIIModPage;
+                //currentPage = BlasIIModPage;
 
                 blas1modSection.Visible = false;
                 blas1locationSection.Visible = false;
