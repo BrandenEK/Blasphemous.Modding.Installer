@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.IO;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace BlasModInstaller.Pages
 {
@@ -44,7 +45,17 @@ namespace BlasModInstaller.Pages
             File.WriteAllText(SaveDataPath, JsonConvert.SerializeObject(dataCollection));
         }
 
-        // Load a json file into the current list of skins/mods
+        public void LoadData()
+        {
+            if (!_loadedData)
+            {
+                LoadLocalData();
+                LoadGlobalData();
+                _loadedData = true;
+            }
+        }
+
+        // Loads local data from json into the collection
         protected virtual void LoadLocalData()
         {
             if (File.Exists(SaveDataPath))
@@ -55,16 +66,10 @@ namespace BlasModInstaller.Pages
             }
         }
 
-
-
-        public void LoadData()
+        // Loads global data from github into the collection
+        protected virtual async Task LoadGlobalData()
         {
-            if (!_loadedData)
-                LoadExternalData();
-            _loadedData = true;
-        }
 
-        // Load list of skins/mods from local json and from online
-        protected abstract void LoadExternalData();
+        }
     }
 }

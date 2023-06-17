@@ -14,14 +14,14 @@ namespace BlasModInstaller.Pages
 
         protected override string SaveDataPath => Environment.CurrentDirectory + "\\downloads\\BlasphemousSkins.json";
 
-        protected override void LoadExternalData()
+        protected override void LoadLocalData()
         {
-            LoadLocalData();
+            base.LoadLocalData();
+
             MainForm.Log($"Loaded {dataCollection.Count} local skins");
-            LoadGlobalData();
         }
 
-        private async Task LoadGlobalData()
+        protected override async Task LoadGlobalData()
         {
             using (HttpClient client = new HttpClient())
             {

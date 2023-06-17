@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.IO;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace BlasModInstaller.Pages
 {
@@ -12,9 +13,14 @@ namespace BlasModInstaller.Pages
 
         protected override string SaveDataPath => Environment.CurrentDirectory + "\\downloads\\BlasphemousIIMods.json";
 
-        protected override void LoadExternalData()
+        protected override void LoadLocalData()
         {
-            throw new NotImplementedException();
+            base.LoadLocalData();
+        }
+
+        protected override Task LoadGlobalData()
+        {
+            return base.LoadGlobalData();
         }
     }
 }

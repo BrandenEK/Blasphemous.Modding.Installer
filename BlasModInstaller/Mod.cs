@@ -164,15 +164,15 @@ namespace BlasModInstaller
             }
         }
 
-        public void CopyData(Mod other)
+        public void UpdateLocalData(Mod globalMod)
         {
             // Name is already going to be the same
-            Author = other.Author;
-            Description = other.Description;
-            GithubAuthor = other.GithubAuthor;
-            GithubRepo = other.GithubRepo;
-            PluginFile = other.PluginFile;
-            RequiredDlls = other.RequiredDlls;
+            Author = globalMod.Author;
+            Description = globalMod.Description;
+            GithubAuthor = globalMod.GithubAuthor;
+            GithubRepo = globalMod.GithubRepo;
+            PluginFile = globalMod.PluginFile;
+            RequiredDlls = globalMod.RequiredDlls;
         }
 
         public bool RequiresDll(string dllName)

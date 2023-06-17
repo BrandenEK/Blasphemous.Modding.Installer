@@ -15,12 +15,6 @@ namespace BlasModInstaller.Pages
 
         protected override string SaveDataPath => Environment.CurrentDirectory + "\\downloads\\BlasphemousMods.json";
 
-        protected override void LoadExternalData()
-        {
-            LoadLocalData();
-            LoadGlobalData();
-        }
-
         protected override void LoadLocalData()
         {
             base.LoadLocalData();
@@ -36,22 +30,24 @@ namespace BlasModInstaller.Pages
             SetBackgroundColor();
         }
 
-        private async Task LoadGlobalData()
+        protected override async Task LoadGlobalData()
         {
+            await base.LoadGlobalData();
+
             using (HttpClient client = new HttpClient())
             {
                 string json = await client.GetStringAsync("https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/mods.json");
-                Mod[] webMods = JsonConvert.DeserializeObject<Mod[]>(json);
+                Mod[] globalMods = JsonConvert.DeserializeObject<Mod[]>(json);
 
-                foreach (Mod webMod in webMods)
+                foreach (Mod globalMod in globalMods)
                 {
-                    Octokit.Release latestRelease = await MainForm.GetLatestRelease(webMod.GithubAuthor, webMod.GithubRepo);
+                    Octokit.Release latestRelease = await MainForm.GetLatestRelease(globalMod.GithubAuthor, globalMod.GithubRepo);
                     Version webVersion = new Version(Mod.CleanSemanticVersion(latestRelease.TagName));
                     string downloadURL = latestRelease.Assets[0].BrowserDownloadUrl;
 
-                    if (DataExists(webMod, out Mod localMod))
+                    if (DataExists(globalMod, out Mod localMod))
                     {
-                        localMod.CopyData(webMod);
+                        localMod.UpdateLocalData(globalMod);
                         localMod.LatestVersion = webVersion.ToString();
                         localMod.LatestDownloadURL = downloadURL;
 
@@ -63,14 +59,14 @@ namespace BlasModInstaller.Pages
                     }
                     else
                     {
-                        webMod.LatestVersion = webVersion.ToString();
-                        webMod.LatestDownloadURL = downloadURL;
-                        dataCollection.Add(webMod);
-                        webMod.UI.CreateUI(PageSection, dataCollection.Count - 1);
+                        globalMod.LatestVersion = webVersion.ToString();
+                        globalMod.LatestDownloadURL = downloadURL;
+                        dataCollection.Add(globalMod);
+                        globalMod.UI.CreateUI(PageSection, dataCollection.Count - 1);
                     }
                 }
 
-                MainForm.Log($"Loaded {webMods.Length} global mods");
+                MainForm.Log($"Loaded {globalMods.Length} global mods");
             }
 
             //MainForm.Log($"Github API calls remaining: {github.GetLastApiInfo().RateLimit.Remaining}");
