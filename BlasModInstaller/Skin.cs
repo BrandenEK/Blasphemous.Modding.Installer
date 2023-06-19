@@ -10,7 +10,6 @@ namespace BlasModInstaller
         public string id;
         public string name;
         public string author;
-        //public string DownloadURL { get; set; }
 
         public void UpdateLocalData(Skin globalSkin)
         {

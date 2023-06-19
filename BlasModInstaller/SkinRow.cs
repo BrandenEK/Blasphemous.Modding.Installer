@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Drawing;
@@ -158,7 +154,7 @@ namespace BlasModInstaller
             authorText.Location = new Point(nameText.PreferredWidth + 15, authorText.Location.Y);
 
             // Install button
-            bool installed = false;
+            bool installed = skin.Installed;
             installButton.Text = installed ? "Installed" : "Not installed";
             installButton.ForeColor = installed ? Colors.GREEN : Colors.RED;
             installButton.FlatAppearance.BorderColor = installed ? Colors.GREEN : Colors.RED;
