@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using System;
+using System.IO;
 
 namespace BlasModInstaller
 {
@@ -12,7 +10,7 @@ namespace BlasModInstaller
         public string id;
         public string name;
         public string author;
-        public string DownloadURL { get; set; }
+        //public string DownloadURL { get; set; }
 
         public void UpdateLocalData(Skin globalSkin)
         {
@@ -27,5 +25,17 @@ namespace BlasModInstaller
                 return name == skin.name;
             return base.Equals(obj);
         }
+
+        [JsonIgnore]
+        public bool Installed => File.Exists($"{MainForm.BlasRootFolder}\\Modding\\skins\\{id}\\info.txt");
+
+        [JsonIgnore]
+        public string InfoURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{id}/info.txt";
+        [JsonIgnore]
+        public string TextureURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{id}/texture.png";
+        [JsonIgnore]
+        public string IdlePreviewURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{id}/idlePreview.png";
+        [JsonIgnore]
+        public string ChargedPreviewURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{id}/chargedPreview.png";
     }
 }

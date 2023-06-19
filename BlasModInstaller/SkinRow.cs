@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows.Forms;
 using System.Drawing;
 
@@ -29,12 +30,14 @@ namespace BlasModInstaller
 
         private void ClickedPreviewIdle(object sender, EventArgs e)
         {
-
+            try { Process.Start(skin.IdlePreviewURL); }
+            catch (Exception) { MessageBox.Show("Link does not exist!", "Invalid Link"); }
         }
 
         private void ClickedPreviewCharged(object sender, EventArgs e)
         {
-
+            try { Process.Start(skin.ChargedPreviewURL); }
+            catch (Exception) { MessageBox.Show("Link does not exist!", "Invalid Link"); }
         }
 
         public SkinRow(Skin skin, Panel parentPanel, int skinIdx)
