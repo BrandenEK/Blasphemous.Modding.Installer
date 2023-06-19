@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace BlasModInstaller.Pages
 {
-    public class BlasModPage : InstallerPage<Mod>
+    public class BlasModPage : InstallerPage<ModRow>
     {
         public BlasModPage(Panel pageSection) : base(pageSection) { }
 
@@ -17,13 +17,18 @@ namespace BlasModInstaller.Pages
 
         protected override void LoadLocalData()
         {
-            base.LoadLocalData();
-
-            for (int i = 0; i < dataCollection.Count; i++)
+            if (File.Exists(SaveDataPath))
             {
-                Mod localMod = dataCollection[i];
-                localMod.UI.CreateUI(PageSection, i);
-                MainForm.Log(localMod.Installed ? localMod.LocalVersion.ToString() : "Not installed");
+                string json = File.ReadAllText(SaveDataPath);
+                List<ModData> localData = JsonConvert.DeserializeObject<List<ModData>>(json);
+                
+                for (int i = 0; i < localData.Count; i++)
+                {
+                    ModData localMod = localData[i];
+                    dataCollection.Add(new ModRow(localMod));
+                    dataCollection[i].CreateUI(PageSection, i);
+                    MainForm.Log(localMod.Installed ? localMod.LocalVersion.ToString() : "Not installed");
+                }
             }
 
             MainForm.Log($"Loaded {dataCollection.Count} local mods");
@@ -37,24 +42,19 @@ namespace BlasModInstaller.Pages
             using (HttpClient client = new HttpClient())
             {
                 string json = await client.GetStringAsync("https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/mods.json");
-                Mod[] globalMods = JsonConvert.DeserializeObject<Mod[]>(json);
+                ModData[] globalData = JsonConvert.DeserializeObject<ModData[]>(json);
 
-                foreach (Mod globalMod in globalMods)
+                foreach (ModData globalMod in globalData)
                 {
                     Octokit.Release latestRelease = await MainForm.GetLatestRelease(globalMod.GithubAuthor, globalMod.GithubRepo);
-                    Version webVersion = new Version(Mod.CleanSemanticVersion(latestRelease.TagName));
+                    Version webVersion = new Version(ModData.CleanSemanticVersion(latestRelease.TagName));
                     string downloadURL = latestRelease.Assets[0].BrowserDownloadUrl;
 
-                    if (DataExists(globalMod, out Mod localMod))
+                    if (DataExists(globalMod, out ModData localMod))
                     {
                         localMod.UpdateLocalData(globalMod);
                         localMod.LatestVersion = webVersion.ToString();
                         localMod.LatestDownloadURL = downloadURL;
-
-                        if (localMod.Installed)
-                        {
-                            localMod.UpdateAvailable = webVersion.CompareTo(localMod.LocalVersion) > 0;
-                        }
                         localMod.UI.UpdateUI();
                     }
                     else
@@ -82,7 +82,7 @@ namespace BlasModInstaller.Pages
         public int InstalledModsThatRequireDll(string dllName)
         {
             int count = 0;
-            foreach (Mod mod in dataCollection)
+            foreach (ModData mod in dataCollection)
             {
                 if (mod.RequiresDll(dllName) && mod.Installed)
                     count++;

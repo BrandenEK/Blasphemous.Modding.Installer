@@ -76,11 +76,11 @@ namespace BlasModInstaller
             }
         }
 
-        public async Task DownloadMod(Mod mod, WebClient client)
+        public async Task DownloadMod(ModRow modrow, WebClient client)
         {
             if (BlasRootFolder == null) return;
 
-            string downloadPath = $"{DownloadsPath}{mod.Name.Replace(' ', '_')}_{Mod.CleanSemanticVersion(mod.LatestVersion)}.zip";
+            string downloadPath = $"{DownloadsPath}{mod.Name.Replace(' ', '_')}_{ModData.CleanSemanticVersion(mod.LatestVersion)}.zip";
 
             // Update download bar
             client.DownloadProgressChanged += (object sender, DownloadProgressChangedEventArgs e) =>

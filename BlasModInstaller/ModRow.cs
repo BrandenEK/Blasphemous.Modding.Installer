@@ -1,21 +1,219 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using Ionic.Zip;
+using System;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
+using System.Net;
+using System.Windows.Forms;
 
 namespace BlasModInstaller
 {
-    public class ModHolder
+    public class ModRow
     {
-        private const int MOD_HEIGHT = 82;
+        private const int ROW_HEIGHT = 82;
 
-        private readonly Mod mod;
+        private readonly ModData mod;
+
+        public ModRow(ModData mod) => this.mod = mod;
+
+        // Main methods
+
+        public void InstallMod(string zipPath)
+        {
+            if (MainForm.BlasRootFolder == null) return;
+
+            string installPath = MainForm.BlasRootFolder;
+            if (mod.Name != "Modding API")
+                installPath += "\\Modding";
+
+            using (ZipFile zipFile = ZipFile.Read(zipPath))
+            {
+                foreach (ZipEntry file in zipFile)
+                    file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
+            }
+            File.Delete(zipPath);
+
+            UpdateUI();
+        }
+
+        public void UninstallMod()
+        {
+            if (MainForm.BlasRootFolder == null) return;
+
+            if (File.Exists(mod.PathToEnabledPlugin))
+                File.Delete(mod.PathToEnabledPlugin);
+            if (File.Exists(mod.PathToDisabledPlugin))
+                File.Delete(mod.PathToDisabledPlugin);
+            if (File.Exists(mod.PathToConfigFile))
+                File.Delete(mod.PathToConfigFile);
+            if (File.Exists(mod.PathToKeybindingsFile))
+                File.Delete(mod.PathToKeybindingsFile);
+            if (File.Exists(mod.PathToLocalizationFile))
+                File.Delete(mod.PathToLocalizationFile);
+            if (File.Exists(mod.PathToLogFile))
+                File.Delete(mod.PathToLogFile);
+            if (Directory.Exists(mod.PathToDataFolder))
+                Directory.Delete(mod.PathToDataFolder, true);
+            if (Directory.Exists(mod.PathToLevelsFolder))
+                Directory.Delete(mod.PathToLevelsFolder, true);
+            RemoveDlls();
+
+            UpdateUI();
+
+            void RemoveDlls()
+            {
+                if (mod.RequiredDlls == null || mod.RequiredDlls.Length == 0)
+                    return;
+
+                foreach (string dll in mod.RequiredDlls)
+                {
+                    if (MainForm.Instance.BlasModPage.InstalledModsThatRequireDll(dll) == 0)
+                    {
+                        string dllPath = MainForm.BlasRootFolder + "\\Modding\\data\\" + dll;
+                        if (File.Exists(dllPath))
+                            File.Delete(dllPath);
+                    }
+                }
+            }
+        }
+
+        public void EnableMod()
+        {
+            if (MainForm.BlasRootFolder == null) return;
+
+            string enabled = mod.PathToEnabledPlugin;
+            string disabled = mod.PathToDisabledPlugin;
+            if (File.Exists(disabled))
+            {
+                if (!File.Exists(enabled))
+                    File.Move(disabled, enabled);
+                else
+                    File.Delete(disabled);
+            }
+        }
+
+        public void DisableMod()
+        {
+            if (MainForm.BlasRootFolder == null) return;
+
+            string enabled = mod.PathToEnabledPlugin;
+            string disabled = mod.PathToDisabledPlugin;
+            if (File.Exists(enabled))
+            {
+                if (!File.Exists(disabled))
+                    File.Move(enabled, disabled);
+                else
+                    File.Delete(enabled);
+            }
+        }
+
+        public void OpenGithubLink()
+        {
+            try
+            {
+                Process.Start(mod.GithubLink);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Link does not exist!", "Invalid Link");
+            }
+        }
+
+        // Download methods
+
+        private WebClient client;
+        private bool Downloading;
+
+        public void StartDownload()
+        {
+            client = new WebClient();
+            Downloading = true;
+            DisplayDownloadBar();
+            MainForm.Instance.DownloadMod(mod, client);
+        }
+
+        public void FinishDownload()
+        {
+            Downloading = false;
+            client.Dispose();
+            client = null;
+        }
+
+        public void CancelDownload()
+        {
+            if (client != null)
+            {
+                client.CancelAsync();
+                FinishDownload();
+            }
+            UpdateUI();
+        }
+
+        // Click methods
+
+        private void ClickedInstall(object sender, EventArgs e)
+        {
+            if (mod.Installed)
+            {
+                if (MessageBox.Show("Are you sure you want to uninstall this mod?", nameText.Text, MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    UninstallMod();
+            }
+            else if (Downloading)
+            {
+                CancelDownload();
+            }
+            else
+            {
+                StartDownload();
+            }
+        }
+
+        private void ClickedEnable(object sender, EventArgs e)
+        {
+            if (mod.Enabled)
+                DisableMod();
+            else
+                EnableMod();
+
+            UpdateUI();
+        }
+
+        private void ClickedInfo(object sender, EventArgs e)
+        {
+            OpenGithubLink();
+        }
+
+        private void ClickedUpdate(object sender, EventArgs e)
+        {
+            UninstallMod();
+            StartDownload();
+        }
+
+        // Temp
+
+        public void DisplayDownloadBar()
+        {
+            updateText.Visible = true;
+            updateText.Text = "Downloading...";
+            updateButton.Visible = false;
+
+            installButton.Text = "Cancel";
+            installButton.BackColor = Color.FromArgb(255, 178, 102);
+            progressBar.Visible = true;
+            progressBar.Value = 0;
+        }
+
+        public void UpdateDownloadBar(int percentage)
+        {
+            progressBar.Value = percentage;
+        }
+
+        // UI methods
 
         private Panel outerPanel;
         private Panel innerPanel;
         private Label nameText;
-        private Label authorText;
         private Label descriptionText;
-        private LinkLabel linkText;
 
         private Button infoButton;
         private Button installButton;
@@ -24,51 +222,6 @@ namespace BlasModInstaller
         private Label updateText;
         private Button updateButton;
         private ProgressBar progressBar;
-
-        private void ClickedInstall(object sender, EventArgs e)
-        {
-            if (mod.Installed)
-            {
-                if (MessageBox.Show("Are you sure you want to uninstall this mod?", nameText.Text, MessageBoxButtons.OKCancel) == DialogResult.OK)
-                    mod.UninstallMod();
-            }
-            else if (mod.Downloading)
-            {
-                mod.CancelDownload();
-            }
-            else
-            {
-                mod.StartDownload();
-            }
-        }
-
-        private void ClickedEnable(object sender, EventArgs e)
-        {
-            if (mod.Enabled)
-                mod.DisableMod();
-            else
-                mod.EnableMod();
-
-            UpdateUI();
-        }
-
-        private void ClickedGithub(object sender, LinkLabelLinkClickedEventArgs e) => mod.OpenGithubLink();
-
-        private void ClickedUpdate(object sender, EventArgs e)
-        {
-            mod.UninstallMod();
-            mod.StartDownload();
-        }
-
-        private void ClickedInfo(object sender, EventArgs e)
-        {
-            mod.OpenGithubLink();
-        }
-
-        public ModHolder(Mod mod)
-        {
-            this.mod = mod;
-        }
 
         public void UpdateUI()
         {
@@ -97,23 +250,6 @@ namespace BlasModInstaller
             progressBar.Visible = false;
         }
 
-        public void DisplayDownloadBar()
-        {
-            updateText.Visible = true;
-            updateText.Text = "Downloading...";
-            updateButton.Visible = false;
-
-            installButton.Text = "Cancel";
-            installButton.BackColor = Color.FromArgb(255, 178, 102);
-            progressBar.Visible = true;
-            progressBar.Value = 0;
-        }
-
-        public void UpdateDownloadBar(int percentage)
-        {
-            progressBar.Value = percentage;
-        }
-
         public void CreateUI(Panel modHolder, int modIdx)
         {
             modHolder.AutoScroll = false;
@@ -126,8 +262,8 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = modHolder,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
-                Location = new Point(0, MOD_HEIGHT * modIdx),
-                Size = new Size(modHolder.Width, MOD_HEIGHT + (modIdx == 0 ? 3 : 2)),
+                Location = new Point(0, ROW_HEIGHT * modIdx),
+                Size = new Size(modHolder.Width, ROW_HEIGHT + (modIdx == 0 ? 3 : 2)),
                 BackColor = Color.Black,
             };
 
@@ -137,11 +273,11 @@ namespace BlasModInstaller
                 Parent = outerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
                 Location = new Point(0, modIdx == 0 ? 2 : 1),
-                Size = new Size(modHolder.Width, MOD_HEIGHT - 1),
+                Size = new Size(modHolder.Width, ROW_HEIGHT - 1),
                 BackColor = backgroundColor,
             };
 
-            // Left stuff
+            // Left side
 
             nameText = new Label
             {
@@ -165,29 +301,7 @@ namespace BlasModInstaller
                 Font = Fonts.SMALL,
             };
 
-            //authorText = new Label
-            //{
-            //    Name = mod.Name,
-            //    Parent = innerPanel,
-            //    ForeColor = Color.LightGray,
-            //    Size = new Size(400, 15),
-            //    Location = new Point(10, 25),
-            //    Anchor = AnchorStyles.Top | AnchorStyles.Left
-            //};
-
-            //linkText = new LinkLabel
-            //{
-            //    Name = mod.Name,
-            //    Text = "Github Repo",
-            //    Parent = innerPanel,
-            //    LinkColor = Color.FromArgb(0, 128, 255),
-            //    Size = new Size(400, 20),
-            //    Location = new Point(12, 40),
-            //    Anchor = AnchorStyles.Top | AnchorStyles.Left
-            //};
-            //linkText.LinkClicked += ClickedGithub;
-
-            // Right stuff
+            // Right side
 
             infoButton = new Button
             {
@@ -241,6 +355,8 @@ namespace BlasModInstaller
             enableButton.Click += ClickedEnable;
             enableButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
             enableButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+
+            // Middle side
 
             updateText = new Label
             {
