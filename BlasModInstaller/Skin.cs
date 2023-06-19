@@ -21,12 +21,15 @@ namespace BlasModInstaller
         public override bool Equals(object obj)
         {
             if (obj is Skin skin)
-                return name == skin.name;
+                return id == skin.id;
             return base.Equals(obj);
         }
 
         [JsonIgnore]
         public bool Installed => File.Exists($"{MainForm.BlasRootFolder}\\Modding\\skins\\{id}\\info.txt");
+
+        [JsonIgnore]
+        public string PathToSkinFolder => $"{MainForm.BlasRootFolder}\\Modding\\skins\\{id}";
 
         [JsonIgnore]
         public string InfoURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{id}/info.txt";

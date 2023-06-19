@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Windows.Forms;
 using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
 
 namespace BlasModInstaller
 {
@@ -19,9 +20,35 @@ namespace BlasModInstaller
         private readonly Button previewIdleButton;
         private readonly Button previewChargedButton;
 
-        private void ClickedInstall(object sender, EventArgs e)
+        // Main methods
+
+        private void StartDownload()
         {
 
+        }
+
+        private void Uninstall()
+        {
+            if (MainForm.BlasRootFolder == null) return;
+
+            if (Directory.Exists(skin.PathToSkinFolder))
+                Directory.Delete(skin.PathToSkinFolder, true);
+
+            UpdateUI();
+        }
+
+        // Click methods
+
+        private void ClickedInstall(object sender, EventArgs e)
+        {
+            if (skin.Installed)
+            {
+                Uninstall();
+            }
+            else
+            {
+                StartDownload();
+            }
         }
 
         private void ClickedPreviewIdle(object sender, EventArgs e)
@@ -34,6 +61,22 @@ namespace BlasModInstaller
         {
             try { Process.Start(skin.ChargedPreviewURL); }
             catch (Exception) { MessageBox.Show("Link does not exist!", "Invalid Link"); }
+        }
+
+        // UI methods
+
+        public void UpdateUI()
+        {
+            nameText.Text = skin.name;
+            nameText.Size = new Size(nameText.PreferredWidth, 30);
+            authorText.Text = "by " + skin.author;
+            authorText.Location = new Point(nameText.PreferredWidth + 15, authorText.Location.Y);
+
+            // Install button
+            bool installed = skin.Installed;
+            installButton.Text = installed ? "Installed" : "Not installed";
+            installButton.ForeColor = installed ? Colors.GREEN : Colors.RED;
+            installButton.FlatAppearance.BorderColor = installed ? Colors.GREEN : Colors.RED;
         }
 
         public SkinRow(Skin skin, Panel parentPanel, int skinIdx)
@@ -143,21 +186,7 @@ namespace BlasModInstaller
 
             parentPanel.AutoScroll = true;
             MainForm.Instance.BlasSkinPage.AdjustPageWidth();
-            Update();
-        }
-
-        public void Update()
-        {
-            nameText.Text = skin.name;
-            nameText.Size = new Size(nameText.PreferredWidth, 30);
-            authorText.Text = "by " + skin.author;
-            authorText.Location = new Point(nameText.PreferredWidth + 15, authorText.Location.Y);
-
-            // Install button
-            bool installed = skin.Installed;
-            installButton.Text = installed ? "Installed" : "Not installed";
-            installButton.ForeColor = installed ? Colors.GREEN : Colors.RED;
-            installButton.FlatAppearance.BorderColor = installed ? Colors.GREEN : Colors.RED;
+            UpdateUI();
         }
     }
 }
