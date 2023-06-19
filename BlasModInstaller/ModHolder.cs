@@ -78,7 +78,7 @@ namespace BlasModInstaller
             // Install button
             bool modInstalled = mod.Installed;
             installButton.Text = modInstalled ? "Uninstall" : "Install";
-            installButton.BackColor = modInstalled ? Color.FromArgb(255, 102, 102) : Color.FromArgb(102, 255, 102);
+            installButton.BackColor = modInstalled ? Colors.RED : Colors.GREEN;
 
             // Enable button
             bool modEnabled = mod.Enabled;
@@ -102,7 +102,7 @@ namespace BlasModInstaller
             updateButton.Visible = false;
 
             installButton.Text = "Cancel";
-            installButton.BackColor = Color.FromArgb(255, 178, 102);
+            installButton.BackColor = Colors.ORANGE;
             progressBar.Visible = true;
             progressBar.Value = 0;
         }

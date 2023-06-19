@@ -72,6 +72,20 @@ namespace BlasModInstaller
                 Font = Fonts.SKIN_AUTHOR,
             };
 
+            installButton = new Button
+            {
+                Name = skin.name,
+                Parent = innerPanel,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                Location = new Point(parentPanel.Width - 95, 11),
+                Size = new Size(85, 24),
+                BackColor = backgroundColor,
+                Font = Fonts.INSTALL,
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand,
+                TabStop = false
+            };
+
             parentPanel.AutoScroll = true;
             MainForm.Instance.BlasSkinPage.AdjustPageWidth();
             Update();
@@ -83,6 +97,12 @@ namespace BlasModInstaller
             nameText.Size = new Size(nameText.PreferredWidth, 30);
             authorText.Text = "by " + skin.author;
             authorText.Location = new Point(nameText.PreferredWidth + 15, authorText.Location.Y);
+
+            // Install button
+            bool installed = false;
+            installButton.Text = installed ? "Installed" : "Not installed";
+            installButton.ForeColor = installed ? Colors.GREEN : Colors.RED;
+            installButton.FlatAppearance.BorderColor = installed ? Colors.GREEN : Colors.RED;
         }
     }
 }
