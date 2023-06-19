@@ -15,5 +15,13 @@ namespace BlasModInstaller
         public readonly static Font INSTALL = new Font("Trebuchet MS", 8, FontStyle.Bold);
         public readonly static Font ENABLE = new Font("Arial", 8, FontStyle.Bold);
 
+        public readonly static Font SKIN_NAME = new Font("Verdana", 14, FontStyle.Bold);
+        public readonly static Font SKIN_AUTHOR = new Font("Verdana", 12, FontStyle.Italic);
+    }
+
+    public static class Sizes
+    {
+        public const int MOD_HEIGHT = 82;
+        public const int SKIN_HEIGHT = 50;
     }
 }

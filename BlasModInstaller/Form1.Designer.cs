@@ -70,9 +70,9 @@ namespace BlasModInstaller
             // 
             this.blas1modScroll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.blas1modScroll.Location = new System.Drawing.Point(914, 15);
+            this.blas1modScroll.Location = new System.Drawing.Point(1934, 15);
             this.blas1modScroll.Name = "blas1modScroll";
-            this.blas1modScroll.Size = new System.Drawing.Size(20, 640);
+            this.blas1modScroll.Size = new System.Drawing.Size(20, 623);
             this.blas1modScroll.TabIndex = 2;
             this.blas1modScroll.Visible = false;
             // 
@@ -184,6 +184,7 @@ namespace BlasModInstaller
             this.blas1skinText.TabIndex = 3;
             this.blas1skinText.Text = "Skin support coming soon!";
             this.blas1skinText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.blas1skinText.Visible = false;
             // 
             // blas1skinScroll
             // 
@@ -322,7 +323,6 @@ namespace BlasModInstaller
             this.blas2modsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
             this.blas2modsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
             this.blas2modsBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
-            this.blas2modsBtn.MouseLeave += new System.EventHandler(this.RemoveButtonFocus);
             // 
             // blas1skinsBtn
             // 
@@ -343,7 +343,6 @@ namespace BlasModInstaller
             this.blas1skinsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
             this.blas1skinsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
             this.blas1skinsBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
-            this.blas1skinsBtn.MouseLeave += new System.EventHandler(this.RemoveButtonFocus);
             // 
             // blas1modsBtn
             // 
@@ -364,7 +363,6 @@ namespace BlasModInstaller
             this.blas1modsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
             this.blas1modsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
             this.blas1modsBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
-            this.blas1modsBtn.MouseLeave += new System.EventHandler(this.RemoveButtonFocus);
             // 
             // MainForm
             // 

@@ -171,6 +171,7 @@ namespace BlasModInstaller
         private void HideSideButtonBorder(object sender, EventArgs e)
         {
             (sender as Button).FlatAppearance.BorderColor = Color.Black;
+            RemoveButtonFocus(null, null);
         }
 
         private void blas1modsBtn_Click(object sender, EventArgs e) => OpenSection(SectionType.Blas1Mods);

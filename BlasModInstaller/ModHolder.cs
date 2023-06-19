@@ -153,7 +153,7 @@ namespace BlasModInstaller
                 ForeColor = Color.LightGray,
                 Font = Fonts.LARGE,
             };
-
+            
             descriptionText = new Label
             {
                 Name = mod.Name,
@@ -164,28 +164,6 @@ namespace BlasModInstaller
                 ForeColor = Color.LightGray,
                 Font = Fonts.SMALL,
             };
-
-            //authorText = new Label
-            //{
-            //    Name = mod.Name,
-            //    Parent = innerPanel,
-            //    ForeColor = Color.LightGray,
-            //    Size = new Size(400, 15),
-            //    Location = new Point(10, 25),
-            //    Anchor = AnchorStyles.Top | AnchorStyles.Left
-            //};
-
-            //linkText = new LinkLabel
-            //{
-            //    Name = mod.Name,
-            //    Text = "Github Repo",
-            //    Parent = innerPanel,
-            //    LinkColor = Color.FromArgb(0, 128, 255),
-            //    Size = new Size(400, 20),
-            //    Location = new Point(12, 40),
-            //    Anchor = AnchorStyles.Top | AnchorStyles.Left
-            //};
-            //linkText.LinkClicked += ClickedGithub;
 
             // Right stuff
 
