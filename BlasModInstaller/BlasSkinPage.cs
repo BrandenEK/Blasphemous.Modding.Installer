@@ -18,7 +18,11 @@ namespace BlasModInstaller.Pages
         {
             base.LoadLocalData();
 
+            for (int i = 0; i < dataCollection.Count; i++)
+                new SkinRow(dataCollection[i], PageSection, i);
+
             MainForm.Log($"Loaded {dataCollection.Count} local skins");
+            SetBackgroundColor();
         }
 
         protected override async Task LoadGlobalData()
@@ -35,7 +39,6 @@ namespace BlasModInstaller.Pages
                     string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{item.Name}/info.txt");
                     Skin globalSkin = JsonConvert.DeserializeObject<Skin>(json);
                     MainForm.Log($"Name: {globalSkin.name}, Author: {globalSkin.author}");
-                    SkinRow temp = new SkinRow(globalSkin, PageSection, 0);
 
                     if (DataExists(globalSkin, out Skin localSkin))
                     {
@@ -44,6 +47,7 @@ namespace BlasModInstaller.Pages
                     else
                     {
                         dataCollection.Add(globalSkin);
+                        new SkinRow(globalSkin, PageSection, dataCollection.Count - 1);
                     }
                 }
 
@@ -51,6 +55,7 @@ namespace BlasModInstaller.Pages
             }
 
             SaveLocalData();
+            SetBackgroundColor();
         }
     }
 }

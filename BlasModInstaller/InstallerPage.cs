@@ -71,5 +71,10 @@ namespace BlasModInstaller.Pages
         {
 
         }
+
+        protected void SetBackgroundColor()
+        {
+            PageSection.BackColor = dataCollection.Count % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
+        }
     }
 }

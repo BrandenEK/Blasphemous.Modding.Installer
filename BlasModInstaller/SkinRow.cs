@@ -33,8 +33,8 @@ namespace BlasModInstaller
                 Parent = parentPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
                 BackColor = Color.Black,
-                Location = new Point(0, 0),
-                Size = new Size(parentPanel.Width, Sizes.SKIN_HEIGHT /*+ (modIdx == 0 ? 3 : 2)*/),
+                Location = new Point(0, (Sizes.SKIN_HEIGHT - 2) * skinIdx),
+                Size = new Size(parentPanel.Width, Sizes.SKIN_HEIGHT),
             };
 
             innerPanel = new Panel
@@ -43,7 +43,7 @@ namespace BlasModInstaller
                 Parent = outerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
                 BackColor = backgroundColor,
-                Location = new Point(0, 2/*skinIdx == 0 ? 2 : 1*/),
+                Location = new Point(0, 2),
                 Size = new Size(parentPanel.Width, Sizes.SKIN_HEIGHT - 4),
             };
 

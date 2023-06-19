@@ -6,8 +6,6 @@ namespace BlasModInstaller
 {
     public class ModHolder
     {
-        private const int MOD_HEIGHT = 82;
-
         private readonly Mod mod;
 
         private Panel outerPanel;
@@ -126,8 +124,8 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = modHolder,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
-                Location = new Point(0, MOD_HEIGHT * modIdx),
-                Size = new Size(modHolder.Width, MOD_HEIGHT + (modIdx == 0 ? 3 : 2)),
+                Location = new Point(0, (Sizes.MOD_HEIGHT - 2) * modIdx),
+                Size = new Size(modHolder.Width, Sizes.MOD_HEIGHT),
                 BackColor = Color.Black,
             };
 
@@ -136,8 +134,8 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = outerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
-                Location = new Point(0, modIdx == 0 ? 2 : 1),
-                Size = new Size(modHolder.Width, MOD_HEIGHT - 1),
+                Location = new Point(0, 2),
+                Size = new Size(modHolder.Width, Sizes.MOD_HEIGHT - 4),
                 BackColor = backgroundColor,
             };
 

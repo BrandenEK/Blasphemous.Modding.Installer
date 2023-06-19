@@ -74,11 +74,6 @@ namespace BlasModInstaller.Pages
             SaveLocalData();
         }
 
-        private void SetBackgroundColor()
-        {
-            PageSection.BackColor = dataCollection.Count % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
-        }
-
         public int InstalledModsThatRequireDll(string dllName)
         {
             int count = 0;
