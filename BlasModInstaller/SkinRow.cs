@@ -26,6 +26,7 @@ namespace BlasModInstaller
         {
             this.skin = skin;
             Color backgroundColor = skinIdx % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
+            parentPanel.AutoScroll = false;
 
             outerPanel = new Panel
             {
@@ -33,7 +34,7 @@ namespace BlasModInstaller
                 Parent = parentPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
                 BackColor = Color.Black,
-                Location = new Point(0, (Sizes.SKIN_HEIGHT - 2) * skinIdx),
+                Location = new Point(0, (Sizes.SKIN_HEIGHT - 2) * skinIdx - 2),
                 Size = new Size(parentPanel.Width, Sizes.SKIN_HEIGHT),
             };
 
@@ -71,6 +72,8 @@ namespace BlasModInstaller
                 Font = Fonts.SKIN_AUTHOR,
             };
 
+            parentPanel.AutoScroll = true;
+            MainForm.Instance.BlasSkinPage.AdjustPageWidth();
             Update();
         }
 

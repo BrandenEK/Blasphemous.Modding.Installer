@@ -124,7 +124,7 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = modHolder,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
-                Location = new Point(0, (Sizes.MOD_HEIGHT - 2) * modIdx),
+                Location = new Point(0, (Sizes.MOD_HEIGHT - 2) * modIdx - 2),
                 Size = new Size(modHolder.Width, Sizes.MOD_HEIGHT),
                 BackColor = Color.Black,
             };

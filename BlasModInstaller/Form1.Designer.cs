@@ -38,7 +38,7 @@ namespace BlasModInstaller
             this.blasLocDialog = new System.Windows.Forms.OpenFileDialog();
             this.titleLabel = new System.Windows.Forms.Label();
             this.mainSection = new System.Windows.Forms.Panel();
-            this.titleSection = new System.Windows.Forms.Panel();
+            this.titleSectionOuter = new System.Windows.Forms.Panel();
             this.blas1skinSection = new System.Windows.Forms.Panel();
             this.blas1skinText = new System.Windows.Forms.Label();
             this.blas1skinScroll = new System.Windows.Forms.VScrollBar();
@@ -54,10 +54,11 @@ namespace BlasModInstaller
             this.blas2modsBtn = new System.Windows.Forms.Button();
             this.blas1skinsBtn = new System.Windows.Forms.Button();
             this.blas1modsBtn = new System.Windows.Forms.Button();
+            this.titleSectionInner = new System.Windows.Forms.Panel();
             this.blas1modSection.SuspendLayout();
             this.blas1locationSection.SuspendLayout();
             this.mainSection.SuspendLayout();
-            this.titleSection.SuspendLayout();
+            this.titleSectionOuter.SuspendLayout();
             this.blas1skinSection.SuspendLayout();
             this.blas2modSection.SuspendLayout();
             this.sideSection.SuspendLayout();
@@ -138,7 +139,7 @@ namespace BlasModInstaller
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.mainSection.BackColor = System.Drawing.Color.White;
-            this.mainSection.Controls.Add(this.titleSection);
+            this.mainSection.Controls.Add(this.titleSectionOuter);
             this.mainSection.Controls.Add(this.blas1modSection);
             this.mainSection.Controls.Add(this.blas1skinSection);
             this.mainSection.Controls.Add(this.blas1locationSection);
@@ -148,16 +149,16 @@ namespace BlasModInstaller
             this.mainSection.Size = new System.Drawing.Size(950, 800);
             this.mainSection.TabIndex = 7;
             // 
-            // titleSection
+            // titleSectionOuter
             // 
-            this.titleSection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.titleSectionOuter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.titleSection.BackColor = System.Drawing.Color.Maroon;
-            this.titleSection.Controls.Add(this.titleLabel);
-            this.titleSection.Location = new System.Drawing.Point(0, 0);
-            this.titleSection.Name = "titleSection";
-            this.titleSection.Size = new System.Drawing.Size(950, 60);
-            this.titleSection.TabIndex = 9;
+            this.titleSectionOuter.BackColor = System.Drawing.Color.Black;
+            this.titleSectionOuter.Controls.Add(this.titleSectionInner);
+            this.titleSectionOuter.Location = new System.Drawing.Point(0, 0);
+            this.titleSectionOuter.Name = "titleSectionOuter";
+            this.titleSectionOuter.Size = new System.Drawing.Size(950, 60);
+            this.titleSectionOuter.TabIndex = 9;
             // 
             // blas1skinSection
             // 
@@ -364,6 +365,17 @@ namespace BlasModInstaller
             this.blas1modsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
             this.blas1modsBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
             // 
+            // titleSectionInner
+            // 
+            this.titleSectionInner.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.titleSectionInner.BackColor = System.Drawing.Color.Maroon;
+            this.titleSectionInner.Location = new System.Drawing.Point(0, 0);
+            this.titleSectionInner.Name = "titleSectionInner";
+            this.titleSectionInner.Size = new System.Drawing.Size(950, 58);
+            this.titleSectionInner.TabIndex = 1;
+            this.titleSectionInner.Controls.Add(this.titleLabel);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -381,7 +393,7 @@ namespace BlasModInstaller
             this.blas1modSection.ResumeLayout(false);
             this.blas1locationSection.ResumeLayout(false);
             this.mainSection.ResumeLayout(false);
-            this.titleSection.ResumeLayout(false);
+            this.titleSectionOuter.ResumeLayout(false);
             this.blas1skinSection.ResumeLayout(false);
             this.blas2modSection.ResumeLayout(false);
             this.sideSection.ResumeLayout(false);
@@ -403,7 +415,7 @@ namespace BlasModInstaller
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Panel mainSection;
         private System.Windows.Forms.Panel sideSection;
-        private System.Windows.Forms.Panel titleSection;
+        private System.Windows.Forms.Panel titleSectionOuter;
         private System.Windows.Forms.Button blas1modsBtn;
         private System.Windows.Forms.Button blas1skinsBtn;
         private System.Windows.Forms.Button blas2modsBtn;
@@ -418,6 +430,7 @@ namespace BlasModInstaller
         private System.Windows.Forms.Panel blas1skinSection;
         private System.Windows.Forms.Label blas1skinText;
         private System.Windows.Forms.VScrollBar blas1skinScroll;
+        private System.Windows.Forms.Panel titleSectionInner;
     }
 }
 
