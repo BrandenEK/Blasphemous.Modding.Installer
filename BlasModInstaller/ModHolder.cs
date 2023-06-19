@@ -8,11 +8,6 @@ namespace BlasModInstaller
     {
         private const int MOD_HEIGHT = 82;
 
-        private readonly static Font smallFont = new Font("Verdana", 9);
-        private readonly static Font largeFont = new Font("Verdana", 16, FontStyle.Bold);
-        private readonly static Font installFont = new Font("Trebuchet MS", 8, FontStyle.Bold);
-        private readonly static Font enableFont = new Font("Arial", 8, FontStyle.Bold);
-
         private readonly Mod mod;
 
         private Panel outerPanel;
@@ -156,7 +151,7 @@ namespace BlasModInstaller
                 Location = new Point(10, 10),
                 Size = new Size(400, 28),
                 ForeColor = Color.LightGray,
-                Font = largeFont,
+                Font = Fonts.LARGE,
             };
 
             descriptionText = new Label
@@ -167,7 +162,7 @@ namespace BlasModInstaller
                 Location = new Point(12, 41),
                 Size = new Size(450, 30),
                 ForeColor = Color.LightGray,
-                Font = smallFont,
+                Font = Fonts.SMALL,
             };
 
             //authorText = new Label
@@ -202,7 +197,7 @@ namespace BlasModInstaller
                 Location = new Point(modHolder.Width - 212, 26),
                 Size = new Size(42, 25),
                 BackColor = Color.FromArgb(51, 153, 255),
-                Font = installFont,
+                Font = Fonts.INSTALL,
                 Text = "INFO",
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand,
@@ -220,7 +215,7 @@ namespace BlasModInstaller
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(modHolder.Width - 158, 23),
                 Size = new Size(70, 30),
-                Font = installFont,
+                Font = Fonts.INSTALL,
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand,
                 TabStop = false
@@ -238,7 +233,7 @@ namespace BlasModInstaller
                 Location = new Point(modHolder.Width - 75, 27),
                 Size = new Size(64, 22),
                 BackColor = backgroundColor,
-                Font = enableFont,
+                Font = Fonts.INSTALL,
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand,
                 TabStop = false
@@ -255,7 +250,7 @@ namespace BlasModInstaller
                 Location = new Point(modHolder.Width - 400, 17),
                 Size = new Size(200, 15),
                 ForeColor = Color.LightGray,
-                Font = smallFont,
+                Font = Fonts.INSTALL,
                 TextAlign = ContentAlignment.TopCenter,
                 Text = string.Empty,
             };
@@ -268,7 +263,7 @@ namespace BlasModInstaller
                 Location = new Point(modHolder.Width - 334, 40),
                 Size = new Size(72, 25),
                 BackColor = Color.White,
-                Font = installFont,
+                Font = Fonts.INSTALL,
                 Text = "Download",
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand
