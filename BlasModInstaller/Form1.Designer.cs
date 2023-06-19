@@ -39,8 +39,8 @@ namespace BlasModInstaller
             this.titleLabel = new System.Windows.Forms.Label();
             this.mainSection = new System.Windows.Forms.Panel();
             this.titleSectionOuter = new System.Windows.Forms.Panel();
+            this.titleSectionInner = new System.Windows.Forms.Panel();
             this.blas1skinSection = new System.Windows.Forms.Panel();
-            this.blas1skinText = new System.Windows.Forms.Label();
             this.blas1skinScroll = new System.Windows.Forms.VScrollBar();
             this.blas2modSection = new System.Windows.Forms.Panel();
             this.blas2modText = new System.Windows.Forms.Label();
@@ -54,11 +54,11 @@ namespace BlasModInstaller
             this.blas2modsBtn = new System.Windows.Forms.Button();
             this.blas1skinsBtn = new System.Windows.Forms.Button();
             this.blas1modsBtn = new System.Windows.Forms.Button();
-            this.titleSectionInner = new System.Windows.Forms.Panel();
             this.blas1modSection.SuspendLayout();
             this.blas1locationSection.SuspendLayout();
             this.mainSection.SuspendLayout();
             this.titleSectionOuter.SuspendLayout();
+            this.titleSectionInner.SuspendLayout();
             this.blas1skinSection.SuspendLayout();
             this.blas2modSection.SuspendLayout();
             this.sideSection.SuspendLayout();
@@ -128,7 +128,7 @@ namespace BlasModInstaller
             this.titleLabel.Font = new System.Drawing.Font("Trebuchet MS", 20F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleLabel.Location = new System.Drawing.Point(0, 0);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(950, 60);
+            this.titleLabel.Size = new System.Drawing.Size(950, 58);
             this.titleLabel.TabIndex = 0;
             this.titleLabel.Text = "Blasphemous Mods";
             this.titleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -160,6 +160,17 @@ namespace BlasModInstaller
             this.titleSectionOuter.Size = new System.Drawing.Size(950, 60);
             this.titleSectionOuter.TabIndex = 9;
             // 
+            // titleSectionInner
+            // 
+            this.titleSectionInner.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.titleSectionInner.BackColor = System.Drawing.Color.Maroon;
+            this.titleSectionInner.Controls.Add(this.titleLabel);
+            this.titleSectionInner.Location = new System.Drawing.Point(0, 0);
+            this.titleSectionInner.Name = "titleSectionInner";
+            this.titleSectionInner.Size = new System.Drawing.Size(950, 58);
+            this.titleSectionInner.TabIndex = 1;
+            // 
             // blas1skinSection
             // 
             this.blas1skinSection.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -168,24 +179,11 @@ namespace BlasModInstaller
             this.blas1skinSection.AutoScroll = true;
             this.blas1skinSection.AutoScrollMargin = new System.Drawing.Size(0, 15);
             this.blas1skinSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.blas1skinSection.Controls.Add(this.blas1skinText);
             this.blas1skinSection.Controls.Add(this.blas1skinScroll);
             this.blas1skinSection.Location = new System.Drawing.Point(0, 60);
             this.blas1skinSection.Name = "blas1skinSection";
             this.blas1skinSection.Size = new System.Drawing.Size(950, 701);
             this.blas1skinSection.TabIndex = 5;
-            // 
-            // blas1skinText
-            // 
-            this.blas1skinText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.blas1skinText.Font = new System.Drawing.Font("Trebuchet MS", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.blas1skinText.Location = new System.Drawing.Point(0, 0);
-            this.blas1skinText.Name = "blas1skinText";
-            this.blas1skinText.Size = new System.Drawing.Size(950, 701);
-            this.blas1skinText.TabIndex = 3;
-            this.blas1skinText.Text = "Skin support coming soon!";
-            this.blas1skinText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.blas1skinText.Visible = false;
             // 
             // blas1skinScroll
             // 
@@ -365,17 +363,6 @@ namespace BlasModInstaller
             this.blas1modsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
             this.blas1modsBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
             // 
-            // titleSectionInner
-            // 
-            this.titleSectionInner.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.titleSectionInner.BackColor = System.Drawing.Color.Maroon;
-            this.titleSectionInner.Location = new System.Drawing.Point(0, 0);
-            this.titleSectionInner.Name = "titleSectionInner";
-            this.titleSectionInner.Size = new System.Drawing.Size(950, 58);
-            this.titleSectionInner.TabIndex = 1;
-            this.titleSectionInner.Controls.Add(this.titleLabel);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -394,6 +381,7 @@ namespace BlasModInstaller
             this.blas1locationSection.ResumeLayout(false);
             this.mainSection.ResumeLayout(false);
             this.titleSectionOuter.ResumeLayout(false);
+            this.titleSectionInner.ResumeLayout(false);
             this.blas1skinSection.ResumeLayout(false);
             this.blas2modSection.ResumeLayout(false);
             this.sideSection.ResumeLayout(false);
@@ -428,7 +416,6 @@ namespace BlasModInstaller
         private System.Windows.Forms.Panel warningSection;
         private System.Windows.Forms.Panel warningInner;
         private System.Windows.Forms.Panel blas1skinSection;
-        private System.Windows.Forms.Label blas1skinText;
         private System.Windows.Forms.VScrollBar blas1skinScroll;
         private System.Windows.Forms.Panel titleSectionInner;
     }

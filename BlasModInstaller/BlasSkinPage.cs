@@ -38,7 +38,6 @@ namespace BlasModInstaller.Pages
 
                     string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{item.Name}/info.txt");
                     Skin globalSkin = JsonConvert.DeserializeObject<Skin>(json);
-                    MainForm.Log($"Name: {globalSkin.name}, Author: {globalSkin.author}");
 
                     if (DataExists(globalSkin, out Skin localSkin))
                     {
