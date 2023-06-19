@@ -259,7 +259,7 @@ namespace BlasModInstaller
             };
 
             modHolder.AutoScroll = true;
-            MainForm.Instance.AdjustHolderWidth();
+            MainForm.Instance.BlasModPage.AdjustPageWidth();
             UpdateUI();
         }
     }

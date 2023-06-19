@@ -33,10 +33,11 @@ namespace BlasModInstaller
             }
         }
 
+        public int MainSectionWidth => mainSection.Width;
+
         public BlasModPage BlasModPage { get; private set; }
         public BlasSkinPage BlasSkinPage { get; private set; }
         public BlasIIModPage BlasIIModPage { get; private set; }
-        //private InstallerPage currentPage;
 
         private Octokit.GitHubClient github;
 
@@ -143,14 +144,9 @@ namespace BlasModInstaller
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
-            AdjustHolderWidth();
-        }
-
-
-        public void AdjustHolderWidth()
-        {
-            bool scrollVisible = blas1modSection.VerticalScroll.Visible;
-            blas1modSection.Width = mainSection.Width - (scrollVisible ? 17 : 16);
+            BlasModPage.AdjustPageWidth();
+            BlasSkinPage.AdjustPageWidth();
+            BlasIIModPage.AdjustPageWidth();
         }
 
         public void RemoveButtonFocus(object sender, EventArgs e)
@@ -183,32 +179,33 @@ namespace BlasModInstaller
             if (section == SectionType.Blas1Mods)
             {
                 titleLabel.Text = "Blasphemous Mods";
-                //currentPage = BlasModPage;
 
-                ValidateBlas1Directory(BlasRootFolder);
                 blas1skinSection.Visible = false;
                 blas2modSection.Visible = false;
+
+                ValidateBlas1Directory(BlasRootFolder);
             }
             else if (section == SectionType.Blas1Skins)
             {
                 titleLabel.Text = "Blasphemous Skins";
-                //currentPage = BlasSkinPage;
 
-                BlasSkinPage.LoadData();
                 blas1modSection.Visible = false;
                 blas1locationSection.Visible = false;
                 blas1skinSection.Visible = true;
                 blas2modSection.Visible = true;
+
+                BlasSkinPage.LoadData();
             }
             else if (section == SectionType.Blas2Mods)
             {
                 titleLabel.Text = "Blasphemous II Mods";
-                //currentPage = BlasIIModPage;
 
                 blas1modSection.Visible = false;
                 blas1locationSection.Visible = false;
                 blas1skinSection.Visible = false;
                 blas2modSection.Visible = true;
+
+                // Load data
             }
         }
 

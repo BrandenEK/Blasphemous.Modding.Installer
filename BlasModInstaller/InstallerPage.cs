@@ -53,6 +53,7 @@ namespace BlasModInstaller.Pages
                 LoadGlobalData();
                 _loadedData = true;
             }
+            AdjustPageWidth();
         }
 
         // Loads local data from json into the collection
@@ -74,7 +75,13 @@ namespace BlasModInstaller.Pages
 
         protected void SetBackgroundColor()
         {
-            PageSection.BackColor = dataCollection.Count % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
+            _pageSection.BackColor = dataCollection.Count % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
+        }
+
+        public void AdjustPageWidth()
+        {
+            bool scrollVisible = _pageSection.VerticalScroll.Visible;
+            _pageSection.Width = MainForm.Instance.MainSectionWidth + (scrollVisible ? 2 : -15);
         }
     }
 }
