@@ -10,17 +10,18 @@ namespace BlasModInstaller
         public readonly static Color GREEN = Color.FromArgb(102, 255, 102);
         public readonly static Color RED = Color.FromArgb(255, 102, 102);
         public readonly static Color ORANGE = Color.FromArgb(255, 178, 102);
+        public readonly static Color BLUE = Color.FromArgb(51, 153, 255);
     }
 
     public static class Fonts
     {
-        public readonly static Font SMALL = new Font("Verdana", 9);
-        public readonly static Font LARGE = new Font("Verdana", 16, FontStyle.Bold);
-        public readonly static Font INSTALL = new Font("Trebuchet MS", 8, FontStyle.Bold);
-        public readonly static Font ENABLE = new Font("Arial", 8, FontStyle.Bold);
+        public readonly static Font MOD_NAME = new Font("Verdana", 16, FontStyle.Bold);
+        public readonly static Font MOD_DESCRIPTION = new Font("Verdana", 9);
 
         public readonly static Font SKIN_NAME = new Font("Verdana", 14, FontStyle.Bold);
         public readonly static Font SKIN_AUTHOR = new Font("Verdana", 12, FontStyle.Italic);
+
+        public readonly static Font BUTTON = new Font("Trebuchet MS", 8, FontStyle.Bold);
     }
 
     public static class Sizes

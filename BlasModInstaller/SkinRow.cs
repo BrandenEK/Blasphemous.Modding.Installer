@@ -22,6 +22,21 @@ namespace BlasModInstaller
         private readonly Button previewIdleButton;
         private readonly Button previewChargedButton;
 
+        private void ClickedInstall(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ClickedPreviewIdle(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ClickedPreviewCharged(object sender, EventArgs e)
+        {
+
+        }
+
         public SkinRow(Skin skin, Panel parentPanel, int skinIdx)
         {
             this.skin = skin;
@@ -80,11 +95,52 @@ namespace BlasModInstaller
                 Location = new Point(parentPanel.Width - 95, 11),
                 Size = new Size(85, 24),
                 BackColor = backgroundColor,
-                Font = Fonts.INSTALL,
+                Font = Fonts.BUTTON,
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand,
                 TabStop = false
             };
+            installButton.Click += ClickedInstall;
+            installButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
+            installButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+
+            previewIdleButton = new Button
+            {
+                Name = skin.name,
+                Parent = innerPanel,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                Location = new Point(parentPanel.Width - 360, 11),
+                Size = new Size(110, 24),
+                BackColor = Colors.BLUE,
+                Font = Fonts.BUTTON,
+                Text = "Preview Idle",
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand,
+                TabStop = false,
+            };
+            previewIdleButton.FlatAppearance.BorderColor = Color.Black;
+            previewIdleButton.Click += ClickedPreviewIdle;
+            previewIdleButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
+            previewIdleButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+
+            previewChargedButton = new Button
+            {
+                Name = skin.name,
+                Parent = innerPanel,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                Location = new Point(parentPanel.Width - 230, 11),
+                Size = new Size(110, 24),
+                BackColor = Colors.BLUE,
+                Font = Fonts.BUTTON,
+                Text = "Preview Charged",
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand,
+                TabStop = false,
+            };
+            previewChargedButton.FlatAppearance.BorderColor = Color.Black;
+            previewChargedButton.Click += ClickedPreviewCharged;
+            previewChargedButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
+            previewChargedButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
 
             parentPanel.AutoScroll = true;
             MainForm.Instance.BlasSkinPage.AdjustPageWidth();
