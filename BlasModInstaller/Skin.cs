@@ -16,6 +16,7 @@ namespace BlasModInstaller
         public string id;
         public string name;
         public string author;
+        public string version; // This is the most recent version and is updated whenever loading global skins
 
         [JsonIgnore]
         private bool _downloading;
@@ -27,6 +28,7 @@ namespace BlasModInstaller
             // Id is already going to be the same
             name = globalSkin.name;
             author = globalSkin.author;
+            version = globalSkin.version;
         }
 
         public override int GetHashCode() => base.GetHashCode();
@@ -45,7 +47,16 @@ namespace BlasModInstaller
         {
             get
             {
-                return null;
+                string infoPath = PathToSkinFolder + "\\info.txt";
+                if (File.Exists(infoPath))
+                {
+                    Skin data = JsonConvert.DeserializeObject<Skin>(File.ReadAllText(infoPath));
+                    return MainForm.CleanSemanticVersion(data.version);
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -54,7 +65,10 @@ namespace BlasModInstaller
         {
             get
             {
-                return false;
+                if (!Installed)
+                    return false;
+
+                return MainForm.CleanSemanticVersion(version).CompareTo(LocalVersion) > 0;
             }
         }
 

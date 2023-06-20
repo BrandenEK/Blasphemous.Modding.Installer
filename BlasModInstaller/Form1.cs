@@ -52,7 +52,16 @@ namespace BlasModInstaller
 
         public static Version CleanSemanticVersion(string version)
         {
-            return new Version(version.ToLower().Replace("v", ""));
+            Version cleanVersion;
+            try
+            {
+                cleanVersion = new Version(version.ToLower().Replace("v", ""));
+            }
+            catch (Exception)
+            {
+                cleanVersion = new Version(0, 1, 0);
+            }
+            return cleanVersion;
         }
 
         public static async Task<Octokit.Release> GetLatestRelease(string owner, string repo)
