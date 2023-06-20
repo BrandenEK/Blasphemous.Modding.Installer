@@ -15,8 +15,8 @@ namespace BlasModInstaller
 
     public static class Fonts
     {
-        public readonly static Font MOD_NAME = new Font("Verdana", 16, FontStyle.Bold);
-        public readonly static Font MOD_DESCRIPTION = new Font("Verdana", 9);
+        public readonly static Font MOD_NAME = new Font("Verdana", 14, FontStyle.Bold);
+        public readonly static Font MOD_AUTHOR = new Font("Verdana", 12, FontStyle.Italic);
 
         public readonly static Font SKIN_NAME = new Font("Verdana", 14, FontStyle.Bold);
         public readonly static Font SKIN_AUTHOR = new Font("Verdana", 12, FontStyle.Italic);

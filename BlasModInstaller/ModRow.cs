@@ -19,12 +19,10 @@ namespace BlasModInstaller
         private readonly Label nameText;
         private readonly Label authorText;
 
-        private readonly Button infoButton;
+        private readonly Button updateButton;
+        private readonly Button readmeButton;
         private readonly Button installButton;
         private readonly Button enableButton;
-
-        private readonly Label updateText;
-        private readonly Button updateButton;
 
         private bool _downloading;
 
@@ -193,8 +191,6 @@ namespace BlasModInstaller
 
             // Update text/button
             bool canUpdate = mod.UpdateAvailable;
-            updateText.Visible = canUpdate;
-            updateText.Text = canUpdate ? "An update is available!" : string.Empty;
             updateButton.Visible = canUpdate;
         }
 
@@ -226,7 +222,7 @@ namespace BlasModInstaller
                 Size = new Size(parentPanel.Width, Sizes.MOD_HEIGHT - 4),
             };
 
-            // Left stuff
+            // Left side
 
             nameText = new Label
             {
@@ -237,7 +233,7 @@ namespace BlasModInstaller
                 Size = new Size(100, 30),
                 ForeColor = Color.LightGray,
                 TextAlign = ContentAlignment.MiddleLeft,
-                Font = Fonts.SKIN_NAME,
+                Font = Fonts.MOD_NAME,
             };
 
             authorText = new Label
@@ -249,12 +245,32 @@ namespace BlasModInstaller
                 Size = new Size(200, 20),
                 ForeColor = Color.LightGray,
                 TextAlign = ContentAlignment.BottomLeft,
-                Font = Fonts.SKIN_AUTHOR,
+                Font = Fonts.MOD_AUTHOR,
             };
 
-            // Right stuff
+            // Right side
 
-            infoButton = new Button
+            updateButton = new Button
+            {
+                Name = mod.Name,
+                Parent = innerPanel,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                Location = new Point(parentPanel.Width - 450, 11),
+                Size = new Size(130, 24),
+                BackColor = Color.Black,
+                ForeColor = Color.White,
+                Font = Fonts.BUTTON,
+                Text = "Download update",
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand,
+                TabStop = false,
+            };
+            updateButton.FlatAppearance.BorderColor = Color.White;
+            updateButton.Click += ClickedUpdate;
+            updateButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
+            updateButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+
+            readmeButton = new Button
             {
                 Name = mod.Name,
                 Parent = innerPanel,
@@ -268,10 +284,10 @@ namespace BlasModInstaller
                 Cursor = Cursors.Hand,
                 TabStop = false,
             };
-            infoButton.FlatAppearance.BorderColor = Color.Black;
-            infoButton.Click += ClickedReadme;
-            infoButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
-            infoButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+            readmeButton.FlatAppearance.BorderColor = Color.Black;
+            readmeButton.Click += ClickedReadme;
+            readmeButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
+            readmeButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
 
             installButton = new Button
             {
@@ -306,37 +322,6 @@ namespace BlasModInstaller
             enableButton.Click += ClickedEnable;
             enableButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
             enableButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
-
-            updateText = new Label
-            {
-                Name = mod.Name,
-                Parent = innerPanel,
-                Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(parentPanel.Width - 400, 17),
-                Size = new Size(200, 15),
-                ForeColor = Color.LightGray,
-                Font = Fonts.BUTTON,
-                TextAlign = ContentAlignment.TopCenter,
-                Text = string.Empty,
-            };
-
-            updateButton = new Button
-            {
-                Name = mod.Name,
-                Parent = innerPanel,
-                Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(parentPanel.Width - 334, 40),
-                Size = new Size(72, 25),
-                BackColor = Color.White,
-                Font = Fonts.BUTTON,
-                Text = "Download",
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand
-            };
-            updateButton.Click += ClickedUpdate;
-            updateButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
-            updateButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
-            updateButton.TabStop = false;
 
             parentPanel.AutoScroll = true;
             MainForm.Instance.BlasModPage.AdjustPageWidth();

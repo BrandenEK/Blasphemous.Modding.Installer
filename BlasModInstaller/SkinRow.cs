@@ -18,9 +18,10 @@ namespace BlasModInstaller
         private readonly Label nameText;
         private readonly Label authorText;
 
-        private readonly Button installButton;
+        private readonly Button updateButton;
         private readonly Button previewIdleButton;
         private readonly Button previewChargedButton;
+        private readonly Button installButton;
 
         private bool _downloading;
 
@@ -94,6 +95,12 @@ namespace BlasModInstaller
             catch (Exception) { MessageBox.Show("Link does not exist!", "Invalid Link"); }
         }
 
+        private void ClickedUpdate(object sender, EventArgs e)
+        {
+            Uninstall();
+            Install();
+        }
+
         // UI methods
 
         public void UpdateUI()
@@ -116,6 +123,8 @@ namespace BlasModInstaller
             Color backgroundColor = skinIdx % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
             parentPanel.AutoScroll = false;
 
+            // Panels
+
             outerPanel = new Panel
             {
                 Name = skin.name,
@@ -135,6 +144,8 @@ namespace BlasModInstaller
                 Location = new Point(0, 2),
                 Size = new Size(parentPanel.Width, Sizes.SKIN_HEIGHT - 4),
             };
+
+            // Left side
 
             nameText = new Label
             {
@@ -160,22 +171,27 @@ namespace BlasModInstaller
                 Font = Fonts.SKIN_AUTHOR,
             };
 
-            installButton = new Button
+            // Right side
+
+            updateButton = new Button
             {
                 Name = skin.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(parentPanel.Width - 110, 11),
-                Size = new Size(100, 24),
-                BackColor = backgroundColor,
+                Location = new Point(parentPanel.Width - 550, 11),
+                Size = new Size(130, 24),
+                BackColor = Color.Black,
+                ForeColor = Color.White,
                 Font = Fonts.BUTTON,
+                Text = "Download update",
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand,
                 TabStop = false,
             };
-            installButton.Click += ClickedInstall;
-            installButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
-            installButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+            updateButton.FlatAppearance.BorderColor = Color.White;
+            updateButton.Click += ClickedUpdate;
+            updateButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
+            updateButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
 
             previewIdleButton = new Button
             {
@@ -214,6 +230,23 @@ namespace BlasModInstaller
             previewChargedButton.Click += ClickedPreviewCharged;
             previewChargedButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
             previewChargedButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+
+            installButton = new Button
+            {
+                Name = skin.name,
+                Parent = innerPanel,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                Location = new Point(parentPanel.Width - 110, 11),
+                Size = new Size(100, 24),
+                BackColor = backgroundColor,
+                Font = Fonts.BUTTON,
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand,
+                TabStop = false,
+            };
+            installButton.Click += ClickedInstall;
+            installButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
+            installButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
 
             parentPanel.AutoScroll = true;
             MainForm.Instance.BlasSkinPage.AdjustPageWidth();
