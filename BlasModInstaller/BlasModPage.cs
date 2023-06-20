@@ -17,7 +17,7 @@ namespace BlasModInstaller.Pages
             base.LoadLocalData();
 
             for (int i = 0; i < dataCollection.Count; i++)
-                new ModRow(dataCollection[i], PageSection, i);
+                dataCollection[i].CreateUI(PageSection, i);
 
             MainForm.Log($"Loaded {dataCollection.Count} local mods");
             SetBackgroundColor();
@@ -35,27 +35,22 @@ namespace BlasModInstaller.Pages
                 foreach (Mod globalMod in globalMods)
                 {
                     Octokit.Release latestRelease = await MainForm.GetLatestRelease(globalMod.GithubAuthor, globalMod.GithubRepo);
-                    Version webVersion = new Version(Mod.CleanSemanticVersion(latestRelease.TagName));
+                    Version webVersion = MainForm.CleanSemanticVersion(latestRelease.TagName);
                     string downloadURL = latestRelease.Assets[0].BrowserDownloadUrl;
 
                     if (DataExists(globalMod, out Mod localMod))
                     {
-                        localMod.UpdateLocalData(globalMod);
                         localMod.LatestVersion = webVersion.ToString();
                         localMod.LatestDownloadURL = downloadURL;
-
-                        //if (localMod.Installed)
-                        //{
-                        //    //localMod.UpdateAvailable = webVersion.CompareTo(localMod.LocalVersion) > 0;
-                        //}
-                        //localMod.UI.UpdateUI();
+                        localMod.UpdateLocalData(globalMod);
+                        localMod.UpdateUI();
                     }
                     else
                     {
                         globalMod.LatestVersion = webVersion.ToString();
                         globalMod.LatestDownloadURL = downloadURL;
                         dataCollection.Add(globalMod);
-                        new ModRow(globalMod, PageSection, dataCollection.Count - 1);
+                        globalMod.CreateUI(PageSection, dataCollection.Count - 1);
                     }
                 }
 

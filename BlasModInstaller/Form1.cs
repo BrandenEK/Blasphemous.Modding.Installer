@@ -54,6 +54,11 @@ namespace BlasModInstaller
             OpenSection(SectionType.Blas1Mods);
         }
 
+        public static Version CleanSemanticVersion(string version)
+        {
+            return new Version(version.ToLower().Replace("v", ""));
+        }
+
         public static async Task<Octokit.Release> GetLatestRelease(string owner, string repo)
         {
             return await Instance.github.Repository.Release.GetLatest(owner, repo);
@@ -100,7 +105,7 @@ namespace BlasModInstaller
         private async Task CheckForNewerInstallerRelease()
         {
             Octokit.Release latestRelease = await github.Repository.Release.GetLatest("BrandenEK", "Blasphemous-Mod-Installer");
-            Version newestVersion = new Version(Mod.CleanSemanticVersion(latestRelease.TagName));
+            Version newestVersion = CleanSemanticVersion(latestRelease.TagName);
 
             if (newestVersion > CurrentInstallerVersion)
                 warningSection.Visible = true;

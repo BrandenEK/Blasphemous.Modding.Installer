@@ -1,24 +1,65 @@
-﻿using Newtonsoft.Json;
+﻿using Ionic.Zip;
+using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BlasModInstaller
 {
     [Serializable]
     public class Mod
     {
-        // This data will generally always stay the same
-        public string Name { get; private set; }
-        public string Author { get; private set; }
-        public string Description { get; private set; }
-        public string GithubAuthor { get; private set; }
-        public string GithubRepo { get; private set; }
-        public string PluginFile { get; private set; }
-        public string[] RequiredDlls { get; private set; }
-        // This data is set whenever loading mods from web
+        // Data
+
+        public string Name { get; set; }
+        public string Author { get; set; }
+        public string Description { get; set; }
+        public string GithubAuthor { get; set; }
+        public string GithubRepo { get; set; }
+        public string PluginFile { get; set; }
+        public string[] RequiredDlls { get; set; }
+
         public string LatestVersion { get; set; }
         public string LatestDownloadURL { get; set; }
+
+        [JsonIgnore]
+        private bool _downloading;
+        [JsonIgnore]
+        private ModUI _ui;
+
+        public void UpdateLocalData(Mod globalMod)
+        {
+            // Name is already going to be the same
+            Author = globalMod.Author;
+            Description = globalMod.Description;
+            GithubAuthor = globalMod.GithubAuthor;
+            GithubRepo = globalMod.GithubRepo;
+            PluginFile = globalMod.PluginFile;
+            RequiredDlls = globalMod.RequiredDlls;
+        }
+
+        public override int GetHashCode() => base.GetHashCode();
+        public override bool Equals(object obj)
+        {
+            if (obj is Mod mod)
+                return Name == mod.Name;
+            return base.Equals(obj);
+        }
+
+        public bool RequiresDll(string dllName)
+        {
+            if (RequiredDlls == null) return false;
+
+            foreach (string dll in RequiredDlls)
+            {
+                if (dll == dllName)
+                    return true;
+            }
+            return false;
+        }
 
         [JsonIgnore]
         public bool Installed => File.Exists(PathToEnabledPlugin) || File.Exists(PathToDisabledPlugin);
@@ -47,52 +88,13 @@ namespace BlasModInstaller
         {
             get
             {
+                //webVersion.CompareTo(localMod.LocalVersion) > 0;
                 return false;
             }
         }
 
-        public Mod(string name, string author, string description, string githubAuthor, string githubRepo, string pluginFile, string[] requiredDlls)
-        {
-            Name = name;
-            Author = author;
-            Description = description;
-            GithubAuthor = githubAuthor;
-            GithubRepo = githubRepo;
-            PluginFile = pluginFile;
-            RequiredDlls = requiredDlls;
-        }
+        // Paths
 
-        public override bool Equals(object obj)
-        {
-            if (obj is Mod mod)
-                return Name == mod.Name;
-            return base.Equals(obj);
-        }
-
-        public void UpdateLocalData(Mod globalMod)
-        {
-            // Name is already going to be the same
-            Author = globalMod.Author;
-            Description = globalMod.Description;
-            GithubAuthor = globalMod.GithubAuthor;
-            GithubRepo = globalMod.GithubRepo;
-            PluginFile = globalMod.PluginFile;
-            RequiredDlls = globalMod.RequiredDlls;
-        }
-
-        public bool RequiresDll(string dllName)
-        {
-            if (RequiredDlls == null) return false;
-
-            foreach (string dll in RequiredDlls)
-            {
-                if (dll == dllName)
-                    return true;
-            }
-            return false;
-        }
-
-        // Install paths
         [JsonIgnore]
         public string PathToEnabledPlugin => $"{MainForm.BlasRootFolder}\\Modding\\plugins\\{PluginFile}";
         [JsonIgnore]
@@ -112,9 +114,158 @@ namespace BlasModInstaller
         [JsonIgnore]
         public string GithubLink => $"https://github.com/{GithubAuthor}/{GithubRepo}/blob/main/README.md";
 
-        public static string CleanSemanticVersion(string version)
+
+        // Main methods
+
+        public async Task Install()
         {
-            return version.ToLower().Replace("v", "");
+            if (MainForm.BlasRootFolder == null) return;
+
+            _downloading = true;
+            using (WebClient client = new WebClient())
+            {
+                _ui.ShowDownloadingStatus();
+
+                string downloadPath = $"{MainForm.DownloadsPath}{Name.Replace(' ', '_')}.zip";
+
+                await client.DownloadFileTaskAsync(new Uri(LatestDownloadURL), downloadPath);
+
+                string installPath = MainForm.BlasRootFolder;
+                if (Name != "Modding API") installPath += "\\Modding";
+
+                using (ZipFile zipFile = ZipFile.Read(downloadPath))
+                {
+                    foreach (ZipEntry file in zipFile)
+                        file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
+                }
+
+                File.Delete(downloadPath);
+            }
+            _downloading = false;
+
+            UpdateUI();
+        }
+
+        public void Uninstall()
+        {
+            if (MainForm.BlasRootFolder == null) return;
+
+            if (File.Exists(PathToEnabledPlugin))
+                File.Delete(PathToEnabledPlugin);
+            if (File.Exists(PathToDisabledPlugin))
+                File.Delete(PathToDisabledPlugin);
+            if (File.Exists(PathToConfigFile))
+                File.Delete(PathToConfigFile);
+            if (File.Exists(PathToKeybindingsFile))
+                File.Delete(PathToKeybindingsFile);
+            if (File.Exists(PathToLocalizationFile))
+                File.Delete(PathToLocalizationFile);
+            if (File.Exists(PathToLogFile))
+                File.Delete(PathToLogFile);
+            if (Directory.Exists(PathToDataFolder))
+                Directory.Delete(PathToDataFolder, true);
+            if (Directory.Exists(PathToLevelsFolder))
+                Directory.Delete(PathToLevelsFolder, true);
+
+            if (RequiredDlls != null && RequiredDlls.Length > 0)
+            {
+                foreach (string dll in RequiredDlls)
+                {
+                    if (MainForm.Instance.BlasModPage.InstalledModsThatRequireDll(dll) == 0)
+                    {
+                        string dllPath = MainForm.BlasRootFolder + "\\Modding\\data\\" + dll;
+                        if (File.Exists(dllPath))
+                            File.Delete(dllPath);
+                    }
+                }
+            }
+
+            UpdateUI();
+        }
+
+        public void Enable()
+        {
+            if (MainForm.BlasRootFolder == null) return;
+
+            string enabled = PathToEnabledPlugin;
+            string disabled = PathToDisabledPlugin;
+            if (File.Exists(disabled))
+            {
+                if (!File.Exists(enabled))
+                    File.Move(disabled, enabled);
+                else
+                    File.Delete(disabled);
+            }
+
+            UpdateUI();
+        }
+
+        public void Disable()
+        {
+            if (MainForm.BlasRootFolder == null) return;
+
+            string enabled = PathToEnabledPlugin;
+            string disabled = PathToDisabledPlugin;
+            if (File.Exists(enabled))
+            {
+                if (!File.Exists(disabled))
+                    File.Move(enabled, disabled);
+                else
+                    File.Delete(enabled);
+            }
+
+            UpdateUI();
+        }
+
+        // Click methods
+
+        public void ClickedInstall(object sender, EventArgs e)
+        {
+            if (_downloading) return;
+
+            if (Installed)
+            {
+                if (MessageBox.Show("Are you sure you want to uninstall this mod?", Name, MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    Uninstall();
+            }
+            else
+            {
+                Install();
+            }
+        }
+
+        public void ClickedEnable(object sender, EventArgs e)
+        {
+            if (Enabled)
+                Disable();
+            else
+                Enable();
+        }
+
+        public void ClickedUpdate(object sender, EventArgs e)
+        {
+            Uninstall();
+            Install();
+        }
+
+        public void ClickedReadme(object sender, EventArgs e)
+        {
+            try { Process.Start(GithubLink); }
+            catch (Exception) { MessageBox.Show("Link does not exist!", "Invalid Link"); }
+        }
+
+        // UI methods
+
+        public void CreateUI(Panel parentPanel, int modIdx)
+        {
+            _ui = new ModUI(this, modIdx, parentPanel);
+            UpdateUI();
+            MainForm.Instance.BlasModPage.AdjustPageWidth();
+        }
+
+        public void UpdateUI()
+        {
+            _ui.UpdateUI(Name, (Installed ? LocalVersion.ToString(3) : LatestVersion), Author, Installed, Enabled, UpdateAvailable);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace BlasModInstaller
 
         public void UpdateLocalData(Skin globalSkin)
         {
-            id = globalSkin.id;
+            // Id is already going to be the same
             name = globalSkin.name;
             author = globalSkin.author;
         }
@@ -39,6 +39,15 @@ namespace BlasModInstaller
 
         [JsonIgnore]
         public bool Installed => File.Exists($"{MainForm.BlasRootFolder}\\Modding\\skins\\{id}\\info.txt");
+
+        [JsonIgnore]
+        public Version LocalVersion
+        {
+            get
+            {
+                return null;
+            }
+        }
 
         [JsonIgnore]
         public bool UpdateAvailable
@@ -88,7 +97,7 @@ namespace BlasModInstaller
             }
             _downloading = false;
 
-            _ui.UpdateUI(name, author, Installed, UpdateAvailable);
+            UpdateUI();
         }
 
         private void Uninstall()
@@ -98,7 +107,7 @@ namespace BlasModInstaller
             if (Directory.Exists(PathToSkinFolder))
                 Directory.Delete(PathToSkinFolder, true);
 
-            _ui.UpdateUI(name, author, Installed, UpdateAvailable);
+            UpdateUI();
         }
 
         // Click methods
@@ -141,7 +150,7 @@ namespace BlasModInstaller
         public void CreateUI(Panel parentPanel, int skinIdx)
         {
             _ui = new SkinUI(this, skinIdx, parentPanel);
-            _ui.UpdateUI(name, author, Installed, UpdateAvailable);
+            UpdateUI();
             MainForm.Instance.BlasSkinPage.AdjustPageWidth();
         }
 
