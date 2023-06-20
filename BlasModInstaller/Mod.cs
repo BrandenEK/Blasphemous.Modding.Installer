@@ -110,7 +110,7 @@ namespace BlasModInstaller
         [JsonIgnore]
         public string PathToLogFile => $"{MainForm.BlasRootFolder}\\Modding\\logs\\{Name}.log";
         [JsonIgnore]
-        public string GithubLink => $"https://github.com/{GithubAuthor}/{GithubRepo}";
+        public string GithubLink => $"https://github.com/{GithubAuthor}/{GithubRepo}/blob/main/README.md";
 
         public static string CleanSemanticVersion(string version)
         {

@@ -39,7 +39,8 @@ namespace BlasModInstaller
             using (WebClient client = new WebClient())
             {
                 installButton.Text = "Downloading...";
-                installButton.BackColor = Colors.ORANGE;
+                installButton.ForeColor = Colors.ORANGE;
+                installButton.FlatAppearance.BorderColor = Colors.ORANGE;
 
                 string downloadPath = $"{MainForm.DownloadsPath}{mod.Name.Replace(' ', '_')}.zip";
 
