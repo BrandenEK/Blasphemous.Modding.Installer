@@ -82,7 +82,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SectionType.cs" />
     <Compile Include="Skin.cs" />
-    <Compile Include="SkinRow.cs" />
+    <Compile Include="SkinUI.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

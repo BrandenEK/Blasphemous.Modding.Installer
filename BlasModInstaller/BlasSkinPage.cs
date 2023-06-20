@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using Newtonsoft.Json;
-using System.Net.Http;
 
 namespace BlasModInstaller.Pages
 {
@@ -19,7 +18,7 @@ namespace BlasModInstaller.Pages
             base.LoadLocalData();
 
             for (int i = 0; i < dataCollection.Count; i++)
-                new SkinRow(dataCollection[i], PageSection, i);
+                dataCollection[i].CreateUI(PageSection, i);
 
             MainForm.Log($"Loaded {dataCollection.Count} local skins");
             SetBackgroundColor();
@@ -42,11 +41,12 @@ namespace BlasModInstaller.Pages
                     if (DataExists(globalSkin, out Skin localSkin))
                     {
                         localSkin.UpdateLocalData(globalSkin);
+                        localSkin.UpdateUI();
                     }
                     else
                     {
                         dataCollection.Add(globalSkin);
-                        new SkinRow(globalSkin, PageSection, dataCollection.Count - 1);
+                        globalSkin.CreateUI(PageSection, dataCollection.Count - 1);
                     }
                 }
 
