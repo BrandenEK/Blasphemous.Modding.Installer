@@ -88,8 +88,10 @@ namespace BlasModInstaller
         {
             get
             {
-                //webVersion.CompareTo(localMod.LocalVersion) > 0;
-                return false;
+                if (!Installed)
+                    return false;
+
+                return new Version(LatestVersion).CompareTo(LocalVersion) > 0;
             }
         }
 

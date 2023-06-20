@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BlasModInstaller.Pages

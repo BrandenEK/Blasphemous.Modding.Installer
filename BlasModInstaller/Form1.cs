@@ -1,11 +1,11 @@
-﻿using System;
+﻿using BlasModInstaller.Pages;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json;
-using BlasModInstaller.Pages;
 
 namespace BlasModInstaller
 {
@@ -107,7 +107,7 @@ namespace BlasModInstaller
             Octokit.Release latestRelease = await github.Repository.Release.GetLatest("BrandenEK", "Blasphemous-Mod-Installer");
             Version newestVersion = CleanSemanticVersion(latestRelease.TagName);
 
-            if (newestVersion > CurrentInstallerVersion)
+            if (newestVersion.CompareTo(CurrentInstallerVersion) > 0)
                 warningSection.Visible = true;
         }
 
