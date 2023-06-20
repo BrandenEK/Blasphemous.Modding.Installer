@@ -26,7 +26,7 @@ namespace BlasModInstaller
 
     public static class Sizes
     {
-        public const int MOD_HEIGHT = 80;
+        public const int MOD_HEIGHT = 50;
         public const int SKIN_HEIGHT = 50;
     }
 }

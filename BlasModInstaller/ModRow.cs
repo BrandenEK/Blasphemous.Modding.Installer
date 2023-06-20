@@ -18,7 +18,6 @@ namespace BlasModInstaller
 
         private readonly Label nameText;
         private readonly Label authorText;
-        private readonly Label descriptionText;
 
         private readonly Button infoButton;
         private readonly Button installButton;
@@ -174,9 +173,10 @@ namespace BlasModInstaller
         public void UpdateUI()
         {
             // Text
-            nameText.Text = $"{mod.Name} v{(mod.Installed ? mod.LocalVersion.ToString(3) : mod.LatestVersion)}";
-            //authorText.Text = "Author: " + mod.Author;
-            descriptionText.Text = mod.Description;
+            nameText.Text = $"{mod.Name} (v{(mod.Installed ? mod.LocalVersion.ToString(3) : mod.LatestVersion)})";
+            nameText.Size = new Size(nameText.PreferredWidth, 30);
+            authorText.Text = "by " + mod.Author;
+            authorText.Location = new Point(nameText.PreferredWidth + 15, authorText.Location.Y);
 
             // Install button
             bool modInstalled = mod.Installed;
@@ -233,21 +233,23 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left,
-                Location = new Point(10, 10),
-                Size = new Size(400, 28),
+                Location = new Point(10, 8),
+                Size = new Size(100, 30),
                 ForeColor = Color.LightGray,
-                Font = Fonts.MOD_NAME,
+                TextAlign = ContentAlignment.MiddleLeft,
+                Font = Fonts.SKIN_NAME,
             };
 
-            descriptionText = new Label
+            authorText = new Label
             {
                 Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left,
-                Location = new Point(12, 41),
-                Size = new Size(450, 30),
+                Location = new Point(200, 13),
+                Size = new Size(200, 20),
                 ForeColor = Color.LightGray,
-                Font = Fonts.MOD_DESCRIPTION,
+                TextAlign = ContentAlignment.BottomLeft,
+                Font = Fonts.SKIN_AUTHOR,
             };
 
             // Right stuff
@@ -257,7 +259,7 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(parentPanel.Width - 290, 28),
+                Location = new Point(parentPanel.Width - 290, 11),
                 Size = new Size(70, 24),
                 BackColor = Colors.BLUE,
                 Font = Fonts.BUTTON,
@@ -276,7 +278,7 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(parentPanel.Width - 190, 28),
+                Location = new Point(parentPanel.Width - 190, 11),
                 Size = new Size(100, 24),
                 BackColor = backgroundColor,
                 Font = Fonts.BUTTON,
@@ -293,7 +295,7 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(parentPanel.Width - 80, 28),
+                Location = new Point(parentPanel.Width - 80, 11),
                 Size = new Size(70, 24),
                 BackColor = backgroundColor,
                 Font = Fonts.BUTTON,
