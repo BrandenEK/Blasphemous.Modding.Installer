@@ -57,6 +57,13 @@ namespace BlasModInstaller
             this.blas1skinsBtn = new System.Windows.Forms.Button();
             this.blas1modsBtn = new System.Windows.Forms.Button();
             this.sideSectionOuter = new System.Windows.Forms.Panel();
+            this.sortByName = new System.Windows.Forms.RadioButton();
+            this.sortByAuthor = new System.Windows.Forms.RadioButton();
+            this.sortByInitialRelease = new System.Windows.Forms.RadioButton();
+            this.sortByMostRecent = new System.Windows.Forms.RadioButton();
+            this.sortByText = new System.Windows.Forms.Label();
+            this.downloadAllBtn = new System.Windows.Forms.Button();
+            this.sortSection = new System.Windows.Forms.Panel();
             this.blas1modSection.SuspendLayout();
             this.blas1locationSection.SuspendLayout();
             this.mainSection.SuspendLayout();
@@ -70,6 +77,7 @@ namespace BlasModInstaller
             this.warningSectionInner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.warningImage)).BeginInit();
             this.sideSectionOuter.SuspendLayout();
+            this.sortSection.SuspendLayout();
             this.SuspendLayout();
             // 
             // blas1modScroll
@@ -242,6 +250,8 @@ namespace BlasModInstaller
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sideSectionInner.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.sideSectionInner.Controls.Add(this.sortSection);
+            this.sideSectionInner.Controls.Add(this.downloadAllBtn);
             this.sideSectionInner.Controls.Add(this.gearImage);
             this.sideSectionInner.Controls.Add(this.settingsBtn);
             this.sideSectionInner.Controls.Add(this.warningSectionOuter);
@@ -347,11 +357,11 @@ namespace BlasModInstaller
             // 
             this.debugLog.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.debugLog.ForeColor = System.Drawing.SystemColors.Menu;
-            this.debugLog.Location = new System.Drawing.Point(15, 314);
+            this.debugLog.Location = new System.Drawing.Point(15, 261);
             this.debugLog.Multiline = true;
             this.debugLog.Name = "debugLog";
             this.debugLog.ReadOnly = true;
-            this.debugLog.Size = new System.Drawing.Size(220, 300);
+            this.debugLog.Size = new System.Drawing.Size(220, 209);
             this.debugLog.TabIndex = 0;
             // 
             // blas2modsBtn
@@ -425,6 +435,94 @@ namespace BlasModInstaller
             this.sideSectionOuter.Size = new System.Drawing.Size(250, 900);
             this.sideSectionOuter.TabIndex = 9;
             // 
+            // sortByName
+            // 
+            this.sortByName.AutoSize = true;
+            this.sortByName.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.sortByName.Location = new System.Drawing.Point(4, 80);
+            this.sortByName.Name = "sortByName";
+            this.sortByName.Size = new System.Drawing.Size(53, 20);
+            this.sortByName.TabIndex = 3;
+            this.sortByName.TabStop = true;
+            this.sortByName.Text = "Name";
+            this.sortByName.UseVisualStyleBackColor = true;
+            // 
+            // sortByAuthor
+            // 
+            this.sortByAuthor.AutoSize = true;
+            this.sortByAuthor.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.sortByAuthor.Location = new System.Drawing.Point(4, 105);
+            this.sortByAuthor.Name = "sortByAuthor";
+            this.sortByAuthor.Size = new System.Drawing.Size(60, 20);
+            this.sortByAuthor.TabIndex = 8;
+            this.sortByAuthor.TabStop = true;
+            this.sortByAuthor.Text = "Author";
+            this.sortByAuthor.UseVisualStyleBackColor = true;
+            // 
+            // sortByInitialRelease
+            // 
+            this.sortByInitialRelease.AutoSize = true;
+            this.sortByInitialRelease.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.sortByInitialRelease.Location = new System.Drawing.Point(4, 30);
+            this.sortByInitialRelease.Name = "sortByInitialRelease";
+            this.sortByInitialRelease.Size = new System.Drawing.Size(94, 20);
+            this.sortByInitialRelease.TabIndex = 9;
+            this.sortByInitialRelease.TabStop = true;
+            this.sortByInitialRelease.Text = "Initial release";
+            this.sortByInitialRelease.UseVisualStyleBackColor = true;
+            // 
+            // sortByMostRecent
+            // 
+            this.sortByMostRecent.AutoSize = true;
+            this.sortByMostRecent.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.sortByMostRecent.Location = new System.Drawing.Point(4, 55);
+            this.sortByMostRecent.Name = "sortByMostRecent";
+            this.sortByMostRecent.Size = new System.Drawing.Size(87, 20);
+            this.sortByMostRecent.TabIndex = 10;
+            this.sortByMostRecent.TabStop = true;
+            this.sortByMostRecent.Text = "Most recent";
+            this.sortByMostRecent.UseVisualStyleBackColor = true;
+            // 
+            // sortByText
+            // 
+            this.sortByText.AutoSize = true;
+            this.sortByText.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sortByText.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.sortByText.Location = new System.Drawing.Point(0, 0);
+            this.sortByText.Name = "sortByText";
+            this.sortByText.Size = new System.Drawing.Size(67, 20);
+            this.sortByText.TabIndex = 11;
+            this.sortByText.Text = "Sort by:";
+            // 
+            // downloadAllBtn
+            // 
+            this.downloadAllBtn.BackColor = System.Drawing.Color.Black;
+            this.downloadAllBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.downloadAllBtn.FlatAppearance.BorderSize = 2;
+            this.downloadAllBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.downloadAllBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.downloadAllBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.downloadAllBtn.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.downloadAllBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.downloadAllBtn.Location = new System.Drawing.Point(44, 502);
+            this.downloadAllBtn.Name = "downloadAllBtn";
+            this.downloadAllBtn.Size = new System.Drawing.Size(148, 30);
+            this.downloadAllBtn.TabIndex = 12;
+            this.downloadAllBtn.Text = "Download all";
+            this.downloadAllBtn.UseVisualStyleBackColor = false;
+            // 
+            // sortSection
+            // 
+            this.sortSection.Controls.Add(this.sortByText);
+            this.sortSection.Controls.Add(this.sortByName);
+            this.sortSection.Controls.Add(this.sortByAuthor);
+            this.sortSection.Controls.Add(this.sortByMostRecent);
+            this.sortSection.Controls.Add(this.sortByInitialRelease);
+            this.sortSection.Location = new System.Drawing.Point(30, 560);
+            this.sortSection.Name = "sortSection";
+            this.sortSection.Size = new System.Drawing.Size(130, 160);
+            this.sortSection.TabIndex = 13;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -454,6 +552,8 @@ namespace BlasModInstaller
             this.warningSectionInner.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.warningImage)).EndInit();
             this.sideSectionOuter.ResumeLayout(false);
+            this.sortSection.ResumeLayout(false);
+            this.sortSection.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -486,6 +586,13 @@ namespace BlasModInstaller
         private System.Windows.Forms.Button settingsBtn;
         private System.Windows.Forms.PictureBox gearImage;
         private System.Windows.Forms.LinkLabel warningText;
+        private System.Windows.Forms.RadioButton sortByMostRecent;
+        private System.Windows.Forms.RadioButton sortByInitialRelease;
+        private System.Windows.Forms.RadioButton sortByAuthor;
+        private System.Windows.Forms.RadioButton sortByName;
+        private System.Windows.Forms.Label sortByText;
+        private System.Windows.Forms.Button downloadAllBtn;
+        private System.Windows.Forms.Panel sortSection;
     }
 }
 
