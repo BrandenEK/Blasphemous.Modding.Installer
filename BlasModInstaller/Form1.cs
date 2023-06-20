@@ -114,8 +114,8 @@ namespace BlasModInstaller
         {
             if (blasLocDialog.ShowDialog() == DialogResult.OK)
             {
-                string rootPath = Path.GetDirectoryName(blasLocDialog.FileName);
-                ValidateBlas1Directory(rootPath);
+                config.BlasRootFolder = Path.GetDirectoryName(blasLocDialog.FileName);
+                OpenSection(config.LastSection);
             }
         }
 
@@ -167,27 +167,41 @@ namespace BlasModInstaller
                 blas1skinSection.Visible = false;
                 blas2modSection.Visible = false;
 
-                ValidateBlas1Directory(BlasRootFolder);
+                if (ValidateBlas1Directory(BlasRootFolder))
+                {
+                    blas1modSection.Visible = true;
+                    BlasModPage.LoadData();
+                }
+                else
+                {
+                    blas1modSection.Visible = false;
+                }
             }
             else if (section == SectionType.Blas1Skins)
             {
                 titleLabel.Text = "Blasphemous Skins";
 
                 blas1modSection.Visible = false;
-                blas1locationSection.Visible = false;
-                blas1skinSection.Visible = true;
-                blas2modSection.Visible = true;
+                blas2modSection.Visible = false;
 
-                BlasSkinPage.LoadData();
+                if (ValidateBlas1Directory(BlasRootFolder))
+                {
+                    blas1skinSection.Visible = true;
+                    BlasSkinPage.LoadData();
+                }
+                else
+                {
+                    blas1skinSection.Visible = false;
+                }
             }
             else if (section == SectionType.Blas2Mods)
             {
                 titleLabel.Text = "Blasphemous II Mods";
 
                 blas1modSection.Visible = false;
-                blas1locationSection.Visible = false;
                 blas1skinSection.Visible = false;
                 blas2modSection.Visible = true;
+                blas1locationSection.Visible = false;
 
                 // Load data
             }
@@ -200,18 +214,15 @@ namespace BlasModInstaller
             if (File.Exists(blasRootPath + "\\Blasphemous.exe"))
             {
                 Log("Blas1 exe path validated!");
-                Directory.CreateDirectory(blasRootPath + "\\Modding\\disabled"); // Only because its not included in the API
                 config.BlasRootFolder = blasRootPath;
 
+                Directory.CreateDirectory(blasRootPath + "\\Modding\\disabled"); // Only because its not included in the API
                 blas1locationSection.Visible = false;
-                blas1modSection.Visible = true;
-                BlasModPage.LoadData();
                 return true;
             }
 
             Log("Blas1 exe path not found!");
             blas1locationSection.Visible = true;
-            blas1modSection.Visible = false;
             return false;
         }
 
