@@ -31,10 +31,6 @@ namespace BlasModInstaller.Pages
                 IReadOnlyList<Octokit.RepositoryContent> contents = await MainForm.GetRepositoryContents("BrandenEK", "Blasphemous-Custom-Skins");
                 foreach (var item in contents)
                 {
-                    // Temp - get rid of other files
-                    if (item.Name.StartsWith("#") || item.Name.StartsWith("R"))
-                        continue;
-
                     string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{item.Name}/info.txt");
                     Skin globalSkin = JsonConvert.DeserializeObject<Skin>(json);
 
