@@ -17,7 +17,7 @@ namespace BlasModInstaller
     {
         private readonly Version CurrentInstallerVersion = new Version(1, 0, 0);
 
-        private string DownloadsPath => Environment.CurrentDirectory + "\\downloads\\";
+        public static string DownloadsPath => Environment.CurrentDirectory + "\\downloads\\";
         private string ConfigPath => Environment.CurrentDirectory + "\\installer.cfg";
 
         public static MainForm Instance { get; private set; }

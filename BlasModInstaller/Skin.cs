@@ -32,9 +32,9 @@ namespace BlasModInstaller
         public string PathToSkinFolder => $"{MainForm.BlasRootFolder}\\Modding\\skins\\{id}";
 
         [JsonIgnore]
-        public string InfoURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{id}/info.txt";
+        public string InfoURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{id}/info.txt";
         [JsonIgnore]
-        public string TextureURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{id}/texture.png";
+        public string TextureURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{id}/texture.png";
         [JsonIgnore]
         public string IdlePreviewURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{id}/idlePreview.png";
         [JsonIgnore]

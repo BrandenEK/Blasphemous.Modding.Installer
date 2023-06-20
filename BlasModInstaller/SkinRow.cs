@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Net;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BlasModInstaller
@@ -20,11 +22,31 @@ namespace BlasModInstaller
         private readonly Button previewIdleButton;
         private readonly Button previewChargedButton;
 
-        // Main methods
-
-        private void StartDownload()
+        public async Task Install()
         {
+            if (MainForm.BlasRootFolder == null) return;
 
+            using (WebClient client = new WebClient())
+            {
+                installButton.Text = "Downloading...";
+                installButton.ForeColor = Colors.ORANGE;
+                installButton.FlatAppearance.BorderColor = Colors.ORANGE;
+
+                string downloadPath = $"{MainForm.DownloadsPath}{skin.id}";
+                Directory.CreateDirectory(downloadPath);
+
+                await client.DownloadFileTaskAsync(new Uri(skin.InfoURL), downloadPath + "\\info.txt");
+                await client.DownloadFileTaskAsync(new Uri(skin.TextureURL), downloadPath + "\\texture.png");
+
+                string skinPath = $"{MainForm.BlasRootFolder}\\Modding\\skins\\{skin.id}";
+                Directory.CreateDirectory(skinPath);
+                File.Copy(downloadPath + "\\info.txt", skinPath + "\\info.txt");
+                File.Copy(downloadPath + "\\texture.png", skinPath + "\\texture.png");
+
+                Directory.Delete(downloadPath, true);
+            }
+
+            UpdateUI();
         }
 
         private void Uninstall()
@@ -47,7 +69,7 @@ namespace BlasModInstaller
             }
             else
             {
-                StartDownload();
+                Install();
             }
         }
 
