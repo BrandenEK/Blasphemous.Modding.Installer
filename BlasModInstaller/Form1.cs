@@ -108,7 +108,7 @@ namespace BlasModInstaller
             Version newestVersion = CleanSemanticVersion(latestRelease.TagName);
 
             if (newestVersion.CompareTo(CurrentInstallerVersion) > 0)
-                warningSection.Visible = true;
+                warningSectionOuter.Visible = true;
         }
 
         private void ChooseBlasLocation(object sender, EventArgs e)
@@ -144,13 +144,14 @@ namespace BlasModInstaller
 
         private void HideSideButtonBorder(object sender, EventArgs e)
         {
-            (sender as Button).FlatAppearance.BorderColor = Color.Black;
+            (sender as Button).FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
             RemoveButtonFocus(null, null);
         }
 
         private void blas1modsBtn_Click(object sender, EventArgs e) => OpenSection(SectionType.Blas1Mods);
         private void blas1skinsBtn_Click(object sender, EventArgs e) => OpenSection(SectionType.Blas1Skins);
         private void blas2modsBtn_Click(object sender, EventArgs e) => OpenSection(SectionType.Blas2Mods);
+        private void settingsBtn_Click(object sender, EventArgs e) { }
 
         private void OpenSection(SectionType section)
         {
