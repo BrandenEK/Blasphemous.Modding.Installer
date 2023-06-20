@@ -22,6 +22,7 @@ namespace BlasModInstaller
         private Config config;
         public static string BlasRootFolder => Instance.config.BlasRootFolder;
         public static string BlasIIRootFolder => Instance.config.BlasIIRootFolder;
+        public static SectionType CurrentSection => Instance.config.LastSection;
 
         public int MainSectionWidth => mainSection.Width;
 
@@ -124,7 +125,7 @@ namespace BlasModInstaller
             if (blasLocDialog.ShowDialog() == DialogResult.OK)
             {
                 config.BlasRootFolder = Path.GetDirectoryName(blasLocDialog.FileName);
-                OpenSection(config.LastSection);
+                OpenSection(CurrentSection);
             }
         }
 
@@ -156,15 +157,25 @@ namespace BlasModInstaller
             RemoveButtonFocus(null, null);
         }
 
-        private void blas1modsBtn_Click(object sender, EventArgs e) => OpenSection(SectionType.Blas1Mods);
-        private void blas1skinsBtn_Click(object sender, EventArgs e) => OpenSection(SectionType.Blas1Skins);
-        private void blas2modsBtn_Click(object sender, EventArgs e) => OpenSection(SectionType.Blas2Mods);
-        private void settingsBtn_Click(object sender, EventArgs e) { }
+        private void ClickedBlas1Mods(object sender, EventArgs e) => OpenSection(SectionType.Blas1Mods);
+        private void ClickedBlas1Skins(object sender, EventArgs e) => OpenSection(SectionType.Blas1Skins);
+        private void ClickedBlas2Mods(object sender, EventArgs e) => OpenSection(SectionType.Blas2Mods);
+        private void ClickedSettings(object sender, EventArgs e) { }
 
         private void ClickInstallerUpdateLink(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try { Process.Start(installerLatestReleaseURL); }
             catch (Exception) { MessageBox.Show("Link does not exist!", "Invalid Link"); }
+        }
+
+        private void ClickedDownloadAll(object sender, EventArgs e)
+        {
+            switch (CurrentSection)
+            {
+                case SectionType.Blas1Mods: BlasModPage.DownloadAll(); break;
+                case SectionType.Blas1Skins: BlasSkinPage.DownloadAll(); break;
+                case SectionType.Blas2Mods: BlasIIModPage.DownloadAll(); break;
+            }
         }
 
         private void OpenSection(SectionType section)

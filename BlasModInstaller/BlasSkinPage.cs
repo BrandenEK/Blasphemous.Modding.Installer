@@ -52,5 +52,11 @@ namespace BlasModInstaller.Pages
             SaveLocalData();
             SetBackgroundColor();
         }
+
+        protected override void OnDownloadAll()
+        {
+            base.OnDownloadAll();
+            MainForm.Log("Downloading all skins");
+        }
     }
 }

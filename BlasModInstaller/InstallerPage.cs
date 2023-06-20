@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.IO;
-using Newtonsoft.Json;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BlasModInstaller.Pages
 {
@@ -14,6 +14,7 @@ namespace BlasModInstaller.Pages
 
         // The current list of mods/skins
         protected List<T> dataCollection = new List<T>();
+        public int DataCount => dataCollection.Count;
 
         private bool _loadedData = false;
 
@@ -69,6 +70,19 @@ namespace BlasModInstaller.Pages
 
         // Loads global data from github into the collection
         protected virtual async Task LoadGlobalData()
+        {
+
+        }
+
+        public void DownloadAll()
+        {
+            if (MessageBox.Show($"Are you sure you wish to download {DataCount} items?", "Downloader", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                OnDownloadAll();
+            }
+        }
+
+        protected virtual void OnDownloadAll()
         {
 
         }

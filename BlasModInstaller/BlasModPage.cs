@@ -61,6 +61,12 @@ namespace BlasModInstaller.Pages
             SetBackgroundColor();
         }
 
+        protected override void OnDownloadAll()
+        {
+            base.OnDownloadAll();
+            MainForm.Log("Downloading all mods");
+        }
+
         public int InstalledModsThatRequireDll(string dllName)
         {
             int count = 0;

@@ -46,6 +46,13 @@ namespace BlasModInstaller
             this.blas2modText = new System.Windows.Forms.Label();
             this.blas2modScroll = new System.Windows.Forms.VScrollBar();
             this.sideSectionInner = new System.Windows.Forms.Panel();
+            this.sortSection = new System.Windows.Forms.Panel();
+            this.sortByText = new System.Windows.Forms.Label();
+            this.sortByName = new System.Windows.Forms.RadioButton();
+            this.sortByAuthor = new System.Windows.Forms.RadioButton();
+            this.sortByMostRecent = new System.Windows.Forms.RadioButton();
+            this.sortByInitialRelease = new System.Windows.Forms.RadioButton();
+            this.downloadAllBtn = new System.Windows.Forms.Button();
             this.gearImage = new System.Windows.Forms.PictureBox();
             this.settingsBtn = new System.Windows.Forms.Button();
             this.warningSectionOuter = new System.Windows.Forms.Panel();
@@ -57,13 +64,6 @@ namespace BlasModInstaller
             this.blas1skinsBtn = new System.Windows.Forms.Button();
             this.blas1modsBtn = new System.Windows.Forms.Button();
             this.sideSectionOuter = new System.Windows.Forms.Panel();
-            this.sortByName = new System.Windows.Forms.RadioButton();
-            this.sortByAuthor = new System.Windows.Forms.RadioButton();
-            this.sortByInitialRelease = new System.Windows.Forms.RadioButton();
-            this.sortByMostRecent = new System.Windows.Forms.RadioButton();
-            this.sortByText = new System.Windows.Forms.Label();
-            this.downloadAllBtn = new System.Windows.Forms.Button();
-            this.sortSection = new System.Windows.Forms.Panel();
             this.blas1modSection.SuspendLayout();
             this.blas1locationSection.SuspendLayout();
             this.mainSection.SuspendLayout();
@@ -72,12 +72,12 @@ namespace BlasModInstaller
             this.blas1skinSection.SuspendLayout();
             this.blas2modSection.SuspendLayout();
             this.sideSectionInner.SuspendLayout();
+            this.sortSection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gearImage)).BeginInit();
             this.warningSectionOuter.SuspendLayout();
             this.warningSectionInner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.warningImage)).BeginInit();
             this.sideSectionOuter.SuspendLayout();
-            this.sortSection.SuspendLayout();
             this.SuspendLayout();
             // 
             // blas1modScroll
@@ -86,7 +86,7 @@ namespace BlasModInstaller
             | System.Windows.Forms.AnchorStyles.Right)));
             this.blas1modScroll.Location = new System.Drawing.Point(2134, 15);
             this.blas1modScroll.Name = "blas1modScroll";
-            this.blas1modScroll.Size = new System.Drawing.Size(20, 723);
+            this.blas1modScroll.Size = new System.Drawing.Size(20, 743);
             this.blas1modScroll.TabIndex = 2;
             this.blas1modScroll.Visible = false;
             // 
@@ -101,7 +101,7 @@ namespace BlasModInstaller
             this.blas1modSection.Controls.Add(this.blas1modScroll);
             this.blas1modSection.Location = new System.Drawing.Point(0, 60);
             this.blas1modSection.Name = "blas1modSection";
-            this.blas1modSection.Size = new System.Drawing.Size(1150, 801);
+            this.blas1modSection.Size = new System.Drawing.Size(1150, 821);
             this.blas1modSection.TabIndex = 3;
             // 
             // blasLocButton
@@ -264,6 +264,95 @@ namespace BlasModInstaller
             this.sideSectionInner.Size = new System.Drawing.Size(248, 900);
             this.sideSectionInner.TabIndex = 8;
             // 
+            // sortSection
+            // 
+            this.sortSection.Controls.Add(this.sortByText);
+            this.sortSection.Controls.Add(this.sortByName);
+            this.sortSection.Controls.Add(this.sortByAuthor);
+            this.sortSection.Controls.Add(this.sortByMostRecent);
+            this.sortSection.Controls.Add(this.sortByInitialRelease);
+            this.sortSection.Location = new System.Drawing.Point(44, 290);
+            this.sortSection.Name = "sortSection";
+            this.sortSection.Size = new System.Drawing.Size(160, 141);
+            this.sortSection.TabIndex = 13;
+            // 
+            // sortByText
+            // 
+            this.sortByText.AutoSize = true;
+            this.sortByText.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sortByText.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.sortByText.Location = new System.Drawing.Point(0, 0);
+            this.sortByText.Name = "sortByText";
+            this.sortByText.Size = new System.Drawing.Size(67, 20);
+            this.sortByText.TabIndex = 11;
+            this.sortByText.Text = "Sort by:";
+            // 
+            // sortByName
+            // 
+            this.sortByName.AutoSize = true;
+            this.sortByName.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.sortByName.Location = new System.Drawing.Point(4, 80);
+            this.sortByName.Name = "sortByName";
+            this.sortByName.Size = new System.Drawing.Size(53, 20);
+            this.sortByName.TabIndex = 3;
+            this.sortByName.TabStop = true;
+            this.sortByName.Text = "Name";
+            this.sortByName.UseVisualStyleBackColor = true;
+            // 
+            // sortByAuthor
+            // 
+            this.sortByAuthor.AutoSize = true;
+            this.sortByAuthor.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.sortByAuthor.Location = new System.Drawing.Point(4, 105);
+            this.sortByAuthor.Name = "sortByAuthor";
+            this.sortByAuthor.Size = new System.Drawing.Size(60, 20);
+            this.sortByAuthor.TabIndex = 8;
+            this.sortByAuthor.TabStop = true;
+            this.sortByAuthor.Text = "Author";
+            this.sortByAuthor.UseVisualStyleBackColor = true;
+            // 
+            // sortByMostRecent
+            // 
+            this.sortByMostRecent.AutoSize = true;
+            this.sortByMostRecent.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.sortByMostRecent.Location = new System.Drawing.Point(4, 55);
+            this.sortByMostRecent.Name = "sortByMostRecent";
+            this.sortByMostRecent.Size = new System.Drawing.Size(87, 20);
+            this.sortByMostRecent.TabIndex = 10;
+            this.sortByMostRecent.TabStop = true;
+            this.sortByMostRecent.Text = "Most recent";
+            this.sortByMostRecent.UseVisualStyleBackColor = true;
+            // 
+            // sortByInitialRelease
+            // 
+            this.sortByInitialRelease.AutoSize = true;
+            this.sortByInitialRelease.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.sortByInitialRelease.Location = new System.Drawing.Point(4, 30);
+            this.sortByInitialRelease.Name = "sortByInitialRelease";
+            this.sortByInitialRelease.Size = new System.Drawing.Size(94, 20);
+            this.sortByInitialRelease.TabIndex = 9;
+            this.sortByInitialRelease.TabStop = true;
+            this.sortByInitialRelease.Text = "Initial release";
+            this.sortByInitialRelease.UseVisualStyleBackColor = true;
+            // 
+            // downloadAllBtn
+            // 
+            this.downloadAllBtn.BackColor = System.Drawing.Color.Black;
+            this.downloadAllBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.downloadAllBtn.FlatAppearance.BorderSize = 2;
+            this.downloadAllBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.downloadAllBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.downloadAllBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.downloadAllBtn.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.downloadAllBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.downloadAllBtn.Location = new System.Drawing.Point(44, 28);
+            this.downloadAllBtn.Name = "downloadAllBtn";
+            this.downloadAllBtn.Size = new System.Drawing.Size(148, 30);
+            this.downloadAllBtn.TabIndex = 12;
+            this.downloadAllBtn.Text = "Download all";
+            this.downloadAllBtn.UseVisualStyleBackColor = false;
+            this.downloadAllBtn.Click += new System.EventHandler(this.ClickedDownloadAll);
+            // 
             // gearImage
             // 
             this.gearImage.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -294,7 +383,7 @@ namespace BlasModInstaller
             this.settingsBtn.Text = "      Settings";
             this.settingsBtn.UseVisualStyleBackColor = false;
             this.settingsBtn.Visible = false;
-            this.settingsBtn.Click += new System.EventHandler(this.settingsBtn_Click);
+            this.settingsBtn.Click += new System.EventHandler(this.ClickedSettings);
             this.settingsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
             this.settingsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
             this.settingsBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
@@ -357,11 +446,11 @@ namespace BlasModInstaller
             // 
             this.debugLog.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.debugLog.ForeColor = System.Drawing.SystemColors.Menu;
-            this.debugLog.Location = new System.Drawing.Point(15, 261);
+            this.debugLog.Location = new System.Drawing.Point(15, 452);
             this.debugLog.Multiline = true;
             this.debugLog.Name = "debugLog";
             this.debugLog.ReadOnly = true;
-            this.debugLog.Size = new System.Drawing.Size(220, 209);
+            this.debugLog.Size = new System.Drawing.Size(220, 292);
             this.debugLog.TabIndex = 0;
             // 
             // blas2modsBtn
@@ -379,7 +468,7 @@ namespace BlasModInstaller
             this.blas2modsBtn.TabIndex = 2;
             this.blas2modsBtn.Text = "Blasphemous II Mods";
             this.blas2modsBtn.UseVisualStyleBackColor = false;
-            this.blas2modsBtn.Click += new System.EventHandler(this.blas2modsBtn_Click);
+            this.blas2modsBtn.Click += new System.EventHandler(this.ClickedBlas2Mods);
             this.blas2modsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
             this.blas2modsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
             this.blas2modsBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
@@ -399,7 +488,7 @@ namespace BlasModInstaller
             this.blas1skinsBtn.TabIndex = 1;
             this.blas1skinsBtn.Text = "Blasphemous Skins";
             this.blas1skinsBtn.UseVisualStyleBackColor = false;
-            this.blas1skinsBtn.Click += new System.EventHandler(this.blas1skinsBtn_Click);
+            this.blas1skinsBtn.Click += new System.EventHandler(this.ClickedBlas1Skins);
             this.blas1skinsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
             this.blas1skinsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
             this.blas1skinsBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
@@ -419,7 +508,7 @@ namespace BlasModInstaller
             this.blas1modsBtn.TabIndex = 3;
             this.blas1modsBtn.Text = "Blasphemous Mods";
             this.blas1modsBtn.UseVisualStyleBackColor = false;
-            this.blas1modsBtn.Click += new System.EventHandler(this.blas1modsBtn_Click);
+            this.blas1modsBtn.Click += new System.EventHandler(this.ClickedBlas1Mods);
             this.blas1modsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
             this.blas1modsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
             this.blas1modsBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
@@ -434,94 +523,6 @@ namespace BlasModInstaller
             this.sideSectionOuter.Name = "sideSectionOuter";
             this.sideSectionOuter.Size = new System.Drawing.Size(250, 900);
             this.sideSectionOuter.TabIndex = 9;
-            // 
-            // sortByName
-            // 
-            this.sortByName.AutoSize = true;
-            this.sortByName.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.sortByName.Location = new System.Drawing.Point(4, 80);
-            this.sortByName.Name = "sortByName";
-            this.sortByName.Size = new System.Drawing.Size(53, 20);
-            this.sortByName.TabIndex = 3;
-            this.sortByName.TabStop = true;
-            this.sortByName.Text = "Name";
-            this.sortByName.UseVisualStyleBackColor = true;
-            // 
-            // sortByAuthor
-            // 
-            this.sortByAuthor.AutoSize = true;
-            this.sortByAuthor.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.sortByAuthor.Location = new System.Drawing.Point(4, 105);
-            this.sortByAuthor.Name = "sortByAuthor";
-            this.sortByAuthor.Size = new System.Drawing.Size(60, 20);
-            this.sortByAuthor.TabIndex = 8;
-            this.sortByAuthor.TabStop = true;
-            this.sortByAuthor.Text = "Author";
-            this.sortByAuthor.UseVisualStyleBackColor = true;
-            // 
-            // sortByInitialRelease
-            // 
-            this.sortByInitialRelease.AutoSize = true;
-            this.sortByInitialRelease.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.sortByInitialRelease.Location = new System.Drawing.Point(4, 30);
-            this.sortByInitialRelease.Name = "sortByInitialRelease";
-            this.sortByInitialRelease.Size = new System.Drawing.Size(94, 20);
-            this.sortByInitialRelease.TabIndex = 9;
-            this.sortByInitialRelease.TabStop = true;
-            this.sortByInitialRelease.Text = "Initial release";
-            this.sortByInitialRelease.UseVisualStyleBackColor = true;
-            // 
-            // sortByMostRecent
-            // 
-            this.sortByMostRecent.AutoSize = true;
-            this.sortByMostRecent.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.sortByMostRecent.Location = new System.Drawing.Point(4, 55);
-            this.sortByMostRecent.Name = "sortByMostRecent";
-            this.sortByMostRecent.Size = new System.Drawing.Size(87, 20);
-            this.sortByMostRecent.TabIndex = 10;
-            this.sortByMostRecent.TabStop = true;
-            this.sortByMostRecent.Text = "Most recent";
-            this.sortByMostRecent.UseVisualStyleBackColor = true;
-            // 
-            // sortByText
-            // 
-            this.sortByText.AutoSize = true;
-            this.sortByText.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sortByText.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.sortByText.Location = new System.Drawing.Point(0, 0);
-            this.sortByText.Name = "sortByText";
-            this.sortByText.Size = new System.Drawing.Size(67, 20);
-            this.sortByText.TabIndex = 11;
-            this.sortByText.Text = "Sort by:";
-            // 
-            // downloadAllBtn
-            // 
-            this.downloadAllBtn.BackColor = System.Drawing.Color.Black;
-            this.downloadAllBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.downloadAllBtn.FlatAppearance.BorderSize = 2;
-            this.downloadAllBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.downloadAllBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
-            this.downloadAllBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.downloadAllBtn.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.downloadAllBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.downloadAllBtn.Location = new System.Drawing.Point(44, 502);
-            this.downloadAllBtn.Name = "downloadAllBtn";
-            this.downloadAllBtn.Size = new System.Drawing.Size(148, 30);
-            this.downloadAllBtn.TabIndex = 12;
-            this.downloadAllBtn.Text = "Download all";
-            this.downloadAllBtn.UseVisualStyleBackColor = false;
-            // 
-            // sortSection
-            // 
-            this.sortSection.Controls.Add(this.sortByText);
-            this.sortSection.Controls.Add(this.sortByName);
-            this.sortSection.Controls.Add(this.sortByAuthor);
-            this.sortSection.Controls.Add(this.sortByMostRecent);
-            this.sortSection.Controls.Add(this.sortByInitialRelease);
-            this.sortSection.Location = new System.Drawing.Point(30, 560);
-            this.sortSection.Name = "sortSection";
-            this.sortSection.Size = new System.Drawing.Size(130, 160);
-            this.sortSection.TabIndex = 13;
             // 
             // MainForm
             // 
@@ -547,13 +548,13 @@ namespace BlasModInstaller
             this.blas2modSection.ResumeLayout(false);
             this.sideSectionInner.ResumeLayout(false);
             this.sideSectionInner.PerformLayout();
+            this.sortSection.ResumeLayout(false);
+            this.sortSection.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gearImage)).EndInit();
             this.warningSectionOuter.ResumeLayout(false);
             this.warningSectionInner.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.warningImage)).EndInit();
             this.sideSectionOuter.ResumeLayout(false);
-            this.sortSection.ResumeLayout(false);
-            this.sortSection.PerformLayout();
             this.ResumeLayout(false);
 
         }
