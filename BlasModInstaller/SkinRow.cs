@@ -24,6 +24,8 @@ namespace BlasModInstaller
 
         private bool _downloading;
 
+        // Main methods
+
         public async Task Install()
         {
             if (MainForm.BlasRootFolder == null) return;
@@ -41,10 +43,10 @@ namespace BlasModInstaller
                 await client.DownloadFileTaskAsync(new Uri(skin.InfoURL), downloadPath + "\\info.txt");
                 await client.DownloadFileTaskAsync(new Uri(skin.TextureURL), downloadPath + "\\texture.png");
 
-                string skinPath = $"{MainForm.BlasRootFolder}\\Modding\\skins\\{skin.id}";
-                Directory.CreateDirectory(skinPath);
-                File.Copy(downloadPath + "\\info.txt", skinPath + "\\info.txt");
-                File.Copy(downloadPath + "\\texture.png", skinPath + "\\texture.png");
+                string installPath = $"{MainForm.BlasRootFolder}\\Modding\\skins\\{skin.id}";
+                Directory.CreateDirectory(installPath);
+                File.Copy(downloadPath + "\\info.txt", installPath + "\\info.txt");
+                File.Copy(downloadPath + "\\texture.png", installPath + "\\texture.png");
 
                 Directory.Delete(downloadPath, true);
             }

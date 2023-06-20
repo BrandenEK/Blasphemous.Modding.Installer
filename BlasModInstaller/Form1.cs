@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
@@ -77,28 +73,6 @@ namespace BlasModInstaller
             }
         }
 
-        public async Task DownloadMod(Mod mod, WebClient client)
-        {
-            if (BlasRootFolder == null) return;
-
-            string downloadPath = $"{DownloadsPath}{mod.Name.Replace(' ', '_')}_{Mod.CleanSemanticVersion(mod.LatestVersion)}.zip";
-
-            // Update download bar
-            client.DownloadProgressChanged += (object sender, DownloadProgressChangedEventArgs e) =>
-            {
-                BeginInvoke(new MethodInvoker(() => mod.UI.UpdateDownloadBar(e.ProgressPercentage)));
-            };
-            // Finish download
-            client.DownloadFileCompleted += (object sender, AsyncCompletedEventArgs e) =>
-            {
-                mod.FinishDownload();
-                if (!e.Cancelled)
-                    BeginInvoke(new MethodInvoker(() => mod.InstallMod(downloadPath)));
-            };
-            // Start download
-            client.DownloadFileAsync(new Uri(mod.LatestDownloadURL), downloadPath);
-        }
-
         // Config
 
         private void LoadConfig()
@@ -140,7 +114,6 @@ namespace BlasModInstaller
                 ValidateBlas1Directory(rootPath);
             }
         }
-
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {

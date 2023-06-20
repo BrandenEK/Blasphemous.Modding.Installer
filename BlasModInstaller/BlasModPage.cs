@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.IO;
-using System.Net;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Windows.Forms;
@@ -20,11 +17,7 @@ namespace BlasModInstaller.Pages
             base.LoadLocalData();
 
             for (int i = 0; i < dataCollection.Count; i++)
-            {
-                Mod localMod = dataCollection[i];
-                localMod.UI.CreateUI(PageSection, i);
-                MainForm.Log(localMod.Installed ? localMod.LocalVersion.ToString() : "Not installed");
-            }
+                new ModRow(dataCollection[i], PageSection, i);
 
             MainForm.Log($"Loaded {dataCollection.Count} local mods");
             SetBackgroundColor();
@@ -51,27 +44,26 @@ namespace BlasModInstaller.Pages
                         localMod.LatestVersion = webVersion.ToString();
                         localMod.LatestDownloadURL = downloadURL;
 
-                        if (localMod.Installed)
-                        {
-                            localMod.UpdateAvailable = webVersion.CompareTo(localMod.LocalVersion) > 0;
-                        }
-                        localMod.UI.UpdateUI();
+                        //if (localMod.Installed)
+                        //{
+                        //    //localMod.UpdateAvailable = webVersion.CompareTo(localMod.LocalVersion) > 0;
+                        //}
+                        //localMod.UI.UpdateUI();
                     }
                     else
                     {
                         globalMod.LatestVersion = webVersion.ToString();
                         globalMod.LatestDownloadURL = downloadURL;
                         dataCollection.Add(globalMod);
-                        globalMod.UI.CreateUI(PageSection, dataCollection.Count - 1);
+                        new ModRow(globalMod, PageSection, dataCollection.Count - 1);
                     }
                 }
 
                 MainForm.Log($"Loaded {globalMods.Length} global mods");
             }
 
-            //MainForm.Log($"Github API calls remaining: {github.GetLastApiInfo().RateLimit.Remaining}");
-            SetBackgroundColor();
             SaveLocalData();
+            SetBackgroundColor();
         }
 
         public int InstalledModsThatRequireDll(string dllName)

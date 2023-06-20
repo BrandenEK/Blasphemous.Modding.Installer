@@ -1,72 +1,174 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using Ionic.Zip;
+using System;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
+using System.Net;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BlasModInstaller
 {
-    public class ModHolder
+    public class ModRow
     {
         private readonly Mod mod;
 
-        private Panel outerPanel;
-        private Panel innerPanel;
-        private Label nameText;
-        private Label authorText;
-        private Label descriptionText;
-        private LinkLabel linkText;
+        private readonly Panel outerPanel;
+        private readonly Panel innerPanel;
 
-        private Button infoButton;
-        private Button installButton;
-        private Button enableButton;
+        private readonly Label nameText;
+        private readonly Label authorText;
+        private readonly Label descriptionText;
 
-        private Label updateText;
-        private Button updateButton;
-        private ProgressBar progressBar;
+        private readonly Button infoButton;
+        private readonly Button installButton;
+        private readonly Button enableButton;
+
+        private readonly Label updateText;
+        private readonly Button updateButton;
+
+        private bool _downloading;
+
+        // Main methods
+
+        public async Task Install()
+        {
+            if (MainForm.BlasRootFolder == null) return;
+
+            _downloading = true;
+            using (WebClient client = new WebClient())
+            {
+                installButton.Text = "Downloading...";
+                installButton.BackColor = Colors.ORANGE;
+
+                string downloadPath = $"{MainForm.DownloadsPath}{mod.Name.Replace(' ', '_')}.zip";
+
+                await client.DownloadFileTaskAsync(new Uri(mod.LatestDownloadURL), downloadPath);
+
+                string installPath = MainForm.BlasRootFolder;
+                if (mod.Name != "Modding API") installPath += "\\Modding";
+
+                using (ZipFile zipFile = ZipFile.Read(downloadPath))
+                {
+                    foreach (ZipEntry file in zipFile)
+                        file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
+                }
+
+                File.Delete(downloadPath);
+            }
+            _downloading = false;
+
+            UpdateUI();
+        }
+
+        public void Uninstall()
+        {
+            if (MainForm.BlasRootFolder == null) return;
+
+            // Actually uninstall
+            if (File.Exists(mod.PathToEnabledPlugin))
+                File.Delete(mod.PathToEnabledPlugin);
+            if (File.Exists(mod.PathToDisabledPlugin))
+                File.Delete(mod.PathToDisabledPlugin);
+            if (File.Exists(mod.PathToConfigFile))
+                File.Delete(mod.PathToConfigFile);
+            if (File.Exists(mod.PathToKeybindingsFile))
+                File.Delete(mod.PathToKeybindingsFile);
+            if (File.Exists(mod.PathToLocalizationFile))
+                File.Delete(mod.PathToLocalizationFile);
+            if (File.Exists(mod.PathToLogFile))
+                File.Delete(mod.PathToLogFile);
+            if (Directory.Exists(mod.PathToDataFolder))
+                Directory.Delete(mod.PathToDataFolder, true);
+            if (Directory.Exists(mod.PathToLevelsFolder))
+                Directory.Delete(mod.PathToLevelsFolder, true);
+
+            if (mod.RequiredDlls != null && mod.RequiredDlls.Length > 0)
+            {
+                foreach (string dll in mod.RequiredDlls)
+                {
+                    if (MainForm.Instance.BlasModPage.InstalledModsThatRequireDll(dll) == 0)
+                    {
+                        string dllPath = MainForm.BlasRootFolder + "\\Modding\\data\\" + dll;
+                        if (File.Exists(dllPath))
+                            File.Delete(dllPath);
+                    }
+                }
+            }
+
+            UpdateUI();
+        }
+
+        public void Enable()
+        {
+            if (MainForm.BlasRootFolder == null) return;
+
+            string enabled = mod.PathToEnabledPlugin;
+            string disabled = mod.PathToDisabledPlugin;
+            if (File.Exists(disabled))
+            {
+                if (!File.Exists(enabled))
+                    File.Move(disabled, enabled);
+                else
+                    File.Delete(disabled);
+            }
+        }
+
+        public void Disable()
+        {
+            if (MainForm.BlasRootFolder == null) return;
+
+            string enabled = mod.PathToEnabledPlugin;
+            string disabled = mod.PathToDisabledPlugin;
+            if (File.Exists(enabled))
+            {
+                if (!File.Exists(disabled))
+                    File.Move(enabled, disabled);
+                else
+                    File.Delete(enabled);
+            }
+        }
+
+        // Click methods
 
         private void ClickedInstall(object sender, EventArgs e)
         {
+            if (_downloading) return;
+
             if (mod.Installed)
             {
                 if (MessageBox.Show("Are you sure you want to uninstall this mod?", nameText.Text, MessageBoxButtons.OKCancel) == DialogResult.OK)
-                    mod.UninstallMod();
-            }
-            else if (mod.Downloading)
-            {
-                mod.CancelDownload();
+                    Uninstall();
             }
             else
             {
-                mod.StartDownload();
+                Install();
             }
         }
 
         private void ClickedEnable(object sender, EventArgs e)
         {
             if (mod.Enabled)
-                mod.DisableMod();
+                Disable();
             else
-                mod.EnableMod();
+                Enable();
 
             UpdateUI();
         }
 
-        private void ClickedGithub(object sender, LinkLabelLinkClickedEventArgs e) => mod.OpenGithubLink();
-
         private void ClickedUpdate(object sender, EventArgs e)
         {
-            mod.UninstallMod();
-            mod.StartDownload();
+            Uninstall();
+            Install();
         }
 
-        private void ClickedInfo(object sender, EventArgs e)
+        private void ClickedReadme(object sender, EventArgs e)
         {
-            mod.OpenGithubLink();
+            try { Process.Start(mod.GithubLink); }
+            catch (Exception) { MessageBox.Show("Link does not exist!", "Invalid Link"); }
         }
 
-        public ModHolder(Mod mod)
-        {
-            this.mod = mod;
-        }
+        // UI methods
 
         public void UpdateUI()
         {
@@ -92,41 +194,24 @@ namespace BlasModInstaller
             updateText.Visible = canUpdate;
             updateText.Text = canUpdate ? "An update is available!" : string.Empty;
             updateButton.Visible = canUpdate;
-            progressBar.Visible = false;
         }
 
-        public void DisplayDownloadBar()
+        public ModRow(Mod mod, Panel parentPanel, int modIdx)
         {
-            updateText.Visible = true;
-            updateText.Text = "Downloading...";
-            updateButton.Visible = false;
-
-            installButton.Text = "Cancel";
-            installButton.BackColor = Colors.ORANGE;
-            progressBar.Visible = true;
-            progressBar.Value = 0;
-        }
-
-        public void UpdateDownloadBar(int percentage)
-        {
-            progressBar.Value = percentage;
-        }
-
-        public void CreateUI(Panel modHolder, int modIdx)
-        {
-            modHolder.AutoScroll = false;
+            this.mod = mod;
             Color backgroundColor = modIdx % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
+            parentPanel.AutoScroll = false;
 
             // Panels
 
             outerPanel = new Panel
             {
                 Name = mod.Name,
-                Parent = modHolder,
+                Parent = parentPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
-                Location = new Point(0, (Sizes.MOD_HEIGHT - 2) * modIdx - 2),
-                Size = new Size(modHolder.Width, Sizes.MOD_HEIGHT),
                 BackColor = Color.Black,
+                Location = new Point(0, (Sizes.MOD_HEIGHT - 2) * modIdx - 2),
+                Size = new Size(parentPanel.Width, Sizes.MOD_HEIGHT),
             };
 
             innerPanel = new Panel
@@ -134,9 +219,9 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = outerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
-                Location = new Point(0, 2),
-                Size = new Size(modHolder.Width, Sizes.MOD_HEIGHT - 4),
                 BackColor = backgroundColor,
+                Location = new Point(0, 2),
+                Size = new Size(parentPanel.Width, Sizes.MOD_HEIGHT - 4),
             };
 
             // Left stuff
@@ -151,7 +236,7 @@ namespace BlasModInstaller
                 ForeColor = Color.LightGray,
                 Font = Fonts.MOD_NAME,
             };
-            
+
             descriptionText = new Label
             {
                 Name = mod.Name,
@@ -170,17 +255,17 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(modHolder.Width - 212, 26),
+                Location = new Point(parentPanel.Width - 212, 26),
                 Size = new Size(42, 25),
                 BackColor = Colors.BLUE,
                 Font = Fonts.BUTTON,
-                Text = "INFO",
+                Text = "README",
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand,
                 TabStop = false,
             };
             infoButton.FlatAppearance.BorderColor = Color.White;
-            infoButton.Click += ClickedInfo;
+            infoButton.Click += ClickedReadme;
             infoButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
             infoButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
 
@@ -189,7 +274,7 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(modHolder.Width - 158, 23),
+                Location = new Point(parentPanel.Width - 158, 23),
                 Size = new Size(70, 30),
                 Font = Fonts.BUTTON,
                 FlatStyle = FlatStyle.Flat,
@@ -206,7 +291,7 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(modHolder.Width - 75, 27),
+                Location = new Point(parentPanel.Width - 75, 27),
                 Size = new Size(64, 22),
                 BackColor = backgroundColor,
                 Font = Fonts.BUTTON,
@@ -223,7 +308,7 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(modHolder.Width - 400, 17),
+                Location = new Point(parentPanel.Width - 400, 17),
                 Size = new Size(200, 15),
                 ForeColor = Color.LightGray,
                 Font = Fonts.BUTTON,
@@ -236,7 +321,7 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(modHolder.Width - 334, 40),
+                Location = new Point(parentPanel.Width - 334, 40),
                 Size = new Size(72, 25),
                 BackColor = Color.White,
                 Font = Fonts.BUTTON,
@@ -249,16 +334,7 @@ namespace BlasModInstaller
             updateButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
             updateButton.TabStop = false;
 
-            progressBar = new ProgressBar
-            {
-                Name = mod.Name,
-                Parent = innerPanel,
-                Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(modHolder.Width - 366, 36),
-                Size = new Size(130, 22),
-            };
-
-            modHolder.AutoScroll = true;
+            parentPanel.AutoScroll = true;
             MainForm.Instance.BlasModPage.AdjustPageWidth();
             UpdateUI();
         }
