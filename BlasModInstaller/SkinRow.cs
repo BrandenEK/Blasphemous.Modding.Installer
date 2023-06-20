@@ -22,10 +22,13 @@ namespace BlasModInstaller
         private readonly Button previewIdleButton;
         private readonly Button previewChargedButton;
 
+        private bool _downloading;
+
         public async Task Install()
         {
             if (MainForm.BlasRootFolder == null) return;
 
+            _downloading = true;
             using (WebClient client = new WebClient())
             {
                 installButton.Text = "Downloading...";
@@ -45,6 +48,7 @@ namespace BlasModInstaller
 
                 Directory.Delete(downloadPath, true);
             }
+            _downloading = false;
 
             UpdateUI();
         }
@@ -63,9 +67,12 @@ namespace BlasModInstaller
 
         private void ClickedInstall(object sender, EventArgs e)
         {
+            if (_downloading) return;
+
             if (skin.Installed)
             {
-                Uninstall();
+                if (MessageBox.Show("Are you sure you want to uninstall this skin?", nameText.Text, MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    Uninstall();
             }
             else
             {
@@ -156,13 +163,14 @@ namespace BlasModInstaller
                 Name = skin.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(parentPanel.Width - 95, 11),
-                Size = new Size(85, 24),
+                Location = new Point(parentPanel.Width - 110, 11),
+                Size = new Size(100, 24),
                 BackColor = backgroundColor,
                 Font = Fonts.BUTTON,
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand,
-                TabStop = false
+                TabStop = false,
+                Text = "Downloading..."
             };
             installButton.Click += ClickedInstall;
             installButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
@@ -173,7 +181,7 @@ namespace BlasModInstaller
                 Name = skin.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(parentPanel.Width - 360, 11),
+                Location = new Point(parentPanel.Width - 390, 11),
                 Size = new Size(110, 24),
                 BackColor = Colors.BLUE,
                 Font = Fonts.BUTTON,
@@ -192,7 +200,7 @@ namespace BlasModInstaller
                 Name = skin.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(parentPanel.Width - 230, 11),
+                Location = new Point(parentPanel.Width - 260, 11),
                 Size = new Size(110, 24),
                 BackColor = Colors.BLUE,
                 Font = Fonts.BUTTON,
