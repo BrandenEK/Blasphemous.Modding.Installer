@@ -20,15 +20,8 @@ namespace BlasModInstaller
         public static MainForm Instance { get; private set; }
 
         private Config config;
-        public static string BlasRootFolder
-        {
-            get => Instance.config.BlasRootFolder;
-            private set
-            {
-                Instance.config.BlasRootFolder = value;
-                Instance.SaveConfig();
-            }
-        }
+        public static string BlasRootFolder => Instance.config.BlasRootFolder;
+        public static string BlasIIRootFolder => Instance.config.BlasIIRootFolder;
 
         public int MainSectionWidth => mainSection.Width;
 
@@ -45,6 +38,7 @@ namespace BlasModInstaller
             if (Instance == null)
                 Instance = this;
             InitializeComponent();
+
             BlasModPage = new BlasModPage(blas1modSection);
             BlasSkinPage = new BlasSkinPage(blas1skinSection);
             BlasIIModPage = new BlasIIModPage(blas2modSection);
@@ -53,7 +47,7 @@ namespace BlasModInstaller
             CreateGithubClient();
 
             CheckForNewerInstallerRelease();
-            OpenSection(SectionType.Blas1Mods);
+            OpenSection(config.LastSection);
         }
 
         public static Version CleanSemanticVersion(string version)
@@ -197,6 +191,8 @@ namespace BlasModInstaller
 
                 // Load data
             }
+
+            config.LastSection = section;
         }
 
         private bool ValidateBlas1Directory(string blasRootPath)
@@ -205,7 +201,7 @@ namespace BlasModInstaller
             {
                 Log("Blas1 exe path validated!");
                 Directory.CreateDirectory(blasRootPath + "\\Modding\\disabled"); // Only because its not included in the API
-                BlasRootFolder = blasRootPath;
+                config.BlasRootFolder = blasRootPath;
 
                 blas1locationSection.Visible = false;
                 blas1modSection.Visible = true;
@@ -217,6 +213,11 @@ namespace BlasModInstaller
             blas1locationSection.Visible = true;
             blas1modSection.Visible = false;
             return false;
+        }
+
+        private void OnFormClose(object sender, FormClosingEventArgs e)
+        {
+            SaveConfig();
         }
     }
 }

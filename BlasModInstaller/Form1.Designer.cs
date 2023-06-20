@@ -438,6 +438,7 @@ namespace BlasModInstaller
             this.MinimumSize = new System.Drawing.Size(1400, 900);
             this.Name = "MainForm";
             this.Text = "Blasphemous Mod Installer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClose);
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             this.blas1modSection.ResumeLayout(false);
             this.blas1locationSection.ResumeLayout(false);
