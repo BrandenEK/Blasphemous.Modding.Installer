@@ -179,8 +179,9 @@ namespace BlasModInstaller
 
             // Install button
             bool modInstalled = mod.Installed;
-            installButton.Text = modInstalled ? "Uninstall" : "Install";
-            installButton.BackColor = modInstalled ? Colors.RED : Colors.GREEN;
+            installButton.Text = modInstalled ? "Installed" : "Not installed";
+            installButton.ForeColor = modInstalled ? Colors.GREEN : Colors.RED;
+            installButton.FlatAppearance.BorderColor = modInstalled ? Colors.GREEN : Colors.RED;
 
             // Enable button
             bool modEnabled = mod.Enabled;
@@ -255,8 +256,8 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(parentPanel.Width - 212, 26),
-                Size = new Size(42, 25),
+                Location = new Point(parentPanel.Width - 290, 28),
+                Size = new Size(70, 24),
                 BackColor = Colors.BLUE,
                 Font = Fonts.BUTTON,
                 Text = "README",
@@ -264,7 +265,7 @@ namespace BlasModInstaller
                 Cursor = Cursors.Hand,
                 TabStop = false,
             };
-            infoButton.FlatAppearance.BorderColor = Color.White;
+            infoButton.FlatAppearance.BorderColor = Color.Black;
             infoButton.Click += ClickedReadme;
             infoButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
             infoButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
@@ -274,14 +275,14 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(parentPanel.Width - 158, 23),
-                Size = new Size(70, 30),
+                Location = new Point(parentPanel.Width - 190, 28),
+                Size = new Size(100, 24),
+                BackColor = backgroundColor,
                 Font = Fonts.BUTTON,
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand,
-                TabStop = false
+                TabStop = false,
             };
-            installButton.FlatAppearance.BorderColor = Color.White;
             installButton.Click += ClickedInstall;
             installButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
             installButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
@@ -291,13 +292,13 @@ namespace BlasModInstaller
                 Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(parentPanel.Width - 75, 27),
-                Size = new Size(64, 22),
+                Location = new Point(parentPanel.Width - 80, 28),
+                Size = new Size(70, 24),
                 BackColor = backgroundColor,
                 Font = Fonts.BUTTON,
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand,
-                TabStop = false
+                TabStop = false,
             };
             enableButton.Click += ClickedEnable;
             enableButton.MouseUp += MainForm.Instance.RemoveButtonFocus;

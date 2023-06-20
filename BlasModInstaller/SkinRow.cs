@@ -172,7 +172,6 @@ namespace BlasModInstaller
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand,
                 TabStop = false,
-                Text = "Downloading..."
             };
             installButton.Click += ClickedInstall;
             installButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
