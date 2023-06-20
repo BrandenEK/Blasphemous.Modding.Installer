@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
@@ -36,6 +37,7 @@ namespace BlasModInstaller
         public BlasIIModPage BlasIIModPage { get; private set; }
 
         private Octokit.GitHubClient github;
+        private string installerLatestReleaseURL;
 
         public MainForm()
         {
@@ -106,9 +108,12 @@ namespace BlasModInstaller
         {
             Octokit.Release latestRelease = await github.Repository.Release.GetLatest("BrandenEK", "Blasphemous-Mod-Installer");
             Version newestVersion = CleanSemanticVersion(latestRelease.TagName);
-
+            
             if (newestVersion.CompareTo(CurrentInstallerVersion) > 0)
+            {
+                installerLatestReleaseURL = latestRelease.HtmlUrl;
                 warningSectionOuter.Visible = true;
+            }
         }
 
         private void ChooseBlasLocation(object sender, EventArgs e)
@@ -152,6 +157,12 @@ namespace BlasModInstaller
         private void blas1skinsBtn_Click(object sender, EventArgs e) => OpenSection(SectionType.Blas1Skins);
         private void blas2modsBtn_Click(object sender, EventArgs e) => OpenSection(SectionType.Blas2Mods);
         private void settingsBtn_Click(object sender, EventArgs e) { }
+
+        private void ClickInstallerUpdateLink(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try { Process.Start(installerLatestReleaseURL); }
+            catch (Exception) { MessageBox.Show("Link does not exist!", "Invalid Link"); }
+        }
 
         private void OpenSection(SectionType section)
         {

@@ -46,16 +46,17 @@ namespace BlasModInstaller
             this.blas2modText = new System.Windows.Forms.Label();
             this.blas2modScroll = new System.Windows.Forms.VScrollBar();
             this.sideSectionInner = new System.Windows.Forms.Panel();
+            this.gearImage = new System.Windows.Forms.PictureBox();
+            this.settingsBtn = new System.Windows.Forms.Button();
             this.warningSectionOuter = new System.Windows.Forms.Panel();
             this.warningSectionInner = new System.Windows.Forms.Panel();
+            this.warningText = new System.Windows.Forms.LinkLabel();
             this.warningImage = new System.Windows.Forms.PictureBox();
-            this.warningText = new System.Windows.Forms.Label();
             this.debugLog = new System.Windows.Forms.TextBox();
             this.blas2modsBtn = new System.Windows.Forms.Button();
             this.blas1skinsBtn = new System.Windows.Forms.Button();
             this.blas1modsBtn = new System.Windows.Forms.Button();
             this.sideSectionOuter = new System.Windows.Forms.Panel();
-            this.settingsBtn = new System.Windows.Forms.Button();
             this.blas1modSection.SuspendLayout();
             this.blas1locationSection.SuspendLayout();
             this.mainSection.SuspendLayout();
@@ -64,6 +65,7 @@ namespace BlasModInstaller
             this.blas1skinSection.SuspendLayout();
             this.blas2modSection.SuspendLayout();
             this.sideSectionInner.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gearImage)).BeginInit();
             this.warningSectionOuter.SuspendLayout();
             this.warningSectionInner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.warningImage)).BeginInit();
@@ -240,6 +242,7 @@ namespace BlasModInstaller
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sideSectionInner.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.sideSectionInner.Controls.Add(this.gearImage);
             this.sideSectionInner.Controls.Add(this.settingsBtn);
             this.sideSectionInner.Controls.Add(this.warningSectionOuter);
             this.sideSectionInner.Controls.Add(this.debugLog);
@@ -251,14 +254,49 @@ namespace BlasModInstaller
             this.sideSectionInner.Size = new System.Drawing.Size(248, 900);
             this.sideSectionInner.TabIndex = 8;
             // 
+            // gearImage
+            // 
+            this.gearImage.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.gearImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.gearImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.gearImage.Image = global::BlasModInstaller.Properties.Resources.gear;
+            this.gearImage.Location = new System.Drawing.Point(68, 215);
+            this.gearImage.Name = "gearImage";
+            this.gearImage.Size = new System.Drawing.Size(25, 25);
+            this.gearImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.gearImage.TabIndex = 6;
+            this.gearImage.TabStop = false;
+            this.gearImage.Visible = false;
+            // 
+            // settingsBtn
+            // 
+            this.settingsBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.settingsBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.settingsBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.settingsBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.settingsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.settingsBtn.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.settingsBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.settingsBtn.Location = new System.Drawing.Point(15, 210);
+            this.settingsBtn.Name = "settingsBtn";
+            this.settingsBtn.Size = new System.Drawing.Size(220, 35);
+            this.settingsBtn.TabIndex = 7;
+            this.settingsBtn.Text = "      Settings";
+            this.settingsBtn.UseVisualStyleBackColor = false;
+            this.settingsBtn.Visible = false;
+            this.settingsBtn.Click += new System.EventHandler(this.settingsBtn_Click);
+            this.settingsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
+            this.settingsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
+            this.settingsBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
+            // 
             // warningSectionOuter
             // 
             this.warningSectionOuter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.warningSectionOuter.BackColor = System.Drawing.Color.White;
             this.warningSectionOuter.Controls.Add(this.warningSectionInner);
-            this.warningSectionOuter.Location = new System.Drawing.Point(15, 750);
+            this.warningSectionOuter.Location = new System.Drawing.Point(15, 765);
             this.warningSectionOuter.Name = "warningSectionOuter";
-            this.warningSectionOuter.Size = new System.Drawing.Size(220, 100);
+            this.warningSectionOuter.Size = new System.Drawing.Size(220, 80);
             this.warningSectionOuter.TabIndex = 6;
             this.warningSectionOuter.Visible = false;
             // 
@@ -268,12 +306,29 @@ namespace BlasModInstaller
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.warningSectionInner.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.warningSectionInner.Controls.Add(this.warningImage);
             this.warningSectionInner.Controls.Add(this.warningText);
+            this.warningSectionInner.Controls.Add(this.warningImage);
             this.warningSectionInner.Location = new System.Drawing.Point(2, 2);
             this.warningSectionInner.Name = "warningSectionInner";
-            this.warningSectionInner.Size = new System.Drawing.Size(216, 96);
+            this.warningSectionInner.Size = new System.Drawing.Size(216, 76);
             this.warningSectionInner.TabIndex = 0;
+            // 
+            // warningText
+            // 
+            this.warningText.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.warningText.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.warningText.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.warningText.LinkArea = new System.Windows.Forms.LinkArea(57, 8);
+            this.warningText.LinkColor = System.Drawing.Color.Cyan;
+            this.warningText.Location = new System.Drawing.Point(52, 10);
+            this.warningText.Name = "warningText";
+            this.warningText.Size = new System.Drawing.Size(160, 56);
+            this.warningText.TabIndex = 3;
+            this.warningText.TabStop = true;
+            this.warningText.Text = "A new update is available for the mod installer.  Please download it now.";
+            this.warningText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.warningText.UseCompatibleTextRendering = true;
+            this.warningText.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ClickInstallerUpdateLink);
             // 
             // warningImage
             // 
@@ -281,22 +336,12 @@ namespace BlasModInstaller
             this.warningImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.warningImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.warningImage.Image = global::BlasModInstaller.Properties.Resources.warning;
-            this.warningImage.Location = new System.Drawing.Point(10, 30);
+            this.warningImage.Location = new System.Drawing.Point(10, 20);
             this.warningImage.Name = "warningImage";
             this.warningImage.Size = new System.Drawing.Size(36, 36);
             this.warningImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.warningImage.TabIndex = 4;
             this.warningImage.TabStop = false;
-            // 
-            // warningText
-            // 
-            this.warningText.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.warningText.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.warningText.Location = new System.Drawing.Point(52, 20);
-            this.warningText.Name = "warningText";
-            this.warningText.Size = new System.Drawing.Size(160, 56);
-            this.warningText.TabIndex = 5;
-            this.warningText.Text = "A new update is available for the mod installer.  Please download it now.";
             // 
             // debugLog
             // 
@@ -380,26 +425,6 @@ namespace BlasModInstaller
             this.sideSectionOuter.Size = new System.Drawing.Size(250, 900);
             this.sideSectionOuter.TabIndex = 9;
             // 
-            // settingsBtn
-            // 
-            this.settingsBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.settingsBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.settingsBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.settingsBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.settingsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.settingsBtn.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.settingsBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.settingsBtn.Location = new System.Drawing.Point(15, 210);
-            this.settingsBtn.Name = "settingsBtn";
-            this.settingsBtn.Size = new System.Drawing.Size(220, 35);
-            this.settingsBtn.TabIndex = 7;
-            this.settingsBtn.Text = "Settings";
-            this.settingsBtn.UseVisualStyleBackColor = false;
-            this.settingsBtn.Click += new System.EventHandler(this.settingsBtn_Click);
-            this.settingsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
-            this.settingsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
-            this.settingsBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -423,6 +448,7 @@ namespace BlasModInstaller
             this.blas2modSection.ResumeLayout(false);
             this.sideSectionInner.ResumeLayout(false);
             this.sideSectionInner.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gearImage)).EndInit();
             this.warningSectionOuter.ResumeLayout(false);
             this.warningSectionInner.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.warningImage)).EndInit();
@@ -450,7 +476,6 @@ namespace BlasModInstaller
         private System.Windows.Forms.VScrollBar blas2modScroll;
         private System.Windows.Forms.Label blas2modText;
         private System.Windows.Forms.PictureBox warningImage;
-        private System.Windows.Forms.Label warningText;
         private System.Windows.Forms.Panel warningSectionOuter;
         private System.Windows.Forms.Panel warningSectionInner;
         private System.Windows.Forms.Panel blas1skinSection;
@@ -458,6 +483,8 @@ namespace BlasModInstaller
         private System.Windows.Forms.Panel titleSectionInner;
         private System.Windows.Forms.Panel sideSectionOuter;
         private System.Windows.Forms.Button settingsBtn;
+        private System.Windows.Forms.PictureBox gearImage;
+        private System.Windows.Forms.LinkLabel warningText;
     }
 }
 
