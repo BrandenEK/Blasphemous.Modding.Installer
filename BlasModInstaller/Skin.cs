@@ -29,8 +29,16 @@ namespace BlasModInstaller
         public bool Installed => File.Exists($"{MainForm.BlasRootFolder}\\Modding\\skins\\{id}\\info.txt");
 
         [JsonIgnore]
-        public string PathToSkinFolder => $"{MainForm.BlasRootFolder}\\Modding\\skins\\{id}";
+        public bool UpdateAvailable
+        {
+            get
+            {
+                return false;
+            }
+        }
 
+        [JsonIgnore]
+        public string PathToSkinFolder => $"{MainForm.BlasRootFolder}\\Modding\\skins\\{id}";
         [JsonIgnore]
         public string InfoURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{id}/info.txt";
         [JsonIgnore]

@@ -189,7 +189,7 @@ namespace BlasModInstaller
             enableButton.ForeColor = modEnabled ? Color.Yellow : Color.White;
             enableButton.FlatAppearance.BorderColor = modEnabled ? Color.Yellow : Color.White;
 
-            // Update text/button
+            // Update button
             bool canUpdate = mod.UpdateAvailable;
             updateButton.Visible = canUpdate;
         }

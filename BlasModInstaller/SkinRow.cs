@@ -44,7 +44,7 @@ namespace BlasModInstaller
                 await client.DownloadFileTaskAsync(new Uri(skin.InfoURL), downloadPath + "\\info.txt");
                 await client.DownloadFileTaskAsync(new Uri(skin.TextureURL), downloadPath + "\\texture.png");
 
-                string installPath = $"{MainForm.BlasRootFolder}\\Modding\\skins\\{skin.id}";
+                string installPath = skin.PathToSkinFolder;
                 Directory.CreateDirectory(installPath);
                 File.Copy(downloadPath + "\\info.txt", installPath + "\\info.txt");
                 File.Copy(downloadPath + "\\texture.png", installPath + "\\texture.png");
@@ -105,6 +105,7 @@ namespace BlasModInstaller
 
         public void UpdateUI()
         {
+            // Text
             nameText.Text = skin.name;
             nameText.Size = new Size(nameText.PreferredWidth, 30);
             authorText.Text = "by " + skin.author;
@@ -115,6 +116,10 @@ namespace BlasModInstaller
             installButton.Text = installed ? "Installed" : "Not installed";
             installButton.ForeColor = installed ? Colors.GREEN : Colors.RED;
             installButton.FlatAppearance.BorderColor = installed ? Colors.GREEN : Colors.RED;
+
+            // Update button
+            bool canUpdate = skin.UpdateAvailable;
+            updateButton.Visible = canUpdate;
         }
 
         public SkinRow(Skin skin, Panel parentPanel, int skinIdx)
