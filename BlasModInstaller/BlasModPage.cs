@@ -12,6 +12,8 @@ namespace BlasModInstaller.Pages
 
         protected override string SaveDataPath => Environment.CurrentDirectory + "\\downloads\\BlasphemousMods.json";
 
+        public override string Name => "Blasphemous Mods";
+
         protected override void LoadLocalData()
         {
             base.LoadLocalData();
@@ -61,9 +63,8 @@ namespace BlasModInstaller.Pages
             SetBackgroundColor();
         }
 
-        protected override void OnDownloadAll()
+        protected override void OnInstallAll()
         {
-            MainForm.Log("Downloading all mods");
             foreach (Mod mod in dataCollection)
             {
                 if (!mod.Installed)
@@ -74,6 +75,39 @@ namespace BlasModInstaller.Pages
                 {
                     mod.Uninstall();
                     mod.Install();
+                }
+            }
+        }
+
+        protected override void OnUninstallAll()
+        {
+            foreach (Mod mod in dataCollection)
+            {
+                if (mod.Installed)
+                {
+                    mod.Uninstall();
+                }
+            }
+        }
+
+        protected override void OnEnableAll()
+        {
+            foreach (Mod mod in dataCollection)
+            {
+                if (mod.Installed && !mod.Enabled)
+                {
+                    mod.Enable();
+                }
+            }
+        }
+
+        protected override void OnDisableAll()
+        {
+            foreach (Mod mod in dataCollection)
+            {
+                if (mod.Installed && mod.Enabled)
+                {
+                    mod.Disable();
                 }
             }
         }

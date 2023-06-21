@@ -13,6 +13,8 @@ namespace BlasModInstaller.Pages
 
         protected override string SaveDataPath => Environment.CurrentDirectory + "\\downloads\\BlasphemousIIMods.json";
 
+        public override string Name => "Blasphemous II Mods";
+
         protected override void LoadLocalData()
         {
             base.LoadLocalData();

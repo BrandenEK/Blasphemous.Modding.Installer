@@ -12,6 +12,8 @@ namespace BlasModInstaller.Pages
         // Where local data is saved
         protected abstract string SaveDataPath { get; }
 
+        public abstract string Name { get; }
+
         // The current list of mods/skins
         protected List<T> dataCollection = new List<T>();
         public int DataCount => dataCollection.Count;
@@ -74,18 +76,45 @@ namespace BlasModInstaller.Pages
 
         }
 
-        public void DownloadAll()
+        public void InstallAll()
         {
-            if (MessageBox.Show($"Are you sure you wish to download {DataCount} items?", "Downloader", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (MessageBox.Show($"Are you sure you wish to install {DataCount} items?", Name, MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                OnDownloadAll();
+                MainForm.Log("Installing all items");
+                OnInstallAll();
             }
         }
+        protected virtual void OnInstallAll() { }
 
-        protected virtual void OnDownloadAll()
+        public void UninstallAll()
         {
-
+            if (MessageBox.Show($"Are you sure you wish to uninstall {DataCount} items?", Name, MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                MainForm.Log("Uninstalling all items");
+                OnUninstallAll();
+            }
         }
+        protected virtual void OnUninstallAll() { }
+
+        public void EnableAll()
+        {
+            if (MessageBox.Show($"Are you sure you wish to enable {DataCount} items?", Name, MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                MainForm.Log("Enabling all items");
+                OnEnableAll();
+            }
+        }
+        protected virtual void OnEnableAll() { }
+
+        public void DisableAll()
+        {
+            if (MessageBox.Show($"Are you sure you wish to disable {DataCount} items?", Name, MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                MainForm.Log("Disabling all items");
+                OnDisableAll();
+            }
+        }
+        protected virtual void OnDisableAll() { }
 
         protected void SetBackgroundColor()
         {

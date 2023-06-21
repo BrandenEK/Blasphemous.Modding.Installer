@@ -13,6 +13,8 @@ namespace BlasModInstaller.Pages
 
         protected override string SaveDataPath => Environment.CurrentDirectory + "\\downloads\\BlasphemousSkins.json";
 
+        public override string Name => "Blasphemous Skins";
+
         protected override void LoadLocalData()
         {
             base.LoadLocalData();
@@ -53,10 +55,8 @@ namespace BlasModInstaller.Pages
             SetBackgroundColor();
         }
 
-        protected override void OnDownloadAll()
+        protected override void OnInstallAll()
         {
-            base.OnDownloadAll();
-            MainForm.Log("Downloading all skins");
             foreach (Skin skin in dataCollection)
             {
                 if (!skin.Installed)
@@ -67,6 +67,17 @@ namespace BlasModInstaller.Pages
                 {
                     skin.Uninstall();
                     skin.Install();
+                }
+            }
+        }
+
+        protected override void OnUninstallAll()
+        {
+            foreach (Skin skin in dataCollection)
+            {
+                if (skin.Installed)
+                {
+                    skin.Uninstall();
                 }
             }
         }

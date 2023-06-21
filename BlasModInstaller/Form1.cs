@@ -168,13 +168,43 @@ namespace BlasModInstaller
             catch (Exception) { MessageBox.Show("Link does not exist!", "Invalid Link"); }
         }
 
-        private void ClickedDownloadAll(object sender, EventArgs e)
+        private void ClickedInstallAll(object sender, EventArgs e)
         {
             switch (CurrentSection)
             {
-                case SectionType.Blas1Mods: BlasModPage.DownloadAll(); break;
-                case SectionType.Blas1Skins: BlasSkinPage.DownloadAll(); break;
-                case SectionType.Blas2Mods: BlasIIModPage.DownloadAll(); break;
+                case SectionType.Blas1Mods: BlasModPage.InstallAll(); break;
+                case SectionType.Blas1Skins: BlasSkinPage.InstallAll(); break;
+                case SectionType.Blas2Mods: BlasIIModPage.InstallAll(); break;
+            }
+        }
+
+        private void ClickedUninstallAll(object sender, EventArgs e)
+        {
+            switch (CurrentSection)
+            {
+                case SectionType.Blas1Mods: BlasModPage.UninstallAll(); break;
+                case SectionType.Blas1Skins: BlasSkinPage.UninstallAll(); break;
+                case SectionType.Blas2Mods: BlasIIModPage.UninstallAll(); break;
+            }
+        }
+
+        private void ClickedEnableAll(object sender, EventArgs e)
+        {
+            switch (CurrentSection)
+            {
+                case SectionType.Blas1Mods: BlasModPage.EnableAll(); break;
+                case SectionType.Blas1Skins: BlasSkinPage.EnableAll(); break;
+                case SectionType.Blas2Mods: BlasIIModPage.EnableAll(); break;
+            }
+        }
+
+        private void ClickedDisableAll(object sender, EventArgs e)
+        {
+            switch (CurrentSection)
+            {
+                case SectionType.Blas1Mods: BlasModPage.DisableAll(); break;
+                case SectionType.Blas1Skins: BlasSkinPage.DisableAll(); break;
+                case SectionType.Blas2Mods: BlasIIModPage.DisableAll(); break;
             }
         }
 
@@ -182,7 +212,7 @@ namespace BlasModInstaller
         {
             if (section == SectionType.Blas1Mods)
             {
-                titleLabel.Text = "Blasphemous Mods";
+                titleLabel.Text = BlasModPage.Name;
 
                 blas1skinSection.Visible = false;
                 blas2modSection.Visible = false;
@@ -199,7 +229,7 @@ namespace BlasModInstaller
             }
             else if (section == SectionType.Blas1Skins)
             {
-                titleLabel.Text = "Blasphemous Skins";
+                titleLabel.Text = BlasSkinPage.Name;
 
                 blas1modSection.Visible = false;
                 blas2modSection.Visible = false;
@@ -216,7 +246,7 @@ namespace BlasModInstaller
             }
             else if (section == SectionType.Blas2Mods)
             {
-                titleLabel.Text = "Blasphemous II Mods";
+                titleLabel.Text = BlasIIModPage.Name;
 
                 blas1modSection.Visible = false;
                 blas1skinSection.Visible = false;
@@ -225,6 +255,9 @@ namespace BlasModInstaller
 
                 // Load data
             }
+
+            enableAllBtn.Visible = section != SectionType.Blas1Skins;
+            disableAllBtn.Visible = section != SectionType.Blas1Skins;
 
             config.LastSection = section;
         }
