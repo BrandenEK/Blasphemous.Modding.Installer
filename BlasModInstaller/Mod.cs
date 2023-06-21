@@ -257,11 +257,28 @@ namespace BlasModInstaller
 
         // Sort methods
 
-        public int CompareTo(object obj)
-        {
-            Mod mod = obj as Mod;
+        public int CompareTo(object obj) => SortBy(obj as Mod, MainForm.SortBlasMods);
 
-            return Name.CompareTo(mod.Name);
+        public int SortBy(Mod mod, SortType sort)
+        {
+            if (sort == SortType.Name)
+            {
+                return Name.CompareTo(mod.Name);
+            }
+            else if (sort == SortType.Author)
+            {
+                int difference = Author.CompareTo(mod.Author);
+                return difference == 0 ? SortBy(mod, SortType.Name) : difference;
+            }
+            else if (sort == SortType.InitialRelease)
+            {
+                return Name.CompareTo(mod.Name);
+            }
+            else if (sort == SortType.LatestRelease)
+            {
+                return Name.CompareTo(mod.Name);
+            }
+            return 0;
         }
 
         // UI methods

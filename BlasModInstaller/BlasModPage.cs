@@ -23,6 +23,7 @@ namespace BlasModInstaller.Pages
 
             MainForm.Log($"Loaded {dataCollection.Count} local mods");
             SetBackgroundColor();
+            Sort();
         }
 
         protected override async Task LoadGlobalData()
@@ -61,16 +62,27 @@ namespace BlasModInstaller.Pages
 
             SaveLocalData();
             SetBackgroundColor();
+            Sort();
         }
 
         public override void Sort()
         {
             dataCollection.Sort();
+
+            // Move modding api to the top always
             for (int i = 0; i < dataCollection.Count; i++)
             {
-                MainForm.Log(dataCollection[i].Name);
-                dataCollection[i].SetUIPosition(i);
+                if (dataCollection[i].Name == "Modding API")
+                {
+                    Mod api = dataCollection[i];
+                    dataCollection.RemoveAt(i);
+                    dataCollection.Insert(0, api);
+                    break;
+                }
             }
+
+            for (int i = 0; i < dataCollection.Count; i++)
+                dataCollection[i].SetUIPosition(i);
         }
 
         protected override void OnInstallAll()

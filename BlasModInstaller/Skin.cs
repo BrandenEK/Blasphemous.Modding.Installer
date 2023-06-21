@@ -181,11 +181,20 @@ namespace BlasModInstaller
 
         // Sorting methods
 
-        public int CompareTo(object obj)
-        {
-            Skin skin = obj as Skin;
+        public int CompareTo(object obj) => SortBy(obj as Skin, MainForm.SortBlasSkins);
 
-            return name.CompareTo(skin.name);
+        public int SortBy(Skin skin, SortType sort)
+        {
+            if (sort == SortType.Name)
+            {
+                return name.CompareTo(skin.name);
+            }
+            else if (sort == SortType.Author)
+            {
+                int difference = author.CompareTo(skin.author);
+                return difference == 0 ? SortBy(skin, SortType.Name) : difference;
+            }
+            return 0;
         }
     }
 }

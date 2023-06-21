@@ -24,6 +24,7 @@ namespace BlasModInstaller.Pages
 
             MainForm.Log($"Loaded {dataCollection.Count} local skins");
             SetBackgroundColor();
+            Sort();
         }
 
         protected override async Task LoadGlobalData()
@@ -53,16 +54,14 @@ namespace BlasModInstaller.Pages
 
             SaveLocalData();
             SetBackgroundColor();
+            Sort();
         }
 
         public override void Sort()
         {
             dataCollection.Sort();
             for (int i = 0; i < dataCollection.Count; i++)
-            {
-                MainForm.Log(dataCollection[i].name);
                 dataCollection[i].SetUIPosition(i);
-            }
         }
 
         protected override void OnInstallAll()
