@@ -57,6 +57,18 @@ namespace BlasModInstaller.Pages
         {
             base.OnDownloadAll();
             MainForm.Log("Downloading all skins");
+            foreach (Skin skin in dataCollection)
+            {
+                if (!skin.Installed)
+                {
+                    skin.Install();
+                }
+                else if (skin.UpdateAvailable)
+                {
+                    skin.Uninstall();
+                    skin.Install();
+                }
+            }
         }
     }
 }

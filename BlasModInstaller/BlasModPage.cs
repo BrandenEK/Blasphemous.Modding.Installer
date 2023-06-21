@@ -63,8 +63,19 @@ namespace BlasModInstaller.Pages
 
         protected override void OnDownloadAll()
         {
-            base.OnDownloadAll();
             MainForm.Log("Downloading all mods");
+            foreach (Mod mod in dataCollection)
+            {
+                if (!mod.Installed)
+                {
+                    mod.Install();
+                }
+                else if (mod.UpdateAvailable)
+                {
+                    mod.Uninstall();
+                    mod.Install();
+                }
+            }
         }
 
         public int InstalledModsThatRequireDll(string dllName)

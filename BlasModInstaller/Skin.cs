@@ -114,7 +114,7 @@ namespace BlasModInstaller
             UpdateUI();
         }
 
-        private void Uninstall()
+        public void Uninstall()
         {
             if (MainForm.BlasRootFolder == null) return;
 
