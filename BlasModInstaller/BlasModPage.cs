@@ -32,7 +32,7 @@ namespace BlasModInstaller.Pages
 
             using (HttpClient client = new HttpClient())
             {
-                string json = await client.GetStringAsync("https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/mods.json");
+                string json = await client.GetStringAsync("https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousMods.json");
                 Mod[] globalMods = JsonConvert.DeserializeObject<Mod[]>(json);
 
                 foreach (Mod globalMod in globalMods)

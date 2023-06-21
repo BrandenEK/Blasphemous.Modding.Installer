@@ -12,6 +12,8 @@ namespace BlasModInstaller
 {
     public partial class MainForm : Form
     {
+        // Don't forget to increase this when releasing an update!  Have to do it here
+        // because I'm not sure how to increase file version for windows forms
         private readonly Version CurrentInstallerVersion = new Version(1, 0, 0);
 
         public static string DownloadsPath => Environment.CurrentDirectory + "\\downloads\\";
