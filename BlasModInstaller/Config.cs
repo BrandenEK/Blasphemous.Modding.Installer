@@ -9,5 +9,8 @@ namespace BlasModInstaller
         public string BlasIIRootFolder { get; set; }
         public string GithubToken { get; set; }
         public SectionType LastSection { get; set; }
+        public SortType BlasModSort { get; set; }
+        public SortType BlasSkinSort { get; set; }
+        public SortType BlasIIModSort { get; set; }
     }
 }

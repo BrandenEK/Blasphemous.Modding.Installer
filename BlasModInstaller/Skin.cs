@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace BlasModInstaller
 {
     [Serializable]
-    public class Skin
+    public class Skin : IComparable
     {
         // Data
 
@@ -163,7 +163,8 @@ namespace BlasModInstaller
 
         public void CreateUI(Panel parentPanel, int skinIdx)
         {
-            _ui = new SkinUI(this, skinIdx, parentPanel);
+            _ui = new SkinUI(this, parentPanel);
+            SetUIPosition(skinIdx);
             UpdateUI();
             MainForm.Instance.BlasSkinPage.AdjustPageWidth();
         }
@@ -171,6 +172,20 @@ namespace BlasModInstaller
         public void UpdateUI()
         {
             _ui.UpdateUI(name, author, Installed, UpdateAvailable);
+        }
+
+        public void SetUIPosition(int skinIdx)
+        {
+            _ui.SetPosition(skinIdx);
+        }
+
+        // Sorting methods
+
+        public int CompareTo(object obj)
+        {
+            Skin skin = obj as Skin;
+
+            return name.CompareTo(skin.name);
         }
     }
 }

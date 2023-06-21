@@ -23,6 +23,9 @@ namespace BlasModInstaller
         public static string BlasRootFolder => Instance.config.BlasRootFolder;
         public static string BlasIIRootFolder => Instance.config.BlasIIRootFolder;
         public static SectionType CurrentSection => Instance.config.LastSection;
+        public static SortType SortBlasMods => Instance.config.BlasModSort;
+        public static SortType SortBlasSkins => Instance.config.BlasSkinSort;
+        public static SortType SortBlasIIMods => Instance.config.BlasIIModSort;
 
         public int MainSectionWidth => mainSection.Width;
 
@@ -46,8 +49,6 @@ namespace BlasModInstaller
 
             LoadConfig();
             CreateGithubClient();
-
-            sortByName.Checked = true;
 
             CheckForNewerInstallerRelease();
             OpenSection(config.LastSection);
@@ -170,6 +171,139 @@ namespace BlasModInstaller
             catch (Exception) { MessageBox.Show("Link does not exist!", "Invalid Link"); }
         }
 
+        private void OpenSection(SectionType section)
+        {
+            if (section == SectionType.Blas1Mods)
+            {
+                titleLabel.Text = BlasModPage.Name;
+                SetSortByBox(SortBlasMods);
+
+                blas1skinSection.Visible = false;
+                blas2modSection.Visible = false;
+
+                if (ValidateBlas1Directory(BlasRootFolder))
+                {
+                    blas1modSection.Visible = true;
+                    BlasModPage.LoadData();
+                }
+                else
+                {
+                    blas1modSection.Visible = false;
+                }
+            }
+            else if (section == SectionType.Blas1Skins)
+            {
+                titleLabel.Text = BlasSkinPage.Name;
+                SetSortByBox(SortBlasSkins);
+
+                blas1modSection.Visible = false;
+                blas2modSection.Visible = false;
+
+                if (ValidateBlas1Directory(BlasRootFolder))
+                {
+                    blas1skinSection.Visible = true;
+                    BlasSkinPage.LoadData();
+                }
+                else
+                {
+                    blas1skinSection.Visible = false;
+                }
+            }
+            else if (section == SectionType.Blas2Mods)
+            {
+                titleLabel.Text = BlasIIModPage.Name;
+                SetSortByBox(SortBlasIIMods);
+
+                blas1modSection.Visible = false;
+                blas1skinSection.Visible = false;
+                blas2modSection.Visible = true;
+                blas1locationSection.Visible = false;
+
+                // Load data
+            }
+
+            enableBtn.Visible = section != SectionType.Blas1Skins;
+            disableBtn.Visible = section != SectionType.Blas1Skins;
+            sortByInitialRelease.Visible = section != SectionType.Blas1Skins;
+            sortByLatestRelease.Visible = section != SectionType.Blas1Skins;
+
+            config.LastSection = section;
+        }
+
+        private bool ValidateBlas1Directory(string blasRootPath)
+        {
+            if (File.Exists(blasRootPath + "\\Blasphemous.exe"))
+            {
+                Log("Blas1 exe path validated!");
+                config.BlasRootFolder = blasRootPath;
+
+                Directory.CreateDirectory(blasRootPath + "\\Modding\\disabled"); // Only because its not included in the API
+                blas1locationSection.Visible = false;
+                return true;
+            }
+
+            Log("Blas1 exe path not found!");
+            blas1locationSection.Visible = true;
+            return false;
+        }
+
+        private void OnFormClose(object sender, FormClosingEventArgs e)
+        {
+            SaveConfig();
+        }
+
+        // Sorting
+
+        private void ClickedSortByName(object sender, EventArgs e)
+        {
+            switch (CurrentSection)
+            {
+                case SectionType.Blas1Mods: config.BlasModSort = SortType.Name; BlasModPage.Sort(); break;
+                case SectionType.Blas1Skins: config.BlasSkinSort = SortType.Name; BlasSkinPage.Sort(); break;
+                case SectionType.Blas2Mods: config.BlasIIModSort = SortType.Name; BlasIIModPage.Sort(); break;
+            }
+        }
+
+        private void ClickedSortByAuthor(object sender, EventArgs e)
+        {
+            switch (CurrentSection)
+            {
+                case SectionType.Blas1Mods: config.BlasModSort = SortType.Author; BlasModPage.Sort();  break;
+                case SectionType.Blas1Skins: config.BlasSkinSort = SortType.Author; BlasSkinPage.Sort(); break;
+                case SectionType.Blas2Mods: config.BlasIIModSort = SortType.Author; BlasIIModPage.Sort(); break;
+            }
+        }
+
+        private void ClickedSortByInitialRelease(object sender, EventArgs e)
+        {
+            switch (CurrentSection)
+            {
+                case SectionType.Blas1Mods: config.BlasModSort = SortType.InitialRelease; BlasModPage.Sort();  break;
+                case SectionType.Blas1Skins: config.BlasSkinSort = SortType.InitialRelease; BlasSkinPage.Sort(); break;
+                case SectionType.Blas2Mods: config.BlasIIModSort = SortType.InitialRelease; BlasIIModPage.Sort(); break;
+            }
+        }
+
+        private void ClickedSortByLatestRelease(object sender, EventArgs e)
+        {
+            switch (CurrentSection)
+            {
+                case SectionType.Blas1Mods: config.BlasModSort = SortType.LatestRelease; BlasModPage.Sort();  break;
+                case SectionType.Blas1Skins: config.BlasSkinSort = SortType.LatestRelease; BlasSkinPage.Sort(); break;
+                case SectionType.Blas2Mods: config.BlasIIModSort = SortType.LatestRelease; BlasIIModPage.Sort(); break;
+            }
+        }
+
+        private void SetSortByBox(SortType sort)
+        {
+            sortByName.Checked = sort == SortType.Name;
+            sortByAuthor.Checked = sort == SortType.Author;
+            sortByInitialRelease.Checked = sort == SortType.InitialRelease;
+            sortByLatestRelease.Checked = sort == SortType.LatestRelease;
+        }
+
+        // Global download
+
         private void ClickedInstallAll(object sender, EventArgs e)
         {
             switch (CurrentSection)
@@ -210,100 +344,5 @@ namespace BlasModInstaller
             }
         }
 
-        private void OpenSection(SectionType section)
-        {
-            if (section == SectionType.Blas1Mods)
-            {
-                titleLabel.Text = BlasModPage.Name;
-
-                blas1skinSection.Visible = false;
-                blas2modSection.Visible = false;
-
-                if (ValidateBlas1Directory(BlasRootFolder))
-                {
-                    blas1modSection.Visible = true;
-                    BlasModPage.LoadData();
-                }
-                else
-                {
-                    blas1modSection.Visible = false;
-                }
-            }
-            else if (section == SectionType.Blas1Skins)
-            {
-                titleLabel.Text = BlasSkinPage.Name;
-
-                blas1modSection.Visible = false;
-                blas2modSection.Visible = false;
-
-                if (ValidateBlas1Directory(BlasRootFolder))
-                {
-                    blas1skinSection.Visible = true;
-                    BlasSkinPage.LoadData();
-                }
-                else
-                {
-                    blas1skinSection.Visible = false;
-                }
-            }
-            else if (section == SectionType.Blas2Mods)
-            {
-                titleLabel.Text = BlasIIModPage.Name;
-
-                blas1modSection.Visible = false;
-                blas1skinSection.Visible = false;
-                blas2modSection.Visible = true;
-                blas1locationSection.Visible = false;
-
-                // Load data
-            }
-
-            enableBtn.Visible = section != SectionType.Blas1Skins;
-            disableBtn.Visible = section != SectionType.Blas1Skins;
-
-            config.LastSection = section;
-        }
-
-        private bool ValidateBlas1Directory(string blasRootPath)
-        {
-            if (File.Exists(blasRootPath + "\\Blasphemous.exe"))
-            {
-                Log("Blas1 exe path validated!");
-                config.BlasRootFolder = blasRootPath;
-
-                Directory.CreateDirectory(blasRootPath + "\\Modding\\disabled"); // Only because its not included in the API
-                blas1locationSection.Visible = false;
-                return true;
-            }
-
-            Log("Blas1 exe path not found!");
-            blas1locationSection.Visible = true;
-            return false;
-        }
-
-        private void OnFormClose(object sender, FormClosingEventArgs e)
-        {
-            SaveConfig();
-        }
-
-        private void ClickedSortByName(object sender, EventArgs e)
-        {
-            Log("Sort by name");
-        }
-
-        private void ClickedSortByAuthor(object sender, EventArgs e)
-        {
-            Log("Sort by author");
-        }
-
-        private void ClickedSortByInitialRelease(object sender, EventArgs e)
-        {
-            Log("Sort by initial release");
-        }
-
-        private void ClickedSortByLatestRelease(object sender, EventArgs e)
-        {
-            Log("Sort by latest release");
-        }
     }
 }

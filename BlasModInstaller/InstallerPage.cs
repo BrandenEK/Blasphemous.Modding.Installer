@@ -76,6 +76,8 @@ namespace BlasModInstaller.Pages
 
         }
 
+        public abstract void Sort();
+
         public void InstallAll()
         {
             if (MessageBox.Show($"Are you sure you wish to install {DataCount} items?", Name, MessageBoxButtons.OKCancel) == DialogResult.OK)

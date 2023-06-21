@@ -55,6 +55,16 @@ namespace BlasModInstaller.Pages
             SetBackgroundColor();
         }
 
+        public override void Sort()
+        {
+            dataCollection.Sort();
+            for (int i = 0; i < dataCollection.Count; i++)
+            {
+                MainForm.Log(dataCollection[i].name);
+                dataCollection[i].SetUIPosition(i);
+            }
+        }
+
         protected override void OnInstallAll()
         {
             foreach (Skin skin in dataCollection)

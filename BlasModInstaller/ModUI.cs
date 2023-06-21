@@ -46,30 +46,36 @@ namespace BlasModInstaller
             installButton.FlatAppearance.BorderColor = Colors.ORANGE;
         }
 
-        public ModUI(Mod mod, int modIdx, Panel parentPanel)
+        public void SetPosition(int modIdx)
         {
-            string uiName = mod.Name;
             Color backgroundColor = modIdx % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
+
+            outerPanel.Location = new Point(0, (Sizes.MOD_HEIGHT - 2) * modIdx - 2);
+            innerPanel.BackColor = backgroundColor;
+            installButton.BackColor = backgroundColor;
+            enableButton.BackColor = backgroundColor;
+        }
+
+        public ModUI(Mod mod, Panel parentPanel)
+        {
             parentPanel.AutoScroll = false;
 
             // Panels
 
             outerPanel = new Panel
             {
-                Name = uiName,
+                Name = mod.Name,
                 Parent = parentPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
                 BackColor = Color.Black,
-                Location = new Point(0, (Sizes.MOD_HEIGHT - 2) * modIdx - 2),
                 Size = new Size(parentPanel.Width, Sizes.MOD_HEIGHT),
             };
 
             innerPanel = new Panel
             {
-                Name = uiName,
+                Name = mod.Name,
                 Parent = outerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
-                BackColor = backgroundColor,
                 Location = new Point(0, 2),
                 Size = new Size(parentPanel.Width, Sizes.MOD_HEIGHT - 4),
             };
@@ -78,7 +84,7 @@ namespace BlasModInstaller
 
             nameText = new Label
             {
-                Name = uiName,
+                Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left,
                 Location = new Point(10, 8),
@@ -90,7 +96,7 @@ namespace BlasModInstaller
 
             authorText = new Label
             {
-                Name = uiName,
+                Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left,
                 Location = new Point(200, 13),
@@ -104,7 +110,7 @@ namespace BlasModInstaller
 
             updateButton = new Button
             {
-                Name = uiName,
+                Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 450, 11),
@@ -124,7 +130,7 @@ namespace BlasModInstaller
 
             readmeButton = new Button
             {
-                Name = uiName,
+                Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 290, 11),
@@ -143,12 +149,11 @@ namespace BlasModInstaller
 
             installButton = new Button
             {
-                Name = uiName,
+                Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 190, 11),
                 Size = new Size(100, 24),
-                BackColor = backgroundColor,
                 Font = Fonts.BUTTON,
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand,
@@ -160,12 +165,11 @@ namespace BlasModInstaller
 
             enableButton = new Button
             {
-                Name = uiName,
+                Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 80, 11),
                 Size = new Size(70, 24),
-                BackColor = backgroundColor,
                 Font = Fonts.BUTTON,
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand,

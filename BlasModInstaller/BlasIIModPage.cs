@@ -24,5 +24,10 @@ namespace BlasModInstaller.Pages
         {
             return base.LoadGlobalData();
         }
+
+        public override void Sort()
+        {
+            
+        }
     }
 }

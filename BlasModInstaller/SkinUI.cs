@@ -40,30 +40,35 @@ namespace BlasModInstaller
             installButton.FlatAppearance.BorderColor = Colors.ORANGE;
         }
 
-        public SkinUI(Skin skin, int skinIdx, Panel parentPanel)
+        public void SetPosition(int skinIdx)
         {
-            string uiName = skin.name;
             Color backgroundColor = skinIdx % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
+
+            outerPanel.Location = new Point(0, (Sizes.SKIN_HEIGHT - 2) * skinIdx - 2);
+            innerPanel.BackColor = backgroundColor;
+            installButton.BackColor = backgroundColor;
+        }
+
+        public SkinUI(Skin skin, Panel parentPanel)
+        {
             parentPanel.AutoScroll = false;
 
             // Panels
 
             outerPanel = new Panel
             {
-                Name = uiName,
+                Name = skin.name,
                 Parent = parentPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
                 BackColor = Color.Black,
-                Location = new Point(0, (Sizes.SKIN_HEIGHT - 2) * skinIdx - 2),
                 Size = new Size(parentPanel.Width, Sizes.SKIN_HEIGHT),
             };
 
             innerPanel = new Panel
             {
-                Name = uiName,
+                Name = skin.name,
                 Parent = outerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
-                BackColor = backgroundColor,
                 Location = new Point(0, 2),
                 Size = new Size(parentPanel.Width, Sizes.SKIN_HEIGHT - 4),
             };
@@ -72,7 +77,7 @@ namespace BlasModInstaller
 
             nameText = new Label
             {
-                Name = uiName,
+                Name = skin.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left,
                 Location = new Point(10, 8),
@@ -84,7 +89,7 @@ namespace BlasModInstaller
 
             authorText = new Label
             {
-                Name = uiName,
+                Name = skin.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left,
                 Location = new Point(200, 13),
@@ -98,7 +103,7 @@ namespace BlasModInstaller
 
             updateButton = new Button
             {
-                Name = uiName,
+                Name = skin.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 550, 11),
@@ -118,7 +123,7 @@ namespace BlasModInstaller
 
             previewIdleButton = new Button
             {
-                Name = uiName,
+                Name = skin.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 390, 11),
@@ -137,7 +142,7 @@ namespace BlasModInstaller
 
             previewChargedButton = new Button
             {
-                Name = uiName,
+                Name = skin.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 260, 11),
@@ -156,12 +161,11 @@ namespace BlasModInstaller
 
             installButton = new Button
             {
-                Name = uiName,
+                Name = skin.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 110, 11),
                 Size = new Size(100, 24),
-                BackColor = backgroundColor,
                 Font = Fonts.BUTTON,
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand,

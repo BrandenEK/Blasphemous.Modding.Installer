@@ -10,7 +10,7 @@ using System.Windows.Forms;
 namespace BlasModInstaller
 {
     [Serializable]
-    public class Mod
+    public class Mod : IComparable
     {
         // Data
 
@@ -255,11 +255,21 @@ namespace BlasModInstaller
             catch (Exception) { MessageBox.Show("Link does not exist!", "Invalid Link"); }
         }
 
+        // Sort methods
+
+        public int CompareTo(object obj)
+        {
+            Mod mod = obj as Mod;
+
+            return Name.CompareTo(mod.Name);
+        }
+
         // UI methods
 
         public void CreateUI(Panel parentPanel, int modIdx)
         {
-            _ui = new ModUI(this, modIdx, parentPanel);
+            _ui = new ModUI(this, parentPanel);
+            SetUIPosition(modIdx);
             UpdateUI();
             MainForm.Instance.BlasModPage.AdjustPageWidth();
         }
@@ -267,6 +277,11 @@ namespace BlasModInstaller
         public void UpdateUI()
         {
             _ui.UpdateUI(Name, (Installed ? LocalVersion.ToString(3) : LatestVersion), Author, Installed, Enabled, UpdateAvailable);
+        }
+
+        public void SetUIPosition(int modIdx)
+        {
+            _ui.SetPosition(modIdx);
         }
     }
 }
