@@ -256,8 +256,8 @@ namespace BlasModInstaller
                 // Load data
             }
 
-            enableAllBtn.Visible = section != SectionType.Blas1Skins;
-            disableAllBtn.Visible = section != SectionType.Blas1Skins;
+            enableBtn.Visible = section != SectionType.Blas1Skins;
+            disableBtn.Visible = section != SectionType.Blas1Skins;
 
             config.LastSection = section;
         }

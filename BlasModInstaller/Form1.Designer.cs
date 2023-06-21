@@ -46,16 +46,16 @@ namespace BlasModInstaller
             this.blas2modText = new System.Windows.Forms.Label();
             this.blas2modScroll = new System.Windows.Forms.VScrollBar();
             this.sideSectionInner = new System.Windows.Forms.Panel();
-            this.disableAllBtn = new System.Windows.Forms.Button();
-            this.enableAllBtn = new System.Windows.Forms.Button();
-            this.uninstallAllBtn = new System.Windows.Forms.Button();
+            this.disableBtn = new System.Windows.Forms.Button();
+            this.enableBtn = new System.Windows.Forms.Button();
+            this.uninstallBtn = new System.Windows.Forms.Button();
+            this.installBtn = new System.Windows.Forms.Button();
             this.sortSection = new System.Windows.Forms.Panel();
             this.sortByText = new System.Windows.Forms.Label();
             this.sortByName = new System.Windows.Forms.RadioButton();
             this.sortByAuthor = new System.Windows.Forms.RadioButton();
             this.sortByMostRecent = new System.Windows.Forms.RadioButton();
             this.sortByInitialRelease = new System.Windows.Forms.RadioButton();
-            this.installAllBtn = new System.Windows.Forms.Button();
             this.gearImage = new System.Windows.Forms.PictureBox();
             this.settingsBtn = new System.Windows.Forms.Button();
             this.warningSectionOuter = new System.Windows.Forms.Panel();
@@ -256,11 +256,11 @@ namespace BlasModInstaller
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sideSectionInner.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.sideSectionInner.Controls.Add(this.disableAllBtn);
-            this.sideSectionInner.Controls.Add(this.enableAllBtn);
-            this.sideSectionInner.Controls.Add(this.uninstallAllBtn);
+            this.sideSectionInner.Controls.Add(this.disableBtn);
+            this.sideSectionInner.Controls.Add(this.enableBtn);
+            this.sideSectionInner.Controls.Add(this.uninstallBtn);
+            this.sideSectionInner.Controls.Add(this.installBtn);
             this.sideSectionInner.Controls.Add(this.sortSection);
-            this.sideSectionInner.Controls.Add(this.installAllBtn);
             this.sideSectionInner.Controls.Add(this.gearImage);
             this.sideSectionInner.Controls.Add(this.settingsBtn);
             this.sideSectionInner.Controls.Add(this.warningSectionOuter);
@@ -273,65 +273,85 @@ namespace BlasModInstaller
             this.sideSectionInner.Size = new System.Drawing.Size(248, 900);
             this.sideSectionInner.TabIndex = 8;
             // 
-            // disableAllBtn
+            // disableBtn
             // 
-            this.disableAllBtn.BackColor = System.Drawing.Color.Maroon;
-            this.disableAllBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.disableAllBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightCoral;
-            this.disableAllBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
-            this.disableAllBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.disableAllBtn.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.disableAllBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.disableAllBtn.Location = new System.Drawing.Point(44, 555);
-            this.disableAllBtn.Name = "disableAllBtn";
-            this.disableAllBtn.Size = new System.Drawing.Size(160, 25);
-            this.disableAllBtn.TabIndex = 16;
-            this.disableAllBtn.TabStop = false;
-            this.disableAllBtn.Text = "Disable all";
-            this.disableAllBtn.UseVisualStyleBackColor = false;
-            this.disableAllBtn.Click += new System.EventHandler(this.ClickedDisableAll);
-            this.disableAllBtn.MouseLeave += new System.EventHandler(this.RemoveButtonFocus);
-            this.disableAllBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
+            this.disableBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.disableBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.disableBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.disableBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.disableBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.disableBtn.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.disableBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.disableBtn.Location = new System.Drawing.Point(15, 600);
+            this.disableBtn.Name = "disableBtn";
+            this.disableBtn.Size = new System.Drawing.Size(220, 35);
+            this.disableBtn.TabIndex = 20;
+            this.disableBtn.Text = "Disable all";
+            this.disableBtn.UseVisualStyleBackColor = false;
+            this.disableBtn.Click += new System.EventHandler(this.ClickedDisableAll);
+            this.disableBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
+            this.disableBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
+            this.disableBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
             // 
-            // enableAllBtn
+            // enableBtn
             // 
-            this.enableAllBtn.BackColor = System.Drawing.Color.Navy;
-            this.enableAllBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.enableAllBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.CornflowerBlue;
-            this.enableAllBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumBlue;
-            this.enableAllBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.enableAllBtn.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.enableAllBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.enableAllBtn.Location = new System.Drawing.Point(44, 520);
-            this.enableAllBtn.Name = "enableAllBtn";
-            this.enableAllBtn.Size = new System.Drawing.Size(160, 25);
-            this.enableAllBtn.TabIndex = 15;
-            this.enableAllBtn.TabStop = false;
-            this.enableAllBtn.Text = "Enable all";
-            this.enableAllBtn.UseVisualStyleBackColor = false;
-            this.enableAllBtn.Click += new System.EventHandler(this.ClickedEnableAll);
-            this.enableAllBtn.MouseLeave += new System.EventHandler(this.RemoveButtonFocus);
-            this.enableAllBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
+            this.enableBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.enableBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.enableBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.enableBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.enableBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.enableBtn.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.enableBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.enableBtn.Location = new System.Drawing.Point(15, 555);
+            this.enableBtn.Name = "enableBtn";
+            this.enableBtn.Size = new System.Drawing.Size(220, 35);
+            this.enableBtn.TabIndex = 19;
+            this.enableBtn.Text = "Enable all";
+            this.enableBtn.UseVisualStyleBackColor = false;
+            this.enableBtn.Click += new System.EventHandler(this.ClickedEnableAll);
+            this.enableBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
+            this.enableBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
+            this.enableBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
             // 
-            // uninstallAllBtn
+            // uninstallBtn
             // 
-            this.uninstallAllBtn.BackColor = System.Drawing.Color.Maroon;
-            this.uninstallAllBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.uninstallAllBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightCoral;
-            this.uninstallAllBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
-            this.uninstallAllBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.uninstallAllBtn.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uninstallAllBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.uninstallAllBtn.Location = new System.Drawing.Point(44, 485);
-            this.uninstallAllBtn.Name = "uninstallAllBtn";
-            this.uninstallAllBtn.Size = new System.Drawing.Size(160, 25);
-            this.uninstallAllBtn.TabIndex = 14;
-            this.uninstallAllBtn.TabStop = false;
-            this.uninstallAllBtn.Text = "Uninstall all";
-            this.uninstallAllBtn.UseVisualStyleBackColor = false;
-            this.uninstallAllBtn.Click += new System.EventHandler(this.ClickedUninstallAll);
-            this.uninstallAllBtn.MouseLeave += new System.EventHandler(this.RemoveButtonFocus);
-            this.uninstallAllBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
+            this.uninstallBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.uninstallBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.uninstallBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.uninstallBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.uninstallBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.uninstallBtn.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uninstallBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.uninstallBtn.Location = new System.Drawing.Point(15, 510);
+            this.uninstallBtn.Name = "uninstallBtn";
+            this.uninstallBtn.Size = new System.Drawing.Size(220, 35);
+            this.uninstallBtn.TabIndex = 18;
+            this.uninstallBtn.Text = "Uninstall all";
+            this.uninstallBtn.UseVisualStyleBackColor = false;
+            this.uninstallBtn.Click += new System.EventHandler(this.ClickedUninstallAll);
+            this.uninstallBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
+            this.uninstallBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
+            this.uninstallBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
+            // 
+            // installBtn
+            // 
+            this.installBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.installBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.installBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.installBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.installBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.installBtn.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.installBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.installBtn.Location = new System.Drawing.Point(15, 465);
+            this.installBtn.Name = "installBtn";
+            this.installBtn.Size = new System.Drawing.Size(220, 35);
+            this.installBtn.TabIndex = 17;
+            this.installBtn.Text = "Install all";
+            this.installBtn.UseVisualStyleBackColor = false;
+            this.installBtn.Click += new System.EventHandler(this.ClickedInstallAll);
+            this.installBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
+            this.installBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
+            this.installBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
             // 
             // sortSection
             // 
@@ -403,26 +423,6 @@ namespace BlasModInstaller
             this.sortByInitialRelease.TabStop = true;
             this.sortByInitialRelease.Text = "Initial release";
             this.sortByInitialRelease.UseVisualStyleBackColor = true;
-            // 
-            // installAllBtn
-            // 
-            this.installAllBtn.BackColor = System.Drawing.Color.Navy;
-            this.installAllBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.installAllBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.CornflowerBlue;
-            this.installAllBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumBlue;
-            this.installAllBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.installAllBtn.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.installAllBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.installAllBtn.Location = new System.Drawing.Point(44, 450);
-            this.installAllBtn.Name = "installAllBtn";
-            this.installAllBtn.Size = new System.Drawing.Size(160, 25);
-            this.installAllBtn.TabIndex = 12;
-            this.installAllBtn.TabStop = false;
-            this.installAllBtn.Text = "Install all";
-            this.installAllBtn.UseVisualStyleBackColor = false;
-            this.installAllBtn.Click += new System.EventHandler(this.ClickedInstallAll);
-            this.installAllBtn.MouseLeave += new System.EventHandler(this.RemoveButtonFocus);
-            this.installAllBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
             // 
             // gearImage
             // 
@@ -665,11 +665,11 @@ namespace BlasModInstaller
         private System.Windows.Forms.RadioButton sortByAuthor;
         private System.Windows.Forms.RadioButton sortByName;
         private System.Windows.Forms.Label sortByText;
-        private System.Windows.Forms.Button installAllBtn;
         private System.Windows.Forms.Panel sortSection;
-        private System.Windows.Forms.Button uninstallAllBtn;
-        private System.Windows.Forms.Button disableAllBtn;
-        private System.Windows.Forms.Button enableAllBtn;
+        private System.Windows.Forms.Button installBtn;
+        private System.Windows.Forms.Button disableBtn;
+        private System.Windows.Forms.Button enableBtn;
+        private System.Windows.Forms.Button uninstallBtn;
     }
 }
 
