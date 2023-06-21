@@ -47,6 +47,8 @@ namespace BlasModInstaller
             LoadConfig();
             CreateGithubClient();
 
+            sortByName.Checked = true;
+
             CheckForNewerInstallerRelease();
             OpenSection(config.LastSection);
         }
@@ -282,6 +284,26 @@ namespace BlasModInstaller
         private void OnFormClose(object sender, FormClosingEventArgs e)
         {
             SaveConfig();
+        }
+
+        private void ClickedSortByName(object sender, EventArgs e)
+        {
+            Log("Sort by name");
+        }
+
+        private void ClickedSortByAuthor(object sender, EventArgs e)
+        {
+            Log("Sort by author");
+        }
+
+        private void ClickedSortByInitialRelease(object sender, EventArgs e)
+        {
+            Log("Sort by initial release");
+        }
+
+        private void ClickedSortByLatestRelease(object sender, EventArgs e)
+        {
+            Log("Sort by latest release");
         }
     }
 }

@@ -46,6 +46,8 @@ namespace BlasModInstaller
             this.blas2modText = new System.Windows.Forms.Label();
             this.blas2modScroll = new System.Windows.Forms.VScrollBar();
             this.sideSectionInner = new System.Windows.Forms.Panel();
+            this.divider2 = new System.Windows.Forms.Panel();
+            this.divider1 = new System.Windows.Forms.Panel();
             this.disableBtn = new System.Windows.Forms.Button();
             this.enableBtn = new System.Windows.Forms.Button();
             this.uninstallBtn = new System.Windows.Forms.Button();
@@ -54,7 +56,7 @@ namespace BlasModInstaller
             this.sortByText = new System.Windows.Forms.Label();
             this.sortByName = new System.Windows.Forms.RadioButton();
             this.sortByAuthor = new System.Windows.Forms.RadioButton();
-            this.sortByMostRecent = new System.Windows.Forms.RadioButton();
+            this.sortByLatestRelease = new System.Windows.Forms.RadioButton();
             this.sortByInitialRelease = new System.Windows.Forms.RadioButton();
             this.gearImage = new System.Windows.Forms.PictureBox();
             this.settingsBtn = new System.Windows.Forms.Button();
@@ -67,8 +69,6 @@ namespace BlasModInstaller
             this.blas1skinsBtn = new System.Windows.Forms.Button();
             this.blas1modsBtn = new System.Windows.Forms.Button();
             this.sideSectionOuter = new System.Windows.Forms.Panel();
-            this.divider1 = new System.Windows.Forms.Panel();
-            this.divider2 = new System.Windows.Forms.Panel();
             this.blas1modSection.SuspendLayout();
             this.blas1locationSection.SuspendLayout();
             this.mainSection.SuspendLayout();
@@ -277,6 +277,26 @@ namespace BlasModInstaller
             this.sideSectionInner.Size = new System.Drawing.Size(248, 900);
             this.sideSectionInner.TabIndex = 8;
             // 
+            // divider2
+            // 
+            this.divider2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.divider2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.divider2.Location = new System.Drawing.Point(44, 455);
+            this.divider2.Name = "divider2";
+            this.divider2.Size = new System.Drawing.Size(160, 1);
+            this.divider2.TabIndex = 22;
+            // 
+            // divider1
+            // 
+            this.divider1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.divider1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.divider1.Location = new System.Drawing.Point(44, 250);
+            this.divider1.Name = "divider1";
+            this.divider1.Size = new System.Drawing.Size(160, 1);
+            this.divider1.TabIndex = 21;
+            // 
             // disableBtn
             // 
             this.disableBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
@@ -289,7 +309,7 @@ namespace BlasModInstaller
             this.disableBtn.Location = new System.Drawing.Point(15, 625);
             this.disableBtn.Name = "disableBtn";
             this.disableBtn.Size = new System.Drawing.Size(220, 35);
-            this.disableBtn.TabIndex = 20;
+            this.disableBtn.TabIndex = 7;
             this.disableBtn.Text = "Disable all";
             this.disableBtn.UseVisualStyleBackColor = false;
             this.disableBtn.Click += new System.EventHandler(this.ClickedDisableAll);
@@ -309,7 +329,7 @@ namespace BlasModInstaller
             this.enableBtn.Location = new System.Drawing.Point(15, 580);
             this.enableBtn.Name = "enableBtn";
             this.enableBtn.Size = new System.Drawing.Size(220, 35);
-            this.enableBtn.TabIndex = 19;
+            this.enableBtn.TabIndex = 6;
             this.enableBtn.Text = "Enable all";
             this.enableBtn.UseVisualStyleBackColor = false;
             this.enableBtn.Click += new System.EventHandler(this.ClickedEnableAll);
@@ -329,7 +349,7 @@ namespace BlasModInstaller
             this.uninstallBtn.Location = new System.Drawing.Point(15, 535);
             this.uninstallBtn.Name = "uninstallBtn";
             this.uninstallBtn.Size = new System.Drawing.Size(220, 35);
-            this.uninstallBtn.TabIndex = 18;
+            this.uninstallBtn.TabIndex = 5;
             this.uninstallBtn.Text = "Uninstall all";
             this.uninstallBtn.UseVisualStyleBackColor = false;
             this.uninstallBtn.Click += new System.EventHandler(this.ClickedUninstallAll);
@@ -349,7 +369,7 @@ namespace BlasModInstaller
             this.installBtn.Location = new System.Drawing.Point(15, 490);
             this.installBtn.Name = "installBtn";
             this.installBtn.Size = new System.Drawing.Size(220, 35);
-            this.installBtn.TabIndex = 17;
+            this.installBtn.TabIndex = 4;
             this.installBtn.Text = "Install all";
             this.installBtn.UseVisualStyleBackColor = false;
             this.installBtn.Click += new System.EventHandler(this.ClickedInstallAll);
@@ -362,7 +382,7 @@ namespace BlasModInstaller
             this.sortSection.Controls.Add(this.sortByText);
             this.sortSection.Controls.Add(this.sortByName);
             this.sortSection.Controls.Add(this.sortByAuthor);
-            this.sortSection.Controls.Add(this.sortByMostRecent);
+            this.sortSection.Controls.Add(this.sortByLatestRelease);
             this.sortSection.Controls.Add(this.sortByInitialRelease);
             this.sortSection.Location = new System.Drawing.Point(57, 290);
             this.sortSection.Name = "sortSection";
@@ -384,49 +404,53 @@ namespace BlasModInstaller
             // 
             this.sortByName.AutoSize = true;
             this.sortByName.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.sortByName.Location = new System.Drawing.Point(4, 80);
+            this.sortByName.Location = new System.Drawing.Point(4, 30);
             this.sortByName.Name = "sortByName";
             this.sortByName.Size = new System.Drawing.Size(53, 20);
-            this.sortByName.TabIndex = 3;
+            this.sortByName.TabIndex = 10;
             this.sortByName.TabStop = true;
             this.sortByName.Text = "Name";
             this.sortByName.UseVisualStyleBackColor = true;
+            this.sortByName.Click += new System.EventHandler(this.ClickedSortByName);
             // 
             // sortByAuthor
             // 
             this.sortByAuthor.AutoSize = true;
             this.sortByAuthor.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.sortByAuthor.Location = new System.Drawing.Point(4, 105);
+            this.sortByAuthor.Location = new System.Drawing.Point(4, 55);
             this.sortByAuthor.Name = "sortByAuthor";
             this.sortByAuthor.Size = new System.Drawing.Size(60, 20);
-            this.sortByAuthor.TabIndex = 8;
+            this.sortByAuthor.TabIndex = 11;
             this.sortByAuthor.TabStop = true;
             this.sortByAuthor.Text = "Author";
             this.sortByAuthor.UseVisualStyleBackColor = true;
+            this.sortByAuthor.Click += new System.EventHandler(this.ClickedSortByAuthor);
             // 
-            // sortByMostRecent
+            // sortByLatestRelease
             // 
-            this.sortByMostRecent.AutoSize = true;
-            this.sortByMostRecent.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.sortByMostRecent.Location = new System.Drawing.Point(4, 55);
-            this.sortByMostRecent.Name = "sortByMostRecent";
-            this.sortByMostRecent.Size = new System.Drawing.Size(87, 20);
-            this.sortByMostRecent.TabIndex = 10;
-            this.sortByMostRecent.TabStop = true;
-            this.sortByMostRecent.Text = "Most recent";
-            this.sortByMostRecent.UseVisualStyleBackColor = true;
+            this.sortByLatestRelease.AutoSize = true;
+            this.sortByLatestRelease.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.sortByLatestRelease.Location = new System.Drawing.Point(4, 105);
+            this.sortByLatestRelease.Name = "sortByLatestRelease";
+            this.sortByLatestRelease.Size = new System.Drawing.Size(98, 20);
+            this.sortByLatestRelease.TabIndex = 9;
+            this.sortByLatestRelease.TabStop = true;
+            this.sortByLatestRelease.Text = "Latest release";
+            this.sortByLatestRelease.UseVisualStyleBackColor = true;
+            this.sortByLatestRelease.Click += new System.EventHandler(this.ClickedSortByLatestRelease);
             // 
             // sortByInitialRelease
             // 
             this.sortByInitialRelease.AutoSize = true;
             this.sortByInitialRelease.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.sortByInitialRelease.Location = new System.Drawing.Point(4, 30);
+            this.sortByInitialRelease.Location = new System.Drawing.Point(4, 80);
             this.sortByInitialRelease.Name = "sortByInitialRelease";
             this.sortByInitialRelease.Size = new System.Drawing.Size(94, 20);
-            this.sortByInitialRelease.TabIndex = 9;
+            this.sortByInitialRelease.TabIndex = 8;
             this.sortByInitialRelease.TabStop = true;
             this.sortByInitialRelease.Text = "Initial release";
             this.sortByInitialRelease.UseVisualStyleBackColor = true;
+            this.sortByInitialRelease.Click += new System.EventHandler(this.ClickedSortByInitialRelease);
             // 
             // gearImage
             // 
@@ -540,7 +564,7 @@ namespace BlasModInstaller
             this.blas2modsBtn.Location = new System.Drawing.Point(15, 165);
             this.blas2modsBtn.Name = "blas2modsBtn";
             this.blas2modsBtn.Size = new System.Drawing.Size(220, 35);
-            this.blas2modsBtn.TabIndex = 2;
+            this.blas2modsBtn.TabIndex = 3;
             this.blas2modsBtn.Text = "Blasphemous II Mods";
             this.blas2modsBtn.UseVisualStyleBackColor = false;
             this.blas2modsBtn.Click += new System.EventHandler(this.ClickedBlas2Mods);
@@ -560,7 +584,7 @@ namespace BlasModInstaller
             this.blas1skinsBtn.Location = new System.Drawing.Point(15, 120);
             this.blas1skinsBtn.Name = "blas1skinsBtn";
             this.blas1skinsBtn.Size = new System.Drawing.Size(220, 35);
-            this.blas1skinsBtn.TabIndex = 1;
+            this.blas1skinsBtn.TabIndex = 2;
             this.blas1skinsBtn.Text = "Blasphemous Skins";
             this.blas1skinsBtn.UseVisualStyleBackColor = false;
             this.blas1skinsBtn.Click += new System.EventHandler(this.ClickedBlas1Skins);
@@ -580,7 +604,7 @@ namespace BlasModInstaller
             this.blas1modsBtn.Location = new System.Drawing.Point(15, 75);
             this.blas1modsBtn.Name = "blas1modsBtn";
             this.blas1modsBtn.Size = new System.Drawing.Size(220, 35);
-            this.blas1modsBtn.TabIndex = 3;
+            this.blas1modsBtn.TabIndex = 1;
             this.blas1modsBtn.Text = "Blasphemous Mods";
             this.blas1modsBtn.UseVisualStyleBackColor = false;
             this.blas1modsBtn.Click += new System.EventHandler(this.ClickedBlas1Mods);
@@ -598,26 +622,6 @@ namespace BlasModInstaller
             this.sideSectionOuter.Name = "sideSectionOuter";
             this.sideSectionOuter.Size = new System.Drawing.Size(250, 900);
             this.sideSectionOuter.TabIndex = 9;
-            // 
-            // divider1
-            // 
-            this.divider1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.divider1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.divider1.Location = new System.Drawing.Point(44, 250);
-            this.divider1.Name = "divider1";
-            this.divider1.Size = new System.Drawing.Size(160, 1);
-            this.divider1.TabIndex = 21;
-            // 
-            // divider2
-            // 
-            this.divider2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.divider2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.divider2.Location = new System.Drawing.Point(44, 455);
-            this.divider2.Name = "divider2";
-            this.divider2.Size = new System.Drawing.Size(160, 1);
-            this.divider2.TabIndex = 22;
             // 
             // MainForm
             // 
@@ -684,7 +688,7 @@ namespace BlasModInstaller
         private System.Windows.Forms.Button settingsBtn;
         private System.Windows.Forms.PictureBox gearImage;
         private System.Windows.Forms.LinkLabel warningText;
-        private System.Windows.Forms.RadioButton sortByMostRecent;
+        private System.Windows.Forms.RadioButton sortByLatestRelease;
         private System.Windows.Forms.RadioButton sortByInitialRelease;
         private System.Windows.Forms.RadioButton sortByAuthor;
         private System.Windows.Forms.RadioButton sortByName;
