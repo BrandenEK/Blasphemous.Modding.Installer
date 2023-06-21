@@ -173,57 +173,56 @@ namespace BlasModInstaller
 
         private void OpenSection(SectionType section)
         {
+            bool validated = false;
             if (section == SectionType.Blas1Mods)
             {
                 titleLabel.Text = BlasModPage.Name;
                 SetSortByBox(SortBlasMods);
 
+                validated = ValidateBlas1Directory(BlasRootFolder);
+                if (validated)
+                    BlasModPage.LoadData();
+
+                blas1modSection.Visible = validated;
                 blas1skinSection.Visible = false;
                 blas2modSection.Visible = false;
-
-                if (ValidateBlas1Directory(BlasRootFolder))
-                {
-                    blas1modSection.Visible = true;
-                    BlasModPage.LoadData();
-                }
-                else
-                {
-                    blas1modSection.Visible = false;
-                }
+                blas1locationSection.Visible = !validated;
             }
             else if (section == SectionType.Blas1Skins)
             {
                 titleLabel.Text = BlasSkinPage.Name;
                 SetSortByBox(SortBlasSkins);
 
+                validated = ValidateBlas1Directory(BlasRootFolder);
+                if (validated)
+                    BlasSkinPage.LoadData();
+
+                blas1skinSection.Visible = validated;
                 blas1modSection.Visible = false;
                 blas2modSection.Visible = false;
-
-                if (ValidateBlas1Directory(BlasRootFolder))
-                {
-                    blas1skinSection.Visible = true;
-                    BlasSkinPage.LoadData();
-                }
-                else
-                {
-                    blas1skinSection.Visible = false;
-                }
+                blas1locationSection.Visible = !validated;
             }
             else if (section == SectionType.Blas2Mods)
             {
                 titleLabel.Text = BlasIIModPage.Name;
                 SetSortByBox(SortBlasIIMods);
 
+                // Validate exe and load data
+
+                blas2modSection.Visible = true;
                 blas1modSection.Visible = false;
                 blas1skinSection.Visible = false;
-                blas2modSection.Visible = true;
                 blas1locationSection.Visible = false;
-
-                // Load data
             }
 
-            enableBtn.Visible = section != SectionType.Blas1Skins;
-            disableBtn.Visible = section != SectionType.Blas1Skins;
+            // Only show side buttons under certain conditions
+            divider1.Visible = validated;
+            divider2.Visible = validated;
+            sortSection.Visible = validated;
+            installBtn.Visible = validated;
+            uninstallBtn.Visible = validated;
+            enableBtn.Visible = validated && section != SectionType.Blas1Skins;
+            disableBtn.Visible = validated && section != SectionType.Blas1Skins;
             sortByInitialRelease.Visible = section != SectionType.Blas1Skins;
             sortByLatestRelease.Visible = section != SectionType.Blas1Skins;
 
@@ -238,12 +237,10 @@ namespace BlasModInstaller
                 config.BlasRootFolder = blasRootPath;
 
                 Directory.CreateDirectory(blasRootPath + "\\Modding\\disabled"); // Only because its not included in the API
-                blas1locationSection.Visible = false;
                 return true;
             }
 
             Log("Blas1 exe path not found!");
-            blas1locationSection.Visible = true;
             return false;
         }
 
