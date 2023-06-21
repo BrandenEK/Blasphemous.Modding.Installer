@@ -551,6 +551,7 @@ namespace BlasModInstaller
             this.debugLog.ReadOnly = true;
             this.debugLog.Size = new System.Drawing.Size(220, 292);
             this.debugLog.TabIndex = 0;
+            this.debugLog.Visible = false;
             // 
             // blas2modsBtn
             // 
