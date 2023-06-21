@@ -3,6 +3,7 @@
     "Name": "Modding API",
     "Author": "Damocles",
     "Description": "An API that is required for almost all other mods and allows for custom skins",
+    "InitialReleaseDate": "2023-02-22",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Modding-API",
     "PluginFile": "ModdingAPI.dll"
@@ -11,6 +12,7 @@
     "Name": "Randomizer",
     "Author": "Damocles",
     "Description": "A randomizer mod that can shuffle items, enemies, and doors",
+    "InitialReleaseDate": "2022-10-03",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Randomizer",
     "PluginFile": "BlasphemousRandomizer.dll",
@@ -24,6 +26,7 @@
     "Name": "Rando Map",
     "Author": "Damocles",
     "Description": "An in-game map tracker for the Blasphemous Randomizer",
+    "InitialReleaseDate": "2023-05-28",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Rando-Map",
     "PluginFile": "RandoMap.dll",
@@ -36,6 +39,7 @@
     "Name": "Multiworld",
     "Author": "Damocles",
     "Description": "A multiworld client that allows the randomizer to connect to Archipelago",
+    "InitialReleaseDate": "2023-02-22",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Multiworld",
     "PluginFile": "BlasphemousMultiworld.dll",
@@ -49,6 +53,7 @@
     "Name": "PrieWarp",
     "Author": "BadMagic",
     "Description": "A mod which allows easily warping between unlocked Prie Dieus with mnemonic hotkeys.",
+    "InitialReleaseDate": "2023-06-03",
     "GithubAuthor": "BadMagic100",
     "GithubRepo": "Blasphemous-PrieWarp",
     "PluginFile": "PrieWarp.dll"
@@ -57,6 +62,7 @@
     "Name": "Multiplayer",
     "Author": "Damocles",
     "Description": "A multiplayer mod that allows you to play Blasphemous cooperatively or against other people",
+    "InitialReleaseDate": "2023-03-12",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Multiplayer",
     "PluginFile": "BlasClient.dll",
@@ -69,6 +75,7 @@
     "Name": "Boots of Pleading",
     "Author": "Damocles",
     "Description": "Adds a new relic called the 'Boots of Pleading' that allows you to survive falling in spikes",
+    "InitialReleaseDate": "2023-03-21",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Boots-of-Pleading",
     "PluginFile": "BootsOfPleading.dll"
@@ -77,6 +84,7 @@
     "Name": "Double Jump",
     "Author": "Damocles",
     "Description": "Adds a new relic called the 'Purified Hand of the Nun' that allows you to double jump",
+    "InitialReleaseDate": "2023-03-26",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Double-Jump",
     "PluginFile": "BlasDoubleJump.dll"
@@ -85,6 +93,7 @@
     "Name": "Random Prayer",
     "Author": "Damocles",
     "Description": "Adds a new penitence that randomizes which prayer is used each time you attempt to cast one",
+    "InitialReleaseDate": "2023-03-27",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Random-Prayer-Use",
     "PluginFile": "RandomPrayerUse.dll"
@@ -93,6 +102,7 @@
     "Name": "Debug Mod",
     "Author": "Damocles",
     "Description": "Enables the hitbox viewer and other features useful for testing and development",
+    "InitialReleaseDate": "2023-03-26",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Debug-Mod",
     "PluginFile": "DebugMod.dll"
@@ -101,6 +111,7 @@
     "Name": "OHKO",
     "Author": "Damocles",
     "Description": "A mod that makes any source of damage instantly kill the player",
+    "InitialReleaseDate": "2023-06-11",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-OHKO",
     "PluginFile": "OneHitKO.dll"
