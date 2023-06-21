@@ -17,6 +17,7 @@ namespace BlasModInstaller
         public string Name { get; set; }
         public string Author { get; set; }
         public string Description { get; set; }
+        public DateTimeOffset InitialReleaseDate { get; set; }
         public string GithubAuthor { get; set; }
         public string GithubRepo { get; set; }
         public string PluginFile { get; set; }
@@ -24,6 +25,7 @@ namespace BlasModInstaller
 
         public string LatestVersion { get; set; }
         public string LatestDownloadURL { get; set; }
+        public DateTimeOffset LatestReleaseDate { get; set; }
 
         [JsonIgnore]
         private bool _downloading;
@@ -35,6 +37,7 @@ namespace BlasModInstaller
             // Name is already going to be the same
             Author = globalMod.Author;
             Description = globalMod.Description;
+            InitialReleaseDate = globalMod.InitialReleaseDate;
             GithubAuthor = globalMod.GithubAuthor;
             GithubRepo = globalMod.GithubRepo;
             PluginFile = globalMod.PluginFile;
@@ -272,11 +275,13 @@ namespace BlasModInstaller
             }
             else if (sort == SortType.InitialRelease)
             {
-                return Name.CompareTo(mod.Name);
+                int difference = InitialReleaseDate.CompareTo(mod.InitialReleaseDate);
+                return difference == 0 ? SortBy(mod, SortType.Name) : difference;
             }
             else if (sort == SortType.LatestRelease)
             {
-                return Name.CompareTo(mod.Name);
+                int difference = LatestReleaseDate.CompareTo(mod.LatestReleaseDate) * -1;
+                return difference == 0 ? SortBy(mod, SortType.Name) : difference;
             }
             return 0;
         }

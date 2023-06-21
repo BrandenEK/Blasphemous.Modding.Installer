@@ -40,11 +40,13 @@ namespace BlasModInstaller.Pages
                     Octokit.Release latestRelease = await MainForm.GetLatestRelease(globalMod.GithubAuthor, globalMod.GithubRepo);
                     Version webVersion = MainForm.CleanSemanticVersion(latestRelease.TagName);
                     string downloadURL = latestRelease.Assets[0].BrowserDownloadUrl;
-
+                    DateTimeOffset latestReleaseDate = latestRelease.CreatedAt;
+                    
                     if (DataExists(globalMod, out Mod localMod))
                     {
                         localMod.LatestVersion = webVersion.ToString();
                         localMod.LatestDownloadURL = downloadURL;
+                        localMod.LatestReleaseDate = latestReleaseDate;
                         localMod.UpdateLocalData(globalMod);
                         localMod.UpdateUI();
                     }
@@ -52,6 +54,7 @@ namespace BlasModInstaller.Pages
                     {
                         globalMod.LatestVersion = webVersion.ToString();
                         globalMod.LatestDownloadURL = downloadURL;
+                        globalMod.LatestReleaseDate = latestReleaseDate;
                         dataCollection.Add(globalMod);
                         globalMod.CreateUI(PageSection, dataCollection.Count - 1);
                     }
