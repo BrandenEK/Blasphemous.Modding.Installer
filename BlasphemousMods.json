@@ -37,7 +37,7 @@
   },
   {
     "Name": "Multiworld",
-    "Author": "Damocles",
+    "Author": "Damocles & TRPG",
     "Description": "A multiworld client that allows the randomizer to connect to Archipelago",
     "InitialReleaseDate": "2023-02-22",
     "GithubAuthor": "BrandenEK",
@@ -73,7 +73,7 @@
   },
   {
     "Name": "Boots of Pleading",
-    "Author": "Damocles",
+    "Author": "Damocles & Kein",
     "Description": "Adds a new relic called the 'Boots of Pleading' that allows you to survive falling in spikes",
     "InitialReleaseDate": "2023-03-21",
     "GithubAuthor": "BrandenEK",
