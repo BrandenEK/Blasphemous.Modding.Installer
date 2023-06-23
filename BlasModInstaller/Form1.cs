@@ -104,6 +104,8 @@ namespace BlasModInstaller
                 config = new Config();
                 SaveConfig();
             }
+
+            debugLog.Visible = config.DebugMode;
         }
 
         private void SaveConfig()

@@ -41,7 +41,7 @@ namespace BlasModInstaller.Pages
                     Version webVersion = MainForm.CleanSemanticVersion(latestRelease.TagName);
                     string downloadURL = latestRelease.Assets[0].BrowserDownloadUrl;
                     DateTimeOffset latestReleaseDate = latestRelease.CreatedAt;
-                    
+
                     if (DataExists(globalMod, out Mod localMod))
                     {
                         localMod.LatestVersion = webVersion.ToString();
