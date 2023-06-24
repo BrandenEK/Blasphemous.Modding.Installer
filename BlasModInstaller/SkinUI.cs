@@ -93,7 +93,7 @@ namespace BlasModInstaller
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left,
                 Location = new Point(200, 13),
-                Size = new Size(200, 20),
+                Size = new Size(300, 20),
                 ForeColor = Color.LightGray,
                 TextAlign = ContentAlignment.BottomLeft,
                 Font = Fonts.SKIN_AUTHOR,

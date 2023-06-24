@@ -84,6 +84,7 @@ namespace BlasModInstaller.Pages
                 }
             }
 
+            PageSection.VerticalScroll.Value = 0;
             for (int i = 0; i < dataCollection.Count; i++)
                 dataCollection[i].SetUIPosition(i);
         }

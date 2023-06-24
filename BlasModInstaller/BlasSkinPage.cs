@@ -60,6 +60,8 @@ namespace BlasModInstaller.Pages
         public override void Sort()
         {
             dataCollection.Sort();
+
+            PageSection.VerticalScroll.Value = 0;
             for (int i = 0; i < dataCollection.Count; i++)
                 dataCollection[i].SetUIPosition(i);
         }

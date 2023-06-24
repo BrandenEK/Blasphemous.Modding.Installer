@@ -256,11 +256,6 @@ namespace BlasModInstaller
             return false;
         }
 
-        private void OnFormClose(object sender, FormClosingEventArgs e)
-        {
-            SaveConfig();
-        }
-
         // Sorting
 
         private void ClickedSortByName(object sender, EventArgs e)
@@ -353,5 +348,47 @@ namespace BlasModInstaller
             }
         }
 
+        // Form state
+
+        private void SaveWindowState()
+        {
+            if (WindowState == FormWindowState.Maximized)
+            {
+                Properties.Settings.Default.Location = RestoreBounds.Location;
+                Properties.Settings.Default.Size = RestoreBounds.Size;
+                Properties.Settings.Default.Maximized = true;
+            }
+            else if (WindowState == FormWindowState.Minimized)
+            {
+                Properties.Settings.Default.Location = RestoreBounds.Location;
+                Properties.Settings.Default.Size = RestoreBounds.Size;
+                Properties.Settings.Default.Maximized = false;
+            }
+            else
+            {
+                Properties.Settings.Default.Location = Location;
+                Properties.Settings.Default.Size = Size;
+                Properties.Settings.Default.Maximized = false;
+            }
+            Properties.Settings.Default.Save();
+        }
+
+        private void LoadWindowState()
+        {
+            WindowState = Properties.Settings.Default.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+            Location = Properties.Settings.Default.Location;
+            Size = Properties.Settings.Default.Size;
+        }
+
+        private void OnFormOpen(object sender, EventArgs e)
+        {
+            LoadWindowState();
+        }
+
+        private void OnFormClose(object sender, FormClosingEventArgs e)
+        {
+            SaveConfig();
+            SaveWindowState();
+        }
     }
 }
