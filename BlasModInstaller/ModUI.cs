@@ -23,6 +23,7 @@ namespace BlasModInstaller
             nameText.Size = new Size(nameText.PreferredWidth, 30);
             authorText.Text = "by " + author;
             authorText.Location = new Point(nameText.PreferredWidth + 15, authorText.Location.Y);
+            authorText.Size = new Size(authorText.PreferredWidth, 20);
 
             // Install button
             installButton.Text = installed ? "Installed" : "Not installed";
@@ -100,7 +101,7 @@ namespace BlasModInstaller
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left,
                 Location = new Point(200, 13),
-                Size = new Size(250, 20),
+                Size = new Size(100, 20),
                 ForeColor = Color.LightGray,
                 TextAlign = ContentAlignment.BottomLeft,
                 Font = Fonts.MOD_AUTHOR,
