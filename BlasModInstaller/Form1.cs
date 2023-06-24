@@ -14,7 +14,7 @@ namespace BlasModInstaller
     {
         // Don't forget to increase this when releasing an update!  Have to do it here
         // because I'm not sure how to increase file version for windows forms
-        private readonly Version CurrentInstallerVersion = new Version(1, 0, 0);
+        private readonly Version CurrentInstallerVersion = new Version(1, 0, 1);
 
         public static string DownloadsPath => Environment.CurrentDirectory + "\\downloads\\";
         private string ConfigPath => Environment.CurrentDirectory + "\\installer.cfg";
@@ -382,6 +382,7 @@ namespace BlasModInstaller
 
         private void OnFormOpen(object sender, EventArgs e)
         {
+            this.Text = "Blasphemous Mod Installer " + CurrentInstallerVersion.ToString(3);
             LoadWindowState();
         }
 
