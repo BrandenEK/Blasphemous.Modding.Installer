@@ -138,9 +138,16 @@ namespace BlasModInstaller
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
-            BlasModPage.AdjustPageWidth();
-            BlasSkinPage.AdjustPageWidth();
-            BlasIIModPage.AdjustPageWidth();
+            try
+            {
+                BlasModPage.AdjustPageWidth();
+                BlasSkinPage.AdjustPageWidth();
+                BlasIIModPage.AdjustPageWidth();
+            }
+            catch (NullReferenceException)
+            {
+                Log("Pages not initialized yet, skipping resizing!");
+            }
         }
 
         public void RemoveButtonFocus(object sender, EventArgs e)
@@ -150,7 +157,8 @@ namespace BlasModInstaller
 
         public static void Log(string message)
         {
-            Instance.debugLog.Text += message + "\r\n";
+            if (Instance.config.DebugMode)
+                Instance.debugLog.Text += message + "\r\n";
         }
 
         private void ShowSideButtonBorder(object sender, EventArgs e)
