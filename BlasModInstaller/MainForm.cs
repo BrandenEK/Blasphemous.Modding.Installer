@@ -382,7 +382,7 @@ namespace BlasModInstaller
 
         private void OnFormOpen(object sender, EventArgs e)
         {
-            this.Text = "Blasphemous Mod Installer " + CurrentInstallerVersion.ToString(3);
+            this.Text = "Blasphemous Mod Installer v" + CurrentInstallerVersion.ToString(3);
             LoadWindowState();
         }
 
