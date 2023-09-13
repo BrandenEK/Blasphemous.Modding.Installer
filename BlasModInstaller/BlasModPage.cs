@@ -21,7 +21,7 @@ namespace BlasModInstaller.Pages
             for (int i = 0; i < dataCollection.Count; i++)
                 dataCollection[i].CreateUI(PageSection, i);
 
-            MainForm.Log($"Loaded {dataCollection.Count} local mods");
+            Core.UIHandler.Log($"Loaded {dataCollection.Count} local mods");
             SetBackgroundColor();
             Sort();
         }
@@ -60,7 +60,7 @@ namespace BlasModInstaller.Pages
                     }
                 }
 
-                MainForm.Log($"Loaded {globalMods.Length} global mods");
+                Core.UIHandler.Log($"Loaded {globalMods.Length} global mods");
             }
 
             SaveLocalData();

@@ -22,7 +22,7 @@ namespace BlasModInstaller.Pages
             for (int i = 0; i < dataCollection.Count; i++)
                 dataCollection[i].CreateUI(PageSection, i);
 
-            MainForm.Log($"Loaded {dataCollection.Count} local skins");
+            Core.UIHandler.Log($"Loaded {dataCollection.Count} local skins");
             SetBackgroundColor();
             Sort();
         }
@@ -49,7 +49,7 @@ namespace BlasModInstaller.Pages
                     }
                 }
 
-                MainForm.Log($"Loaded {contents.Count} global skins");
+                Core.UIHandler.Log($"Loaded {contents.Count} global skins");
             }
 
             SaveLocalData();

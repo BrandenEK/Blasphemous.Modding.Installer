@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace BlasModInstaller
 {
-    public partial class MainForm : Form
+    public partial class UIHandler : Form
     {
         // Don't forget to increase this when releasing an update!  Have to do it here
         // because I'm not sure how to increase file version for windows forms
@@ -16,8 +16,6 @@ namespace BlasModInstaller
 
         public static string DownloadsPath => Environment.CurrentDirectory + "\\downloads\\";
         private string ConfigPath => Environment.CurrentDirectory + "\\installer.cfg";
-
-        public static MainForm Instance { get; private set; }
 
         private Config config;
         public static string BlasRootFolder => Instance.config.BlasRootFolder;
@@ -33,11 +31,9 @@ namespace BlasModInstaller
         public BlasSkinPage BlasSkinPage { get; private set; }
         public BlasIIModPage BlasIIModPage { get; private set; }
 
-        public MainForm()
+        public UIHandler()
         {
             Directory.CreateDirectory(DownloadsPath);
-            if (Instance == null)
-                Instance = this;
             InitializeComponent();
 
             BlasModPage = new BlasModPage(blas1modSection);
@@ -108,10 +104,10 @@ namespace BlasModInstaller
             titleLabel.Focus();
         }
 
-        public static void Log(string message)
+        public void Log(string message)
         {
-            if (Instance.config.DebugMode)
-                Instance.debugLog.Text += message + "\r\n";
+            if (config.DebugMode)
+                debugLog.Text += message + "\r\n";
         }
 
         private void ShowSideButtonBorder(object sender, EventArgs e)

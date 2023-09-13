@@ -61,10 +61,10 @@ namespace BlasModInstaller
             Release latestRelease = await GetLatestRelease("BrandenEK", "Blasphemous-Mod-Installer");
             Version newestVersion = CleanSemanticVersion(latestRelease.TagName);
 
-            if (newestVersion.CompareTo(MainForm.currentInstallerVersion) > 0)
+            if (newestVersion.CompareTo(UIHandler.currentInstallerVersion) > 0)
             {
                 _installerLatestReleaseLink = latestRelease.HtmlUrl;
-                MainForm.Instance.UpdatePanelSetVisible(true);
+                Core.UIHandler.UpdatePanelSetVisible(true);
             }
         }
 

@@ -82,7 +82,7 @@ namespace BlasModInstaller.Pages
         {
             if (MessageBox.Show($"Are you sure you wish to install {DataCount} items?", Name, MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                MainForm.Log("Installing all items");
+                Core.UIHandler.Log("Installing all items");
                 OnInstallAll();
             }
         }
@@ -92,7 +92,7 @@ namespace BlasModInstaller.Pages
         {
             if (MessageBox.Show($"Are you sure you wish to uninstall {DataCount} items?", Name, MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                MainForm.Log("Uninstalling all items");
+                Core.UIHandler.Log("Uninstalling all items");
                 OnUninstallAll();
             }
         }
@@ -102,7 +102,7 @@ namespace BlasModInstaller.Pages
         {
             if (MessageBox.Show($"Are you sure you wish to enable {DataCount} items?", Name, MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                MainForm.Log("Enabling all items");
+                Core.UIHandler.Log("Enabling all items");
                 OnEnableAll();
             }
         }
@@ -112,7 +112,7 @@ namespace BlasModInstaller.Pages
         {
             if (MessageBox.Show($"Are you sure you wish to disable {DataCount} items?", Name, MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                MainForm.Log("Disabling all items");
+                Core.UIHandler.Log("Disabling all items");
                 OnDisableAll();
             }
         }
@@ -126,7 +126,7 @@ namespace BlasModInstaller.Pages
         public void AdjustPageWidth()
         {
             bool scrollVisible = _pageSection.VerticalScroll.Visible;
-            _pageSection.Width = MainForm.Instance.MainSectionWidth + (scrollVisible ? 2 : -15);
+            _pageSection.Width = Core.UIHandler.MainSectionWidth + (scrollVisible ? 2 : -15);
         }
     }
 }

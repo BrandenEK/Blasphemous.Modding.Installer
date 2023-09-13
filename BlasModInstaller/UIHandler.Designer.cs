@@ -1,7 +1,7 @@
 ﻿
 namespace BlasModInstaller
 {
-    partial class MainForm
+    partial class UIHandler
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace BlasModInstaller
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIHandler));
             this.blas1modScroll = new System.Windows.Forms.VScrollBar();
             this.blas1modSection = new System.Windows.Forms.Panel();
             this.blasLocButton = new System.Windows.Forms.Button();

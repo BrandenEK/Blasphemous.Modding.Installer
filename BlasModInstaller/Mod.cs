@@ -101,21 +101,21 @@ namespace BlasModInstaller
         // Paths
 
         [JsonIgnore]
-        public string PathToEnabledPlugin => $"{MainForm.BlasRootFolder}\\Modding\\plugins\\{PluginFile}";
+        public string PathToEnabledPlugin => $"{UIHandler.BlasRootFolder}\\Modding\\plugins\\{PluginFile}";
         [JsonIgnore]
-        public string PathToDisabledPlugin => $"{MainForm.BlasRootFolder}\\Modding\\disabled\\{PluginFile}";
+        public string PathToDisabledPlugin => $"{UIHandler.BlasRootFolder}\\Modding\\disabled\\{PluginFile}";
         [JsonIgnore]
-        public string PathToConfigFile => $"{MainForm.BlasRootFolder}\\Modding\\config\\{Name}.cfg";
+        public string PathToConfigFile => $"{UIHandler.BlasRootFolder}\\Modding\\config\\{Name}.cfg";
         [JsonIgnore]
-        public string PathToDataFolder => $"{MainForm.BlasRootFolder}\\Modding\\data\\{Name}";
+        public string PathToDataFolder => $"{UIHandler.BlasRootFolder}\\Modding\\data\\{Name}";
         [JsonIgnore]
-        public string PathToKeybindingsFile => $"{MainForm.BlasRootFolder}\\Modding\\keybindings\\{Name}.txt";
+        public string PathToKeybindingsFile => $"{UIHandler.BlasRootFolder}\\Modding\\keybindings\\{Name}.txt";
         [JsonIgnore]
-        public string PathToLevelsFolder => $"{MainForm.BlasRootFolder}\\Modding\\levels\\{Name}";
+        public string PathToLevelsFolder => $"{UIHandler.BlasRootFolder}\\Modding\\levels\\{Name}";
         [JsonIgnore]
-        public string PathToLocalizationFile => $"{MainForm.BlasRootFolder}\\Modding\\localization\\{Name}.txt";
+        public string PathToLocalizationFile => $"{UIHandler.BlasRootFolder}\\Modding\\localization\\{Name}.txt";
         [JsonIgnore]
-        public string PathToLogFile => $"{MainForm.BlasRootFolder}\\Modding\\logs\\{Name}.log";
+        public string PathToLogFile => $"{UIHandler.BlasRootFolder}\\Modding\\logs\\{Name}.log";
         [JsonIgnore]
         public string GithubLink => $"https://github.com/{GithubAuthor}/{GithubRepo}";
 
@@ -123,18 +123,18 @@ namespace BlasModInstaller
 
         public async Task Install()
         {
-            if (MainForm.BlasRootFolder == null) return;
+            if (UIHandler.BlasRootFolder == null) return;
 
             _downloading = true;
             using (WebClient client = new WebClient())
             {
                 _ui.ShowDownloadingStatus();
 
-                string downloadPath = $"{MainForm.DownloadsPath}{Name.Replace(' ', '_')}.zip";
+                string downloadPath = $"{UIHandler.DownloadsPath}{Name.Replace(' ', '_')}.zip";
 
                 await client.DownloadFileTaskAsync(new Uri(LatestDownloadURL), downloadPath);
 
-                string installPath = MainForm.BlasRootFolder;
+                string installPath = UIHandler.BlasRootFolder;
                 if (Name != "Modding API") installPath += "\\Modding";
 
                 using (ZipFile zipFile = ZipFile.Read(downloadPath))
@@ -152,7 +152,7 @@ namespace BlasModInstaller
 
         public void Uninstall()
         {
-            if (MainForm.BlasRootFolder == null) return;
+            if (UIHandler.BlasRootFolder == null) return;
 
             if (File.Exists(PathToEnabledPlugin))
                 File.Delete(PathToEnabledPlugin);
@@ -175,9 +175,9 @@ namespace BlasModInstaller
             {
                 foreach (string dll in RequiredDlls)
                 {
-                    if (MainForm.Instance.BlasModPage.InstalledModsThatRequireDll(dll) == 0)
+                    if (Core.UIHandler.BlasModPage.InstalledModsThatRequireDll(dll) == 0)
                     {
-                        string dllPath = MainForm.BlasRootFolder + "\\Modding\\data\\" + dll;
+                        string dllPath = UIHandler.BlasRootFolder + "\\Modding\\data\\" + dll;
                         if (File.Exists(dllPath))
                             File.Delete(dllPath);
                     }
@@ -189,7 +189,7 @@ namespace BlasModInstaller
 
         public void Enable()
         {
-            if (MainForm.BlasRootFolder == null) return;
+            if (UIHandler.BlasRootFolder == null) return;
 
             string enabled = PathToEnabledPlugin;
             string disabled = PathToDisabledPlugin;
@@ -206,7 +206,7 @@ namespace BlasModInstaller
 
         public void Disable()
         {
-            if (MainForm.BlasRootFolder == null) return;
+            if (UIHandler.BlasRootFolder == null) return;
 
             string enabled = PathToEnabledPlugin;
             string disabled = PathToDisabledPlugin;
@@ -260,7 +260,7 @@ namespace BlasModInstaller
 
         // Sort methods
 
-        public int CompareTo(object obj) => SortBy(obj as Mod, MainForm.SortBlasMods);
+        public int CompareTo(object obj) => SortBy(obj as Mod, UIHandler.SortBlasMods);
 
         public int SortBy(Mod mod, SortType sort)
         {
@@ -293,7 +293,7 @@ namespace BlasModInstaller
             _ui = new ModUI(this, parentPanel);
             SetUIPosition(modIdx);
             UpdateUI();
-            MainForm.Instance.BlasModPage.AdjustPageWidth();
+            Core.UIHandler.BlasModPage.AdjustPageWidth();
         }
 
         public void UpdateUI()

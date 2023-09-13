@@ -119,8 +119,8 @@ namespace BlasModInstaller
             };
             updateButton.FlatAppearance.BorderColor = Color.White;
             updateButton.Click += skin.ClickedUpdate;
-            updateButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
-            updateButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+            updateButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            updateButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
             previewIdleButton = new Button
             {
@@ -138,8 +138,8 @@ namespace BlasModInstaller
             };
             previewIdleButton.FlatAppearance.BorderColor = Color.Black;
             previewIdleButton.Click += skin.ClickedPreviewIdle;
-            previewIdleButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
-            previewIdleButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+            previewIdleButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            previewIdleButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
             previewChargedButton = new Button
             {
@@ -157,8 +157,8 @@ namespace BlasModInstaller
             };
             previewChargedButton.FlatAppearance.BorderColor = Color.Black;
             previewChargedButton.Click += skin.ClickedPreviewCharged;
-            previewChargedButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
-            previewChargedButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+            previewChargedButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            previewChargedButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
             installButton = new Button
             {
@@ -173,8 +173,8 @@ namespace BlasModInstaller
                 TabStop = false,
             };
             installButton.Click += skin.ClickedInstall;
-            installButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
-            installButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+            installButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            installButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
             parentPanel.AutoScroll = true;
         }

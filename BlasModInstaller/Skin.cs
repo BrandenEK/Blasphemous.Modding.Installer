@@ -40,7 +40,7 @@ namespace BlasModInstaller
         }
 
         [JsonIgnore]
-        public bool Installed => File.Exists($"{MainForm.BlasRootFolder}\\Modding\\skins\\{id}\\info.txt");
+        public bool Installed => File.Exists($"{UIHandler.BlasRootFolder}\\Modding\\skins\\{id}\\info.txt");
 
         [JsonIgnore]
         public Version LocalVersion
@@ -75,7 +75,7 @@ namespace BlasModInstaller
         // Paths
 
         [JsonIgnore]
-        public string PathToSkinFolder => $"{MainForm.BlasRootFolder}\\Modding\\skins\\{id}";
+        public string PathToSkinFolder => $"{UIHandler.BlasRootFolder}\\Modding\\skins\\{id}";
         [JsonIgnore]
         public string InfoURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{id}/info.txt";
         [JsonIgnore]
@@ -89,14 +89,14 @@ namespace BlasModInstaller
 
         public async Task Install()
         {
-            if (MainForm.BlasRootFolder == null) return;
+            if (UIHandler.BlasRootFolder == null) return;
 
             _downloading = true;
             using (WebClient client = new WebClient())
             {
                 _ui.ShowDownloadingStatus();
 
-                string downloadPath = $"{MainForm.DownloadsPath}{id}";
+                string downloadPath = $"{UIHandler.DownloadsPath}{id}";
                 Directory.CreateDirectory(downloadPath);
 
                 await client.DownloadFileTaskAsync(new Uri(InfoURL), downloadPath + "\\info.txt");
@@ -116,7 +116,7 @@ namespace BlasModInstaller
 
         public void Uninstall()
         {
-            if (MainForm.BlasRootFolder == null) return;
+            if (UIHandler.BlasRootFolder == null) return;
 
             if (Directory.Exists(PathToSkinFolder))
                 Directory.Delete(PathToSkinFolder, true);
@@ -166,7 +166,7 @@ namespace BlasModInstaller
             _ui = new SkinUI(this, parentPanel);
             SetUIPosition(skinIdx);
             UpdateUI();
-            MainForm.Instance.BlasSkinPage.AdjustPageWidth();
+            Core.UIHandler.BlasSkinPage.AdjustPageWidth();
         }
 
         public void UpdateUI()
@@ -181,7 +181,7 @@ namespace BlasModInstaller
 
         // Sorting methods
 
-        public int CompareTo(object obj) => SortBy(obj as Skin, MainForm.SortBlasSkins);
+        public int CompareTo(object obj) => SortBy(obj as Skin, UIHandler.SortBlasSkins);
 
         public int SortBy(Skin skin, SortType sort)
         {

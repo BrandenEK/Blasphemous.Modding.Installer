@@ -13,11 +13,14 @@ namespace BlasModInstaller
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+
+            UIHandler = new UIHandler();
+            Application.Run(UIHandler);
 
             GithubHandler = new GithubHandler(null);
         }
 
         public static GithubHandler GithubHandler { get; private set; }
+        public static UIHandler UIHandler { get; private set; }
     }
 }

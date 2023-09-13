@@ -126,8 +126,8 @@ namespace BlasModInstaller
             };
             updateButton.FlatAppearance.BorderColor = Color.White;
             updateButton.Click += mod.ClickedUpdate;
-            updateButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
-            updateButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+            updateButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            updateButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
             readmeButton = new Button
             {
@@ -145,8 +145,8 @@ namespace BlasModInstaller
             };
             readmeButton.FlatAppearance.BorderColor = Color.Black;
             readmeButton.Click += mod.ClickedReadme;
-            readmeButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
-            readmeButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+            readmeButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            readmeButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
             installButton = new Button
             {
@@ -161,8 +161,8 @@ namespace BlasModInstaller
                 TabStop = false,
             };
             installButton.Click += mod.ClickedInstall;
-            installButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
-            installButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+            installButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            installButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
             enableButton = new Button
             {
@@ -177,8 +177,8 @@ namespace BlasModInstaller
                 TabStop = false,
             };
             enableButton.Click += mod.ClickedEnable;
-            enableButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
-            enableButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+            enableButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            enableButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
             parentPanel.AutoScroll = true;
         }
