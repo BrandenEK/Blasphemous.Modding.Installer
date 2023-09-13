@@ -1,4 +1,5 @@
 ﻿using BlasModInstaller.Pages;
+using BlasModInstaller.Properties;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -189,6 +190,7 @@ namespace BlasModInstaller
             if (section == SectionType.Blas1Mods)
             {
                 titleLabel.Text = BlasModPage.Name;
+                titleSectionInner.BackgroundImage = Resources.background1;
                 SetSortByBox(SortBlasMods);
 
                 validated = ValidateBlas1Directory(BlasRootFolder);
@@ -203,6 +205,7 @@ namespace BlasModInstaller
             else if (section == SectionType.Blas1Skins)
             {
                 titleLabel.Text = BlasSkinPage.Name;
+                titleSectionInner.BackgroundImage = Resources.background1;
                 SetSortByBox(SortBlasSkins);
 
                 validated = ValidateBlas1Directory(BlasRootFolder);
@@ -217,6 +220,7 @@ namespace BlasModInstaller
             else if (section == SectionType.Blas2Mods)
             {
                 titleLabel.Text = BlasIIModPage.Name;
+                titleSectionInner.BackgroundImage = Resources.background2;
                 SetSortByBox(SortBlasIIMods);
 
                 // Validate exe and load data
