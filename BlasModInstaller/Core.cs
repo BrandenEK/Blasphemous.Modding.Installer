@@ -15,12 +15,18 @@ namespace BlasModInstaller
             Application.SetCompatibleTextRenderingDefault(false);
 
             UIHandler = new UIHandler();
-            Application.Run(UIHandler);
+            SettingsHandler = new SettingsHandler(Environment.CurrentDirectory + "\\installer.cfg");
+            GithubHandler = new GithubHandler(SettingsHandler.Config.GithubToken);
 
-            GithubHandler = new GithubHandler(null);
+            Application.Run(UIHandler);
         }
 
-        public static GithubHandler GithubHandler { get; private set; }
         public static UIHandler UIHandler { get; private set; }
+        public static SettingsHandler SettingsHandler { get; private set; }
+        public static GithubHandler GithubHandler { get; private set; }
+
+        // Don't forget to increase this when releasing an update!  Have to do it here
+        // because I'm not sure how to increase file version for windows forms
+        public static Version CurrentInstallerVersion => new Version(1, 0, 1);
     }
 }

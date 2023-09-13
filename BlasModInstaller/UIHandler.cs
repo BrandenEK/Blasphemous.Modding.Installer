@@ -1,6 +1,5 @@
 ﻿using BlasModInstaller.Pages;
 using BlasModInstaller.Properties;
-using Newtonsoft.Json;
 using System;
 using System.Drawing;
 using System.IO;
@@ -10,20 +9,7 @@ namespace BlasModInstaller
 {
     public partial class UIHandler : Form
     {
-        // Don't forget to increase this when releasing an update!  Have to do it here
-        // because I'm not sure how to increase file version for windows forms
-        public static readonly Version currentInstallerVersion = new Version(1, 0, 1);
-
         public static string DownloadsPath => Environment.CurrentDirectory + "\\downloads\\";
-        private string ConfigPath => Environment.CurrentDirectory + "\\installer.cfg";
-
-        private Config config;
-        public static string BlasRootFolder => Instance.config.BlasRootFolder;
-        public static string BlasIIRootFolder => Instance.config.BlasIIRootFolder;
-        public static SectionType CurrentSection => Instance.config.LastSection;
-        public static SortType SortBlasMods => Instance.config.BlasModSort;
-        public static SortType SortBlasSkins => Instance.config.BlasSkinSort;
-        public static SortType SortBlasIIMods => Instance.config.BlasIIModSort;
 
         public int MainSectionWidth => mainSection.Width;
 
@@ -39,33 +25,6 @@ namespace BlasModInstaller
             BlasModPage = new BlasModPage(blas1modSection);
             BlasSkinPage = new BlasSkinPage(blas1skinSection);
             BlasIIModPage = new BlasIIModPage(blas2modSection);
-
-            LoadConfig();
-            OpenSection(config.LastSection);
-        }
-
-        // Config
-
-        private void LoadConfig()
-        {
-            if (File.Exists(ConfigPath))
-            {
-                // Load config
-                config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(ConfigPath));
-            }
-            else
-            {
-                // Create new config
-                config = new Config();
-                SaveConfig();
-            }
-
-            debugLog.Visible = config.DebugMode;
-        }
-
-        private void SaveConfig()
-        {
-            File.WriteAllText(ConfigPath, JsonConvert.SerializeObject(config, Formatting.Indented));
         }
 
         // Update installer
@@ -74,13 +33,17 @@ namespace BlasModInstaller
 
         public void UpdatePanelSetVisible(bool visible) => warningSectionOuter.Visible = visible;
 
+        // Debug status
+
+        public void DebugLogSetVisible(bool visible) => debugLog.Visible = visible;
+
         // ...
 
         private void ChooseBlasLocation(object sender, EventArgs e)
         {
             if (blasLocDialog.ShowDialog() == DialogResult.OK)
             {
-                config.BlasRootFolder = Path.GetDirectoryName(blasLocDialog.FileName);
+                Core.SettingsHandler.Config.Blas1RootFolder = Path.GetDirectoryName(blasLocDialog.FileName);
                 OpenSection(CurrentSection);
             }
         }
@@ -106,7 +69,7 @@ namespace BlasModInstaller
 
         public void Log(string message)
         {
-            if (config.DebugMode)
+            if (Core.SettingsHandler.Config.DebugMode)
                 debugLog.Text += message + "\r\n";
         }
 
@@ -128,6 +91,9 @@ namespace BlasModInstaller
 
         private void OpenSection(SectionType section)
         {
+            // Set current page instead of switching on type
+            Core.SettingsHandler.Config.LastSection = section;
+
             bool validated = false;
             if (section == SectionType.Blas1Mods)
             {
@@ -183,8 +149,6 @@ namespace BlasModInstaller
             disableBtn.Visible = validated && section != SectionType.Blas1Skins;
             sortByInitialRelease.Visible = section != SectionType.Blas1Skins;
             sortByLatestRelease.Visible = section != SectionType.Blas1Skins;
-
-            config.LastSection = section;
         }
 
         private bool ValidateBlas1Directory(string blasRootPath)
@@ -192,7 +156,7 @@ namespace BlasModInstaller
             if (File.Exists(blasRootPath + "\\Blasphemous.exe"))
             {
                 Log("Blas1 exe path validated!");
-                config.BlasRootFolder = blasRootPath;
+                Core.SettingsHandler.Config.Blas1RootFolder = blasRootPath;
 
                 Directory.CreateDirectory(blasRootPath + "\\Modding\\disabled"); // Only because its not included in the API
                 return true;
@@ -294,48 +258,18 @@ namespace BlasModInstaller
             }
         }
 
-        // Form state
-
-        private void SaveWindowState()
-        {
-            if (WindowState == FormWindowState.Maximized)
-            {
-                Properties.Settings.Default.Location = RestoreBounds.Location;
-                Properties.Settings.Default.Size = RestoreBounds.Size;
-                Properties.Settings.Default.Maximized = true;
-            }
-            else if (WindowState == FormWindowState.Minimized)
-            {
-                Properties.Settings.Default.Location = RestoreBounds.Location;
-                Properties.Settings.Default.Size = RestoreBounds.Size;
-                Properties.Settings.Default.Maximized = false;
-            }
-            else
-            {
-                Properties.Settings.Default.Location = Location;
-                Properties.Settings.Default.Size = Size;
-                Properties.Settings.Default.Maximized = false;
-            }
-            Properties.Settings.Default.Save();
-        }
-
-        private void LoadWindowState()
-        {
-            WindowState = Properties.Settings.Default.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
-            Location = Properties.Settings.Default.Location;
-            Size = Properties.Settings.Default.Size;
-        }
-
         private void OnFormOpen(object sender, EventArgs e)
         {
-            Text = "Blasphemous Mod Installer v" + currentInstallerVersion.ToString(3);
-            LoadWindowState();
+            Text = "Blasphemous Mod Installer v" + Core.CurrentInstallerVersion.ToString(3);
+            Core.SettingsHandler.LoadWindowSettings();
+
+            OpenSection(Core.SettingsHandler.Config.LastSection);
         }
 
         private void OnFormClose(object sender, FormClosingEventArgs e)
         {
-            SaveConfig();
-            SaveWindowState();
+            Core.SettingsHandler.SaveConfigSettings();
+            Core.SettingsHandler.SaveWindowSettings();
         }
     }
 }
