@@ -84,6 +84,7 @@
     <Compile Include="BlasSkinPage.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="GithubHandler.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,7 +94,7 @@
     <Compile Include="Mod.cs" />
     <Compile Include="InstallerPage.cs" />
     <Compile Include="ModUI.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Core.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Skin.cs" />

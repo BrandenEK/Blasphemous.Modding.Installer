@@ -2,11 +2,8 @@
 using BlasModInstaller.Properties;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BlasModInstaller
@@ -15,7 +12,7 @@ namespace BlasModInstaller
     {
         // Don't forget to increase this when releasing an update!  Have to do it here
         // because I'm not sure how to increase file version for windows forms
-        private readonly Version CurrentInstallerVersion = new Version(1, 0, 1);
+        public static readonly Version currentInstallerVersion = new Version(1, 0, 1);
 
         public static string DownloadsPath => Environment.CurrentDirectory + "\\downloads\\";
         private string ConfigPath => Environment.CurrentDirectory + "\\installer.cfg";
@@ -36,9 +33,6 @@ namespace BlasModInstaller
         public BlasSkinPage BlasSkinPage { get; private set; }
         public BlasIIModPage BlasIIModPage { get; private set; }
 
-        private Octokit.GitHubClient github;
-        private string installerLatestReleaseURL;
-
         public MainForm()
         {
             Directory.CreateDirectory(DownloadsPath);
@@ -51,43 +45,7 @@ namespace BlasModInstaller
             BlasIIModPage = new BlasIIModPage(blas2modSection);
 
             LoadConfig();
-            CreateGithubClient();
-
-            CheckForNewerInstallerRelease();
             OpenSection(config.LastSection);
-        }
-
-        public static Version CleanSemanticVersion(string version)
-        {
-            Version cleanVersion;
-            try
-            {
-                cleanVersion = new Version(version.ToLower().Replace("v", ""));
-            }
-            catch (Exception)
-            {
-                cleanVersion = new Version(0, 1, 0);
-            }
-            return cleanVersion;
-        }
-
-        public static async Task<Octokit.Release> GetLatestRelease(string owner, string repo)
-        {
-            return await Instance.github.Repository.Release.GetLatest(owner, repo);
-        }
-
-        public static async Task<IReadOnlyList<Octokit.RepositoryContent>> GetRepositoryContents(string owner, string repo)
-        {
-            return await Instance.github.Repository.Content.GetAllContents(owner, repo);
-        }
-
-        private void CreateGithubClient()
-        {
-            github = new Octokit.GitHubClient(new Octokit.ProductHeaderValue("BlasModInstaller"));
-            if (config.GithubToken != null && config.GithubToken != string.Empty)
-            {
-                github.Credentials = new Octokit.Credentials(config.GithubToken);
-            }
         }
 
         // Config
@@ -114,19 +72,13 @@ namespace BlasModInstaller
             File.WriteAllText(ConfigPath, JsonConvert.SerializeObject(config, Formatting.Indented));
         }
 
-        // ...
+        // Update installer
 
-        private async Task CheckForNewerInstallerRelease()
-        {
-            Octokit.Release latestRelease = await github.Repository.Release.GetLatest("BrandenEK", "Blasphemous-Mod-Installer");
-            Version newestVersion = CleanSemanticVersion(latestRelease.TagName);
-            
-            if (newestVersion.CompareTo(CurrentInstallerVersion) > 0)
-            {
-                installerLatestReleaseURL = latestRelease.HtmlUrl;
-                warningSectionOuter.Visible = true;
-            }
-        }
+        private void ClickInstallerUpdateLink(object sender, LinkLabelLinkClickedEventArgs e) => Core.GithubHandler.OpenInstallerLink();
+
+        public void UpdatePanelSetVisible(bool visible) => warningSectionOuter.Visible = visible;
+
+        // ...
 
         private void ChooseBlasLocation(object sender, EventArgs e)
         {
@@ -177,12 +129,6 @@ namespace BlasModInstaller
         private void ClickedBlas1Skins(object sender, EventArgs e) => OpenSection(SectionType.Blas1Skins);
         private void ClickedBlas2Mods(object sender, EventArgs e) => OpenSection(SectionType.Blas2Mods);
         private void ClickedSettings(object sender, EventArgs e) { }
-
-        private void ClickInstallerUpdateLink(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try { Process.Start(installerLatestReleaseURL); }
-            catch (Exception) { MessageBox.Show("Link does not exist!", "Invalid Link"); }
-        }
 
         private void OpenSection(SectionType section)
         {
@@ -386,7 +332,7 @@ namespace BlasModInstaller
 
         private void OnFormOpen(object sender, EventArgs e)
         {
-            this.Text = "Blasphemous Mod Installer v" + CurrentInstallerVersion.ToString(3);
+            Text = "Blasphemous Mod Installer v" + currentInstallerVersion.ToString(3);
             LoadWindowState();
         }
 

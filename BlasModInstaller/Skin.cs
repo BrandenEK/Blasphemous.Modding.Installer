@@ -51,7 +51,7 @@ namespace BlasModInstaller
                 if (File.Exists(infoPath))
                 {
                     Skin data = JsonConvert.DeserializeObject<Skin>(File.ReadAllText(infoPath));
-                    return MainForm.CleanSemanticVersion(data.version);
+                    return GithubHandler.CleanSemanticVersion(data.version);
                 }
                 else
                 {
@@ -68,7 +68,7 @@ namespace BlasModInstaller
                 if (!Installed)
                     return false;
 
-                return MainForm.CleanSemanticVersion(version).CompareTo(LocalVersion) > 0;
+                return GithubHandler.CleanSemanticVersion(version).CompareTo(LocalVersion) > 0;
             }
         }
 

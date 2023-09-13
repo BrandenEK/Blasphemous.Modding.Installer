@@ -37,8 +37,8 @@ namespace BlasModInstaller.Pages
 
                 foreach (Mod globalMod in globalMods)
                 {
-                    Octokit.Release latestRelease = await MainForm.GetLatestRelease(globalMod.GithubAuthor, globalMod.GithubRepo);
-                    Version webVersion = MainForm.CleanSemanticVersion(latestRelease.TagName);
+                    Octokit.Release latestRelease = await Core.GithubHandler.GetLatestRelease(globalMod.GithubAuthor, globalMod.GithubRepo);
+                    Version webVersion = GithubHandler.CleanSemanticVersion(latestRelease.TagName);
                     string downloadURL = latestRelease.Assets[0].BrowserDownloadUrl;
                     DateTimeOffset latestReleaseDate = latestRelease.CreatedAt;
 

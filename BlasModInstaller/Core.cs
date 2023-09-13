@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BlasModInstaller
 {
-    static class Program
+    static class Core
     {
         /// <summary>
         /// The main entry point for the application.
@@ -17,6 +14,10 @@ namespace BlasModInstaller
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
+
+            GithubHandler = new GithubHandler(null);
         }
+
+        public static GithubHandler GithubHandler { get; private set; }
     }
 }
