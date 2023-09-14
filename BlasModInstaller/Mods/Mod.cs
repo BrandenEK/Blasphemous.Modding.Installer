@@ -111,8 +111,6 @@ namespace BlasModInstaller.Mods
 
         public async Task Install()
         {
-            if (Core.SettingsHandler.Config.Blas1RootFolder == null) return;
-
             _downloading = true;
             using (WebClient client = new WebClient())
             {
@@ -140,8 +138,6 @@ namespace BlasModInstaller.Mods
 
         public void Uninstall()
         {
-            if (Core.SettingsHandler.Config.Blas1RootFolder == null) return;
-
             if (File.Exists(PathToEnabledPlugin))
                 File.Delete(PathToEnabledPlugin);
             if (File.Exists(PathToDisabledPlugin))
@@ -177,8 +173,6 @@ namespace BlasModInstaller.Mods
 
         public void Enable()
         {
-            if (Core.SettingsHandler.Config.Blas1RootFolder == null) return;
-
             string enabled = PathToEnabledPlugin;
             string disabled = PathToDisabledPlugin;
             if (File.Exists(disabled))
@@ -194,8 +188,6 @@ namespace BlasModInstaller.Mods
 
         public void Disable()
         {
-            if (Core.SettingsHandler.Config.Blas1RootFolder == null) return;
-
             string enabled = PathToEnabledPlugin;
             string disabled = PathToDisabledPlugin;
             if (File.Exists(enabled))

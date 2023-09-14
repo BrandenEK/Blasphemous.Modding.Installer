@@ -57,12 +57,7 @@ namespace BlasModInstaller
 
         private void ClickToolsButton(object sender, EventArgs e)
         {
-
-        }
-
-        private void UpdateValidationScreen()
-        {
-
+            // Download tools from online or maybe have them packaged with the installer
         }
 
         // ...
@@ -131,29 +126,32 @@ namespace BlasModInstaller
             // Update background and info
             titleLabel.Text = currentPage.Title;
             titleSectionInner.BackgroundImage = currentPage.Image;
-            SetSortByBox(currentPage.CurrentSortType);
 
-            // Validate and load data
-            bool validated = currentPage.ValidateDirectory();
+            // Validate the status of mods
+            bool folderValid = currentPage.IsRootFolderValid;
+            bool toolsInstalled = currentPage.AreModdingToolsInstalled;
+            bool validated = folderValid && toolsInstalled;
+            Log("Modding status validation: " + validated);
+
             if (validated)
             {
+                SetSortByBox(currentPage.CurrentSortType);
                 currentPage.LoadData();
+                validationSection.Visible = false;
             }
             else
             {
                 validationSection.Visible = true;
-                UpdateValidationScreen();
+                locationBtn.Enabled = !folderValid;
+                locationBtn.Text = "Locate " + currentPage.ExeName;
+                toolsBtn.Enabled = folderValid && !toolsInstalled;
             }
 
             // Show the correct page element
             currentPage.UIElement.Visible = validated;
-
             foreach (var page in Core.AllPages)
                 if (page != currentPage)
-                    page.UIElement.Visible = false;
-
-            if (validated)
-                validationSection.Visible = false;
+                    page.UIElement.Visible = false;                
 
             // Only show side buttons under certain conditions
             divider1.Visible = validated;

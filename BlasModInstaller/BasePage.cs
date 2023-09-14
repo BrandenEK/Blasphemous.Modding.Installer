@@ -22,7 +22,6 @@ namespace BlasModInstaller
 
         public abstract void AdjustPageWidth();
 
-        public abstract bool ValidateDirectory();
         public abstract void LoadData();
 
         public abstract void InstallAll();
@@ -42,5 +41,10 @@ namespace BlasModInstaller
         public Panel UIElement => _uiElement;
 
         public abstract SortType CurrentSortType { get; set; }
+
+        // Move all of these to validator
+        public abstract bool IsRootFolderValid { get; }
+        public abstract bool AreModdingToolsInstalled { get; }
+        public abstract string ExeName { get; }
     }
 }

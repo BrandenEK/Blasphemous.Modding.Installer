@@ -86,8 +86,6 @@ namespace BlasModInstaller.Skins
 
         public async Task Install()
         {
-            if (Core.SettingsHandler.Config.Blas1RootFolder == null) return;
-
             _downloading = true;
             using (WebClient client = new WebClient())
             {
@@ -113,8 +111,6 @@ namespace BlasModInstaller.Skins
 
         public void Uninstall()
         {
-            if (Core.SettingsHandler.Config.Blas1RootFolder == null) return;
-
             if (Directory.Exists(PathToSkinFolder))
                 Directory.Delete(PathToSkinFolder, true);
 

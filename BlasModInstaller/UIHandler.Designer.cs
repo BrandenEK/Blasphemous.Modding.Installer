@@ -118,8 +118,8 @@ namespace BlasModInstaller
             this.locationBtn.Location = new System.Drawing.Point(470, 310);
             this.locationBtn.Name = "locationBtn";
             this.locationBtn.Size = new System.Drawing.Size(210, 50);
-            this.locationBtn.TabIndex = 7;
-            this.locationBtn.Text = "Location btn";
+            this.locationBtn.TabIndex = 0;
+            this.locationBtn.Text = "Locate .exe";
             this.locationBtn.UseVisualStyleBackColor = true;
             this.locationBtn.Click += new System.EventHandler(this.ClickLocationButton);
             // 
@@ -143,8 +143,8 @@ namespace BlasModInstaller
             this.toolsBtn.Location = new System.Drawing.Point(470, 380);
             this.toolsBtn.Name = "toolsBtn";
             this.toolsBtn.Size = new System.Drawing.Size(210, 50);
-            this.toolsBtn.TabIndex = 8;
-            this.toolsBtn.Text = "Tools btn";
+            this.toolsBtn.TabIndex = 1;
+            this.toolsBtn.Text = "Install modding tools";
             this.toolsBtn.UseVisualStyleBackColor = true;
             this.toolsBtn.Click += new System.EventHandler(this.ClickToolsButton);
             // 

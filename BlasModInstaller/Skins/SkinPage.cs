@@ -36,21 +36,6 @@ namespace BlasModInstaller.Skins
 
         // Data
 
-        public override bool ValidateDirectory()
-        {
-            string path = Core.SettingsHandler.Config.Blas1RootFolder;
-            if (File.Exists(path + "\\Blasphemous.exe"))
-            {
-                Directory.CreateDirectory(path + "\\Modding\\disabled");
-
-                Core.UIHandler.Log("Blas1 exe path validated!");
-                return true;
-            }
-
-            Core.UIHandler.Log("Blas1 exe path not found!");
-            return false;
-        }
-
         public override void LoadData()
         {
             AdjustPageWidth();
@@ -198,5 +183,30 @@ namespace BlasModInstaller.Skins
             get => Core.SettingsHandler.Config.Blas1SkinSort;
             set => Core.SettingsHandler.Config.Blas1SkinSort = value;
         }
+
+        public override bool IsRootFolderValid
+        {
+            get
+            {
+                string path = Core.SettingsHandler.Config.Blas1RootFolder;
+                if (File.Exists(path + "\\Blasphemous.exe"))
+                {
+                    Directory.CreateDirectory(path + "\\Modding\\disabled");
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        public override bool AreModdingToolsInstalled
+        {
+            get
+            {
+                return Directory.Exists(Core.SettingsHandler.Config.Blas1RootFolder + "\\BepInEx");
+            }
+        }
+
+        public override string ExeName => "Blasphemous.exe";
     }
 }
