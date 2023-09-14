@@ -129,8 +129,8 @@ namespace BlasModInstaller
             titleSectionInner.BackgroundImage = currentPage.Image;
 
             // Validate the status of mods
-            bool folderValid = currentPage.IsRootFolderValid;
-            bool toolsInstalled = currentPage.AreModdingToolsInstalled;
+            bool folderValid = currentPage.Validator.IsRootFolderValid;
+            bool toolsInstalled = currentPage.Validator.AreModdingToolsInstalled;
             bool validated = folderValid && toolsInstalled;
             Log("Modding status validation: " + validated);
 
@@ -144,7 +144,7 @@ namespace BlasModInstaller
             {
                 validationSection.Visible = true;
                 locationBtn.Enabled = !folderValid;
-                locationBtn.Text = "Locate " + currentPage.ExeName;
+                locationBtn.Text = "Locate " + currentPage.Validator.ExeName;
                 toolsBtn.Enabled = folderValid && !toolsInstalled;
             }
 

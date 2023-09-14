@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using BlasModInstaller.Validation;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,13 +13,15 @@ namespace BlasModInstaller
         protected readonly string _localDataPath;
         protected readonly string _globalDataPath;
 
-        public BasePage(string title, Bitmap image, Panel uiElement, string localDataPath, string globalDataPath)
+        public BasePage(string title, Bitmap image, Panel uiElement, string localDataPath, string globalDataPath, IValidator validator)
         {
             _title = title;
             _image = image;
             _uiElement = uiElement;
             _localDataPath = localDataPath;
             _globalDataPath = globalDataPath;
+
+            _validator = validator;
         }
 
         public abstract void AdjustPageWidth();
@@ -44,9 +47,10 @@ namespace BlasModInstaller
 
         public abstract SortType CurrentSortType { get; set; }
 
-        // Move all of these to validator
-        public abstract bool IsRootFolderValid { get; }
-        public abstract bool AreModdingToolsInstalled { get; }
-        public abstract string ExeName { get; }
+        // New
+
+        private readonly IValidator _validator;
+
+        public IValidator Validator => _validator;
     }
 }

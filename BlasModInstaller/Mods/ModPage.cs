@@ -1,4 +1,5 @@
-﻿using Ionic.Zip;
+﻿using BlasModInstaller.Validation;
+using Ionic.Zip;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,8 @@ namespace BlasModInstaller.Mods
 
         private bool _loaded = false;
 
-        public ModPage(string title, Bitmap image, Panel uiElement, string localDataPath, string globalDataPath)
-            : base(title, image, uiElement, localDataPath, globalDataPath) { }
+        public ModPage(string title, Bitmap image, Panel uiElement, string localDataPath, string globalDataPath, IValidator validator)
+            : base(title, image, uiElement, localDataPath, globalDataPath, validator) { }
 
         // Mod list
 
@@ -259,30 +260,5 @@ namespace BlasModInstaller.Mods
             get => Core.SettingsHandler.Config.Blas1ModSort;
             set => Core.SettingsHandler.Config.Blas1ModSort = value;
         }
-
-        public override bool IsRootFolderValid
-        {
-            get
-            {
-                string path = Core.SettingsHandler.Config.Blas1RootFolder;
-                if (File.Exists(path + "\\Blasphemous.exe"))
-                {
-                    Directory.CreateDirectory(path + "\\Modding\\disabled");
-                    return true;
-                }
-
-                return false;
-            }
-        }
-
-        public override bool AreModdingToolsInstalled
-        {
-            get
-            {
-                return Directory.Exists(Core.SettingsHandler.Config.Blas1RootFolder + "\\BepInEx");
-            }
-        }
-
-        public override string ExeName => "Blasphemous.exe";
     }
 }

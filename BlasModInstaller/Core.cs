@@ -1,6 +1,7 @@
 ﻿using BlasModInstaller.Mods;
 using BlasModInstaller.Properties;
 using BlasModInstaller.Skins;
+using BlasModInstaller.Validation;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -22,26 +23,32 @@ namespace BlasModInstaller
             SettingsHandler = new SettingsHandler(Environment.CurrentDirectory + "\\installer.cfg");
             GithubHandler = new GithubHandler(SettingsHandler.Config.GithubToken);
 
+            Blas1Validator blas1Validator = new Blas1Validator();
+            Blas2Validator blas2Validator = new Blas2Validator();
+
             var blas1mods = new ModPage(
                 "Blasphemous Mods",
                 Resources.background1,
                 UIHandler.GetUIElementByType(SectionType.Blas1Mods),
                 Environment.CurrentDirectory + "\\downloads\\BlasphemousMods.json",
-                "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousMods.json");
+                "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousMods.json",
+                blas1Validator);
 
             var blas1skins = new SkinPage(
                 "Blasphemous Skins",
                 Resources.background1,
                 UIHandler.GetUIElementByType(SectionType.Blas1Skins),
                 Environment.CurrentDirectory + "\\downloads\\BlasphemousSkins.json",
-                string.Empty);
+                string.Empty,
+                blas1Validator);
 
             var blas2mods = new ModPage(
                 "Blasphemous II Mods",
                 Resources.background2,
                 UIHandler.GetUIElementByType(SectionType.Blas2Mods),
                 Environment.CurrentDirectory + "\\downloads\\BlasphemousIIMods.json",
-                "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousIIMods.json");
+                "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousIIMods.json",
+                blas2Validator);
 
             _pages.Add(SectionType.Blas1Mods, blas1mods);
             _pages.Add(SectionType.Blas1Skins, blas1skins);

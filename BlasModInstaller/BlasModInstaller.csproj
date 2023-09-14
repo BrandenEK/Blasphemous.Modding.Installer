@@ -99,6 +99,9 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Skins\Skin.cs" />
     <Compile Include="Skins\SkinUI.cs" />
+    <Compile Include="Validation\Blas1Validator.cs" />
+    <Compile Include="Validation\Blas2Validator.cs" />
+    <Compile Include="Validation\IValidator.cs" />
     <EmbeddedResource Include="UIHandler.resx">
       <DependentUpon>UIHandler.cs</DependentUpon>
     </EmbeddedResource>
