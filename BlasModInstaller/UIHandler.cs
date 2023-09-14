@@ -44,7 +44,7 @@ namespace BlasModInstaller
 
         public void DebugLogSetVisible(bool visible) => debugLog.Visible = visible;
 
-        // Location check screen
+        // Validation screen
 
         private void ClickLocationButton(object sender, EventArgs e)
         {
@@ -56,6 +56,11 @@ namespace BlasModInstaller
         }
 
         private void ClickToolsButton(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UpdateValidationScreen()
         {
 
         }
@@ -131,7 +136,14 @@ namespace BlasModInstaller
             // Validate and load data
             bool validated = currentPage.ValidateDirectory();
             if (validated)
+            {
                 currentPage.LoadData();
+            }
+            else
+            {
+                validationSection.Visible = true;
+                UpdateValidationScreen();
+            }
 
             // Show the correct page element
             currentPage.UIElement.Visible = validated;
@@ -140,7 +152,8 @@ namespace BlasModInstaller
                 if (page != currentPage)
                     page.UIElement.Visible = false;
 
-            validationSection.Visible = !validated;
+            if (validated)
+                validationSection.Visible = false;
 
             // Only show side buttons under certain conditions
             divider1.Visible = validated;
