@@ -55,9 +55,10 @@ namespace BlasModInstaller
             }
         }
 
-        private void ClickToolsButton(object sender, EventArgs e)
+        private async void ClickToolsButton(object sender, EventArgs e)
         {
-            // Download tools from online or maybe have them packaged with the installer
+            await Core.CurrentPage.InstallTools();
+            OpenSection(Core.SettingsHandler.Config.LastSection);
         }
 
         // ...

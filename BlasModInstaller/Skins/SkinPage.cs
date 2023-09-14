@@ -1,8 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using Ionic.Zip;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -97,6 +99,27 @@ namespace BlasModInstaller.Skins
         private void SaveLocalData()
         {
             File.WriteAllText(_localDataPath, JsonConvert.SerializeObject(_skins));
+        }
+
+        public override async Task InstallTools()
+        {
+            using (WebClient client = new WebClient())
+            {
+                string downloadPath = $"{UIHandler.DownloadsPath}{"Blas1_Tools"}.zip";
+                string installPath = Core.SettingsHandler.Config.Blas1RootFolder;
+
+                // Get this from somewhere else later
+                string temp = "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools.zip";
+                await client.DownloadFileTaskAsync(new Uri(temp), downloadPath);
+
+                using (ZipFile zipFile = ZipFile.Read(downloadPath))
+                {
+                    foreach (ZipEntry file in zipFile)
+                        file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
+                }
+
+                File.Delete(downloadPath);
+            }
         }
 
         // UI

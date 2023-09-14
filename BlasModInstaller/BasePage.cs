@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BlasModInstaller
@@ -23,6 +24,7 @@ namespace BlasModInstaller
         public abstract void AdjustPageWidth();
 
         public abstract void LoadData();
+        public abstract Task InstallTools();
 
         public abstract void InstallAll();
         public abstract void UninstallAll();
