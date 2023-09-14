@@ -210,22 +210,22 @@ namespace BlasModInstaller
 
         private void ClickedInstallAll(object sender, EventArgs e)
         {
-            Core.CurrentPage.InstallAll();
+            Core.CurrentPage.Grouper.InstallAll();
         }
 
         private void ClickedUninstallAll(object sender, EventArgs e)
         {
-            Core.CurrentPage.UninstallAll();
+            Core.CurrentPage.Grouper.UninstallAll();
         }
 
         private void ClickedEnableAll(object sender, EventArgs e)
         {
-            Core.CurrentPage.EnableAll();
+            Core.CurrentPage.Grouper.EnableAll();
         }
 
         private void ClickedDisableAll(object sender, EventArgs e)
         {
-            Core.CurrentPage.DisableAll();
+            Core.CurrentPage.Grouper.DisableAll();
         }
 
         private void ClickInstallerUpdateLink(object sender, LinkLabelLinkClickedEventArgs e) => Core.GithubHandler.OpenInstallerLink();

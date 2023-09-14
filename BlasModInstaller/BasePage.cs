@@ -1,4 +1,5 @@
-﻿using BlasModInstaller.Validation;
+﻿using BlasModInstaller.Grouping;
+using BlasModInstaller.Validation;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -29,12 +30,6 @@ namespace BlasModInstaller
         public abstract void LoadData();
         public abstract Task InstallTools();
 
-        public abstract void InstallAll();
-        public abstract void UninstallAll();
-
-        public abstract void EnableAll();
-        public abstract void DisableAll();
-
         public abstract void Sort();
 
         public abstract bool CanInstall { get; }
@@ -52,5 +47,6 @@ namespace BlasModInstaller
         private readonly IValidator _validator;
 
         public IValidator Validator => _validator;
+        public abstract IGrouper Grouper { get; }
     }
 }

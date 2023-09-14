@@ -1,4 +1,5 @@
-﻿using BlasModInstaller.Validation;
+﻿using BlasModInstaller.Grouping;
+using BlasModInstaller.Validation;
 using Ionic.Zip;
 using Newtonsoft.Json;
 using System;
@@ -15,11 +16,17 @@ namespace BlasModInstaller.Mods
     internal class ModPage : BasePage
     {
         private readonly List<Mod> _mods = new List<Mod>();
+        private readonly ModGrouper _grouper;
 
         private bool _loaded = false;
 
         public ModPage(string title, Bitmap image, Panel uiElement, string localDataPath, string globalDataPath, IValidator validator)
-            : base(title, image, uiElement, localDataPath, globalDataPath, validator) { }
+            : base(title, image, uiElement, localDataPath, globalDataPath, validator)
+        {
+            _grouper = new ModGrouper(title, _mods);
+        }
+
+        public override IGrouper Grouper => _grouper;
 
         // Mod list
 
@@ -155,75 +162,6 @@ namespace BlasModInstaller.Mods
         private void SetBackgroundColor()
         {
             _uiElement.BackColor = _mods.Count % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
-        }
-
-        // Install
-
-        public override void InstallAll()
-        {
-            if (!UIHandler.PromptQuestion(Title, $"Are you sure you wish to install {_mods.Count} mods?"))
-                return;
-
-            Core.UIHandler.Log("Installing all mods");
-            foreach (Mod mod in _mods)
-            {
-                if (!mod.Installed)
-                {
-                    mod.Install();
-                }
-                else if (mod.UpdateAvailable)
-                {
-                    mod.Uninstall();
-                    mod.Install();
-                }
-            }
-        }
-
-        public override void UninstallAll()
-        {
-            if (!UIHandler.PromptQuestion(Title, $"Are you sure you wish to uninstall {_mods.Count} mods?"))
-                return;
-
-            Core.UIHandler.Log("Uninstalling all mods");
-            foreach (Mod mod in _mods)
-            {
-                if (mod.Installed)
-                {
-                    mod.Uninstall();
-                }
-            }
-        }
-
-        // Enable
-
-        public override void EnableAll()
-        {
-            if (!UIHandler.PromptQuestion(Title, $"Are you sure you wish to enable {_mods.Count} mods?"))
-                return;
-
-            Core.UIHandler.Log("Enabling all mods");
-            foreach (Mod mod in _mods)
-            {
-                if (mod.Installed && !mod.Enabled)
-                {
-                    mod.Enable();
-                }
-            }
-        }
-
-        public override void DisableAll()
-        {
-            if (!UIHandler.PromptQuestion(Title, $"Are you sure you wish to disable {_mods.Count} mods?"))
-                return;
-
-            Core.UIHandler.Log("Disabling all mods");
-            foreach (Mod mod in _mods)
-            {
-                if (mod.Installed && mod.Enabled)
-                {
-                    mod.Disable();
-                }
-            }
         }
 
         // Sort

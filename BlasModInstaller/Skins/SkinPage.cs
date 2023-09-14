@@ -1,4 +1,5 @@
-﻿using BlasModInstaller.Validation;
+﻿using BlasModInstaller.Grouping;
+using BlasModInstaller.Validation;
 using Ionic.Zip;
 using Newtonsoft.Json;
 using System;
@@ -15,11 +16,17 @@ namespace BlasModInstaller.Skins
     internal class SkinPage : BasePage
     {
         private readonly List<Skin> _skins = new List<Skin>();
+        private readonly SkinGrouper _grouper;
 
         private bool _loaded = false;
 
         public SkinPage(string title, Bitmap image, Panel uiElement, string localDataPath, string globalDataPath, IValidator validator)
-            : base(title, image, uiElement, localDataPath, globalDataPath, validator) { }
+            : base(title, image, uiElement, localDataPath, globalDataPath, validator)
+        {
+            _grouper = new SkinGrouper(title, _skins);
+        }
+
+        public override IGrouper Grouper => _grouper;
 
         // Skin list
 
@@ -134,55 +141,6 @@ namespace BlasModInstaller.Skins
         private void SetBackgroundColor()
         {
             _uiElement.BackColor = _skins.Count % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
-        }
-
-        // Install
-
-        public override void InstallAll()
-        {
-            if (!UIHandler.PromptQuestion(Title, $"Are you sure you wish to install {_skins.Count} skins?"))
-                return;
-
-            Core.UIHandler.Log("Installing all skins");
-            foreach (Skin skin in _skins)
-            {
-                if (!skin.Installed)
-                {
-                    skin.Install();
-                }
-                else if (skin.UpdateAvailable)
-                {
-                    skin.Uninstall();
-                    skin.Install();
-                }
-            }
-        }
-
-        public override void UninstallAll()
-        {
-            if (!UIHandler.PromptQuestion(Title, $"Are you sure you wish to uninstall {_skins.Count} skins?"))
-                return;
-
-            Core.UIHandler.Log("Uninstalling all skins");
-            foreach (Skin skin in _skins)
-            {
-                if (skin.Installed)
-                {
-                    skin.Uninstall();
-                }
-            }
-        }
-
-        // Enable
-
-        public override void EnableAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void DisableAll()
-        {
-            throw new NotImplementedException();
         }
 
         // Sort

@@ -80,6 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasePage.cs" />
+    <Compile Include="Grouping\IGrouper.cs" />
+    <Compile Include="Grouping\ModGrouper.cs" />
+    <Compile Include="Grouping\SkinGrouper.cs" />
     <Compile Include="Mods\ModPage.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Data.cs" />
