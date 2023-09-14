@@ -158,12 +158,16 @@ namespace BlasModInstaller
             divider1.Visible = validated;
             divider2.Visible = validated;
             sortSection.Visible = validated;
-            installBtn.Visible = validated && currentPage.CanInstall;
-            uninstallBtn.Visible = validated && currentPage.CanInstall;
-            enableBtn.Visible = validated && currentPage.CanEnable;
-            disableBtn.Visible = validated && currentPage.CanEnable;
-            sortByInitialRelease.Visible = currentPage.CanSortDate;
-            sortByLatestRelease.Visible = currentPage.CanSortDate;
+
+            installBtn.Visible = validated && currentPage.Grouper.CanInstall;
+            uninstallBtn.Visible = validated && currentPage.Grouper.CanInstall;
+            enableBtn.Visible = validated && currentPage.Grouper.CanEnable;
+            disableBtn.Visible = validated && currentPage.Grouper.CanEnable;
+
+            sortByName.Visible = validated && currentPage.Grouper.CanSortByCreation;
+            sortByAuthor.Visible = validated && currentPage.Grouper.CanSortByCreation;
+            sortByInitialRelease.Visible = currentPage.Grouper.CanSortByDate;
+            sortByLatestRelease.Visible = currentPage.Grouper.CanSortByDate;
         }
 
         #region Side section top

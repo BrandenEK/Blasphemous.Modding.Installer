@@ -154,12 +154,6 @@ namespace BlasModInstaller.Skins
                 _skins[i].SetUIPosition(i);
         }
 
-        // Properties
-
-        public override bool CanInstall => true;
-        public override bool CanEnable => false;
-        public override bool CanSortDate => false;
-
         public override SortType CurrentSortType
         {
             get => Core.SettingsHandler.Config.Blas1SkinSort;

@@ -71,5 +71,11 @@ namespace BlasModInstaller.Grouping
                 mod.Disable();
             }
         }
+
+        public bool CanInstall => true;
+        public bool CanEnable => true;
+
+        public bool CanSortByCreation => true;
+        public bool CanSortByDate => true;
     }
 }

@@ -54,5 +54,11 @@ namespace BlasModInstaller.Grouping
         {
             throw new NotImplementedException();
         }
+
+        public bool CanInstall => true;
+        public bool CanEnable => false;
+
+        public bool CanSortByCreation => true;
+        public bool CanSortByDate => false;
     }
 }

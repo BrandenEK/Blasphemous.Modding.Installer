@@ -32,10 +32,6 @@ namespace BlasModInstaller
 
         public abstract void Sort();
 
-        public abstract bool CanInstall { get; }
-        public abstract bool CanEnable { get; }
-        public abstract bool CanSortDate { get; }
-
         public string Title => _title;
         public Bitmap Image => _image;
         public Panel UIElement => _uiElement;

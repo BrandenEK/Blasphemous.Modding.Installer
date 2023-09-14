@@ -10,5 +10,11 @@ namespace BlasModInstaller.Grouping
         void EnableAll();
 
         void DisableAll();
+
+        bool CanInstall { get; }
+        bool CanEnable { get; }
+
+        bool CanSortByCreation { get; } 
+        bool CanSortByDate { get; }
     }
 }

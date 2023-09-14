@@ -187,12 +187,6 @@ namespace BlasModInstaller.Mods
                 _mods[i].SetUIPosition(i);
         }
 
-        // Properties
-
-        public override bool CanInstall => true;
-        public override bool CanEnable => true;
-        public override bool CanSortDate => true;
-
         public override SortType CurrentSortType
         {
             get => Core.SettingsHandler.Config.Blas1ModSort;
