@@ -46,13 +46,18 @@ namespace BlasModInstaller
 
         // Location check screen
 
-        private void ChooseBlasLocation(object sender, EventArgs e)
+        private void ClickLocationButton(object sender, EventArgs e)
         {
             if (blasLocDialog.ShowDialog() == DialogResult.OK)
             {
                 Core.SettingsHandler.Config.Blas1RootFolder = Path.GetDirectoryName(blasLocDialog.FileName);
                 OpenSection(Core.SettingsHandler.Config.LastSection);
             }
+        }
+
+        private void ClickToolsButton(object sender, EventArgs e)
+        {
+
         }
 
         // ...
@@ -135,7 +140,7 @@ namespace BlasModInstaller
                 if (page != currentPage)
                     page.UIElement.Visible = false;
 
-            blas1locationSection.Visible = !validated;
+            validationSection.Visible = !validated;
 
             // Only show side buttons under certain conditions
             divider1.Visible = validated;
