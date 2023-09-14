@@ -148,8 +148,8 @@ namespace BlasModInstaller
             this.mainSection.Controls.Add(this.titleSectionOuter);
             this.mainSection.Controls.Add(this.blas1modSection);
             this.mainSection.Controls.Add(this.blas1skinSection);
-            this.mainSection.Controls.Add(this.blas1locationSection);
             this.mainSection.Controls.Add(this.blas2modSection);
+            this.mainSection.Controls.Add(this.blas1locationSection);
             this.mainSection.Location = new System.Drawing.Point(250, 0);
             this.mainSection.Name = "mainSection";
             this.mainSection.Size = new System.Drawing.Size(1150, 900);
@@ -406,7 +406,7 @@ namespace BlasModInstaller
             this.sortByName.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.sortByName.Location = new System.Drawing.Point(4, 30);
             this.sortByName.Name = "sortByName";
-            this.sortByName.Size = new System.Drawing.Size(53, 20);
+            this.sortByName.Size = new System.Drawing.Size(52, 20);
             this.sortByName.TabIndex = 10;
             this.sortByName.TabStop = true;
             this.sortByName.Text = "Name";
@@ -419,7 +419,7 @@ namespace BlasModInstaller
             this.sortByAuthor.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.sortByAuthor.Location = new System.Drawing.Point(4, 55);
             this.sortByAuthor.Name = "sortByAuthor";
-            this.sortByAuthor.Size = new System.Drawing.Size(60, 20);
+            this.sortByAuthor.Size = new System.Drawing.Size(59, 20);
             this.sortByAuthor.TabIndex = 11;
             this.sortByAuthor.TabStop = true;
             this.sortByAuthor.Text = "Author";
@@ -432,7 +432,7 @@ namespace BlasModInstaller
             this.sortByLatestRelease.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.sortByLatestRelease.Location = new System.Drawing.Point(4, 105);
             this.sortByLatestRelease.Name = "sortByLatestRelease";
-            this.sortByLatestRelease.Size = new System.Drawing.Size(98, 20);
+            this.sortByLatestRelease.Size = new System.Drawing.Size(97, 20);
             this.sortByLatestRelease.TabIndex = 9;
             this.sortByLatestRelease.TabStop = true;
             this.sortByLatestRelease.Text = "Latest release";
@@ -445,7 +445,7 @@ namespace BlasModInstaller
             this.sortByInitialRelease.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.sortByInitialRelease.Location = new System.Drawing.Point(4, 80);
             this.sortByInitialRelease.Name = "sortByInitialRelease";
-            this.sortByInitialRelease.Size = new System.Drawing.Size(94, 20);
+            this.sortByInitialRelease.Size = new System.Drawing.Size(93, 20);
             this.sortByInitialRelease.TabIndex = 8;
             this.sortByInitialRelease.TabStop = true;
             this.sortByInitialRelease.Text = "Initial release";
@@ -624,7 +624,7 @@ namespace BlasModInstaller
             this.sideSectionOuter.Size = new System.Drawing.Size(250, 900);
             this.sideSectionOuter.TabIndex = 9;
             // 
-            // MainForm
+            // UIHandler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -635,7 +635,7 @@ namespace BlasModInstaller
             this.Font = new System.Drawing.Font("Trebuchet MS", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1400, 900);
-            this.Name = "MainForm";
+            this.Name = "UIHandler";
             this.Text = "Blasphemous Mod Installer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClose);
             this.Load += new System.EventHandler(this.OnFormOpen);

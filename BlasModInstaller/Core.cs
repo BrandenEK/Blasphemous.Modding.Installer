@@ -25,21 +25,21 @@ namespace BlasModInstaller
             var blas1mods = new ModPage(
                 "Blasphemous Mods",
                 Resources.background1,
-                null,
+                UIHandler.GetUIElementByType(SectionType.Blas1Mods),
                 Environment.CurrentDirectory + "\\downloads\\BlasphemousMods.json",
                 "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousMods.json");
 
             var blas1skins = new SkinPage(
                 "Blasphemous Skins",
                 Resources.background1,
-                null,
+                UIHandler.GetUIElementByType(SectionType.Blas1Skins),
                 Environment.CurrentDirectory + "\\downloads\\BlasphemousSkins.json",
                 string.Empty);
 
             var blas2mods = new ModPage(
                 "Blasphemous II Mods",
                 Resources.background2,
-                null,
+                UIHandler.GetUIElementByType(SectionType.Blas2Mods),
                 Environment.CurrentDirectory + "\\downloads\\BlasphemousIIMods.json",
                 "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousIIMods.json");
 

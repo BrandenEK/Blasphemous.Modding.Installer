@@ -44,12 +44,27 @@ namespace BlasModInstaller
 
         public void DebugLogSetVisible(bool visible) => debugLog.Visible = visible;
 
+        // Location check screen
+
         private void ChooseBlasLocation(object sender, EventArgs e)
         {
             if (blasLocDialog.ShowDialog() == DialogResult.OK)
             {
                 Core.SettingsHandler.Config.Blas1RootFolder = Path.GetDirectoryName(blasLocDialog.FileName);
                 OpenSection(Core.SettingsHandler.Config.LastSection);
+            }
+        }
+
+        // ...
+
+        public Panel GetUIElementByType(SectionType type)
+        {
+            switch (type)
+            {
+                case SectionType.Blas1Mods: return blas1modSection;
+                case SectionType.Blas1Skins: return blas1skinSection;
+                case SectionType.Blas2Mods: return blas2modSection;
+                default: return null;
             }
         }
 
@@ -114,9 +129,11 @@ namespace BlasModInstaller
                 currentPage.LoadData();
 
             // Show the correct page element
+            currentPage.UIElement.Visible = validated;
+
             foreach (var page in Core.AllPages)
-                page.UIElement.Visible = false;
-            currentPage.UIElement.Visible = true;
+                if (page != currentPage)
+                    page.UIElement.Visible = false;
 
             blas1locationSection.Visible = !validated;
 
@@ -130,21 +147,6 @@ namespace BlasModInstaller
             disableBtn.Visible = validated && currentPage.CanEnable;
             sortByInitialRelease.Visible = currentPage.CanSortDate;
             sortByLatestRelease.Visible = currentPage.CanSortDate;
-        }
-
-        private bool ValidateBlas1Directory(string blasRootPath)
-        {
-            if (File.Exists(blasRootPath + "\\Blasphemous.exe"))
-            {
-                Log("Blas1 exe path validated!");
-                Core.SettingsHandler.Config.Blas1RootFolder = blasRootPath;
-
-                Directory.CreateDirectory(blasRootPath + "\\Modding\\disabled"); // Only because its not included in the API
-                return true;
-            }
-
-            Log("Blas1 exe path not found!");
-            return false;
         }
 
         #region Side section top

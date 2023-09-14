@@ -38,7 +38,17 @@ namespace BlasModInstaller.Skins
 
         public override bool ValidateDirectory()
         {
-            throw new NotImplementedException();
+            string path = Core.SettingsHandler.Config.Blas1RootFolder;
+            if (File.Exists(path + "\\Blasphemous.exe"))
+            {
+                Directory.CreateDirectory(path + "\\Modding\\disabled");
+
+                Core.UIHandler.Log("Blas1 exe path validated!");
+                return true;
+            }
+
+            Core.UIHandler.Log("Blas1 exe path not found!");
+            return false;
         }
 
         public override void LoadData()
