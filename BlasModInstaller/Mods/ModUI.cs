@@ -1,9 +1,9 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace BlasModInstaller
+namespace BlasModInstaller.Mods
 {
-    public class SkinUI
+    public class ModUI
     {
         private readonly Panel outerPanel;
         private readonly Panel innerPanel;
@@ -12,14 +12,14 @@ namespace BlasModInstaller
         private readonly Label authorText;
 
         private readonly Button updateButton;
-        private readonly Button previewIdleButton;
-        private readonly Button previewChargedButton;
+        private readonly Button readmeButton;
         private readonly Button installButton;
+        private readonly Button enableButton;
 
-        public void UpdateUI(string name, string author, bool installed, bool canUpdate)
+        public void UpdateUI(string name, string version, string author, bool installed, bool enabled, bool canUpdate)
         {
             // Text
-            nameText.Text = name;
+            nameText.Text = $"{name} (v{version})";
             nameText.Size = new Size(nameText.PreferredWidth, 30);
             authorText.Text = "by " + author;
             authorText.Location = new Point(nameText.PreferredWidth + 15, authorText.Location.Y);
@@ -29,6 +29,12 @@ namespace BlasModInstaller
             installButton.Text = installed ? "Installed" : "Not installed";
             installButton.ForeColor = installed ? Colors.GREEN : Colors.RED;
             installButton.FlatAppearance.BorderColor = installed ? Colors.GREEN : Colors.RED;
+
+            // Enable button
+            enableButton.Visible = installed;
+            enableButton.Text = enabled ? "Enabled" : "Disabled";
+            enableButton.ForeColor = enabled ? Color.Yellow : Color.White;
+            enableButton.FlatAppearance.BorderColor = enabled ? Color.Yellow : Color.White;
 
             // Update button
             updateButton.Visible = canUpdate;
@@ -41,16 +47,17 @@ namespace BlasModInstaller
             installButton.FlatAppearance.BorderColor = Colors.ORANGE;
         }
 
-        public void SetPosition(int skinIdx)
+        public void SetPosition(int modIdx)
         {
-            Color backgroundColor = skinIdx % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
+            Color backgroundColor = modIdx % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
 
-            outerPanel.Location = new Point(0, (Sizes.SKIN_HEIGHT - 2) * skinIdx - 2);
+            outerPanel.Location = new Point(0, (Sizes.MOD_HEIGHT - 2) * modIdx - 2);
             innerPanel.BackColor = backgroundColor;
             installButton.BackColor = backgroundColor;
+            enableButton.BackColor = backgroundColor;
         }
 
-        public SkinUI(Skin skin, Panel parentPanel)
+        public ModUI(Mod mod, Panel parentPanel)
         {
             parentPanel.AutoScroll = false;
 
@@ -58,56 +65,56 @@ namespace BlasModInstaller
 
             outerPanel = new Panel
             {
-                Name = skin.name,
+                Name = mod.Name,
                 Parent = parentPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
                 BackColor = Color.Black,
-                Size = new Size(parentPanel.Width, Sizes.SKIN_HEIGHT),
+                Size = new Size(parentPanel.Width, Sizes.MOD_HEIGHT),
             };
 
             innerPanel = new Panel
             {
-                Name = skin.name,
+                Name = mod.Name,
                 Parent = outerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
                 Location = new Point(0, 2),
-                Size = new Size(parentPanel.Width, Sizes.SKIN_HEIGHT - 4),
+                Size = new Size(parentPanel.Width, Sizes.MOD_HEIGHT - 4),
             };
 
             // Left side
 
             nameText = new Label
             {
-                Name = skin.name,
+                Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left,
                 Location = new Point(10, 8),
                 Size = new Size(100, 30),
                 ForeColor = Color.LightGray,
                 TextAlign = ContentAlignment.MiddleLeft,
-                Font = Fonts.SKIN_NAME,
+                Font = Fonts.MOD_NAME,
             };
 
             authorText = new Label
             {
-                Name = skin.name,
+                Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left,
                 Location = new Point(200, 13),
                 Size = new Size(100, 20),
                 ForeColor = Color.LightGray,
                 TextAlign = ContentAlignment.BottomLeft,
-                Font = Fonts.SKIN_AUTHOR,
+                Font = Fonts.MOD_AUTHOR,
             };
 
             // Right side
 
             updateButton = new Button
             {
-                Name = skin.name,
+                Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(parentPanel.Width - 550, 11),
+                Location = new Point(parentPanel.Width - 450, 11),
                 Size = new Size(130, 24),
                 BackColor = Color.Black,
                 ForeColor = Color.White,
@@ -118,63 +125,60 @@ namespace BlasModInstaller
                 TabStop = false,
             };
             updateButton.FlatAppearance.BorderColor = Color.White;
-            updateButton.Click += skin.ClickedUpdate;
+            updateButton.Click += mod.ClickedUpdate;
             updateButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
             updateButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
-            previewIdleButton = new Button
+            readmeButton = new Button
             {
-                Name = skin.name,
+                Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(parentPanel.Width - 390, 11),
-                Size = new Size(110, 24),
+                Location = new Point(parentPanel.Width - 290, 11),
+                Size = new Size(70, 24),
                 BackColor = Colors.BLUE,
                 Font = Fonts.BUTTON,
-                Text = "Preview Idle",
+                Text = "README",
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand,
                 TabStop = false,
             };
-            previewIdleButton.FlatAppearance.BorderColor = Color.Black;
-            previewIdleButton.Click += skin.ClickedPreviewIdle;
-            previewIdleButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
-            previewIdleButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
-
-            previewChargedButton = new Button
-            {
-                Name = skin.name,
-                Parent = innerPanel,
-                Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(parentPanel.Width - 260, 11),
-                Size = new Size(110, 24),
-                BackColor = Colors.BLUE,
-                Font = Fonts.BUTTON,
-                Text = "Preview Charged",
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand,
-                TabStop = false,
-            };
-            previewChargedButton.FlatAppearance.BorderColor = Color.Black;
-            previewChargedButton.Click += skin.ClickedPreviewCharged;
-            previewChargedButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
-            previewChargedButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
+            readmeButton.FlatAppearance.BorderColor = Color.Black;
+            readmeButton.Click += mod.ClickedReadme;
+            readmeButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            readmeButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
             installButton = new Button
             {
-                Name = skin.name,
+                Name = mod.Name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(parentPanel.Width - 110, 11),
+                Location = new Point(parentPanel.Width - 190, 11),
                 Size = new Size(100, 24),
                 Font = Fonts.BUTTON,
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand,
                 TabStop = false,
             };
-            installButton.Click += skin.ClickedInstall;
+            installButton.Click += mod.ClickedInstall;
             installButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
             installButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
+
+            enableButton = new Button
+            {
+                Name = mod.Name,
+                Parent = innerPanel,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                Location = new Point(parentPanel.Width - 80, 11),
+                Size = new Size(70, 24),
+                Font = Fonts.BUTTON,
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand,
+                TabStop = false,
+            };
+            enableButton.Click += mod.ClickedEnable;
+            enableButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            enableButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
             parentPanel.AutoScroll = true;
         }

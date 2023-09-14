@@ -6,7 +6,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BlasModInstaller
+namespace BlasModInstaller.Skins
 {
     [Serializable]
     public class Skin : IComparable
@@ -18,10 +18,8 @@ namespace BlasModInstaller
         public string author;
         public string version; // This is the most recent version and is updated whenever loading global skins
 
-        [JsonIgnore]
-        private bool _downloading;
-        [JsonIgnore]
-        private SkinUI _ui;
+        [JsonIgnore] private bool _downloading;
+        [JsonIgnore] private SkinUI _ui;
 
         public void UpdateLocalData(Skin globalSkin)
         {
@@ -39,8 +37,7 @@ namespace BlasModInstaller
             return base.Equals(obj);
         }
 
-        [JsonIgnore]
-        public bool Installed => File.Exists($"{UIHandler.BlasRootFolder}\\Modding\\skins\\{id}\\info.txt");
+        [JsonIgnore] public bool Installed => File.Exists($"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\skins\\{id}\\info.txt");
 
         [JsonIgnore]
         public Version LocalVersion
@@ -75,7 +72,7 @@ namespace BlasModInstaller
         // Paths
 
         [JsonIgnore]
-        public string PathToSkinFolder => $"{UIHandler.BlasRootFolder}\\Modding\\skins\\{id}";
+        public string PathToSkinFolder => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\skins\\{id}";
         [JsonIgnore]
         public string InfoURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{id}/info.txt";
         [JsonIgnore]
@@ -89,7 +86,7 @@ namespace BlasModInstaller
 
         public async Task Install()
         {
-            if (UIHandler.BlasRootFolder == null) return;
+            if (Core.SettingsHandler.Config.Blas1RootFolder == null) return;
 
             _downloading = true;
             using (WebClient client = new WebClient())
@@ -116,7 +113,7 @@ namespace BlasModInstaller
 
         public void Uninstall()
         {
-            if (UIHandler.BlasRootFolder == null) return;
+            if (Core.SettingsHandler.Config.Blas1RootFolder == null) return;
 
             if (Directory.Exists(PathToSkinFolder))
                 Directory.Delete(PathToSkinFolder, true);
@@ -166,7 +163,7 @@ namespace BlasModInstaller
             _ui = new SkinUI(this, parentPanel);
             SetUIPosition(skinIdx);
             UpdateUI();
-            Core.UIHandler.BlasSkinPage.AdjustPageWidth();
+            Core.Blas1SkinPage.AdjustPageWidth();
         }
 
         public void UpdateUI()
@@ -181,7 +178,7 @@ namespace BlasModInstaller
 
         // Sorting methods
 
-        public int CompareTo(object obj) => SortBy(obj as Skin, UIHandler.SortBlasSkins);
+        public int CompareTo(object obj) => SortBy(obj as Skin, Core.Blas1SkinPage.CurrentSortType);
 
         public int SortBy(Skin skin, SortType sort)
         {
