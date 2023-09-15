@@ -104,6 +104,6 @@ namespace BlasModInstaller
 
         // Don't forget to increase this when releasing an update!  Have to do it here
         // because I'm not sure how to increase file version for windows forms
-        public static Version CurrentInstallerVersion => new Version(1, 0, 1);
+        public static Version CurrentInstallerVersion => new Version(1, 2, 0);
     }
 }
