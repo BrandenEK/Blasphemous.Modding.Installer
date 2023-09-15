@@ -136,7 +136,7 @@ namespace BlasModInstaller
 
             if (validated)
             {
-                SetSortByBox(currentPage.CurrentSortType);
+                SetSortByBox(Core.SettingsHandler.CurrentSortType);
                 currentPage.Loader.LoadAllData();
                 validationSection.Visible = false;
             }
@@ -186,25 +186,25 @@ namespace BlasModInstaller
 
         private void ClickedSortByName(object sender, EventArgs e)
         {
-            Core.CurrentPage.CurrentSortType = SortType.Name;
+            Core.SettingsHandler.CurrentSortType = SortType.Name;
             Core.CurrentPage.Sorter.Sort();
         }
 
         private void ClickedSortByAuthor(object sender, EventArgs e)
         {
-            Core.CurrentPage.CurrentSortType = SortType.Author;
+            Core.SettingsHandler.CurrentSortType = SortType.Author;
             Core.CurrentPage.Sorter.Sort();
         }
 
         private void ClickedSortByInitialRelease(object sender, EventArgs e)
         {
-            Core.CurrentPage.CurrentSortType = SortType.InitialRelease;
+            Core.SettingsHandler.CurrentSortType = SortType.InitialRelease;
             Core.CurrentPage.Sorter.Sort();
         }
 
         private void ClickedSortByLatestRelease(object sender, EventArgs e)
         {
-            Core.CurrentPage.CurrentSortType = SortType.LatestRelease;
+            Core.SettingsHandler.CurrentSortType = SortType.LatestRelease;
             Core.CurrentPage.Sorter.Sort();
         }
 

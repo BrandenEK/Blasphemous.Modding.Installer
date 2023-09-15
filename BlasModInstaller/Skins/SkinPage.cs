@@ -30,11 +30,5 @@ namespace BlasModInstaller.Skins
         public override IUIHolder UIHolder => _uiHolder;
         public override ISorter Sorter => _sorter;
         public override ILoader Loader => _loader;
-
-        public override SortType CurrentSortType
-        {
-            get => Core.SettingsHandler.Config.Blas1SkinSort;
-            set => Core.SettingsHandler.Config.Blas1SkinSort = value;
-        }
     }
 }

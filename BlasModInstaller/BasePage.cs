@@ -23,8 +23,6 @@ namespace BlasModInstaller
         public string Title => _title;
         public Bitmap Image => _image;
 
-        public abstract SortType CurrentSortType { get; set; }
-
         // New
 
         private readonly IValidator _validator;

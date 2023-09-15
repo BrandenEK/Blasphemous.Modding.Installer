@@ -240,7 +240,7 @@ namespace BlasModInstaller.Mods
 
         // Sort methods
 
-        public int CompareTo(object obj) => SortBy(obj as Mod, Core.Blas1ModPage.CurrentSortType);
+        public int CompareTo(object obj) => SortBy(obj as Mod, Core.SettingsHandler.Config.Blas1ModSort);
 
         public int SortBy(Mod mod, SortType sort)
         {

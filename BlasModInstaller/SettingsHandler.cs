@@ -70,5 +70,28 @@ namespace BlasModInstaller
 
             Properties.Settings.Default.Save();
         }
+
+        public SortType CurrentSortType
+        {
+            get
+            {
+                switch (Config.LastSection)
+                {
+                    case SectionType.Blas1Mods: return Config.Blas1ModSort;
+                    case SectionType.Blas1Skins: return Config.Blas1SkinSort;
+                    case SectionType.Blas2Mods: return Config.Blas2ModSort;
+                    default: return SortType.Name;
+                }
+            }
+            set
+            {
+                switch (Config.LastSection)
+                {
+                    case SectionType.Blas1Mods: Config.Blas1ModSort = value; break;
+                    case SectionType.Blas1Skins: Config.Blas1SkinSort = value; break;
+                    case SectionType.Blas2Mods: Config.Blas2ModSort = value; break;
+                }
+            }
+        }
     }
 }

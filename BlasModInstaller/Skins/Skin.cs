@@ -174,7 +174,7 @@ namespace BlasModInstaller.Skins
 
         // Sorting methods
 
-        public int CompareTo(object obj) => SortBy(obj as Skin, Core.Blas1SkinPage.CurrentSortType);
+        public int CompareTo(object obj) => SortBy(obj as Skin, Core.SettingsHandler.Config.Blas1SkinSort);
 
         public int SortBy(Skin skin, SortType sort)
         {

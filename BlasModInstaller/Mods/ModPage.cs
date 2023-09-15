@@ -43,11 +43,5 @@ namespace BlasModInstaller.Mods
             }
             return count;
         }
-
-        public override SortType CurrentSortType
-        {
-            get => Core.SettingsHandler.Config.Blas1ModSort;
-            set => Core.SettingsHandler.Config.Blas1ModSort = value;
-        }
     }
 }
