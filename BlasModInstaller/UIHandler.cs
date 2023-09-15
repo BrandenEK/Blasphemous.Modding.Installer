@@ -137,7 +137,7 @@ namespace BlasModInstaller
             if (validated)
             {
                 SetSortByBox(currentPage.CurrentSortType);
-                currentPage.LoadData();
+                currentPage.Loader.LoadAllData();
                 validationSection.Visible = false;
             }
             else

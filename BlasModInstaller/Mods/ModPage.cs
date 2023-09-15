@@ -1,15 +1,14 @@
 ﻿using BlasModInstaller.Grouping;
+using BlasModInstaller.Loading;
 using BlasModInstaller.Sorting;
 using BlasModInstaller.UIHolding;
 using BlasModInstaller.Validation;
 using Ionic.Zip;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -21,20 +20,21 @@ namespace BlasModInstaller.Mods
         private readonly ModGrouper _grouper;
         private readonly GenericUIHolder<Mod> _uiHolder;
         private readonly ModSorter _sorter;
+        private readonly ModLoader _loader;
 
-        private bool _loaded = false;
-
-        public ModPage(string title, Bitmap image, Panel panel, string localDataPath, string globalDataPath, IValidator validator)
-            : base(title, image, localDataPath, globalDataPath, validator)
+        public ModPage(string title, Bitmap image, Panel panel, string localDataPath, string remoteDataPath, IValidator validator)
+            : base(title, image, validator)
         {
             _grouper = new ModGrouper(title, _mods);
             _uiHolder = new GenericUIHolder<Mod>(panel, _mods);
             _sorter = new ModSorter(_uiHolder, _mods);
+            _loader = new ModLoader(localDataPath, remoteDataPath, _uiHolder, _sorter, _mods);
         }
 
         public override IGrouper Grouper => _grouper;
         public override IUIHolder UIHolder => _uiHolder;
         public override ISorter Sorter => _sorter;
+        public override ILoader Loader => _loader;
 
         // Mod list
 
@@ -47,95 +47,6 @@ namespace BlasModInstaller.Mods
                     count++;
             }
             return count;
-        }
-
-        private bool ModExists(string name, out Mod existingMod)
-        {
-            foreach (Mod mod in _mods)
-            {
-                if (mod.Name == name)
-                {
-                    existingMod = mod;
-                    return true;
-                }
-            }
-            existingMod = null;
-            return false;
-        }
-
-        // Data
-
-        public override void LoadData()
-        {
-            _uiHolder.AdjustPageWidth();
-            if (_loaded)
-                return;
-
-            LoadLocalMods();
-            LoadGlobalMods();
-            _loaded = true;
-        }
-
-        private void LoadLocalMods()
-        {
-            if (File.Exists(_localDataPath))
-            {
-                string json = File.ReadAllText(_localDataPath);
-                Mod[] localMods = JsonConvert.DeserializeObject<Mod[]>(json);
-                _mods.AddRange(localMods);
-            }
-
-            for (int i = 0; i < _mods.Count; i++)
-                _mods[i].CreateUI(_uiHolder.SectionPanel, i);
-
-            Core.UIHandler.Log($"Loaded {_mods.Count} local mods");
-            _uiHolder.SetBackgroundColor();
-            _sorter.Sort();
-        }
-
-        private async Task LoadGlobalMods()
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                string json = await client.GetStringAsync(_globalDataPath);
-                Mod[] globalMods = JsonConvert.DeserializeObject<Mod[]>(json);
-
-                foreach (Mod globalMod in globalMods)
-                {
-                    Octokit.Release latestRelease = await Core.GithubHandler.GetLatestRelease(globalMod.GithubAuthor, globalMod.GithubRepo);
-                    Version webVersion = GithubHandler.CleanSemanticVersion(latestRelease.TagName);
-                    string downloadURL = latestRelease.Assets[0].BrowserDownloadUrl;
-                    DateTimeOffset latestReleaseDate = latestRelease.CreatedAt;
-
-                    if (ModExists(globalMod.Name, out Mod localMod))
-                    {
-                        localMod.LatestVersion = webVersion.ToString();
-                        localMod.LatestDownloadURL = downloadURL;
-                        localMod.LatestReleaseDate = latestReleaseDate;
-                        localMod.UpdateLocalData(globalMod);
-                        localMod.UpdateUI();
-                    }
-                    else
-                    {
-                        globalMod.LatestVersion = webVersion.ToString();
-                        globalMod.LatestDownloadURL = downloadURL;
-                        globalMod.LatestReleaseDate = latestReleaseDate;
-                        _mods.Add(globalMod);
-                        globalMod.CreateUI(_uiHolder.SectionPanel, _mods.Count - 1);
-                    }
-                }
-
-                Core.UIHandler.Log($"Loaded {globalMods.Length} global mods");
-            }
-
-            SaveLocalData();
-            _uiHolder.SetBackgroundColor();
-            _sorter.Sort();
-        }
-
-        private void SaveLocalData()
-        {
-            File.WriteAllText(_localDataPath, JsonConvert.SerializeObject(_mods));
         }
 
         public override async Task InstallTools()

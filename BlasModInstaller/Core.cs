@@ -39,7 +39,6 @@ namespace BlasModInstaller
                 Resources.background1,
                 UIHandler.GetUIElementByType(SectionType.Blas1Skins),
                 Environment.CurrentDirectory + "\\downloads\\BlasphemousSkins.json",
-                string.Empty,
                 blas1Validator);
 
             var blas2mods = new ModPage(

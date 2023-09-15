@@ -84,6 +84,8 @@
     <Compile Include="Grouping\ModGrouper.cs" />
     <Compile Include="Grouping\SkinGrouper.cs" />
     <Compile Include="Loading\ILoader.cs" />
+    <Compile Include="Loading\ModLoader.cs" />
+    <Compile Include="Loading\SkinLoader.cs" />
     <Compile Include="Mods\ModPage.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Data.cs" />

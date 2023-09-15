@@ -1,4 +1,5 @@
 ﻿using BlasModInstaller.Grouping;
+using BlasModInstaller.Loading;
 using BlasModInstaller.Sorting;
 using BlasModInstaller.UIHolding;
 using BlasModInstaller.Validation;
@@ -11,20 +12,15 @@ namespace BlasModInstaller
     {
         protected readonly string _title;
         protected readonly Bitmap _image;
-        protected readonly string _localDataPath;
-        protected readonly string _globalDataPath;
 
-        public BasePage(string title, Bitmap image, string localDataPath, string globalDataPath, IValidator validator)
+        public BasePage(string title, Bitmap image, IValidator validator)
         {
             _title = title;
             _image = image;
-            _localDataPath = localDataPath;
-            _globalDataPath = globalDataPath;
 
             _validator = validator;
         }
 
-        public abstract void LoadData();
         public abstract Task InstallTools();
 
         public string Title => _title;
@@ -40,5 +36,6 @@ namespace BlasModInstaller
         public abstract IGrouper Grouper { get; }
         public abstract IUIHolder UIHolder { get; }
         public abstract ISorter Sorter { get; }
+        public abstract ILoader Loader { get; }
     }
 }
