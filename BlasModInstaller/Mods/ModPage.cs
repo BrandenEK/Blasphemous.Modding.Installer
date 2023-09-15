@@ -30,18 +30,5 @@ namespace BlasModInstaller.Mods
         public override IUIHolder UIHolder => _uiHolder;
         public override ISorter Sorter => _sorter;
         public override ILoader Loader => _loader;
-
-        // Mod list
-
-        public int InstalledModsThatRequireDll(string dllName)
-        {
-            int count = 0;
-            foreach (Mod mod in _mods)
-            {
-                if (mod.RequiresDll(dllName) && mod.Installed)
-                    count++;
-            }
-            return count;
-        }
     }
 }

@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -106,6 +107,11 @@ namespace BlasModInstaller.Loading
         private Mod FindMod(string name)
         {
             return _mods.Find(x => x.Name == name);
+        }
+
+        public int InstalledModsThatRequireDll(string dllName)
+        {
+            return _mods.Where(x => x.RequiresDll(dllName) && x.Installed).Count();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Ionic.Zip;
+﻿using BlasModInstaller.Loading;
+using Ionic.Zip;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
@@ -157,9 +158,10 @@ namespace BlasModInstaller.Mods
 
             if (RequiredDlls != null && RequiredDlls.Length > 0)
             {
+                ModLoader modLoader = Core.Blas1ModPage.Loader as ModLoader;
                 foreach (string dll in RequiredDlls)
                 {
-                    if (Core.Blas1ModPage.InstalledModsThatRequireDll(dll) == 0)
+                    if (modLoader.InstalledModsThatRequireDll(dll) == 0)
                     {
                         string dllPath = Core.SettingsHandler.Config.Blas1RootFolder + "\\Modding\\data\\" + dll;
                         if (File.Exists(dllPath))
