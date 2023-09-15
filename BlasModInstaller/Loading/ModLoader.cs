@@ -14,17 +14,17 @@ namespace BlasModInstaller.Loading
     internal class ModLoader : ILoader
     {
         private readonly string _localDataPath;
-        private readonly string _globalDataPath;
+        private readonly string _remoteDataPath;
         private readonly IUIHolder _uiHolder;
         private readonly ISorter _sorter;
         private readonly List<Mod> _mods;
 
         private bool _loadedData;
 
-        public ModLoader(string localDataPath, string globalDataPath, IUIHolder uiHolder, ISorter sorter, List<Mod> mods)
+        public ModLoader(string localDataPath, string remoteDataPath, IUIHolder uiHolder, ISorter sorter, List<Mod> mods)
         {
             _localDataPath = localDataPath;
-            _globalDataPath = globalDataPath;
+            _remoteDataPath = remoteDataPath;
             _uiHolder = uiHolder;
             _sorter = sorter;
             _mods = mods;
@@ -46,12 +46,13 @@ namespace BlasModInstaller.Loading
             if (File.Exists(_localDataPath))
             {
                 string json = File.ReadAllText(_localDataPath);
-                Mod[] localMods = JsonConvert.DeserializeObject<Mod[]>(json);
-                _mods.AddRange(localMods);
-            }
+                ModData[] localData = JsonConvert.DeserializeObject<ModData[]>(json);
 
-            for (int i = 0; i < _mods.Count; i++)
-                _mods[i].CreateUI(_uiHolder.SectionPanel, i);
+                for (int i = 0; i < localData.Length; i++)
+                {
+                    _mods.Add(new Mod(localData[i], _uiHolder.SectionPanel, i));
+                }
+            }
 
             Core.UIHandler.Log($"Loaded {_mods.Count} local mods");
             _uiHolder.SetBackgroundColor();
@@ -62,36 +63,31 @@ namespace BlasModInstaller.Loading
         {
             using (HttpClient client = new HttpClient())
             {
-                string json = await client.GetStringAsync(_globalDataPath);
-                Mod[] globalMods = JsonConvert.DeserializeObject<Mod[]>(json);
+                string json = await client.GetStringAsync(_remoteDataPath);
+                ModData[] remoteData = JsonConvert.DeserializeObject<ModData[]>(json);
 
-                foreach (Mod globalMod in globalMods)
+                foreach (var data in remoteData)
                 {
-                    Octokit.Release latestRelease = await Core.GithubHandler.GetLatestRelease(globalMod.GithubAuthor, globalMod.GithubRepo);
-                    Version webVersion = GithubHandler.CleanSemanticVersion(latestRelease.TagName);
-                    string downloadURL = latestRelease.Assets[0].BrowserDownloadUrl;
+                    Octokit.Release latestRelease = await Core.GithubHandler.GetLatestRelease(data.githubAuthor, data.githubRepo);
+                    Version latestVersion = GithubHandler.CleanSemanticVersion(latestRelease.TagName);
+                    string latestDownloadURL = latestRelease.Assets[0].BrowserDownloadUrl;
                     DateTimeOffset latestReleaseDate = latestRelease.CreatedAt;
 
-                    Mod localMod = FindMod(globalMod.Name);
+                    Mod localMod = FindMod(data.name);
+                    ModData fullData = new ModData(data, latestVersion.ToString(), latestDownloadURL, latestReleaseDate);
+
                     if (localMod != null)
                     {
-                        localMod.LatestVersion = webVersion.ToString();
-                        localMod.LatestDownloadURL = downloadURL;
-                        localMod.LatestReleaseDate = latestReleaseDate;
-                        localMod.UpdateLocalData(globalMod);
+                        localMod.Data = fullData;
                         localMod.UpdateUI();
                     }
                     else
                     {
-                        globalMod.LatestVersion = webVersion.ToString();
-                        globalMod.LatestDownloadURL = downloadURL;
-                        globalMod.LatestReleaseDate = latestReleaseDate;
-                        _mods.Add(globalMod);
-                        globalMod.CreateUI(_uiHolder.SectionPanel, _mods.Count - 1);
+                        _mods.Add(new Mod(fullData, _uiHolder.SectionPanel, _mods.Count));
                     }
                 }
 
-                Core.UIHandler.Log($"Loaded {globalMods.Length} global mods");
+                Core.UIHandler.Log($"Loaded {remoteData.Length} global mods");
             }
 
             SaveLocalData();
@@ -101,12 +97,12 @@ namespace BlasModInstaller.Loading
 
         private void SaveLocalData()
         {
-            File.WriteAllText(_localDataPath, JsonConvert.SerializeObject(_mods));
+            File.WriteAllText(_localDataPath, JsonConvert.SerializeObject(_mods.Select(x => x.Data)));
         }
 
         private Mod FindMod(string name)
         {
-            return _mods.Find(x => x.Name == name);
+            return _mods.Find(x => x.Data.name == name);
         }
 
         public int InstalledModsThatRequireDll(string dllName)

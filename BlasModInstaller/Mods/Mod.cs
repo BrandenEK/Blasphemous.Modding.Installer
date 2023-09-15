@@ -1,6 +1,5 @@
 ﻿using BlasModInstaller.Loading;
 using Ionic.Zip;
-using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -10,44 +9,28 @@ using System.Windows.Forms;
 
 namespace BlasModInstaller.Mods
 {
-    [Serializable]
-    public class Mod : IComparable
+    internal class Mod : IComparable
     {
-        // Data
+        private readonly ModUI _ui;
 
-        public string Name { get; set; }
-        public string Author { get; set; }
-        public string Description { get; set; }
-        public DateTimeOffset InitialReleaseDate { get; set; }
-        public string GithubAuthor { get; set; }
-        public string GithubRepo { get; set; }
-        public string PluginFile { get; set; }
-        public string[] RequiredDlls { get; set; }
+        private bool _downloading = false;
 
-        public string LatestVersion { get; set; }
-        public string LatestDownloadURL { get; set; }
-        public DateTimeOffset LatestReleaseDate { get; set; }
-
-        [JsonIgnore] private bool _downloading;
-        [JsonIgnore] private ModUI _ui;
-
-        public void UpdateLocalData(Mod globalMod)
+        public Mod(ModData data, Panel panel, int initialIndex)
         {
-            // Name is already going to be the same
-            Author = globalMod.Author;
-            Description = globalMod.Description;
-            InitialReleaseDate = globalMod.InitialReleaseDate;
-            GithubAuthor = globalMod.GithubAuthor;
-            GithubRepo = globalMod.GithubRepo;
-            PluginFile = globalMod.PluginFile;
-            RequiredDlls = globalMod.RequiredDlls;
+            Data = data;
+            _ui = new ModUI(this, panel);
+            SetUIPosition(initialIndex);
+            UpdateUI();
+            Core.Blas1ModPage.UIHolder.AdjustPageWidth();
         }
+
+        public ModData Data { get; set; }
 
         public bool RequiresDll(string dllName)
         {
-            if (RequiredDlls == null) return false;
+            if (Data.requiredDlls == null) return false;
 
-            foreach (string dll in RequiredDlls)
+            foreach (string dll in Data.requiredDlls)
             {
                 if (dll == dllName)
                     return true;
@@ -55,10 +38,9 @@ namespace BlasModInstaller.Mods
             return false;
         }
 
-        [JsonIgnore] public bool Installed => File.Exists(PathToEnabledPlugin) || File.Exists(PathToDisabledPlugin);
-        [JsonIgnore] public bool Enabled => File.Exists(PathToEnabledPlugin);
+        public bool Installed => File.Exists(PathToEnabledPlugin) || File.Exists(PathToDisabledPlugin);
+        public bool Enabled => File.Exists(PathToEnabledPlugin);
 
-        [JsonIgnore]
         public Version LocalVersion
         {
             get
@@ -75,7 +57,6 @@ namespace BlasModInstaller.Mods
             }
         }
 
-        [JsonIgnore]
         public bool UpdateAvailable
         {
             get
@@ -83,30 +64,21 @@ namespace BlasModInstaller.Mods
                 if (!Installed)
                     return false;
 
-                return new Version(LatestVersion).CompareTo(LocalVersion) > 0;
+                return new Version(Data.latestVersion).CompareTo(LocalVersion) > 0;
             }
         }
 
         // Paths
 
-        [JsonIgnore]
-        public string PathToEnabledPlugin => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\plugins\\{PluginFile}";
-        [JsonIgnore]
-        public string PathToDisabledPlugin => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\disabled\\{PluginFile}";
-        [JsonIgnore]
-        public string PathToConfigFile => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\config\\{Name}.cfg";
-        [JsonIgnore]
-        public string PathToDataFolder => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\data\\{Name}";
-        [JsonIgnore]
-        public string PathToKeybindingsFile => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\keybindings\\{Name}.txt";
-        [JsonIgnore]
-        public string PathToLevelsFolder => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\levels\\{Name}";
-        [JsonIgnore]
-        public string PathToLocalizationFile => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\localization\\{Name}.txt";
-        [JsonIgnore]
-        public string PathToLogFile => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\logs\\{Name}.log";
-        [JsonIgnore]
-        public string GithubLink => $"https://github.com/{GithubAuthor}/{GithubRepo}";
+        public string PathToEnabledPlugin => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\plugins\\{Data.pluginFile}";
+        public string PathToDisabledPlugin => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\disabled\\{Data.pluginFile}";
+        public string PathToConfigFile => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\config\\{Data.name}.cfg";
+        public string PathToDataFolder => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\data\\{Data.name}";
+        public string PathToKeybindingsFile => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\keybindings\\{Data.name}.txt";
+        public string PathToLevelsFolder => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\levels\\{Data.name}";
+        public string PathToLocalizationFile => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\localization\\{Data.name}.txt";
+        public string PathToLogFile => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\logs\\{Data.name}.log";
+        public string GithubLink => $"https://github.com/{Data.githubAuthor}/{Data.githubRepo}";
 
         // Main methods
 
@@ -117,11 +89,13 @@ namespace BlasModInstaller.Mods
             {
                 _ui.ShowDownloadingStatus();
 
-                string downloadPath = $"{UIHandler.DownloadsPath}{Name.Replace(' ', '_')}.zip";
+                string downloadPath = $"{UIHandler.DownloadsPath}{Data.name.Replace(' ', '_')}.zip";
                 string installPath = Core.SettingsHandler.Config.Blas1RootFolder;
-                if (Name != "Modding API") installPath += "\\Modding";
+                
+                // Change this !!!!!!
+                if (Data.name != "Modding API") installPath += "\\Modding";
 
-                await client.DownloadFileTaskAsync(new Uri(LatestDownloadURL), downloadPath);
+                await client.DownloadFileTaskAsync(new Uri(Data.latestDownloadURL), downloadPath);
 
                 using (ZipFile zipFile = ZipFile.Read(downloadPath))
                 {
@@ -155,10 +129,10 @@ namespace BlasModInstaller.Mods
             if (Directory.Exists(PathToLevelsFolder))
                 Directory.Delete(PathToLevelsFolder, true);
 
-            if (RequiredDlls != null && RequiredDlls.Length > 0)
+            if (Data.requiredDlls != null && Data.requiredDlls.Length > 0)
             {
                 ModLoader modLoader = Core.Blas1ModPage.Loader as ModLoader;
-                foreach (string dll in RequiredDlls)
+                foreach (string dll in Data.requiredDlls)
                 {
                     if (modLoader.InstalledModsThatRequireDll(dll) == 0)
                     {
@@ -210,7 +184,7 @@ namespace BlasModInstaller.Mods
 
             if (Installed)
             {
-                if (MessageBox.Show("Are you sure you want to uninstall this mod?", Name, MessageBoxButtons.OKCancel) == DialogResult.OK)
+                if (MessageBox.Show("Are you sure you want to uninstall this mod?", Data.name, MessageBoxButtons.OKCancel) == DialogResult.OK)
                     Uninstall();
             }
             else
@@ -247,21 +221,21 @@ namespace BlasModInstaller.Mods
         {
             if (sort == SortType.Name)
             {
-                return Name.CompareTo(mod.Name);
+                return Data.name.CompareTo(mod.Data.name);
             }
             else if (sort == SortType.Author)
             {
-                int difference = Author.CompareTo(mod.Author);
+                int difference = Data.author.CompareTo(mod.Data.author);
                 return difference == 0 ? SortBy(mod, SortType.Name) : difference;
             }
             else if (sort == SortType.InitialRelease)
             {
-                int difference = InitialReleaseDate.CompareTo(mod.InitialReleaseDate);
+                int difference = Data.initialReleaseDate.CompareTo(mod.Data.initialReleaseDate);
                 return difference == 0 ? SortBy(mod, SortType.Name) : difference;
             }
             else if (sort == SortType.LatestRelease)
             {
-                int difference = LatestReleaseDate.CompareTo(mod.LatestReleaseDate) * -1;
+                int difference = Data.latestReleaseDate.CompareTo(mod.Data.latestReleaseDate) * -1;
                 return difference == 0 ? SortBy(mod, SortType.Name) : difference;
             }
             return 0;
@@ -269,17 +243,9 @@ namespace BlasModInstaller.Mods
 
         // UI methods
 
-        public void CreateUI(Panel parentPanel, int modIdx)
-        {
-            _ui = new ModUI(this, parentPanel);
-            SetUIPosition(modIdx);
-            UpdateUI();
-            Core.Blas1ModPage.UIHolder.AdjustPageWidth();
-        }
-
         public void UpdateUI()
         {
-            _ui.UpdateUI(Name, (Installed ? LocalVersion.ToString(3) : LatestVersion), Author, Installed, Enabled, UpdateAvailable);
+            _ui.UpdateUI(Data.name, (Installed ? LocalVersion.ToString(3) : Data.latestVersion), Data.author, Installed, Enabled, UpdateAvailable);
         }
 
         public void SetUIPosition(int modIdx)

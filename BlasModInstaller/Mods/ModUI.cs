@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace BlasModInstaller.Mods
 {
-    public class ModUI
+    internal class ModUI
     {
         private readonly Panel outerPanel;
         private readonly Panel innerPanel;
@@ -65,7 +65,7 @@ namespace BlasModInstaller.Mods
 
             outerPanel = new Panel
             {
-                Name = mod.Name,
+                Name = mod.Data.name,
                 Parent = parentPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
                 BackColor = Color.Black,
@@ -74,7 +74,7 @@ namespace BlasModInstaller.Mods
 
             innerPanel = new Panel
             {
-                Name = mod.Name,
+                Name = mod.Data.name,
                 Parent = outerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
                 Location = new Point(0, 2),
@@ -85,7 +85,7 @@ namespace BlasModInstaller.Mods
 
             nameText = new Label
             {
-                Name = mod.Name,
+                Name = mod.Data.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left,
                 Location = new Point(10, 8),
@@ -97,7 +97,7 @@ namespace BlasModInstaller.Mods
 
             authorText = new Label
             {
-                Name = mod.Name,
+                Name = mod.Data.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left,
                 Location = new Point(200, 13),
@@ -111,7 +111,7 @@ namespace BlasModInstaller.Mods
 
             updateButton = new Button
             {
-                Name = mod.Name,
+                Name = mod.Data.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 450, 11),
@@ -131,7 +131,7 @@ namespace BlasModInstaller.Mods
 
             readmeButton = new Button
             {
-                Name = mod.Name,
+                Name = mod.Data.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 290, 11),
@@ -150,7 +150,7 @@ namespace BlasModInstaller.Mods
 
             installButton = new Button
             {
-                Name = mod.Name,
+                Name = mod.Data.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 190, 11),
@@ -166,7 +166,7 @@ namespace BlasModInstaller.Mods
 
             enableButton = new Button
             {
-                Name = mod.Name,
+                Name = mod.Data.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 80, 11),

@@ -89,6 +89,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="GithubHandler.cs" />
+    <Compile Include="Mods\ModData.cs" />
     <Compile Include="SettingsHandler.cs" />
     <Compile Include="Sorting\ISorter.cs" />
     <Compile Include="Sorting\ModSorter.cs" />

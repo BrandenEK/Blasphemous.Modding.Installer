@@ -22,7 +22,7 @@ namespace BlasModInstaller.Sorting
             // Move modding api to the top always
             for (int i = 0; i < _mods.Count; i++)
             {
-                if (_mods[i].Name == "Modding API")
+                if (_mods[i].Data.name == "Modding API")
                 {
                     Mod api = _mods[i];
                     _mods.RemoveAt(i);
