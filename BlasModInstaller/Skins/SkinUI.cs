@@ -1,9 +1,9 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace BlasModInstaller
+namespace BlasModInstaller.Skins
 {
-    public class SkinUI
+    internal class SkinUI
     {
         private readonly Panel outerPanel;
         private readonly Panel innerPanel;
@@ -58,7 +58,7 @@ namespace BlasModInstaller
 
             outerPanel = new Panel
             {
-                Name = skin.name,
+                Name = skin.Data.name,
                 Parent = parentPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
                 BackColor = Color.Black,
@@ -67,7 +67,7 @@ namespace BlasModInstaller
 
             innerPanel = new Panel
             {
-                Name = skin.name,
+                Name = skin.Data.name,
                 Parent = outerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
                 Location = new Point(0, 2),
@@ -78,7 +78,7 @@ namespace BlasModInstaller
 
             nameText = new Label
             {
-                Name = skin.name,
+                Name = skin.Data.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left,
                 Location = new Point(10, 8),
@@ -90,7 +90,7 @@ namespace BlasModInstaller
 
             authorText = new Label
             {
-                Name = skin.name,
+                Name = skin.Data.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left,
                 Location = new Point(200, 13),
@@ -104,7 +104,7 @@ namespace BlasModInstaller
 
             updateButton = new Button
             {
-                Name = skin.name,
+                Name = skin.Data.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 550, 11),
@@ -119,12 +119,12 @@ namespace BlasModInstaller
             };
             updateButton.FlatAppearance.BorderColor = Color.White;
             updateButton.Click += skin.ClickedUpdate;
-            updateButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
-            updateButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+            updateButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            updateButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
             previewIdleButton = new Button
             {
-                Name = skin.name,
+                Name = skin.Data.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 390, 11),
@@ -138,12 +138,12 @@ namespace BlasModInstaller
             };
             previewIdleButton.FlatAppearance.BorderColor = Color.Black;
             previewIdleButton.Click += skin.ClickedPreviewIdle;
-            previewIdleButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
-            previewIdleButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+            previewIdleButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            previewIdleButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
             previewChargedButton = new Button
             {
-                Name = skin.name,
+                Name = skin.Data.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 260, 11),
@@ -157,12 +157,12 @@ namespace BlasModInstaller
             };
             previewChargedButton.FlatAppearance.BorderColor = Color.Black;
             previewChargedButton.Click += skin.ClickedPreviewCharged;
-            previewChargedButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
-            previewChargedButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+            previewChargedButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            previewChargedButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
             installButton = new Button
             {
-                Name = skin.name,
+                Name = skin.Data.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 110, 11),
@@ -173,8 +173,8 @@ namespace BlasModInstaller
                 TabStop = false,
             };
             installButton.Click += skin.ClickedInstall;
-            installButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
-            installButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+            installButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            installButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
             parentPanel.AutoScroll = true;
         }

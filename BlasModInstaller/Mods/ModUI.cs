@@ -1,9 +1,9 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace BlasModInstaller
+namespace BlasModInstaller.Mods
 {
-    public class ModUI
+    internal class ModUI
     {
         private readonly Panel outerPanel;
         private readonly Panel innerPanel;
@@ -65,7 +65,7 @@ namespace BlasModInstaller
 
             outerPanel = new Panel
             {
-                Name = mod.Name,
+                Name = mod.Data.name,
                 Parent = parentPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
                 BackColor = Color.Black,
@@ -74,7 +74,7 @@ namespace BlasModInstaller
 
             innerPanel = new Panel
             {
-                Name = mod.Name,
+                Name = mod.Data.name,
                 Parent = outerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
                 Location = new Point(0, 2),
@@ -85,7 +85,7 @@ namespace BlasModInstaller
 
             nameText = new Label
             {
-                Name = mod.Name,
+                Name = mod.Data.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left,
                 Location = new Point(10, 8),
@@ -97,7 +97,7 @@ namespace BlasModInstaller
 
             authorText = new Label
             {
-                Name = mod.Name,
+                Name = mod.Data.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left,
                 Location = new Point(200, 13),
@@ -111,7 +111,7 @@ namespace BlasModInstaller
 
             updateButton = new Button
             {
-                Name = mod.Name,
+                Name = mod.Data.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 450, 11),
@@ -126,12 +126,12 @@ namespace BlasModInstaller
             };
             updateButton.FlatAppearance.BorderColor = Color.White;
             updateButton.Click += mod.ClickedUpdate;
-            updateButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
-            updateButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+            updateButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            updateButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
             readmeButton = new Button
             {
-                Name = mod.Name,
+                Name = mod.Data.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 290, 11),
@@ -145,12 +145,12 @@ namespace BlasModInstaller
             };
             readmeButton.FlatAppearance.BorderColor = Color.Black;
             readmeButton.Click += mod.ClickedReadme;
-            readmeButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
-            readmeButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+            readmeButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            readmeButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
             installButton = new Button
             {
-                Name = mod.Name,
+                Name = mod.Data.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 190, 11),
@@ -161,12 +161,12 @@ namespace BlasModInstaller
                 TabStop = false,
             };
             installButton.Click += mod.ClickedInstall;
-            installButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
-            installButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+            installButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            installButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
             enableButton = new Button
             {
-                Name = mod.Name,
+                Name = mod.Data.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Location = new Point(parentPanel.Width - 80, 11),
@@ -177,8 +177,8 @@ namespace BlasModInstaller
                 TabStop = false,
             };
             enableButton.Click += mod.ClickedEnable;
-            enableButton.MouseUp += MainForm.Instance.RemoveButtonFocus;
-            enableButton.MouseLeave += MainForm.Instance.RemoveButtonFocus;
+            enableButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            enableButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
             parentPanel.AutoScroll = true;
         }

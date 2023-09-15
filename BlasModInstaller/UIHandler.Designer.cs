@@ -1,7 +1,7 @@
 ﻿
 namespace BlasModInstaller
 {
-    partial class MainForm
+    partial class UIHandler
     {
         /// <summary>
         /// Required designer variable.
@@ -29,12 +29,12 @@ namespace BlasModInstaller
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIHandler));
             this.blas1modScroll = new System.Windows.Forms.VScrollBar();
             this.blas1modSection = new System.Windows.Forms.Panel();
-            this.blasLocButton = new System.Windows.Forms.Button();
-            this.blas1locationSection = new System.Windows.Forms.Panel();
-            this.blasLocFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.locationBtn = new System.Windows.Forms.Button();
+            this.validationSection = new System.Windows.Forms.Panel();
+            this.toolsBtn = new System.Windows.Forms.Button();
             this.blasLocDialog = new System.Windows.Forms.OpenFileDialog();
             this.mainSection = new System.Windows.Forms.Panel();
             this.titleSectionOuter = new System.Windows.Forms.Panel();
@@ -43,7 +43,6 @@ namespace BlasModInstaller
             this.blas1skinSection = new System.Windows.Forms.Panel();
             this.blas1skinScroll = new System.Windows.Forms.VScrollBar();
             this.blas2modSection = new System.Windows.Forms.Panel();
-            this.blas2modText = new System.Windows.Forms.Label();
             this.blas2modScroll = new System.Windows.Forms.VScrollBar();
             this.sideSectionInner = new System.Windows.Forms.Panel();
             this.divider2 = new System.Windows.Forms.Panel();
@@ -58,8 +57,6 @@ namespace BlasModInstaller
             this.sortByAuthor = new System.Windows.Forms.RadioButton();
             this.sortByLatestRelease = new System.Windows.Forms.RadioButton();
             this.sortByInitialRelease = new System.Windows.Forms.RadioButton();
-            this.gearImage = new System.Windows.Forms.PictureBox();
-            this.settingsBtn = new System.Windows.Forms.Button();
             this.warningSectionOuter = new System.Windows.Forms.Panel();
             this.warningSectionInner = new System.Windows.Forms.Panel();
             this.warningText = new System.Windows.Forms.LinkLabel();
@@ -70,7 +67,7 @@ namespace BlasModInstaller
             this.blas1modsBtn = new System.Windows.Forms.Button();
             this.sideSectionOuter = new System.Windows.Forms.Panel();
             this.blas1modSection.SuspendLayout();
-            this.blas1locationSection.SuspendLayout();
+            this.validationSection.SuspendLayout();
             this.mainSection.SuspendLayout();
             this.titleSectionOuter.SuspendLayout();
             this.titleSectionInner.SuspendLayout();
@@ -78,7 +75,6 @@ namespace BlasModInstaller
             this.blas2modSection.SuspendLayout();
             this.sideSectionInner.SuspendLayout();
             this.sortSection.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gearImage)).BeginInit();
             this.warningSectionOuter.SuspendLayout();
             this.warningSectionInner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.warningImage)).BeginInit();
@@ -108,36 +104,50 @@ namespace BlasModInstaller
             this.blas1modSection.Name = "blas1modSection";
             this.blas1modSection.Size = new System.Drawing.Size(1150, 741);
             this.blas1modSection.TabIndex = 3;
+            this.blas1modSection.Visible = false;
             // 
-            // blasLocButton
+            // locationBtn
             // 
-            this.blasLocButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.blasLocButton.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.blasLocButton.Location = new System.Drawing.Point(475, 345);
-            this.blasLocButton.Name = "blasLocButton";
-            this.blasLocButton.Size = new System.Drawing.Size(200, 50);
-            this.blasLocButton.TabIndex = 7;
-            this.blasLocButton.Text = "Locate Blasphemous.exe";
-            this.blasLocButton.UseVisualStyleBackColor = true;
-            this.blasLocButton.Click += new System.EventHandler(this.ChooseBlasLocation);
+            this.locationBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.locationBtn.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.locationBtn.Location = new System.Drawing.Point(470, 310);
+            this.locationBtn.Name = "locationBtn";
+            this.locationBtn.Size = new System.Drawing.Size(210, 50);
+            this.locationBtn.TabIndex = 0;
+            this.locationBtn.Text = "Locate .exe";
+            this.locationBtn.UseVisualStyleBackColor = true;
+            this.locationBtn.Click += new System.EventHandler(this.ClickLocationButton);
             // 
-            // blas1locationSection
+            // validationSection
             // 
-            this.blas1locationSection.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.validationSection.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.blas1locationSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.blas1locationSection.Controls.Add(this.blasLocButton);
-            this.blas1locationSection.Location = new System.Drawing.Point(0, 120);
-            this.blas1locationSection.Name = "blas1locationSection";
-            this.blas1locationSection.Size = new System.Drawing.Size(1150, 741);
-            this.blas1locationSection.TabIndex = 4;
+            this.validationSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.validationSection.Controls.Add(this.toolsBtn);
+            this.validationSection.Controls.Add(this.locationBtn);
+            this.validationSection.Location = new System.Drawing.Point(0, 120);
+            this.validationSection.Name = "validationSection";
+            this.validationSection.Size = new System.Drawing.Size(1150, 741);
+            this.validationSection.TabIndex = 4;
+            // 
+            // toolsBtn
+            // 
+            this.toolsBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.toolsBtn.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolsBtn.Location = new System.Drawing.Point(470, 380);
+            this.toolsBtn.Name = "toolsBtn";
+            this.toolsBtn.Size = new System.Drawing.Size(210, 50);
+            this.toolsBtn.TabIndex = 1;
+            this.toolsBtn.Text = "Install modding tools";
+            this.toolsBtn.UseVisualStyleBackColor = true;
+            this.toolsBtn.Click += new System.EventHandler(this.ClickToolsButton);
             // 
             // blasLocDialog
             // 
-            this.blasLocDialog.FileName = "Blasphemous.exe";
+            this.blasLocDialog.FileName = ".exe";
             this.blasLocDialog.Filter = "Exe files (*.exe)|*.exe";
-            this.blasLocDialog.Title = "Choose Blasphemous.exe location";
+            this.blasLocDialog.Title = "Choose .exe location";
             // 
             // mainSection
             // 
@@ -145,10 +155,10 @@ namespace BlasModInstaller
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.mainSection.BackColor = System.Drawing.Color.White;
+            this.mainSection.Controls.Add(this.validationSection);
             this.mainSection.Controls.Add(this.titleSectionOuter);
             this.mainSection.Controls.Add(this.blas1modSection);
             this.mainSection.Controls.Add(this.blas1skinSection);
-            this.mainSection.Controls.Add(this.blas1locationSection);
             this.mainSection.Controls.Add(this.blas2modSection);
             this.mainSection.Location = new System.Drawing.Point(250, 0);
             this.mainSection.Name = "mainSection";
@@ -205,6 +215,7 @@ namespace BlasModInstaller
             this.blas1skinSection.Name = "blas1skinSection";
             this.blas1skinSection.Size = new System.Drawing.Size(1150, 741);
             this.blas1skinSection.TabIndex = 5;
+            this.blas1skinSection.Visible = false;
             // 
             // blas1skinScroll
             // 
@@ -224,23 +235,12 @@ namespace BlasModInstaller
             this.blas2modSection.AutoScroll = true;
             this.blas2modSection.AutoScrollMargin = new System.Drawing.Size(0, 15);
             this.blas2modSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.blas2modSection.Controls.Add(this.blas2modText);
             this.blas2modSection.Controls.Add(this.blas2modScroll);
             this.blas2modSection.Location = new System.Drawing.Point(0, 120);
             this.blas2modSection.Name = "blas2modSection";
             this.blas2modSection.Size = new System.Drawing.Size(1150, 741);
             this.blas2modSection.TabIndex = 4;
-            // 
-            // blas2modText
-            // 
-            this.blas2modText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.blas2modText.Font = new System.Drawing.Font("Trebuchet MS", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.blas2modText.Location = new System.Drawing.Point(0, 0);
-            this.blas2modText.Name = "blas2modText";
-            this.blas2modText.Size = new System.Drawing.Size(1150, 741);
-            this.blas2modText.TabIndex = 3;
-            this.blas2modText.Text = "There is nothing here yet...";
-            this.blas2modText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.blas2modSection.Visible = false;
             // 
             // blas2modScroll
             // 
@@ -265,8 +265,6 @@ namespace BlasModInstaller
             this.sideSectionInner.Controls.Add(this.uninstallBtn);
             this.sideSectionInner.Controls.Add(this.installBtn);
             this.sideSectionInner.Controls.Add(this.sortSection);
-            this.sideSectionInner.Controls.Add(this.gearImage);
-            this.sideSectionInner.Controls.Add(this.settingsBtn);
             this.sideSectionInner.Controls.Add(this.warningSectionOuter);
             this.sideSectionInner.Controls.Add(this.debugLog);
             this.sideSectionInner.Controls.Add(this.blas2modsBtn);
@@ -406,7 +404,7 @@ namespace BlasModInstaller
             this.sortByName.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.sortByName.Location = new System.Drawing.Point(4, 30);
             this.sortByName.Name = "sortByName";
-            this.sortByName.Size = new System.Drawing.Size(53, 20);
+            this.sortByName.Size = new System.Drawing.Size(52, 20);
             this.sortByName.TabIndex = 10;
             this.sortByName.TabStop = true;
             this.sortByName.Text = "Name";
@@ -419,7 +417,7 @@ namespace BlasModInstaller
             this.sortByAuthor.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.sortByAuthor.Location = new System.Drawing.Point(4, 55);
             this.sortByAuthor.Name = "sortByAuthor";
-            this.sortByAuthor.Size = new System.Drawing.Size(60, 20);
+            this.sortByAuthor.Size = new System.Drawing.Size(59, 20);
             this.sortByAuthor.TabIndex = 11;
             this.sortByAuthor.TabStop = true;
             this.sortByAuthor.Text = "Author";
@@ -432,7 +430,7 @@ namespace BlasModInstaller
             this.sortByLatestRelease.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.sortByLatestRelease.Location = new System.Drawing.Point(4, 105);
             this.sortByLatestRelease.Name = "sortByLatestRelease";
-            this.sortByLatestRelease.Size = new System.Drawing.Size(98, 20);
+            this.sortByLatestRelease.Size = new System.Drawing.Size(97, 20);
             this.sortByLatestRelease.TabIndex = 9;
             this.sortByLatestRelease.TabStop = true;
             this.sortByLatestRelease.Text = "Latest release";
@@ -445,47 +443,12 @@ namespace BlasModInstaller
             this.sortByInitialRelease.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.sortByInitialRelease.Location = new System.Drawing.Point(4, 80);
             this.sortByInitialRelease.Name = "sortByInitialRelease";
-            this.sortByInitialRelease.Size = new System.Drawing.Size(94, 20);
+            this.sortByInitialRelease.Size = new System.Drawing.Size(93, 20);
             this.sortByInitialRelease.TabIndex = 8;
             this.sortByInitialRelease.TabStop = true;
             this.sortByInitialRelease.Text = "Initial release";
             this.sortByInitialRelease.UseVisualStyleBackColor = true;
             this.sortByInitialRelease.Click += new System.EventHandler(this.ClickedSortByInitialRelease);
-            // 
-            // gearImage
-            // 
-            this.gearImage.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.gearImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.gearImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.gearImage.Image = global::BlasModInstaller.Properties.Resources.gear;
-            this.gearImage.Location = new System.Drawing.Point(68, 215);
-            this.gearImage.Name = "gearImage";
-            this.gearImage.Size = new System.Drawing.Size(25, 25);
-            this.gearImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.gearImage.TabIndex = 6;
-            this.gearImage.TabStop = false;
-            this.gearImage.Visible = false;
-            // 
-            // settingsBtn
-            // 
-            this.settingsBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.settingsBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.settingsBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.settingsBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.settingsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.settingsBtn.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.settingsBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.settingsBtn.Location = new System.Drawing.Point(15, 210);
-            this.settingsBtn.Name = "settingsBtn";
-            this.settingsBtn.Size = new System.Drawing.Size(220, 35);
-            this.settingsBtn.TabIndex = 7;
-            this.settingsBtn.Text = "      Settings";
-            this.settingsBtn.UseVisualStyleBackColor = false;
-            this.settingsBtn.Visible = false;
-            this.settingsBtn.Click += new System.EventHandler(this.ClickedSettings);
-            this.settingsBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
-            this.settingsBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
-            this.settingsBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
             // 
             // warningSectionOuter
             // 
@@ -624,7 +587,7 @@ namespace BlasModInstaller
             this.sideSectionOuter.Size = new System.Drawing.Size(250, 900);
             this.sideSectionOuter.TabIndex = 9;
             // 
-            // MainForm
+            // UIHandler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -635,13 +598,13 @@ namespace BlasModInstaller
             this.Font = new System.Drawing.Font("Trebuchet MS", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1400, 900);
-            this.Name = "MainForm";
+            this.Name = "UIHandler";
             this.Text = "Blasphemous Mod Installer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClose);
             this.Load += new System.EventHandler(this.OnFormOpen);
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             this.blas1modSection.ResumeLayout(false);
-            this.blas1locationSection.ResumeLayout(false);
+            this.validationSection.ResumeLayout(false);
             this.mainSection.ResumeLayout(false);
             this.titleSectionOuter.ResumeLayout(false);
             this.titleSectionInner.ResumeLayout(false);
@@ -651,7 +614,6 @@ namespace BlasModInstaller
             this.sideSectionInner.PerformLayout();
             this.sortSection.ResumeLayout(false);
             this.sortSection.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gearImage)).EndInit();
             this.warningSectionOuter.ResumeLayout(false);
             this.warningSectionInner.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.warningImage)).EndInit();
@@ -663,10 +625,9 @@ namespace BlasModInstaller
         #endregion
         private System.Windows.Forms.VScrollBar blas1modScroll;
         private System.Windows.Forms.Panel blas1modSection;
-        private System.Windows.Forms.Button blasLocButton;
-        private System.Windows.Forms.FolderBrowserDialog blasLocFolderDialog;
+        private System.Windows.Forms.Button locationBtn;
         private System.Windows.Forms.OpenFileDialog blasLocDialog;
-        private System.Windows.Forms.Panel blas1locationSection;
+        private System.Windows.Forms.Panel validationSection;
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Panel mainSection;
         private System.Windows.Forms.Panel sideSectionInner;
@@ -677,7 +638,6 @@ namespace BlasModInstaller
         private System.Windows.Forms.TextBox debugLog;
         private System.Windows.Forms.Panel blas2modSection;
         private System.Windows.Forms.VScrollBar blas2modScroll;
-        private System.Windows.Forms.Label blas2modText;
         private System.Windows.Forms.PictureBox warningImage;
         private System.Windows.Forms.Panel warningSectionOuter;
         private System.Windows.Forms.Panel warningSectionInner;
@@ -685,8 +645,6 @@ namespace BlasModInstaller
         private System.Windows.Forms.VScrollBar blas1skinScroll;
         private System.Windows.Forms.Panel titleSectionInner;
         private System.Windows.Forms.Panel sideSectionOuter;
-        private System.Windows.Forms.Button settingsBtn;
-        private System.Windows.Forms.PictureBox gearImage;
         private System.Windows.Forms.LinkLabel warningText;
         private System.Windows.Forms.RadioButton sortByLatestRelease;
         private System.Windows.Forms.RadioButton sortByInitialRelease;
@@ -700,6 +658,7 @@ namespace BlasModInstaller
         private System.Windows.Forms.Button uninstallBtn;
         private System.Windows.Forms.Panel divider1;
         private System.Windows.Forms.Panel divider2;
+        private System.Windows.Forms.Button toolsBtn;
     }
 }
 

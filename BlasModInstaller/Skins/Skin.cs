@@ -6,43 +6,32 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BlasModInstaller
+namespace BlasModInstaller.Skins
 {
-    [Serializable]
-    public class Skin : IComparable
+    internal class Skin : IComparable
     {
-        // Data
+        private readonly SkinUI _ui;
+        private readonly SectionType _skinType;
 
-        public string id;
-        public string name;
-        public string author;
-        public string version; // This is the most recent version and is updated whenever loading global skins
-
-        [JsonIgnore]
         private bool _downloading;
-        [JsonIgnore]
-        private SkinUI _ui;
 
-        public void UpdateLocalData(Skin globalSkin)
+        public Skin(SkinData data, Panel panel, int initialIndex, SectionType skinType)
         {
-            // Id is already going to be the same
-            name = globalSkin.name;
-            author = globalSkin.author;
-            version = globalSkin.version;
+            Data = data;
+            _skinType = skinType;
+            _ui = new SkinUI(this, panel);
+            SetUIPosition(initialIndex);
+            UpdateUI();
+            SkinPage.UIHolder.AdjustPageWidth();
         }
 
-        public override int GetHashCode() => base.GetHashCode();
-        public override bool Equals(object obj)
-        {
-            if (obj is Skin skin)
-                return id == skin.id;
-            return base.Equals(obj);
-        }
+        public SkinData Data { get; set; }
 
-        [JsonIgnore]
-        public bool Installed => File.Exists($"{MainForm.BlasRootFolder}\\Modding\\skins\\{id}\\info.txt");
+        private InstallerPage SkinPage => Core.Blas1SkinPage;
+        private SortType SkinSort => Core.SettingsHandler.Config.Blas1SkinSort;
 
-        [JsonIgnore]
+        public bool Installed => File.Exists($"{RootFolder}\\Modding\\skins\\{Data.id}\\info.txt");
+
         public Version LocalVersion
         {
             get
@@ -50,8 +39,8 @@ namespace BlasModInstaller
                 string infoPath = PathToSkinFolder + "\\info.txt";
                 if (File.Exists(infoPath))
                 {
-                    Skin data = JsonConvert.DeserializeObject<Skin>(File.ReadAllText(infoPath));
-                    return MainForm.CleanSemanticVersion(data.version);
+                    SkinData data = JsonConvert.DeserializeObject<SkinData>(File.ReadAllText(infoPath));
+                    return GithubHandler.CleanSemanticVersion(data.version);
                 }
                 else
                 {
@@ -60,7 +49,6 @@ namespace BlasModInstaller
             }
         }
 
-        [JsonIgnore]
         public bool UpdateAvailable
         {
             get
@@ -68,42 +56,38 @@ namespace BlasModInstaller
                 if (!Installed)
                     return false;
 
-                return MainForm.CleanSemanticVersion(version).CompareTo(LocalVersion) > 0;
+                return GithubHandler.CleanSemanticVersion(Data.version).CompareTo(LocalVersion) > 0;
             }
         }
 
         // Paths
 
-        [JsonIgnore]
-        public string PathToSkinFolder => $"{MainForm.BlasRootFolder}\\Modding\\skins\\{id}";
-        [JsonIgnore]
-        public string InfoURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{id}/info.txt";
-        [JsonIgnore]
-        public string TextureURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{id}/texture.png";
-        [JsonIgnore]
-        public string IdlePreviewURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{id}/idlePreview.png";
-        [JsonIgnore]
-        public string ChargedPreviewURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{id}/chargedPreview.png";
+        private string RootFolder => Core.SettingsHandler.GetRootPathBySection(_skinType);
+
+        public string PathToSkinFolder => $"{RootFolder}\\Modding\\skins\\{Data.id}";
+        public string InfoURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{Data.id}/info.txt";
+        public string TextureURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{Data.id}/texture.png";
+        public string IdlePreviewURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{Data.id}/idlePreview.png";
+        public string ChargedPreviewURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{Data.id}/chargedPreview.png";
 
         // Main methods
 
         public async Task Install()
         {
-            if (MainForm.BlasRootFolder == null) return;
-
             _downloading = true;
             using (WebClient client = new WebClient())
             {
                 _ui.ShowDownloadingStatus();
 
-                string downloadPath = $"{MainForm.DownloadsPath}{id}";
+                string downloadPath = $"{UIHandler.DownloadsPath}{Data.id}";
                 Directory.CreateDirectory(downloadPath);
+
+                string installPath = PathToSkinFolder;
+                Directory.CreateDirectory(installPath);
 
                 await client.DownloadFileTaskAsync(new Uri(InfoURL), downloadPath + "\\info.txt");
                 await client.DownloadFileTaskAsync(new Uri(TextureURL), downloadPath + "\\texture.png");
 
-                string installPath = PathToSkinFolder;
-                Directory.CreateDirectory(installPath);
                 File.Copy(downloadPath + "\\info.txt", installPath + "\\info.txt");
                 File.Copy(downloadPath + "\\texture.png", installPath + "\\texture.png");
 
@@ -116,8 +100,6 @@ namespace BlasModInstaller
 
         public void Uninstall()
         {
-            if (MainForm.BlasRootFolder == null) return;
-
             if (Directory.Exists(PathToSkinFolder))
                 Directory.Delete(PathToSkinFolder, true);
 
@@ -132,7 +114,7 @@ namespace BlasModInstaller
 
             if (Installed)
             {
-                if (MessageBox.Show("Are you sure you want to uninstall this skin?", name, MessageBoxButtons.OKCancel) == DialogResult.OK)
+                if (MessageBox.Show("Are you sure you want to uninstall this skin?", Data.name, MessageBoxButtons.OKCancel) == DialogResult.OK)
                     Uninstall();
             }
             else
@@ -161,17 +143,9 @@ namespace BlasModInstaller
 
         // UI methods
 
-        public void CreateUI(Panel parentPanel, int skinIdx)
-        {
-            _ui = new SkinUI(this, parentPanel);
-            SetUIPosition(skinIdx);
-            UpdateUI();
-            MainForm.Instance.BlasSkinPage.AdjustPageWidth();
-        }
-
         public void UpdateUI()
         {
-            _ui.UpdateUI(name, author, Installed, UpdateAvailable);
+            _ui.UpdateUI(Data.name, Data.author, Installed, UpdateAvailable);
         }
 
         public void SetUIPosition(int skinIdx)
@@ -181,17 +155,17 @@ namespace BlasModInstaller
 
         // Sorting methods
 
-        public int CompareTo(object obj) => SortBy(obj as Skin, MainForm.SortBlasSkins);
+        public int CompareTo(object obj) => SortBy(obj as Skin, SkinSort);
 
         public int SortBy(Skin skin, SortType sort)
         {
             if (sort == SortType.Name)
             {
-                return name.CompareTo(skin.name);
+                return Data.name.CompareTo(skin.Data.name);
             }
             else if (sort == SortType.Author)
             {
-                int difference = author.CompareTo(skin.author);
+                int difference = Data.author.CompareTo(skin.Data.author);
                 return difference == 0 ? SortBy(skin, SortType.Name) : difference;
             }
             return 0;
