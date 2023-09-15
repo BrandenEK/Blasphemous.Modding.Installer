@@ -1,4 +1,5 @@
 ﻿using BlasModInstaller.Grouping;
+using BlasModInstaller.UIHolding;
 using BlasModInstaller.Validation;
 using Ionic.Zip;
 using Newtonsoft.Json;
@@ -17,16 +18,19 @@ namespace BlasModInstaller.Mods
     {
         private readonly List<Mod> _mods = new List<Mod>();
         private readonly ModGrouper _grouper;
+        private readonly GenericUIHolder<Mod> _uiHolder;
 
         private bool _loaded = false;
 
-        public ModPage(string title, Bitmap image, Panel uiElement, string localDataPath, string globalDataPath, IValidator validator)
-            : base(title, image, uiElement, localDataPath, globalDataPath, validator)
+        public ModPage(string title, Bitmap image, Panel panel, string localDataPath, string globalDataPath, IValidator validator)
+            : base(title, image, localDataPath, globalDataPath, validator)
         {
             _grouper = new ModGrouper(title, _mods);
+            _uiHolder = new GenericUIHolder<Mod>(panel, _mods);
         }
 
         public override IGrouper Grouper => _grouper;
+        public override IUIHolder UIHolder => _uiHolder;
 
         // Mod list
 
@@ -59,7 +63,7 @@ namespace BlasModInstaller.Mods
 
         public override void LoadData()
         {
-            AdjustPageWidth();
+            _uiHolder.AdjustPageWidth();
             if (_loaded)
                 return;
 
@@ -78,10 +82,10 @@ namespace BlasModInstaller.Mods
             }
 
             for (int i = 0; i < _mods.Count; i++)
-                _mods[i].CreateUI(_uiElement, i);
+                _mods[i].CreateUI(_uiHolder.SectionPanel, i);
 
             Core.UIHandler.Log($"Loaded {_mods.Count} local mods");
-            SetBackgroundColor();
+            _uiHolder.SetBackgroundColor();
             Sort();
         }
 
@@ -113,7 +117,7 @@ namespace BlasModInstaller.Mods
                         globalMod.LatestDownloadURL = downloadURL;
                         globalMod.LatestReleaseDate = latestReleaseDate;
                         _mods.Add(globalMod);
-                        globalMod.CreateUI(_uiElement, _mods.Count - 1);
+                        globalMod.CreateUI(_uiHolder.SectionPanel, _mods.Count - 1);
                     }
                 }
 
@@ -121,7 +125,7 @@ namespace BlasModInstaller.Mods
             }
 
             SaveLocalData();
-            SetBackgroundColor();
+            _uiHolder.SetBackgroundColor();
             Sort();
         }
 
@@ -151,19 +155,6 @@ namespace BlasModInstaller.Mods
             }
         }
 
-        // UI
-
-        public override void AdjustPageWidth()
-        {
-            bool scrollVisible = _uiElement.VerticalScroll.Visible;
-            _uiElement.Width = Core.UIHandler.MainSectionWidth + (scrollVisible ? 2 : -15);
-        }
-
-        private void SetBackgroundColor()
-        {
-            _uiElement.BackColor = _mods.Count % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
-        }
-
         // Sort
 
         public override void Sort()
@@ -182,7 +173,7 @@ namespace BlasModInstaller.Mods
                 }
             }
 
-            _uiElement.VerticalScroll.Value = 0;
+            _uiHolder.SectionPanel.VerticalScroll.Value = 0;
             for (int i = 0; i < _mods.Count; i++)
                 _mods[i].SetUIPosition(i);
         }

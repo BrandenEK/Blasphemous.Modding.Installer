@@ -83,12 +83,15 @@
     <Compile Include="Grouping\IGrouper.cs" />
     <Compile Include="Grouping\ModGrouper.cs" />
     <Compile Include="Grouping\SkinGrouper.cs" />
+    <Compile Include="Loading\ILoader.cs" />
     <Compile Include="Mods\ModPage.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="GithubHandler.cs" />
     <Compile Include="SettingsHandler.cs" />
     <Compile Include="Skins\SkinPage.cs" />
+    <Compile Include="Sorting\ISorter.cs" />
+    <Compile Include="Sorting\ModSorter.cs" />
     <Compile Include="UIHandler.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +105,8 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Skins\Skin.cs" />
     <Compile Include="Skins\SkinUI.cs" />
+    <Compile Include="UIHolding\GenericUIHolder.cs" />
+    <Compile Include="UIHolding\IUIHolder.cs" />
     <Compile Include="Validation\Blas1Validator.cs" />
     <Compile Include="Validation\Blas2Validator.cs" />
     <Compile Include="Validation\IValidator.cs" />

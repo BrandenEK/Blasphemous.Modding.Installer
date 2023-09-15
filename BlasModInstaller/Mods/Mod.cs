@@ -273,7 +273,7 @@ namespace BlasModInstaller.Mods
             _ui = new ModUI(this, parentPanel);
             SetUIPosition(modIdx);
             UpdateUI();
-            Core.Blas1ModPage.AdjustPageWidth();
+            Core.Blas1ModPage.UIHolder.AdjustPageWidth();
         }
 
         public void UpdateUI()

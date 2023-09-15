@@ -1,4 +1,5 @@
 ﻿using BlasModInstaller.Grouping;
+using BlasModInstaller.UIHolding;
 using BlasModInstaller.Validation;
 using Ionic.Zip;
 using Newtonsoft.Json;
@@ -17,16 +18,19 @@ namespace BlasModInstaller.Skins
     {
         private readonly List<Skin> _skins = new List<Skin>();
         private readonly SkinGrouper _grouper;
+        private readonly GenericUIHolder<Skin> _uiHolder;
 
         private bool _loaded = false;
 
-        public SkinPage(string title, Bitmap image, Panel uiElement, string localDataPath, string globalDataPath, IValidator validator)
-            : base(title, image, uiElement, localDataPath, globalDataPath, validator)
+        public SkinPage(string title, Bitmap image, Panel panel, string localDataPath, string globalDataPath, IValidator validator)
+            : base(title, image, localDataPath, globalDataPath, validator)
         {
             _grouper = new SkinGrouper(title, _skins);
+            _uiHolder = new GenericUIHolder<Skin>(panel, _skins);
         }
 
         public override IGrouper Grouper => _grouper;
+        public override IUIHolder UIHolder => _uiHolder;
 
         // Skin list
 
@@ -48,7 +52,7 @@ namespace BlasModInstaller.Skins
 
         public override void LoadData()
         {
-            AdjustPageWidth();
+            _uiHolder.AdjustPageWidth();
             if (_loaded)
                 return;
 
@@ -67,10 +71,10 @@ namespace BlasModInstaller.Skins
             }
 
             for (int i = 0; i < _skins.Count; i++)
-                _skins[i].CreateUI(_uiElement, i);
+                _skins[i].CreateUI(_uiHolder.SectionPanel, i);
 
             Core.UIHandler.Log($"Loaded {_skins.Count} local skins");
-            SetBackgroundColor();
+            _uiHolder.SetBackgroundColor();
             Sort();
         }
 
@@ -92,7 +96,7 @@ namespace BlasModInstaller.Skins
                     else
                     {
                         _skins.Add(globalSkin);
-                        globalSkin.CreateUI(_uiElement, _skins.Count - 1);
+                        globalSkin.CreateUI(_uiHolder.SectionPanel, _skins.Count - 1);
                     }
                 }
 
@@ -100,7 +104,7 @@ namespace BlasModInstaller.Skins
             }
 
             SaveLocalData();
-            SetBackgroundColor();
+            _uiHolder.SetBackgroundColor();
             Sort();
         }
 
@@ -130,26 +134,13 @@ namespace BlasModInstaller.Skins
             }
         }
 
-        // UI
-
-        public override void AdjustPageWidth()
-        {
-            bool scrollVisible = _uiElement.VerticalScroll.Visible;
-            _uiElement.Width = Core.UIHandler.MainSectionWidth + (scrollVisible ? 2 : -15);
-        }
-
-        private void SetBackgroundColor()
-        {
-            _uiElement.BackColor = _skins.Count % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
-        }
-
         // Sort
 
         public override void Sort()
         {
             _skins.Sort();
 
-            _uiElement.VerticalScroll.Value = 0;
+            _uiHolder.SectionPanel.VerticalScroll.Value = 0;
             for (int i = 0; i < _skins.Count; i++)
                 _skins[i].SetUIPosition(i);
         }

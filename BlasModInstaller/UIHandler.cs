@@ -80,7 +80,7 @@ namespace BlasModInstaller
             {
                 foreach (var page in Core.AllPages)
                 {
-                    page.AdjustPageWidth();
+                    page.UIHolder.AdjustPageWidth();
                 }
             }
             catch (NullReferenceException)
@@ -149,10 +149,10 @@ namespace BlasModInstaller
             }
 
             // Show the correct page element
-            currentPage.UIElement.Visible = validated;
+            currentPage.UIHolder.SectionPanel.Visible = validated;
             foreach (var page in Core.AllPages)
                 if (page != currentPage)
-                    page.UIElement.Visible = false;                
+                    page.UIHolder.SectionPanel.Visible = false;                
 
             // Only show side buttons under certain conditions
             divider1.Visible = validated;

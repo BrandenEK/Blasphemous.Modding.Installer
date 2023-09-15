@@ -159,7 +159,7 @@ namespace BlasModInstaller.Skins
             _ui = new SkinUI(this, parentPanel);
             SetUIPosition(skinIdx);
             UpdateUI();
-            Core.Blas1SkinPage.AdjustPageWidth();
+            Core.Blas1SkinPage.UIHolder.AdjustPageWidth();
         }
 
         public void UpdateUI()
