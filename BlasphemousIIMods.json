@@ -1,3 +1,11 @@
 [
-
+  {
+    "Name": "Modding API",
+    "Author": "Damocles",
+    "Description": "A modding API that assists the creation of mods for Blasphemous 2",
+    "InitialReleaseDate": "2023-09-15",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "BlasII.ModdingAPI",
+    "PluginFile": "ModdingAPI.dll"
+  },
 ]
