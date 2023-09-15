@@ -94,11 +94,12 @@ namespace BlasModInstaller.Skins
                 string downloadPath = $"{UIHandler.DownloadsPath}{id}";
                 Directory.CreateDirectory(downloadPath);
 
+                string installPath = PathToSkinFolder;
+                Directory.CreateDirectory(installPath);
+
                 await client.DownloadFileTaskAsync(new Uri(InfoURL), downloadPath + "\\info.txt");
                 await client.DownloadFileTaskAsync(new Uri(TextureURL), downloadPath + "\\texture.png");
 
-                string installPath = PathToSkinFolder;
-                Directory.CreateDirectory(installPath);
                 File.Copy(downloadPath + "\\info.txt", installPath + "\\info.txt");
                 File.Copy(downloadPath + "\\texture.png", installPath + "\\texture.png");
 

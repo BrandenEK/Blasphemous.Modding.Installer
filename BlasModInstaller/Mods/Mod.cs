@@ -118,11 +118,10 @@ namespace BlasModInstaller.Mods
                 _ui.ShowDownloadingStatus();
 
                 string downloadPath = $"{UIHandler.DownloadsPath}{Name.Replace(' ', '_')}.zip";
-
-                await client.DownloadFileTaskAsync(new Uri(LatestDownloadURL), downloadPath);
-
                 string installPath = Core.SettingsHandler.Config.Blas1RootFolder;
                 if (Name != "Modding API") installPath += "\\Modding";
+
+                await client.DownloadFileTaskAsync(new Uri(LatestDownloadURL), downloadPath);
 
                 using (ZipFile zipFile = ZipFile.Read(downloadPath))
                 {
