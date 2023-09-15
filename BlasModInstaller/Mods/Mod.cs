@@ -12,16 +12,18 @@ namespace BlasModInstaller.Mods
     internal class Mod : IComparable
     {
         private readonly ModUI _ui;
+        private readonly SectionType _modType;
 
         private bool _downloading = false;
 
-        public Mod(ModData data, Panel panel, int initialIndex)
+        public Mod(ModData data, Panel panel, int initialIndex, SectionType modType)
         {
             Data = data;
+            _modType = modType;
             _ui = new ModUI(this, panel);
             SetUIPosition(initialIndex);
             UpdateUI();
-            Core.Blas1ModPage.UIHolder.AdjustPageWidth();
+            ModPage.UIHolder.AdjustPageWidth();
         }
 
         public ModData Data { get; set; }
@@ -68,17 +70,22 @@ namespace BlasModInstaller.Mods
             }
         }
 
+        private InstallerPage ModPage => _modType == SectionType.Blas1Mods ? Core.Blas1ModPage : Core.Blas2ModPage;
+        private SortType ModSort => _modType == SectionType.Blas1Mods ? Core.SettingsHandler.Config.Blas1ModSort : Core.SettingsHandler.Config.Blas2ModSort;
+
         // Paths
 
-        public string PathToEnabledPlugin => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\plugins\\{Data.pluginFile}";
-        public string PathToDisabledPlugin => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\disabled\\{Data.pluginFile}";
-        public string PathToConfigFile => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\config\\{Data.name}.cfg";
-        public string PathToDataFolder => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\data\\{Data.name}";
-        public string PathToKeybindingsFile => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\keybindings\\{Data.name}.txt";
-        public string PathToLevelsFolder => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\levels\\{Data.name}";
-        public string PathToLocalizationFile => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\localization\\{Data.name}.txt";
-        public string PathToLogFile => $"{Core.SettingsHandler.Config.Blas1RootFolder}\\Modding\\logs\\{Data.name}.log";
+        private string RootFolder => Core.SettingsHandler.GetRootPathBySection(_modType);
         public string GithubLink => $"https://github.com/{Data.githubAuthor}/{Data.githubRepo}";
+
+        public string PathToEnabledPlugin => $"{RootFolder}\\Modding\\plugins\\{Data.pluginFile}";
+        public string PathToDisabledPlugin => $"{RootFolder}\\Modding\\disabled\\{Data.pluginFile}";
+        public string PathToConfigFile => $"{RootFolder}\\Modding\\config\\{Data.name}.cfg";
+        public string PathToDataFolder => $"{RootFolder}\\Modding\\data\\{Data.name}";
+        public string PathToKeybindingsFile => $"{RootFolder}\\Modding\\keybindings\\{Data.name}.txt";
+        public string PathToLevelsFolder => $"{RootFolder}\\Modding\\levels\\{Data.name}";
+        public string PathToLocalizationFile => $"{RootFolder}\\Modding\\localization\\{Data.name}.txt";
+        public string PathToLogFile => $"{RootFolder}\\Modding\\logs\\{Data.name}.log";
 
         // Main methods
 
@@ -90,10 +97,7 @@ namespace BlasModInstaller.Mods
                 _ui.ShowDownloadingStatus();
 
                 string downloadPath = $"{UIHandler.DownloadsPath}{Data.name.Replace(' ', '_')}.zip";
-                string installPath = Core.SettingsHandler.Config.Blas1RootFolder;
-                
-                // Change this !!!!!!
-                if (Data.name != "Modding API") installPath += "\\Modding";
+                string installPath = RootFolder + "\\Modding";
 
                 await client.DownloadFileTaskAsync(new Uri(Data.latestDownloadURL), downloadPath);
 
@@ -131,12 +135,12 @@ namespace BlasModInstaller.Mods
 
             if (Data.requiredDlls != null && Data.requiredDlls.Length > 0)
             {
-                ModLoader modLoader = Core.Blas1ModPage.Loader as ModLoader;
+                ModLoader modLoader = ModPage.Loader as ModLoader;
                 foreach (string dll in Data.requiredDlls)
                 {
                     if (modLoader.InstalledModsThatRequireDll(dll) == 0)
                     {
-                        string dllPath = Core.SettingsHandler.Config.Blas1RootFolder + "\\Modding\\data\\" + dll;
+                        string dllPath = RootFolder + "\\Modding\\data\\" + dll;
                         if (File.Exists(dllPath))
                             File.Delete(dllPath);
                     }
@@ -215,7 +219,7 @@ namespace BlasModInstaller.Mods
 
         // Sort methods
 
-        public int CompareTo(object obj) => SortBy(obj as Mod, Core.SettingsHandler.Config.Blas1ModSort);
+        public int CompareTo(object obj) => SortBy(obj as Mod, ModSort);
 
         public int SortBy(Mod mod, SortType sort)
         {

@@ -48,9 +48,11 @@ namespace BlasModInstaller
 
         private void ClickLocationButton(object sender, EventArgs e)
         {
+            blasLocDialog.Title = $"Choose {Core.CurrentPage.Validator.ExeName} location";
+            blasLocDialog.FileName = Core.CurrentPage.Validator.ExeName;
             if (blasLocDialog.ShowDialog() == DialogResult.OK)
             {
-                Core.SettingsHandler.Config.Blas1RootFolder = Path.GetDirectoryName(blasLocDialog.FileName);
+                Core.CurrentPage.Validator.SetRootPath(Path.GetDirectoryName(blasLocDialog.FileName));
                 OpenSection(Core.SettingsHandler.Config.LastSection);
             }
         }

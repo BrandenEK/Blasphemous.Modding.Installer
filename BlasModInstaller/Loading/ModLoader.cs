@@ -18,16 +18,18 @@ namespace BlasModInstaller.Loading
         private readonly IUIHolder _uiHolder;
         private readonly ISorter _sorter;
         private readonly List<Mod> _mods;
+        private readonly SectionType _modType;
 
         private bool _loadedData;
 
-        public ModLoader(string localDataPath, string remoteDataPath, IUIHolder uiHolder, ISorter sorter, List<Mod> mods)
+        public ModLoader(string localDataPath, string remoteDataPath, IUIHolder uiHolder, ISorter sorter, List<Mod> mods, SectionType modType)
         {
             _localDataPath = localDataPath;
             _remoteDataPath = remoteDataPath;
             _uiHolder = uiHolder;
             _sorter = sorter;
             _mods = mods;
+            _modType = modType;
         }
 
         public void LoadAllData()
@@ -50,7 +52,7 @@ namespace BlasModInstaller.Loading
 
                 for (int i = 0; i < localData.Length; i++)
                 {
-                    _mods.Add(new Mod(localData[i], _uiHolder.SectionPanel, i));
+                    _mods.Add(new Mod(localData[i], _uiHolder.SectionPanel, i, _modType));
                 }
             }
 
@@ -83,7 +85,7 @@ namespace BlasModInstaller.Loading
                     }
                     else
                     {
-                        _mods.Add(new Mod(fullData, _uiHolder.SectionPanel, _mods.Count));
+                        _mods.Add(new Mod(fullData, _uiHolder.SectionPanel, _mods.Count, _modType));
                     }
                 }
 

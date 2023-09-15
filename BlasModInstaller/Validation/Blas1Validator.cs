@@ -30,6 +30,11 @@ namespace BlasModInstaller.Validation
             }
         }
 
+        public void SetRootPath(string path)
+        {
+            Core.SettingsHandler.Config.Blas1RootFolder = path;
+        }
+
         public bool IsRootFolderValid
         {
             get

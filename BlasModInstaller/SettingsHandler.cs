@@ -71,6 +71,17 @@ namespace BlasModInstaller
             Properties.Settings.Default.Save();
         }
 
+        public string GetRootPathBySection(SectionType section)
+        {
+            switch (section)
+            {
+                case SectionType.Blas1Mods: return Config.Blas1RootFolder;
+                case SectionType.Blas1Skins: return Config.Blas1RootFolder;
+                case SectionType.Blas2Mods: return Config.Blas2RootFolder;
+                default: return null;
+            }
+        }
+
         public SortType CurrentSortType
         {
             get

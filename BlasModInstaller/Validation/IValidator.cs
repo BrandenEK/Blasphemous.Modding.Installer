@@ -6,6 +6,8 @@ namespace BlasModInstaller.Validation
     {
         Task InstallModdingTools();
 
+        void SetRootPath(string path);
+
         string ExeName { get; }
 
         bool IsRootFolderValid { get; }

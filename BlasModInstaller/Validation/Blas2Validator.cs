@@ -30,6 +30,11 @@ namespace BlasModInstaller.Validation
             }
         }
 
+        public void SetRootPath(string path)
+        {
+            Core.SettingsHandler.Config.Blas2RootFolder = path;
+        }
+
         public bool IsRootFolderValid
         {
             get
@@ -49,7 +54,7 @@ namespace BlasModInstaller.Validation
         {
             get
             {
-                return Directory.Exists(Core.SettingsHandler.Config.Blas1RootFolder + "\\MelonLoader");
+                return Directory.Exists(Core.SettingsHandler.Config.Blas2RootFolder + "\\MelonLoader");
             }
         }
 
