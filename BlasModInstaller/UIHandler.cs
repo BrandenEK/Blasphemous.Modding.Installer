@@ -64,6 +64,8 @@ namespace BlasModInstaller
 
         private async void ClickToolsButton(object sender, EventArgs e)
         {
+            toolsBtn.Enabled = false;
+            toolsBtn.Text = "Installing...";
             await Core.CurrentPage.Validator.InstallModdingTools();
             OpenSection(Core.SettingsHandler.Config.LastSection);
         }
@@ -153,6 +155,7 @@ namespace BlasModInstaller
                 locationBtn.Enabled = !folderValid;
                 locationBtn.Text = "Locate " + currentPage.Validator.ExeName;
                 toolsBtn.Enabled = folderValid && !toolsInstalled;
+                toolsBtn.Text = "Install modding tools";
             }
 
             // Show the correct page element
