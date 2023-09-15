@@ -8,4 +8,22 @@
     "GithubRepo": "BlasII.ModdingAPI",
     "PluginFile": "ModdingAPI.dll"
   },
+  {
+    "Name": "Cheat Console",
+    "Author": "Damocles",
+    "Description": "Adds a console with various debug commands",
+    "InitialReleaseDate": "2023-09-15",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "BlasII.CheatConsole",
+    "PluginFile": "CheatConsole.dll"
+  },
+  {
+    "Name": "Debug Mod",
+    "Author": "Damocles",
+    "Description": "Provides various debug utilities such as hitbox viewer and free cam",
+    "InitialReleaseDate": "2023-09-15",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "BlasII.DebugMod",
+    "PluginFile": "DebugMod.dll"
+  },
 ]
