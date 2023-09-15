@@ -57,7 +57,7 @@ namespace BlasModInstaller
 
         private async void ClickToolsButton(object sender, EventArgs e)
         {
-            await Core.CurrentPage.InstallTools();
+            await Core.CurrentPage.Validator.InstallModdingTools();
             OpenSection(Core.SettingsHandler.Config.LastSection);
         }
 

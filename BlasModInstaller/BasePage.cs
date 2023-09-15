@@ -4,7 +4,6 @@ using BlasModInstaller.Sorting;
 using BlasModInstaller.UIHolding;
 using BlasModInstaller.Validation;
 using System.Drawing;
-using System.Threading.Tasks;
 
 namespace BlasModInstaller
 {
@@ -20,8 +19,6 @@ namespace BlasModInstaller
 
             _validator = validator;
         }
-
-        public abstract Task InstallTools();
 
         public string Title => _title;
         public Bitmap Image => _image;
