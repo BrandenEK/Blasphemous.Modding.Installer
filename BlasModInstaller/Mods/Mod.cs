@@ -28,6 +28,9 @@ namespace BlasModInstaller.Mods
 
         public ModData Data { get; set; }
 
+        private InstallerPage ModPage => _modType == SectionType.Blas1Mods ? Core.Blas1ModPage : Core.Blas2ModPage;
+        private SortType ModSort => _modType == SectionType.Blas1Mods ? Core.SettingsHandler.Config.Blas1ModSort : Core.SettingsHandler.Config.Blas2ModSort;
+
         public bool RequiresDll(string dllName)
         {
             if (Data.requiredDlls == null) return false;
@@ -69,9 +72,6 @@ namespace BlasModInstaller.Mods
                 return new Version(Data.latestVersion).CompareTo(LocalVersion) > 0;
             }
         }
-
-        private InstallerPage ModPage => _modType == SectionType.Blas1Mods ? Core.Blas1ModPage : Core.Blas2ModPage;
-        private SortType ModSort => _modType == SectionType.Blas1Mods ? Core.SettingsHandler.Config.Blas1ModSort : Core.SettingsHandler.Config.Blas2ModSort;
 
         // Paths
 

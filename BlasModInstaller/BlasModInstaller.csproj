@@ -91,6 +91,7 @@
     <Compile Include="GithubHandler.cs" />
     <Compile Include="Mods\ModData.cs" />
     <Compile Include="SettingsHandler.cs" />
+    <Compile Include="Skins\SkinData.cs" />
     <Compile Include="Sorting\ISorter.cs" />
     <Compile Include="Sorting\ModSorter.cs" />
     <Compile Include="Sorting\SkinSorter.cs" />

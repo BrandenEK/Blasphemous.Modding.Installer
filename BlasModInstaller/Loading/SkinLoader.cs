@@ -4,6 +4,7 @@ using BlasModInstaller.UIHolding;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -16,16 +17,18 @@ namespace BlasModInstaller.Loading
         private readonly IUIHolder _uiHolder;
         private readonly ISorter _sorter;
         private readonly List<Skin> _skins;
+        private readonly SectionType _skinType;
 
         private bool _loadedData;
 
-        public SkinLoader(string localDataPath, string remoteDataPath, IUIHolder uiHolder, ISorter sorter, List<Skin> skins)
+        public SkinLoader(string localDataPath, string remoteDataPath, IUIHolder uiHolder, ISorter sorter, List<Skin> skins, SectionType skinType)
         {
             _localDataPath = localDataPath;
             _remoteDataPath = remoteDataPath;
             _uiHolder = uiHolder;
             _sorter = sorter;
             _skins = skins;
+            _skinType = skinType;
         }
 
         public void LoadAllData()
@@ -44,12 +47,13 @@ namespace BlasModInstaller.Loading
             if (File.Exists(_localDataPath))
             {
                 string json = File.ReadAllText(_localDataPath);
-                Skin[] localSkins = JsonConvert.DeserializeObject<Skin[]>(json);
-                _skins.AddRange(localSkins);
-            }
+                SkinData[] localData = JsonConvert.DeserializeObject<SkinData[]>(json);
 
-            for (int i = 0; i < _skins.Count; i++)
-                _skins[i].CreateUI(_uiHolder.SectionPanel, i);
+                for (int i = 0; i < localData.Length; i++)
+                {
+                    _skins.Add(new Skin(localData[i], _uiHolder.SectionPanel, i, _skinType));
+                }
+            }
 
             Core.UIHandler.Log($"Loaded {_skins.Count} local skins");
             _uiHolder.SetBackgroundColor();
@@ -64,18 +68,17 @@ namespace BlasModInstaller.Loading
                 foreach (var item in contents)
                 {
                     string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{item.Name}/info.txt");
-                    Skin globalSkin = JsonConvert.DeserializeObject<Skin>(json);
+                    SkinData data = JsonConvert.DeserializeObject<SkinData>(json);
 
-                    Skin localSkin = FindSkin(globalSkin.id);
+                    Skin localSkin = FindSkin(data.id);
                     if (localSkin != null)
                     {
-                        localSkin.UpdateLocalData(globalSkin);
+                        localSkin.Data = data;
                         localSkin.UpdateUI();
                     }
                     else
                     {
-                        _skins.Add(globalSkin);
-                        globalSkin.CreateUI(_uiHolder.SectionPanel, _skins.Count - 1);
+                        _skins.Add(new Skin(data, _uiHolder.SectionPanel, _skins.Count, _skinType));
                     }
                 }
 
@@ -89,12 +92,12 @@ namespace BlasModInstaller.Loading
 
         private void SaveLocalData()
         {
-            File.WriteAllText(_localDataPath, JsonConvert.SerializeObject(_skins));
+            File.WriteAllText(_localDataPath, JsonConvert.SerializeObject(_skins.Select(x => x.Data)));
         }
 
         private Skin FindSkin(string id)
         {
-            return _skins.Find(x => x.id == id);
+            return _skins.Find(x => x.Data.id == id);
         }
     }
 }
