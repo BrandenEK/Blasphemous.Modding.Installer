@@ -92,6 +92,7 @@
     <Compile Include="Skins\SkinPage.cs" />
     <Compile Include="Sorting\ISorter.cs" />
     <Compile Include="Sorting\ModSorter.cs" />
+    <Compile Include="Sorting\SkinSorter.cs" />
     <Compile Include="UIHandler.cs">
       <SubType>Form</SubType>
     </Compile>

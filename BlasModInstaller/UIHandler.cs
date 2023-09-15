@@ -187,25 +187,25 @@ namespace BlasModInstaller
         private void ClickedSortByName(object sender, EventArgs e)
         {
             Core.CurrentPage.CurrentSortType = SortType.Name;
-            Core.CurrentPage.Sort();
+            Core.CurrentPage.Sorter.Sort();
         }
 
         private void ClickedSortByAuthor(object sender, EventArgs e)
         {
             Core.CurrentPage.CurrentSortType = SortType.Author;
-            Core.CurrentPage.Sort();
+            Core.CurrentPage.Sorter.Sort();
         }
 
         private void ClickedSortByInitialRelease(object sender, EventArgs e)
         {
             Core.CurrentPage.CurrentSortType = SortType.InitialRelease;
-            Core.CurrentPage.Sort();
+            Core.CurrentPage.Sorter.Sort();
         }
 
         private void ClickedSortByLatestRelease(object sender, EventArgs e)
         {
             Core.CurrentPage.CurrentSortType = SortType.LatestRelease;
-            Core.CurrentPage.Sort();
+            Core.CurrentPage.Sorter.Sort();
         }
 
         #endregion Side section middle

@@ -1,4 +1,5 @@
 ﻿using BlasModInstaller.Grouping;
+using BlasModInstaller.Sorting;
 using BlasModInstaller.UIHolding;
 using BlasModInstaller.Validation;
 using Ionic.Zip;
@@ -19,6 +20,7 @@ namespace BlasModInstaller.Skins
         private readonly List<Skin> _skins = new List<Skin>();
         private readonly SkinGrouper _grouper;
         private readonly GenericUIHolder<Skin> _uiHolder;
+        private readonly SkinSorter _sorter;
 
         private bool _loaded = false;
 
@@ -27,10 +29,12 @@ namespace BlasModInstaller.Skins
         {
             _grouper = new SkinGrouper(title, _skins);
             _uiHolder = new GenericUIHolder<Skin>(panel, _skins);
+            _sorter = new SkinSorter(_uiHolder, _skins);
         }
 
         public override IGrouper Grouper => _grouper;
         public override IUIHolder UIHolder => _uiHolder;
+        public override ISorter Sorter => _sorter;
 
         // Skin list
 
@@ -75,7 +79,7 @@ namespace BlasModInstaller.Skins
 
             Core.UIHandler.Log($"Loaded {_skins.Count} local skins");
             _uiHolder.SetBackgroundColor();
-            Sort();
+            _sorter.Sort();
         }
 
         private async Task LoadGlobalSkins()
@@ -105,7 +109,7 @@ namespace BlasModInstaller.Skins
 
             SaveLocalData();
             _uiHolder.SetBackgroundColor();
-            Sort();
+            _sorter.Sort();
         }
 
         private void SaveLocalData()
@@ -132,17 +136,6 @@ namespace BlasModInstaller.Skins
 
                 File.Delete(downloadPath);
             }
-        }
-
-        // Sort
-
-        public override void Sort()
-        {
-            _skins.Sort();
-
-            _uiHolder.SectionPanel.VerticalScroll.Value = 0;
-            for (int i = 0; i < _skins.Count; i++)
-                _skins[i].SetUIPosition(i);
         }
 
         public override SortType CurrentSortType

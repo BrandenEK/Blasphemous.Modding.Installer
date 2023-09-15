@@ -1,4 +1,5 @@
 ﻿using BlasModInstaller.Grouping;
+using BlasModInstaller.Sorting;
 using BlasModInstaller.UIHolding;
 using BlasModInstaller.Validation;
 using Ionic.Zip;
@@ -19,6 +20,7 @@ namespace BlasModInstaller.Mods
         private readonly List<Mod> _mods = new List<Mod>();
         private readonly ModGrouper _grouper;
         private readonly GenericUIHolder<Mod> _uiHolder;
+        private readonly ModSorter _sorter;
 
         private bool _loaded = false;
 
@@ -27,10 +29,12 @@ namespace BlasModInstaller.Mods
         {
             _grouper = new ModGrouper(title, _mods);
             _uiHolder = new GenericUIHolder<Mod>(panel, _mods);
+            _sorter = new ModSorter(_uiHolder, _mods);
         }
 
         public override IGrouper Grouper => _grouper;
         public override IUIHolder UIHolder => _uiHolder;
+        public override ISorter Sorter => _sorter;
 
         // Mod list
 
@@ -86,7 +90,7 @@ namespace BlasModInstaller.Mods
 
             Core.UIHandler.Log($"Loaded {_mods.Count} local mods");
             _uiHolder.SetBackgroundColor();
-            Sort();
+            _sorter.Sort();
         }
 
         private async Task LoadGlobalMods()
@@ -126,7 +130,7 @@ namespace BlasModInstaller.Mods
 
             SaveLocalData();
             _uiHolder.SetBackgroundColor();
-            Sort();
+            _sorter.Sort();
         }
 
         private void SaveLocalData()
@@ -153,29 +157,6 @@ namespace BlasModInstaller.Mods
 
                 File.Delete(downloadPath);
             }
-        }
-
-        // Sort
-
-        public override void Sort()
-        {
-            _mods.Sort();
-
-            // Move modding api to the top always
-            for (int i = 0; i < _mods.Count; i++)
-            {
-                if (_mods[i].Name == "Modding API")
-                {
-                    Mod api = _mods[i];
-                    _mods.RemoveAt(i);
-                    _mods.Insert(0, api);
-                    break;
-                }
-            }
-
-            _uiHolder.SectionPanel.VerticalScroll.Value = 0;
-            for (int i = 0; i < _mods.Count; i++)
-                _mods[i].SetUIPosition(i);
         }
 
         public override SortType CurrentSortType

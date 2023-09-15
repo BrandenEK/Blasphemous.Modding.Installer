@@ -1,24 +1,43 @@
 ﻿using BlasModInstaller.Mods;
-using System;
+using BlasModInstaller.UIHolding;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BlasModInstaller.Sorting
 {
     internal class ModSorter : ISorter
     {
-        private readonly IEnumerable<Mod> _mods;
+        private readonly IUIHolder _uiHolder;
+        private readonly List<Mod> _mods;
 
-        public ModSorter(IEnumerable<Mod> mods)
+        public ModSorter(IUIHolder uiHolder, List<Mod> mods)
         {
+            _uiHolder = uiHolder;
             _mods = mods;
         }
 
         public void Sort()
         {
+            _mods.Sort();
 
+            // Move modding api to the top always
+            for (int i = 0; i < _mods.Count; i++)
+            {
+                if (_mods[i].Name == "Modding API")
+                {
+                    Mod api = _mods[i];
+                    _mods.RemoveAt(i);
+                    _mods.Insert(0, api);
+                    break;
+                }
+            }
+
+            _uiHolder.SectionPanel.VerticalScroll.Value = 0;
+
+            int idx = 0;
+            foreach (Mod mod in _mods)
+            {
+                mod.SetUIPosition(idx++);
+            }
         }
     }
 }

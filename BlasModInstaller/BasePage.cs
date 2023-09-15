@@ -1,4 +1,5 @@
 ﻿using BlasModInstaller.Grouping;
+using BlasModInstaller.Sorting;
 using BlasModInstaller.UIHolding;
 using BlasModInstaller.Validation;
 using System.Drawing;
@@ -26,8 +27,6 @@ namespace BlasModInstaller
         public abstract void LoadData();
         public abstract Task InstallTools();
 
-        public abstract void Sort();
-
         public string Title => _title;
         public Bitmap Image => _image;
 
@@ -40,5 +39,6 @@ namespace BlasModInstaller
         public IValidator Validator => _validator;
         public abstract IGrouper Grouper { get; }
         public abstract IUIHolder UIHolder { get; }
+        public abstract ISorter Sorter { get; }
     }
 }
