@@ -9,6 +9,7 @@ namespace BlasModInstaller.Validation
     internal class Blas2Validator : IValidator
     {
         private readonly string _exeName = "Blasphemous 2.exe";
+        private readonly string _defaultPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blasphemous 2";
 
         public async Task InstallModdingTools()
         {
@@ -59,5 +60,6 @@ namespace BlasModInstaller.Validation
         }
 
         public string ExeName => _exeName;
+        public string DefaultPath => _defaultPath;
     }
 }

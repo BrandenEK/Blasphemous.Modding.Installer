@@ -9,6 +9,7 @@ namespace BlasModInstaller.Validation
         void SetRootPath(string path);
 
         string ExeName { get; }
+        string DefaultPath { get; }
 
         bool IsRootFolderValid { get; }
 

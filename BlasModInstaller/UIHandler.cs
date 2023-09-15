@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlasModInstaller.Validation;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -48,11 +49,15 @@ namespace BlasModInstaller
 
         private void ClickLocationButton(object sender, EventArgs e)
         {
-            blasLocDialog.Title = $"Choose {Core.CurrentPage.Validator.ExeName} location";
-            blasLocDialog.FileName = Core.CurrentPage.Validator.ExeName;
+            IValidator validator = Core.CurrentPage.Validator;
+
+            blasLocDialog.Title = $"Choose {validator.ExeName} location";
+            blasLocDialog.FileName = validator.ExeName;
+            blasLocDialog.InitialDirectory = validator.DefaultPath;
+
             if (blasLocDialog.ShowDialog() == DialogResult.OK)
             {
-                Core.CurrentPage.Validator.SetRootPath(Path.GetDirectoryName(blasLocDialog.FileName));
+                validator.SetRootPath(Path.GetDirectoryName(blasLocDialog.FileName));
                 OpenSection(Core.SettingsHandler.Config.LastSection);
             }
         }

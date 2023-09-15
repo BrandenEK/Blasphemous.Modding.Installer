@@ -35,7 +35,6 @@ namespace BlasModInstaller
             this.locationBtn = new System.Windows.Forms.Button();
             this.validationSection = new System.Windows.Forms.Panel();
             this.toolsBtn = new System.Windows.Forms.Button();
-            this.blasLocFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.blasLocDialog = new System.Windows.Forms.OpenFileDialog();
             this.mainSection = new System.Windows.Forms.Panel();
             this.titleSectionOuter = new System.Windows.Forms.Panel();
@@ -44,7 +43,6 @@ namespace BlasModInstaller
             this.blas1skinSection = new System.Windows.Forms.Panel();
             this.blas1skinScroll = new System.Windows.Forms.VScrollBar();
             this.blas2modSection = new System.Windows.Forms.Panel();
-            this.blas2modText = new System.Windows.Forms.Label();
             this.blas2modScroll = new System.Windows.Forms.VScrollBar();
             this.sideSectionInner = new System.Windows.Forms.Panel();
             this.divider2 = new System.Windows.Forms.Panel();
@@ -150,9 +148,9 @@ namespace BlasModInstaller
             // 
             // blasLocDialog
             // 
-            this.blasLocDialog.FileName = "Blasphemous.exe";
+            this.blasLocDialog.FileName = ".exe";
             this.blasLocDialog.Filter = "Exe files (*.exe)|*.exe";
-            this.blasLocDialog.Title = "Choose Blasphemous.exe location";
+            this.blasLocDialog.Title = "Choose .exe location";
             // 
             // mainSection
             // 
@@ -240,24 +238,12 @@ namespace BlasModInstaller
             this.blas2modSection.AutoScroll = true;
             this.blas2modSection.AutoScrollMargin = new System.Drawing.Size(0, 15);
             this.blas2modSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.blas2modSection.Controls.Add(this.blas2modText);
             this.blas2modSection.Controls.Add(this.blas2modScroll);
             this.blas2modSection.Location = new System.Drawing.Point(0, 120);
             this.blas2modSection.Name = "blas2modSection";
             this.blas2modSection.Size = new System.Drawing.Size(1150, 741);
             this.blas2modSection.TabIndex = 4;
             this.blas2modSection.Visible = false;
-            // 
-            // blas2modText
-            // 
-            this.blas2modText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.blas2modText.Font = new System.Drawing.Font("Trebuchet MS", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.blas2modText.Location = new System.Drawing.Point(0, 0);
-            this.blas2modText.Name = "blas2modText";
-            this.blas2modText.Size = new System.Drawing.Size(1150, 741);
-            this.blas2modText.TabIndex = 3;
-            this.blas2modText.Text = "There is nothing here yet...";
-            this.blas2modText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // blas2modScroll
             // 
@@ -681,7 +667,6 @@ namespace BlasModInstaller
         private System.Windows.Forms.VScrollBar blas1modScroll;
         private System.Windows.Forms.Panel blas1modSection;
         private System.Windows.Forms.Button locationBtn;
-        private System.Windows.Forms.FolderBrowserDialog blasLocFolderDialog;
         private System.Windows.Forms.OpenFileDialog blasLocDialog;
         private System.Windows.Forms.Panel validationSection;
         private System.Windows.Forms.Label titleLabel;
@@ -694,7 +679,6 @@ namespace BlasModInstaller
         private System.Windows.Forms.TextBox debugLog;
         private System.Windows.Forms.Panel blas2modSection;
         private System.Windows.Forms.VScrollBar blas2modScroll;
-        private System.Windows.Forms.Label blas2modText;
         private System.Windows.Forms.PictureBox warningImage;
         private System.Windows.Forms.Panel warningSectionOuter;
         private System.Windows.Forms.Panel warningSectionInner;
