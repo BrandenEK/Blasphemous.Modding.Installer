@@ -18,8 +18,7 @@
     "PluginFile": "BlasphemousRandomizer.dll",
     "RequiredDlls":
     [
-        "LogicParser.dll",
-        "websocket-sharp.dll"
+        "LogicParser.dll"
     ]
   },
   {
