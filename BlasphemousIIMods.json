@@ -26,4 +26,13 @@
     "GithubRepo": "BlasII.DebugMod",
     "PluginFile": "DebugMod.dll"
   },
+  {
+    "Name": "Save and Quit",
+    "Author": "Damocles",
+    "Description": "Allows the player to save and quit from anywhere",
+    "InitialReleaseDate": "2023-10-10",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "BlasII.SaveAndQuit",
+    "PluginFile": "SaveAndQuit.dll"
+  },
 ]
