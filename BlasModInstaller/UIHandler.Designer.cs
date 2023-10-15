@@ -39,6 +39,10 @@ namespace BlasModInstaller
             this.mainSection = new System.Windows.Forms.Panel();
             this.titleSectionOuter = new System.Windows.Forms.Panel();
             this.titleSectionInner = new System.Windows.Forms.Panel();
+            this.warningSectionOuter = new System.Windows.Forms.Panel();
+            this.warningSectionInner = new System.Windows.Forms.Panel();
+            this.warningText = new System.Windows.Forms.LinkLabel();
+            this.warningImage = new System.Windows.Forms.PictureBox();
             this.titleLabel = new System.Windows.Forms.Label();
             this.blas1skinSection = new System.Windows.Forms.Panel();
             this.blas1skinScroll = new System.Windows.Forms.VScrollBar();
@@ -57,10 +61,6 @@ namespace BlasModInstaller
             this.sortByAuthor = new System.Windows.Forms.RadioButton();
             this.sortByLatestRelease = new System.Windows.Forms.RadioButton();
             this.sortByInitialRelease = new System.Windows.Forms.RadioButton();
-            this.warningSectionOuter = new System.Windows.Forms.Panel();
-            this.warningSectionInner = new System.Windows.Forms.Panel();
-            this.warningText = new System.Windows.Forms.LinkLabel();
-            this.warningImage = new System.Windows.Forms.PictureBox();
             this.debugLog = new System.Windows.Forms.TextBox();
             this.blas2modsBtn = new System.Windows.Forms.Button();
             this.blas1skinsBtn = new System.Windows.Forms.Button();
@@ -71,13 +71,13 @@ namespace BlasModInstaller
             this.mainSection.SuspendLayout();
             this.titleSectionOuter.SuspendLayout();
             this.titleSectionInner.SuspendLayout();
+            this.warningSectionOuter.SuspendLayout();
+            this.warningSectionInner.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.warningImage)).BeginInit();
             this.blas1skinSection.SuspendLayout();
             this.blas2modSection.SuspendLayout();
             this.sideSectionInner.SuspendLayout();
             this.sortSection.SuspendLayout();
-            this.warningSectionOuter.SuspendLayout();
-            this.warningSectionInner.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.warningImage)).BeginInit();
             this.sideSectionOuter.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -190,6 +190,60 @@ namespace BlasModInstaller
             this.titleSectionInner.Name = "titleSectionInner";
             this.titleSectionInner.Size = new System.Drawing.Size(1150, 118);
             this.titleSectionInner.TabIndex = 1;
+            // 
+            // warningSectionOuter
+            // 
+            this.warningSectionOuter.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.warningSectionOuter.BackColor = System.Drawing.Color.Red;
+            this.warningSectionOuter.Controls.Add(this.warningSectionInner);
+            this.warningSectionOuter.Location = new System.Drawing.Point(896, 19);
+            this.warningSectionOuter.Name = "warningSectionOuter";
+            this.warningSectionOuter.Size = new System.Drawing.Size(220, 80);
+            this.warningSectionOuter.TabIndex = 6;
+            this.warningSectionOuter.Visible = false;
+            // 
+            // warningSectionInner
+            // 
+            this.warningSectionInner.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.warningSectionInner.BackColor = System.Drawing.Color.Black;
+            this.warningSectionInner.Controls.Add(this.warningText);
+            this.warningSectionInner.Controls.Add(this.warningImage);
+            this.warningSectionInner.Location = new System.Drawing.Point(2, 2);
+            this.warningSectionInner.Name = "warningSectionInner";
+            this.warningSectionInner.Size = new System.Drawing.Size(216, 76);
+            this.warningSectionInner.TabIndex = 0;
+            // 
+            // warningText
+            // 
+            this.warningText.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.warningText.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.warningText.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.warningText.LinkArea = new System.Windows.Forms.LinkArea(57, 8);
+            this.warningText.LinkColor = System.Drawing.Color.Cyan;
+            this.warningText.Location = new System.Drawing.Point(52, 10);
+            this.warningText.Name = "warningText";
+            this.warningText.Size = new System.Drawing.Size(160, 56);
+            this.warningText.TabIndex = 3;
+            this.warningText.TabStop = true;
+            this.warningText.Text = "A new update is available for the mod installer.  Please download it now.";
+            this.warningText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.warningText.UseCompatibleTextRendering = true;
+            this.warningText.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ClickInstallerUpdateLink);
+            // 
+            // warningImage
+            // 
+            this.warningImage.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.warningImage.BackColor = System.Drawing.Color.Black;
+            this.warningImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.warningImage.Image = global::BlasModInstaller.Properties.Resources.warning;
+            this.warningImage.Location = new System.Drawing.Point(10, 20);
+            this.warningImage.Name = "warningImage";
+            this.warningImage.Size = new System.Drawing.Size(36, 36);
+            this.warningImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.warningImage.TabIndex = 4;
+            this.warningImage.TabStop = false;
             // 
             // titleLabel
             // 
@@ -450,60 +504,6 @@ namespace BlasModInstaller
             this.sortByInitialRelease.UseVisualStyleBackColor = true;
             this.sortByInitialRelease.Click += new System.EventHandler(this.ClickedSortByInitialRelease);
             // 
-            // warningSectionOuter
-            // 
-            this.warningSectionOuter.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.warningSectionOuter.BackColor = System.Drawing.Color.Red;
-            this.warningSectionOuter.Controls.Add(this.warningSectionInner);
-            this.warningSectionOuter.Location = new System.Drawing.Point(896, 19);
-            this.warningSectionOuter.Name = "warningSectionOuter";
-            this.warningSectionOuter.Size = new System.Drawing.Size(220, 80);
-            this.warningSectionOuter.TabIndex = 6;
-            this.warningSectionOuter.Visible = false;
-            // 
-            // warningSectionInner
-            // 
-            this.warningSectionInner.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.warningSectionInner.BackColor = System.Drawing.Color.Black;
-            this.warningSectionInner.Controls.Add(this.warningText);
-            this.warningSectionInner.Controls.Add(this.warningImage);
-            this.warningSectionInner.Location = new System.Drawing.Point(2, 2);
-            this.warningSectionInner.Name = "warningSectionInner";
-            this.warningSectionInner.Size = new System.Drawing.Size(216, 76);
-            this.warningSectionInner.TabIndex = 0;
-            // 
-            // warningText
-            // 
-            this.warningText.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.warningText.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.warningText.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.warningText.LinkArea = new System.Windows.Forms.LinkArea(57, 8);
-            this.warningText.LinkColor = System.Drawing.Color.Cyan;
-            this.warningText.Location = new System.Drawing.Point(52, 10);
-            this.warningText.Name = "warningText";
-            this.warningText.Size = new System.Drawing.Size(160, 56);
-            this.warningText.TabIndex = 3;
-            this.warningText.TabStop = true;
-            this.warningText.Text = "A new update is available for the mod installer.  Please download it now.";
-            this.warningText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.warningText.UseCompatibleTextRendering = true;
-            this.warningText.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ClickInstallerUpdateLink);
-            // 
-            // warningImage
-            // 
-            this.warningImage.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.warningImage.BackColor = System.Drawing.Color.Black;
-            this.warningImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.warningImage.Image = global::BlasModInstaller.Properties.Resources.warning;
-            this.warningImage.Location = new System.Drawing.Point(10, 20);
-            this.warningImage.Name = "warningImage";
-            this.warningImage.Size = new System.Drawing.Size(36, 36);
-            this.warningImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.warningImage.TabIndex = 4;
-            this.warningImage.TabStop = false;
-            // 
             // debugLog
             // 
             this.debugLog.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
@@ -608,15 +608,15 @@ namespace BlasModInstaller
             this.mainSection.ResumeLayout(false);
             this.titleSectionOuter.ResumeLayout(false);
             this.titleSectionInner.ResumeLayout(false);
+            this.warningSectionOuter.ResumeLayout(false);
+            this.warningSectionInner.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.warningImage)).EndInit();
             this.blas1skinSection.ResumeLayout(false);
             this.blas2modSection.ResumeLayout(false);
             this.sideSectionInner.ResumeLayout(false);
             this.sideSectionInner.PerformLayout();
             this.sortSection.ResumeLayout(false);
             this.sortSection.PerformLayout();
-            this.warningSectionOuter.ResumeLayout(false);
-            this.warningSectionInner.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.warningImage)).EndInit();
             this.sideSectionOuter.ResumeLayout(false);
             this.ResumeLayout(false);
 
