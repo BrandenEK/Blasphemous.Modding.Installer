@@ -140,8 +140,9 @@ namespace BlasModInstaller
             // Validate the status of mods
             bool folderValid = currentPage.Validator.IsRootFolderValid;
             bool toolsInstalled = folderValid && currentPage.Validator.AreModdingToolsInstalled;
+            bool toolsUpdated = toolsInstalled && currentPage.Validator.AreModdingToolsUpdated;
 
-            bool validated = toolsInstalled;
+            bool validated = toolsUpdated;
             Log("Modding status validation: " + validated);
 
             if (validated)
@@ -155,8 +156,8 @@ namespace BlasModInstaller
                 validationSection.Visible = true;
                 locationBtn.Enabled = !folderValid;
                 locationBtn.Text = "Locate " + currentPage.Validator.ExeName;
-                toolsBtn.Enabled = folderValid && !toolsInstalled;
-                toolsBtn.Text = "Install modding tools";
+                toolsBtn.Enabled = folderValid;
+                toolsBtn.Text = (toolsInstalled ? "Update" : "Install") + " modding tools";
             }
 
             // Show the correct page element

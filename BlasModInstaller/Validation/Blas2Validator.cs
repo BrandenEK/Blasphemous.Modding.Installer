@@ -64,8 +64,8 @@ namespace BlasModInstaller.Validation
         {
             get
             {
-                return FileVersionInfo.GetVersionInfo(Core.SettingsHandler.Config.Blas2RootFolder
-                    + "\\MelonLoader\\net6\\MelonLoader.dll").FileMajorPart == 2;
+                string filePath = Core.SettingsHandler.Config.Blas2RootFolder + "\\MelonLoader\\net6\\MelonLoader.dll";
+                return File.Exists(filePath) && FileVersionInfo.GetVersionInfo(filePath).FileMajorPart == 2;
             }
         }
 
