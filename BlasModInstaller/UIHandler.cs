@@ -247,5 +247,10 @@ namespace BlasModInstaller
         private void ClickInstallerUpdateLink(object sender, LinkLabelLinkClickedEventArgs e) => Core.GithubHandler.OpenInstallerLink();
 
         #endregion Side section bottom
+
+        private void ClickedDisordLink(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
     }
 }

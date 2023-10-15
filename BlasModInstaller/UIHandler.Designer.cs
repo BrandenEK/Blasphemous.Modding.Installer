@@ -66,6 +66,9 @@ namespace BlasModInstaller
             this.blas1skinsBtn = new System.Windows.Forms.Button();
             this.blas1modsBtn = new System.Windows.Forms.Button();
             this.sideSectionOuter = new System.Windows.Forms.Panel();
+            this.discordImage = new System.Windows.Forms.PictureBox();
+            this.discordSection = new System.Windows.Forms.Panel();
+            this.discordText = new System.Windows.Forms.LinkLabel();
             this.blas1modSection.SuspendLayout();
             this.validationSection.SuspendLayout();
             this.mainSection.SuspendLayout();
@@ -79,6 +82,8 @@ namespace BlasModInstaller
             this.sideSectionInner.SuspendLayout();
             this.sortSection.SuspendLayout();
             this.sideSectionOuter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.discordImage)).BeginInit();
+            this.discordSection.SuspendLayout();
             this.SuspendLayout();
             // 
             // blas1modScroll
@@ -184,6 +189,7 @@ namespace BlasModInstaller
             this.titleSectionInner.BackColor = System.Drawing.Color.Maroon;
             this.titleSectionInner.BackgroundImage = global::BlasModInstaller.Properties.Resources.background1;
             this.titleSectionInner.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.titleSectionInner.Controls.Add(this.debugLog);
             this.titleSectionInner.Controls.Add(this.warningSectionOuter);
             this.titleSectionInner.Controls.Add(this.titleLabel);
             this.titleSectionInner.Location = new System.Drawing.Point(0, 0);
@@ -313,6 +319,7 @@ namespace BlasModInstaller
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sideSectionInner.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.sideSectionInner.Controls.Add(this.discordSection);
             this.sideSectionInner.Controls.Add(this.divider2);
             this.sideSectionInner.Controls.Add(this.divider1);
             this.sideSectionInner.Controls.Add(this.disableBtn);
@@ -320,7 +327,6 @@ namespace BlasModInstaller
             this.sideSectionInner.Controls.Add(this.uninstallBtn);
             this.sideSectionInner.Controls.Add(this.installBtn);
             this.sideSectionInner.Controls.Add(this.sortSection);
-            this.sideSectionInner.Controls.Add(this.debugLog);
             this.sideSectionInner.Controls.Add(this.blas2modsBtn);
             this.sideSectionInner.Controls.Add(this.blas1skinsBtn);
             this.sideSectionInner.Controls.Add(this.blas1modsBtn);
@@ -506,13 +512,13 @@ namespace BlasModInstaller
             // 
             // debugLog
             // 
-            this.debugLog.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.debugLog.BackColor = System.Drawing.Color.Black;
             this.debugLog.ForeColor = System.Drawing.SystemColors.Menu;
-            this.debugLog.Location = new System.Drawing.Point(15, 665);
+            this.debugLog.Location = new System.Drawing.Point(6, 12);
             this.debugLog.Multiline = true;
             this.debugLog.Name = "debugLog";
             this.debugLog.ReadOnly = true;
-            this.debugLog.Size = new System.Drawing.Size(220, 183);
+            this.debugLog.Size = new System.Drawing.Size(253, 98);
             this.debugLog.TabIndex = 0;
             this.debugLog.Visible = false;
             // 
@@ -587,6 +593,45 @@ namespace BlasModInstaller
             this.sideSectionOuter.Size = new System.Drawing.Size(250, 900);
             this.sideSectionOuter.TabIndex = 9;
             // 
+            // discordImage
+            // 
+            this.discordImage.Image = global::BlasModInstaller.Properties.Resources.discord;
+            this.discordImage.Location = new System.Drawing.Point(85, 8);
+            this.discordImage.Name = "discordImage";
+            this.discordImage.Size = new System.Drawing.Size(40, 30);
+            this.discordImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.discordImage.TabIndex = 23;
+            this.discordImage.TabStop = false;
+            // 
+            // discordSection
+            // 
+            this.discordSection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.discordSection.Controls.Add(this.discordText);
+            this.discordSection.Controls.Add(this.discordImage);
+            this.discordSection.Location = new System.Drawing.Point(15, 657);
+            this.discordSection.Name = "discordSection";
+            this.discordSection.Size = new System.Drawing.Size(220, 91);
+            this.discordSection.TabIndex = 24;
+            // 
+            // discordText
+            // 
+            this.discordText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.discordText.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.discordText.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.discordText.LinkArea = new System.Windows.Forms.LinkArea(9, 19);
+            this.discordText.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(242)))), ((int)(((byte)(135)))));
+            this.discordText.Location = new System.Drawing.Point(0, 44);
+            this.discordText.Name = "discordText";
+            this.discordText.Size = new System.Drawing.Size(220, 47);
+            this.discordText.TabIndex = 24;
+            this.discordText.TabStop = true;
+            this.discordText.Text = "Join the Blasphemous Modding discord server!";
+            this.discordText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.discordText.UseCompatibleTextRendering = true;
+            this.discordText.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ClickedDisordLink);
+            // 
             // UIHandler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -608,16 +653,18 @@ namespace BlasModInstaller
             this.mainSection.ResumeLayout(false);
             this.titleSectionOuter.ResumeLayout(false);
             this.titleSectionInner.ResumeLayout(false);
+            this.titleSectionInner.PerformLayout();
             this.warningSectionOuter.ResumeLayout(false);
             this.warningSectionInner.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.warningImage)).EndInit();
             this.blas1skinSection.ResumeLayout(false);
             this.blas2modSection.ResumeLayout(false);
             this.sideSectionInner.ResumeLayout(false);
-            this.sideSectionInner.PerformLayout();
             this.sortSection.ResumeLayout(false);
             this.sortSection.PerformLayout();
             this.sideSectionOuter.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.discordImage)).EndInit();
+            this.discordSection.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -659,6 +706,9 @@ namespace BlasModInstaller
         private System.Windows.Forms.Panel divider1;
         private System.Windows.Forms.Panel divider2;
         private System.Windows.Forms.Button toolsBtn;
+        private System.Windows.Forms.Panel discordSection;
+        private System.Windows.Forms.PictureBox discordImage;
+        private System.Windows.Forms.LinkLabel discordText;
     }
 }
 
