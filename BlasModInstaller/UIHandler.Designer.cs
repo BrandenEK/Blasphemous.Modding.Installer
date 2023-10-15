@@ -184,6 +184,7 @@ namespace BlasModInstaller
             this.titleSectionInner.BackColor = System.Drawing.Color.Maroon;
             this.titleSectionInner.BackgroundImage = global::BlasModInstaller.Properties.Resources.background1;
             this.titleSectionInner.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.titleSectionInner.Controls.Add(this.warningSectionOuter);
             this.titleSectionInner.Controls.Add(this.titleLabel);
             this.titleSectionInner.Location = new System.Drawing.Point(0, 0);
             this.titleSectionInner.Name = "titleSectionInner";
@@ -265,7 +266,6 @@ namespace BlasModInstaller
             this.sideSectionInner.Controls.Add(this.uninstallBtn);
             this.sideSectionInner.Controls.Add(this.installBtn);
             this.sideSectionInner.Controls.Add(this.sortSection);
-            this.sideSectionInner.Controls.Add(this.warningSectionOuter);
             this.sideSectionInner.Controls.Add(this.debugLog);
             this.sideSectionInner.Controls.Add(this.blas2modsBtn);
             this.sideSectionInner.Controls.Add(this.blas1skinsBtn);
@@ -452,10 +452,10 @@ namespace BlasModInstaller
             // 
             // warningSectionOuter
             // 
-            this.warningSectionOuter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.warningSectionOuter.BackColor = System.Drawing.Color.White;
+            this.warningSectionOuter.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.warningSectionOuter.BackColor = System.Drawing.Color.Red;
             this.warningSectionOuter.Controls.Add(this.warningSectionInner);
-            this.warningSectionOuter.Location = new System.Drawing.Point(15, 765);
+            this.warningSectionOuter.Location = new System.Drawing.Point(896, 19);
             this.warningSectionOuter.Name = "warningSectionOuter";
             this.warningSectionOuter.Size = new System.Drawing.Size(220, 80);
             this.warningSectionOuter.TabIndex = 6;
@@ -466,7 +466,7 @@ namespace BlasModInstaller
             this.warningSectionInner.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.warningSectionInner.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.warningSectionInner.BackColor = System.Drawing.Color.Black;
             this.warningSectionInner.Controls.Add(this.warningText);
             this.warningSectionInner.Controls.Add(this.warningImage);
             this.warningSectionInner.Location = new System.Drawing.Point(2, 2);
@@ -494,7 +494,7 @@ namespace BlasModInstaller
             // warningImage
             // 
             this.warningImage.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.warningImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.warningImage.BackColor = System.Drawing.Color.Black;
             this.warningImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.warningImage.Image = global::BlasModInstaller.Properties.Resources.warning;
             this.warningImage.Location = new System.Drawing.Point(10, 20);
