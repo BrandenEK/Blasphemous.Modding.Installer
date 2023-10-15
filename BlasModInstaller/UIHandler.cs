@@ -252,5 +252,10 @@ namespace BlasModInstaller
         {
 
         }
+
+        private void ClickedGithubLink(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
     }
 }
