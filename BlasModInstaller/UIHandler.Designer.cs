@@ -508,11 +508,11 @@ namespace BlasModInstaller
             // 
             this.debugLog.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.debugLog.ForeColor = System.Drawing.SystemColors.Menu;
-            this.debugLog.Location = new System.Drawing.Point(15, 712);
+            this.debugLog.Location = new System.Drawing.Point(15, 665);
             this.debugLog.Multiline = true;
             this.debugLog.Name = "debugLog";
             this.debugLog.ReadOnly = true;
-            this.debugLog.Size = new System.Drawing.Size(220, 292);
+            this.debugLog.Size = new System.Drawing.Size(220, 183);
             this.debugLog.TabIndex = 0;
             this.debugLog.Visible = false;
             // 
