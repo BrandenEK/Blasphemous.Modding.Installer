@@ -66,6 +66,8 @@ namespace BlasModInstaller
                 _installerLatestReleaseLink = latestRelease.HtmlUrl;
                 Core.UIHandler.UpdatePanelSetVisible(true);
             }
+
+            Core.UIHandler.Log("Remaining api calls: " + (_client.GetLastApiInfo()?.RateLimit.Remaining + 1));
         }
 
         /// <summary>
