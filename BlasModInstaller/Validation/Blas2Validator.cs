@@ -1,5 +1,6 @@
 ﻿using Ionic.Zip;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
@@ -56,6 +57,15 @@ namespace BlasModInstaller.Validation
             get
             {
                 return Directory.Exists(Core.SettingsHandler.Config.Blas2RootFolder + "\\MelonLoader");
+            }
+        }
+
+        public bool AreModdingToolsUpdated
+        {
+            get
+            {
+                return FileVersionInfo.GetVersionInfo(Core.SettingsHandler.Config.Blas2RootFolder
+                    + "\\MelonLoader\\net6\\MelonLoader.dll").FileMajorPart == 2;
             }
         }
 

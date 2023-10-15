@@ -139,8 +139,9 @@ namespace BlasModInstaller
 
             // Validate the status of mods
             bool folderValid = currentPage.Validator.IsRootFolderValid;
-            bool toolsInstalled = currentPage.Validator.AreModdingToolsInstalled;
-            bool validated = folderValid && toolsInstalled;
+            bool toolsInstalled = folderValid && currentPage.Validator.AreModdingToolsInstalled;
+
+            bool validated = toolsInstalled;
             Log("Modding status validation: " + validated);
 
             if (validated)

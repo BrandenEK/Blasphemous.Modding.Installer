@@ -14,5 +14,6 @@ namespace BlasModInstaller.Validation
         bool IsRootFolderValid { get; }
 
         bool AreModdingToolsInstalled { get; }
+        bool AreModdingToolsUpdated { get; }
     }
 }

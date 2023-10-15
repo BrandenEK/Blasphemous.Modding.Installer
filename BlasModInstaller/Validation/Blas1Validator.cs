@@ -59,6 +59,8 @@ namespace BlasModInstaller.Validation
             }
         }
 
+        public bool AreModdingToolsUpdated => true;
+
         public string ExeName => _exeName;
         public string DefaultPath => _defaultPath;
     }
