@@ -52,6 +52,8 @@ namespace BlasModInstaller
             this.sideSectionInner = new System.Windows.Forms.Panel();
             this.detailsSectionOuter = new System.Windows.Forms.Panel();
             this.detailsSectionInner = new System.Windows.Forms.Panel();
+            this.detailsDescription = new System.Windows.Forms.Label();
+            this.detailsName = new System.Windows.Forms.Label();
             this.divider3 = new System.Windows.Forms.Panel();
             this.linksSection = new System.Windows.Forms.Panel();
             this.githubImage = new System.Windows.Forms.PictureBox();
@@ -74,6 +76,7 @@ namespace BlasModInstaller
             this.blas1skinsBtn = new System.Windows.Forms.Button();
             this.blas1modsBtn = new System.Windows.Forms.Button();
             this.sideSectionOuter = new System.Windows.Forms.Panel();
+            this.detailsVersion = new System.Windows.Forms.Label();
             this.blas1modSection.SuspendLayout();
             this.validationSection.SuspendLayout();
             this.mainSection.SuspendLayout();
@@ -86,6 +89,7 @@ namespace BlasModInstaller
             this.blas2modSection.SuspendLayout();
             this.sideSectionInner.SuspendLayout();
             this.detailsSectionOuter.SuspendLayout();
+            this.detailsSectionInner.SuspendLayout();
             this.linksSection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.githubImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.discordImage)).BeginInit();
@@ -373,10 +377,35 @@ namespace BlasModInstaller
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.detailsSectionInner.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.detailsSectionInner.Controls.Add(this.detailsVersion);
+            this.detailsSectionInner.Controls.Add(this.detailsDescription);
+            this.detailsSectionInner.Controls.Add(this.detailsName);
             this.detailsSectionInner.Location = new System.Drawing.Point(2, 2);
             this.detailsSectionInner.Name = "detailsSectionInner";
             this.detailsSectionInner.Size = new System.Drawing.Size(216, 146);
             this.detailsSectionInner.TabIndex = 0;
+            // 
+            // detailsDescription
+            // 
+            this.detailsDescription.Font = new System.Drawing.Font("Trebuchet MS", 9F);
+            this.detailsDescription.ForeColor = System.Drawing.Color.White;
+            this.detailsDescription.Location = new System.Drawing.Point(3, 35);
+            this.detailsDescription.Name = "detailsDescription";
+            this.detailsDescription.Size = new System.Drawing.Size(210, 60);
+            this.detailsDescription.TabIndex = 1;
+            this.detailsDescription.Text = "    A randomizer mod that can shuffle items, enemies, and doors.. Extended descri" +
+    "ption to take more space";
+            // 
+            // detailsName
+            // 
+            this.detailsName.Font = new System.Drawing.Font("Trebuchet MS", 12F);
+            this.detailsName.ForeColor = System.Drawing.Color.White;
+            this.detailsName.Location = new System.Drawing.Point(3, 5);
+            this.detailsName.Name = "detailsName";
+            this.detailsName.Size = new System.Drawing.Size(210, 20);
+            this.detailsName.TabIndex = 0;
+            this.detailsName.Text = "Randomizer";
+            this.detailsName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // divider3
             // 
@@ -703,6 +732,17 @@ namespace BlasModInstaller
             this.sideSectionOuter.Size = new System.Drawing.Size(250, 900);
             this.sideSectionOuter.TabIndex = 9;
             // 
+            // detailsVersion
+            // 
+            this.detailsVersion.Font = new System.Drawing.Font("Trebuchet MS", 9F);
+            this.detailsVersion.ForeColor = System.Drawing.Color.White;
+            this.detailsVersion.Location = new System.Drawing.Point(3, 100);
+            this.detailsVersion.Name = "detailsVersion";
+            this.detailsVersion.Size = new System.Drawing.Size(210, 40);
+            this.detailsVersion.TabIndex = 2;
+            this.detailsVersion.Text = "Latest version:\nv2.0.11 on 10/06/2023";
+            this.detailsVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // UIHandler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -732,6 +772,7 @@ namespace BlasModInstaller
             this.blas2modSection.ResumeLayout(false);
             this.sideSectionInner.ResumeLayout(false);
             this.detailsSectionOuter.ResumeLayout(false);
+            this.detailsSectionInner.ResumeLayout(false);
             this.linksSection.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.githubImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.discordImage)).EndInit();
@@ -787,6 +828,9 @@ namespace BlasModInstaller
         private System.Windows.Forms.Panel divider3;
         private System.Windows.Forms.Panel detailsSectionOuter;
         private System.Windows.Forms.Panel detailsSectionInner;
+        private System.Windows.Forms.Label detailsName;
+        private System.Windows.Forms.Label detailsDescription;
+        private System.Windows.Forms.Label detailsVersion;
     }
 }
 
