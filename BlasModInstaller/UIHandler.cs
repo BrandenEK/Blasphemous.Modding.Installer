@@ -186,19 +186,23 @@ namespace BlasModInstaller
 
             // Only show side buttons under certain conditions
             divider1.Visible = validated;
-            divider2.Visible = validated;
-            divider3.Visible = validated;
+
             sortSection.Visible = validated;
+            sortByName.Visible = validated && currentPage.Grouper.CanSortByCreation;
+            sortByAuthor.Visible = validated && currentPage.Grouper.CanSortByCreation;
+            sortByInitialRelease.Visible = currentPage.Grouper.CanSortByDate;
+            sortByLatestRelease.Visible = currentPage.Grouper.CanSortByDate;
+
+            divider2.Visible = validated;
 
             installBtn.Visible = validated && currentPage.Grouper.CanInstall;
             uninstallBtn.Visible = validated && currentPage.Grouper.CanInstall;
             enableBtn.Visible = validated && currentPage.Grouper.CanEnable;
             disableBtn.Visible = validated && currentPage.Grouper.CanEnable;
 
-            sortByName.Visible = validated && currentPage.Grouper.CanSortByCreation;
-            sortByAuthor.Visible = validated && currentPage.Grouper.CanSortByCreation;
-            sortByInitialRelease.Visible = currentPage.Grouper.CanSortByDate;
-            sortByLatestRelease.Visible = currentPage.Grouper.CanSortByDate;
+            divider3.Visible = validated;
+
+            detailsSectionOuter.Visible = validated && currentPage.Grouper.CanEnable;
         }
 
         #region Side section top
