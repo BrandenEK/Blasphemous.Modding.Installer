@@ -205,7 +205,7 @@ namespace BlasModInstaller
             // 
             this.debugLog.BackColor = System.Drawing.Color.Black;
             this.debugLog.ForeColor = System.Drawing.SystemColors.Menu;
-            this.debugLog.Location = new System.Drawing.Point(6, 12);
+            this.debugLog.Location = new System.Drawing.Point(10, 12);
             this.debugLog.Multiline = true;
             this.debugLog.Name = "debugLog";
             this.debugLog.ReadOnly = true;
@@ -374,6 +374,7 @@ namespace BlasModInstaller
             this.linksSection.Name = "linksSection";
             this.linksSection.Size = new System.Drawing.Size(220, 100);
             this.linksSection.TabIndex = 24;
+            this.linksSection.Visible = false;
             // 
             // githubImage
             // 
