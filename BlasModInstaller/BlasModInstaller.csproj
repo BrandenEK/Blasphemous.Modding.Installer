@@ -142,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="blasphemous.ico" />
+    <None Include="Resources\git.png" />
     <None Include="Resources\background2.png" />
     <None Include="Resources\background1.png" />
     <None Include="Resources\gear.png" />
