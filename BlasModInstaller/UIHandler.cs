@@ -182,7 +182,7 @@ namespace BlasModInstaller
             currentPage.UIHolder.SectionPanel.Visible = validated;
             foreach (var page in Core.AllPages)
                 if (page != currentPage)
-                    page.UIHolder.SectionPanel.Visible = false;                
+                    page.UIHolder.SectionPanel.Visible = false;
 
             // Only show side buttons under certain conditions
             divider1.Visible = validated;
