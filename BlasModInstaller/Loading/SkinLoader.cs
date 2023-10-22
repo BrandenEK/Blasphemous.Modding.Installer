@@ -62,12 +62,16 @@ namespace BlasModInstaller.Loading
 
         private async Task LoadRemoteSkins()
         {
+            var newSkins = new List<Skin>();
+
             using (HttpClient client = new HttpClient())
             {
-                IReadOnlyList<Octokit.RepositoryContent> contents = await Core.GithubHandler.GetRepositoryContents("BrandenEK", "Blasphemous-Custom-Skins");
+                IReadOnlyList<Octokit.RepositoryContent> contents = 
+                    await Core.GithubHandler.GetRepositoryDirectory("BrandenEK", "Blasphemous-Custom-Skins", _remoteDataPath);
+                
                 foreach (var item in contents)
                 {
-                    string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{item.Name}/info.txt");
+                    string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{_remoteDataPath}/{item.Name}/info.txt");
                     SkinData data = JsonConvert.DeserializeObject<SkinData>(json);
 
                     Skin localSkin = FindSkin(data.id);
@@ -75,14 +79,17 @@ namespace BlasModInstaller.Loading
                     {
                         localSkin.Data = data;
                         localSkin.UpdateUI();
+                        newSkins.Add(localSkin);
                     }
                     else
                     {
-                        _skins.Add(new Skin(data, _uiHolder.SectionPanel, _skins.Count, _skinType));
+                        newSkins.Add(new Skin(data, _uiHolder.SectionPanel, _skins.Count, _skinType));
                     }
                 }
 
                 Core.UIHandler.Log($"Loaded {contents.Count} global skins");
+                _skins.Clear();
+                _skins.AddRange(newSkins);
             }
 
             SaveLocalData();

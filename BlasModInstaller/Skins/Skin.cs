@@ -64,11 +64,12 @@ namespace BlasModInstaller.Skins
 
         private string RootFolder => Core.SettingsHandler.GetRootPathBySection(_skinType);
 
+        private string SubFolder => "blasphemous1";
         public string PathToSkinFolder => $"{RootFolder}\\Modding\\skins\\{Data.id}";
-        public string InfoURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{Data.id}/info.txt";
-        public string TextureURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{Data.id}/texture.png";
-        public string IdlePreviewURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{Data.id}/idlePreview.png";
-        public string ChargedPreviewURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{Data.id}/chargedPreview.png";
+        public string InfoURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/info.txt";
+        public string TextureURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/texture.png";
+        public string IdlePreviewURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{SubFolder}/{Data.id}/idlePreview.png";
+        public string ChargedPreviewURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{SubFolder}/{Data.id}/chargedPreview.png";
 
         // Main methods
 

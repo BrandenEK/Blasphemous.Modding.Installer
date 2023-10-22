@@ -55,7 +55,7 @@ namespace BlasModInstaller
             var blas2modSorter = new ModSorter(blas2modUI, blas2mods);
 
             var blas1modLoader = new ModLoader(blas1modLocalPath, blas1modRemotePath, blas1modUI, blas1modSorter, blas1mods, SectionType.Blas1Mods);
-            var blas1skinLoader = new SkinLoader(blas1skinLocalPath, string.Empty, blas1skinUI, blas1skinSorter, blas1skins, SectionType.Blas1Skins);
+            var blas1skinLoader = new SkinLoader(blas1skinLocalPath, "blasphemous1", blas1skinUI, blas1skinSorter, blas1skins, SectionType.Blas1Skins);
             var blas2modLoader = new ModLoader(blas2modLocalPath, blas2modRemotePath, blas2modUI, blas2modSorter, blas2mods, SectionType.Blas2Mods);
 
             var blas1Validator = new Blas1Validator();
