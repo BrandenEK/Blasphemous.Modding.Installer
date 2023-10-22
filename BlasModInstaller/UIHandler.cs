@@ -1,4 +1,5 @@
-﻿using BlasModInstaller.Validation;
+﻿using BlasModInstaller.Mods;
+using BlasModInstaller.Validation;
 using System;
 using System.Drawing;
 using System.IO;
@@ -70,6 +71,22 @@ namespace BlasModInstaller
             OpenSection(Core.SettingsHandler.Config.LastSection);
         }
 
+        // Details section
+
+        internal void FillModDetails(ModData mod)
+        {
+            detailsName.Text = mod.name;
+            detailsDescription.Text = "    " + mod.description;
+            detailsVersion.Text = $"Latest version:{Environment.NewLine}v{mod.latestVersion} on {mod.latestReleaseDate:MM/dd/yyyy}";
+        }
+
+        internal void ClearModDetails()
+        {
+            detailsName.Text = string.Empty;
+            detailsDescription.Text = string.Empty;
+            detailsVersion.Text = string.Empty;
+        }
+
         // ...
 
         public Panel GetUIElementByType(SectionType type)
@@ -136,6 +153,7 @@ namespace BlasModInstaller
             // Update background and info
             titleLabel.Text = currentPage.Title;
             titleSectionInner.BackgroundImage = currentPage.Image;
+            ClearModDetails();
 
             // Validate the status of mods
             bool folderValid = currentPage.Validator.IsRootFolderValid;

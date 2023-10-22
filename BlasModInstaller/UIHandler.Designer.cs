@@ -52,6 +52,7 @@ namespace BlasModInstaller
             this.sideSectionInner = new System.Windows.Forms.Panel();
             this.detailsSectionOuter = new System.Windows.Forms.Panel();
             this.detailsSectionInner = new System.Windows.Forms.Panel();
+            this.detailsVersion = new System.Windows.Forms.Label();
             this.detailsDescription = new System.Windows.Forms.Label();
             this.detailsName = new System.Windows.Forms.Label();
             this.divider3 = new System.Windows.Forms.Panel();
@@ -76,7 +77,6 @@ namespace BlasModInstaller
             this.blas1skinsBtn = new System.Windows.Forms.Button();
             this.blas1modsBtn = new System.Windows.Forms.Button();
             this.sideSectionOuter = new System.Windows.Forms.Panel();
-            this.detailsVersion = new System.Windows.Forms.Label();
             this.blas1modSection.SuspendLayout();
             this.validationSection.SuspendLayout();
             this.mainSection.SuspendLayout();
@@ -385,6 +385,17 @@ namespace BlasModInstaller
             this.detailsSectionInner.Size = new System.Drawing.Size(216, 146);
             this.detailsSectionInner.TabIndex = 0;
             // 
+            // detailsVersion
+            // 
+            this.detailsVersion.Font = new System.Drawing.Font("Trebuchet MS", 9F);
+            this.detailsVersion.ForeColor = System.Drawing.Color.White;
+            this.detailsVersion.Location = new System.Drawing.Point(3, 100);
+            this.detailsVersion.Name = "detailsVersion";
+            this.detailsVersion.Size = new System.Drawing.Size(210, 40);
+            this.detailsVersion.TabIndex = 2;
+            this.detailsVersion.Text = "Latest version";
+            this.detailsVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // detailsDescription
             // 
             this.detailsDescription.Font = new System.Drawing.Font("Trebuchet MS", 9F);
@@ -393,8 +404,7 @@ namespace BlasModInstaller
             this.detailsDescription.Name = "detailsDescription";
             this.detailsDescription.Size = new System.Drawing.Size(210, 60);
             this.detailsDescription.TabIndex = 1;
-            this.detailsDescription.Text = "    A randomizer mod that can shuffle items, enemies, and doors.. Extended descri" +
-    "ption to take more space";
+            this.detailsDescription.Text = "Description";
             // 
             // detailsName
             // 
@@ -404,7 +414,7 @@ namespace BlasModInstaller
             this.detailsName.Name = "detailsName";
             this.detailsName.Size = new System.Drawing.Size(210, 20);
             this.detailsName.TabIndex = 0;
-            this.detailsName.Text = "Randomizer";
+            this.detailsName.Text = "Name";
             this.detailsName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // divider3
@@ -731,17 +741,6 @@ namespace BlasModInstaller
             this.sideSectionOuter.Name = "sideSectionOuter";
             this.sideSectionOuter.Size = new System.Drawing.Size(250, 900);
             this.sideSectionOuter.TabIndex = 9;
-            // 
-            // detailsVersion
-            // 
-            this.detailsVersion.Font = new System.Drawing.Font("Trebuchet MS", 9F);
-            this.detailsVersion.ForeColor = System.Drawing.Color.White;
-            this.detailsVersion.Location = new System.Drawing.Point(3, 100);
-            this.detailsVersion.Name = "detailsVersion";
-            this.detailsVersion.Size = new System.Drawing.Size(210, 40);
-            this.detailsVersion.TabIndex = 2;
-            this.detailsVersion.Text = "Latest version:\nv2.0.11 on 10/06/2023";
-            this.detailsVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // UIHandler
             // 
