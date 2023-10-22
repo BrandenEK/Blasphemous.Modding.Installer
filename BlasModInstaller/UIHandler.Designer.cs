@@ -370,7 +370,7 @@ namespace BlasModInstaller
             this.linksSection.Controls.Add(this.discordImage);
             this.linksSection.Controls.Add(this.githubText);
             this.linksSection.Controls.Add(this.discordText);
-            this.linksSection.Location = new System.Drawing.Point(15, 720);
+            this.linksSection.Location = new System.Drawing.Point(15, 900);
             this.linksSection.Name = "linksSection";
             this.linksSection.Size = new System.Drawing.Size(220, 100);
             this.linksSection.TabIndex = 24;

@@ -169,6 +169,7 @@ namespace BlasModInstaller
             // Only show side buttons under certain conditions
             divider1.Visible = validated;
             divider2.Visible = validated;
+            divider3.Visible = validated;
             sortSection.Visible = validated;
 
             installBtn.Visible = validated && currentPage.Grouper.CanInstall;
