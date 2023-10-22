@@ -357,7 +357,7 @@ namespace BlasModInstaller
             this.divider3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.divider3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.divider3.Location = new System.Drawing.Point(44, 689);
+            this.divider3.Location = new System.Drawing.Point(44, 605);
             this.divider3.Name = "divider3";
             this.divider3.Size = new System.Drawing.Size(160, 1);
             this.divider3.TabIndex = 23;
@@ -458,11 +458,11 @@ namespace BlasModInstaller
             this.disableBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.disableBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.disableBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.disableBtn.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.disableBtn.Font = new System.Drawing.Font("Trebuchet MS", 12F);
             this.disableBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.disableBtn.Location = new System.Drawing.Point(15, 625);
+            this.disableBtn.Location = new System.Drawing.Point(135, 535);
             this.disableBtn.Name = "disableBtn";
-            this.disableBtn.Size = new System.Drawing.Size(220, 35);
+            this.disableBtn.Size = new System.Drawing.Size(100, 35);
             this.disableBtn.TabIndex = 7;
             this.disableBtn.Text = "Disable all";
             this.disableBtn.UseVisualStyleBackColor = false;
@@ -478,11 +478,11 @@ namespace BlasModInstaller
             this.enableBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.enableBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.enableBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.enableBtn.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.enableBtn.Font = new System.Drawing.Font("Trebuchet MS", 12F);
             this.enableBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.enableBtn.Location = new System.Drawing.Point(15, 580);
+            this.enableBtn.Location = new System.Drawing.Point(15, 535);
             this.enableBtn.Name = "enableBtn";
-            this.enableBtn.Size = new System.Drawing.Size(220, 35);
+            this.enableBtn.Size = new System.Drawing.Size(100, 35);
             this.enableBtn.TabIndex = 6;
             this.enableBtn.Text = "Enable all";
             this.enableBtn.UseVisualStyleBackColor = false;
@@ -498,11 +498,11 @@ namespace BlasModInstaller
             this.uninstallBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.uninstallBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.uninstallBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.uninstallBtn.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uninstallBtn.Font = new System.Drawing.Font("Trebuchet MS", 12F);
             this.uninstallBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.uninstallBtn.Location = new System.Drawing.Point(15, 535);
+            this.uninstallBtn.Location = new System.Drawing.Point(135, 490);
             this.uninstallBtn.Name = "uninstallBtn";
-            this.uninstallBtn.Size = new System.Drawing.Size(220, 35);
+            this.uninstallBtn.Size = new System.Drawing.Size(100, 35);
             this.uninstallBtn.TabIndex = 5;
             this.uninstallBtn.Text = "Uninstall all";
             this.uninstallBtn.UseVisualStyleBackColor = false;
@@ -518,11 +518,11 @@ namespace BlasModInstaller
             this.installBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.installBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.installBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.installBtn.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.installBtn.Font = new System.Drawing.Font("Trebuchet MS", 12F);
             this.installBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.installBtn.Location = new System.Drawing.Point(15, 490);
             this.installBtn.Name = "installBtn";
-            this.installBtn.Size = new System.Drawing.Size(220, 35);
+            this.installBtn.Size = new System.Drawing.Size(100, 35);
             this.installBtn.TabIndex = 4;
             this.installBtn.Text = "Install all";
             this.installBtn.UseVisualStyleBackColor = false;
