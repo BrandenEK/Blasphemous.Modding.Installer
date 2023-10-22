@@ -64,10 +64,12 @@ namespace BlasModInstaller.Loading
         {
             using (HttpClient client = new HttpClient())
             {
-                IReadOnlyList<Octokit.RepositoryContent> contents = await Core.GithubHandler.GetRepositoryContents("BrandenEK", "Blasphemous-Custom-Skins");
+                IReadOnlyList<Octokit.RepositoryContent> contents = 
+                    await Core.GithubHandler.GetRepositoryDirectory("BrandenEK", "Blasphemous-Custom-Skins", _remoteDataPath);
+                
                 foreach (var item in contents)
                 {
-                    string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{item.Name}/info.txt");
+                    string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{_remoteDataPath}/{item.Name}/info.txt");
                     SkinData data = JsonConvert.DeserializeObject<SkinData>(json);
 
                     Skin localSkin = FindSkin(data.id);

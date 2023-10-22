@@ -38,6 +38,14 @@ namespace BlasModInstaller
         }
 
         /// <summary>
+        /// Returns the contents of a directory in a repository
+        /// </summary>
+        public async Task<IReadOnlyList<RepositoryContent>> GetRepositoryDirectory(string owner, string repo, string path)
+        {
+            return await _client.Repository.Content.GetAllContents(owner, repo, path);
+        }
+
+        /// <summary>
         /// Creates a new github client with the token
         /// </summary>
         private GitHubClient CreateGithubClient(string githubToken)
