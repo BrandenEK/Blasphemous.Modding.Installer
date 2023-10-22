@@ -63,6 +63,8 @@ namespace BlasModInstaller.Loading
 
         private async Task LoadRemoteMods()
         {
+            var newMods = new List<Mod>();
+
             using (HttpClient client = new HttpClient())
             {
                 string json = await client.GetStringAsync(_remoteDataPath);
@@ -82,14 +84,17 @@ namespace BlasModInstaller.Loading
                     {
                         localMod.Data = fullData;
                         localMod.UpdateUI();
+                        newMods.Add(localMod);
                     }
                     else
                     {
-                        _mods.Add(new Mod(fullData, _uiHolder.SectionPanel, _mods.Count, _modType));
+                        newMods.Add(new Mod(fullData, _uiHolder.SectionPanel, _mods.Count, _modType));
                     }
                 }
 
                 Core.UIHandler.Log($"Loaded {remoteData.Length} global mods");
+                _mods.Clear();
+                _mods.AddRange(newMods);
             }
 
             SaveLocalData();

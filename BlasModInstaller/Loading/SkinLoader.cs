@@ -62,6 +62,8 @@ namespace BlasModInstaller.Loading
 
         private async Task LoadRemoteSkins()
         {
+            var newSkins = new List<Skin>();
+
             using (HttpClient client = new HttpClient())
             {
                 IReadOnlyList<Octokit.RepositoryContent> contents = 
@@ -77,14 +79,17 @@ namespace BlasModInstaller.Loading
                     {
                         localSkin.Data = data;
                         localSkin.UpdateUI();
+                        newSkins.Add(localSkin);
                     }
                     else
                     {
-                        _skins.Add(new Skin(data, _uiHolder.SectionPanel, _skins.Count, _skinType));
+                        newSkins.Add(new Skin(data, _uiHolder.SectionPanel, _skins.Count, _skinType));
                     }
                 }
 
                 Core.UIHandler.Log($"Loaded {contents.Count} global skins");
+                _skins.Clear();
+                _skins.AddRange(newSkins);
             }
 
             SaveLocalData();
