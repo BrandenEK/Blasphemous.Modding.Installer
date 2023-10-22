@@ -50,6 +50,8 @@ namespace BlasModInstaller
             this.blas2modSection = new System.Windows.Forms.Panel();
             this.blas2modScroll = new System.Windows.Forms.VScrollBar();
             this.sideSectionInner = new System.Windows.Forms.Panel();
+            this.detailsSectionOuter = new System.Windows.Forms.Panel();
+            this.detailsSectionInner = new System.Windows.Forms.Panel();
             this.divider3 = new System.Windows.Forms.Panel();
             this.linksSection = new System.Windows.Forms.Panel();
             this.githubImage = new System.Windows.Forms.PictureBox();
@@ -83,6 +85,7 @@ namespace BlasModInstaller
             this.blas1skinSection.SuspendLayout();
             this.blas2modSection.SuspendLayout();
             this.sideSectionInner.SuspendLayout();
+            this.detailsSectionOuter.SuspendLayout();
             this.linksSection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.githubImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.discordImage)).BeginInit();
@@ -218,7 +221,7 @@ namespace BlasModInstaller
             this.warningSectionOuter.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.warningSectionOuter.BackColor = System.Drawing.Color.Red;
             this.warningSectionOuter.Controls.Add(this.warningSectionInner);
-            this.warningSectionOuter.Location = new System.Drawing.Point(896, 19);
+            this.warningSectionOuter.Location = new System.Drawing.Point(902, 12);
             this.warningSectionOuter.Name = "warningSectionOuter";
             this.warningSectionOuter.Size = new System.Drawing.Size(220, 80);
             this.warningSectionOuter.TabIndex = 6;
@@ -335,6 +338,7 @@ namespace BlasModInstaller
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sideSectionInner.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.sideSectionInner.Controls.Add(this.detailsSectionOuter);
             this.sideSectionInner.Controls.Add(this.divider3);
             this.sideSectionInner.Controls.Add(this.linksSection);
             this.sideSectionInner.Controls.Add(this.divider2);
@@ -351,6 +355,28 @@ namespace BlasModInstaller
             this.sideSectionInner.Name = "sideSectionInner";
             this.sideSectionInner.Size = new System.Drawing.Size(248, 900);
             this.sideSectionInner.TabIndex = 8;
+            // 
+            // detailsSectionOuter
+            // 
+            this.detailsSectionOuter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.detailsSectionOuter.BackColor = System.Drawing.Color.Black;
+            this.detailsSectionOuter.Controls.Add(this.detailsSectionInner);
+            this.detailsSectionOuter.Location = new System.Drawing.Point(15, 635);
+            this.detailsSectionOuter.Name = "detailsSectionOuter";
+            this.detailsSectionOuter.Size = new System.Drawing.Size(220, 150);
+            this.detailsSectionOuter.TabIndex = 7;
+            // 
+            // detailsSectionInner
+            // 
+            this.detailsSectionInner.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.detailsSectionInner.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.detailsSectionInner.Location = new System.Drawing.Point(2, 2);
+            this.detailsSectionInner.Name = "detailsSectionInner";
+            this.detailsSectionInner.Size = new System.Drawing.Size(216, 146);
+            this.detailsSectionInner.TabIndex = 0;
             // 
             // divider3
             // 
@@ -705,6 +731,7 @@ namespace BlasModInstaller
             this.blas1skinSection.ResumeLayout(false);
             this.blas2modSection.ResumeLayout(false);
             this.sideSectionInner.ResumeLayout(false);
+            this.detailsSectionOuter.ResumeLayout(false);
             this.linksSection.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.githubImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.discordImage)).EndInit();
@@ -758,6 +785,8 @@ namespace BlasModInstaller
         private System.Windows.Forms.LinkLabel githubText;
         private System.Windows.Forms.PictureBox githubImage;
         private System.Windows.Forms.Panel divider3;
+        private System.Windows.Forms.Panel detailsSectionOuter;
+        private System.Windows.Forms.Panel detailsSectionInner;
     }
 }
 
