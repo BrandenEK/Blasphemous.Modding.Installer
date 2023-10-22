@@ -1,4 +1,5 @@
-﻿using BlasModInstaller.Validation;
+﻿using BlasModInstaller.Mods;
+using BlasModInstaller.Validation;
 using System;
 using System.Drawing;
 using System.IO;
@@ -70,6 +71,22 @@ namespace BlasModInstaller
             OpenSection(Core.SettingsHandler.Config.LastSection);
         }
 
+        // Details section
+
+        internal void FillModDetails(ModData mod)
+        {
+            detailsName.Text = mod.name;
+            detailsDescription.Text = "    " + mod.description;
+            detailsVersion.Text = $"Latest version:{Environment.NewLine}v{mod.latestVersion} on {mod.latestReleaseDate:MM/dd/yyyy}";
+        }
+
+        internal void ClearModDetails()
+        {
+            detailsName.Text = string.Empty;
+            detailsDescription.Text = string.Empty;
+            detailsVersion.Text = string.Empty;
+        }
+
         // ...
 
         public Panel GetUIElementByType(SectionType type)
@@ -136,6 +153,7 @@ namespace BlasModInstaller
             // Update background and info
             titleLabel.Text = currentPage.Title;
             titleSectionInner.BackgroundImage = currentPage.Image;
+            ClearModDetails();
 
             // Validate the status of mods
             bool folderValid = currentPage.Validator.IsRootFolderValid;
@@ -164,22 +182,27 @@ namespace BlasModInstaller
             currentPage.UIHolder.SectionPanel.Visible = validated;
             foreach (var page in Core.AllPages)
                 if (page != currentPage)
-                    page.UIHolder.SectionPanel.Visible = false;                
+                    page.UIHolder.SectionPanel.Visible = false;
 
             // Only show side buttons under certain conditions
             divider1.Visible = validated;
-            divider2.Visible = validated;
+
             sortSection.Visible = validated;
+            sortByName.Visible = validated && currentPage.Grouper.CanSortByCreation;
+            sortByAuthor.Visible = validated && currentPage.Grouper.CanSortByCreation;
+            sortByInitialRelease.Visible = currentPage.Grouper.CanSortByDate;
+            sortByLatestRelease.Visible = currentPage.Grouper.CanSortByDate;
+
+            divider2.Visible = validated;
 
             installBtn.Visible = validated && currentPage.Grouper.CanInstall;
             uninstallBtn.Visible = validated && currentPage.Grouper.CanInstall;
             enableBtn.Visible = validated && currentPage.Grouper.CanEnable;
             disableBtn.Visible = validated && currentPage.Grouper.CanEnable;
 
-            sortByName.Visible = validated && currentPage.Grouper.CanSortByCreation;
-            sortByAuthor.Visible = validated && currentPage.Grouper.CanSortByCreation;
-            sortByInitialRelease.Visible = currentPage.Grouper.CanSortByDate;
-            sortByLatestRelease.Visible = currentPage.Grouper.CanSortByDate;
+            divider3.Visible = validated;
+
+            detailsSectionOuter.Visible = validated && currentPage.Grouper.CanEnable;
         }
 
         #region Side section top

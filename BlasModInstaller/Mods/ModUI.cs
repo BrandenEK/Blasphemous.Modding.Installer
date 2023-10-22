@@ -94,6 +94,8 @@ namespace BlasModInstaller.Mods
                 TextAlign = ContentAlignment.MiddleLeft,
                 Font = Fonts.MOD_NAME,
             };
+            nameText.MouseEnter += mod.MouseEnter;
+            nameText.MouseLeave += mod.MouseLeave;
 
             authorText = new Label
             {
