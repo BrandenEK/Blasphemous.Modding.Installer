@@ -35,4 +35,13 @@
     "GithubRepo": "BlasII.SaveAndQuit",
     "PluginFile": "SaveAndQuit.dll"
   },
+  {
+    "Name": "Randomizer",
+    "Author": "Damocles",
+    "Description": "An item randomizer",
+    "InitialReleaseDate": "2023-10-24",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "BlasII.Randomizer",
+    "PluginFile": "Randomizer.dll"
+  },
 ]
