@@ -44,4 +44,13 @@
     "GithubRepo": "BlasII.Randomizer",
     "PluginFile": "Randomizer.dll"
   },
+  {
+    "Name": "Quality of Life",
+    "Author": "Damocles",
+    "Description": "Provides customizable options to improve the gameplay experience",
+    "InitialReleaseDate": "2023-11-05",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "BlasII.QualityOfLife",
+    "PluginFile": "QualityOfLife.dll"
+  },
 ]
