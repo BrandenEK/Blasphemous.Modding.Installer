@@ -195,10 +195,10 @@ namespace BlasModInstaller
 
             divider2.Visible = validated;
 
-            installBtn.Visible = validated && currentPage.Grouper.CanInstall;
-            uninstallBtn.Visible = validated && currentPage.Grouper.CanInstall;
-            enableBtn.Visible = validated && currentPage.Grouper.CanEnable;
-            disableBtn.Visible = validated && currentPage.Grouper.CanEnable;
+            allInstallBtn.Visible = validated && currentPage.Grouper.CanInstall;
+            allUninstallBtn.Visible = validated && currentPage.Grouper.CanInstall;
+            allEnableBtn.Visible = validated && currentPage.Grouper.CanEnable;
+            allDisableBtn.Visible = validated && currentPage.Grouper.CanEnable;
 
             divider3.Visible = validated;
 
