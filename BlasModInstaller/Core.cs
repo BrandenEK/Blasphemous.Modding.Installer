@@ -100,7 +100,7 @@ namespace BlasModInstaller
         public static SettingsHandler SettingsHandler { get; private set; }
         public static GithubHandler GithubHandler { get; private set; }
 
-        private static Dictionary<SectionType, InstallerPage> _pages = new Dictionary<SectionType, InstallerPage>();
+        private static readonly Dictionary<SectionType, InstallerPage> _pages = new Dictionary<SectionType, InstallerPage>();
 
         public static InstallerPage CurrentPage => _pages[SettingsHandler.Config.LastSection];
         public static IEnumerable<InstallerPage> AllPages => _pages.Values;
@@ -108,6 +108,8 @@ namespace BlasModInstaller
         public static InstallerPage Blas1ModPage => _pages[SectionType.Blas1Mods];
         public static InstallerPage Blas1SkinPage => _pages[SectionType.Blas1Skins];
         public static InstallerPage Blas2ModPage => _pages[SectionType.Blas2Mods];
+
+        public static string DataCache => Environment.CurrentDirectory + "/cache";
 
         // Don't forget to increase this when releasing an update!  Have to do it here
         // because I'm not sure how to increase file version for windows forms

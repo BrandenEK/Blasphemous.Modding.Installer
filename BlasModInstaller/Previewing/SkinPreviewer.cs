@@ -28,22 +28,23 @@ namespace BlasModInstaller.Previewing
 
         private async Task<Bitmap> LoadPreviewImageAsync(Skin skin)
         {
-            // Check for cache
+            // If preview is already in cache, use it
+            if (skin.ExistsInCache("preview.png", out string cachePath))
+                return new Bitmap(cachePath);
 
-            // Set loading image
-
+            // Otherwise, download from web into cache
             using (WebClient client = new WebClient())
             {
-                string downloadPath = $"{UIHandler.DownloadsPath}blas1skins\\{skin.Data.id}\\{skin.Data.version}";
-                Directory.CreateDirectory(downloadPath);
+                Directory.CreateDirectory(Path.GetDirectoryName(cachePath));
 
                 try
                 {
-                    await client.DownloadFileTaskAsync(new Uri(skin.PreviewURL), downloadPath + "\\preview.png");
-                    return new Bitmap(downloadPath + "\\preview.png");
+                    await client.DownloadFileTaskAsync(new Uri(skin.PreviewURL), cachePath);
+                    return new Bitmap(cachePath);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Core.UIHandler.Log("Failed to load skin preview: " + e.Message);
                     return Resources.warning;
                 }
             }

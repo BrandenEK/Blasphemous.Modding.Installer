@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
@@ -30,13 +29,13 @@ namespace BlasModInstaller.Skins
         private InstallerPage SkinPage => Core.Blas1SkinPage;
         private SortType SkinSort => Core.SettingsHandler.Config.Blas1SkinSort;
 
-        public bool Installed => File.Exists($"{RootFolder}\\Modding\\skins\\{Data.id}\\info.txt");
+        public bool Installed => File.Exists($"{RootFolder}/Modding/skins/{Data.id}/info.txt");
 
         public Version LocalVersion
         {
             get
             {
-                string infoPath = PathToSkinFolder + "\\info.txt";
+                string infoPath = PathToSkinFolder + "/info.txt";
                 if (File.Exists(infoPath))
                 {
                     SkinData data = JsonConvert.DeserializeObject<SkinData>(File.ReadAllText(infoPath));
@@ -65,10 +64,16 @@ namespace BlasModInstaller.Skins
         private string RootFolder => Core.SettingsHandler.GetRootPathBySection(_skinType);
 
         private string SubFolder => "blasphemous1";
-        public string PathToSkinFolder => $"{RootFolder}\\Modding\\skins\\{Data.id}";
+        public string PathToSkinFolder => $"{RootFolder}/Modding/skins/{Data.id}";
         public string InfoURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/info.txt";
         public string TextureURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/texture.png";
         public string PreviewURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/preview.png";
+
+        public bool ExistsInCache(string fileName, out string cachePath)
+        {
+            cachePath = $"{Core.DataCache}/blas1skins/{Data.id}/{Data.version}/{fileName}";
+            return File.Exists(cachePath) && new FileInfo(cachePath).Length > 0;
+        }
 
         // Main methods
 
@@ -85,11 +90,11 @@ namespace BlasModInstaller.Skins
                 string installPath = PathToSkinFolder;
                 Directory.CreateDirectory(installPath);
 
-                await client.DownloadFileTaskAsync(new Uri(InfoURL), downloadPath + "\\info.txt");
-                await client.DownloadFileTaskAsync(new Uri(TextureURL), downloadPath + "\\texture.png");
+                await client.DownloadFileTaskAsync(new Uri(InfoURL), downloadPath + "/info.txt");
+                await client.DownloadFileTaskAsync(new Uri(TextureURL), downloadPath + "/texture.png");
 
-                File.Copy(downloadPath + "\\info.txt", installPath + "\\info.txt");
-                File.Copy(downloadPath + "\\texture.png", installPath + "\\texture.png");
+                File.Copy(downloadPath + "/info.txt", installPath + "/info.txt");
+                File.Copy(downloadPath + "/texture.png", installPath + "/texture.png");
 
                 Directory.Delete(downloadPath, true);
             }
