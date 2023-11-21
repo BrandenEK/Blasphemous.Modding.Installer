@@ -5,9 +5,9 @@ namespace BlasModInstaller.Previewing
 {
     internal interface IPreviewer
     {
-        void PreviewMod(ModData mod);
+        void PreviewMod(Mod mod);
 
-        void PreviewSkin(SkinData skin);
+        void PreviewSkin(Skin skin);
 
         void Clear();
     }

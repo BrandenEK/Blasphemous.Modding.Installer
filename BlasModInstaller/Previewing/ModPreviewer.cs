@@ -18,18 +18,18 @@ namespace BlasModInstaller.Previewing
             _version = version;
         }
 
-        public void PreviewMod(ModData mod)
+        public void PreviewMod(Mod mod)
         {
             _name.Visible = true;
             _description.Visible = true;
             _version.Visible = true;
 
-            _name.Text = mod.name;
-            _description.Text = "    " + mod.description;
-            _version.Text = $"Latest version:{Environment.NewLine}v{mod.latestVersion} on {mod.latestReleaseDate:MM/dd/yyyy}";
+            _name.Text = mod.Data.name;
+            _description.Text = "    " + mod.Data.description;
+            _version.Text = $"Latest version:{Environment.NewLine}v{mod.Data.latestVersion} on {mod.Data.latestReleaseDate:MM/dd/yyyy}";
         }
 
-        public void PreviewSkin(SkinData skin) => throw new NotImplementedException();
+        public void PreviewSkin(Skin skin) => throw new NotImplementedException();
 
         public void Clear()
         {

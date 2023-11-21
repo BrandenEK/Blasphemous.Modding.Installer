@@ -68,6 +68,7 @@ namespace BlasModInstaller.Skins
         public string PathToSkinFolder => $"{RootFolder}\\Modding\\skins\\{Data.id}";
         public string InfoURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/info.txt";
         public string TextureURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/texture.png";
+        public string PreviewURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/preview.png";
         public string IdlePreviewURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{SubFolder}/{Data.id}/idlePreview.png";
         public string ChargedPreviewURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{SubFolder}/{Data.id}/chargedPreview.png";
 
@@ -154,7 +155,7 @@ namespace BlasModInstaller.Skins
             _ui.SetPosition(skinIdx);
         }
 
-        public void MouseEnter(object sender, EventArgs e) => SkinPage.Previewer.PreviewSkin(Data);
+        public void MouseEnter(object sender, EventArgs e) => SkinPage.Previewer.PreviewSkin(this);
 
         public void MouseLeave(object sender, EventArgs e) => SkinPage.Previewer.Clear();
 
