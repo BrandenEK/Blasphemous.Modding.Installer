@@ -38,13 +38,6 @@ namespace BlasModInstaller
             this.blasLocDialog = new System.Windows.Forms.OpenFileDialog();
             this.mainSection = new System.Windows.Forms.Panel();
             this.titleSectionOuter = new System.Windows.Forms.Panel();
-            this.titleSectionInner = new System.Windows.Forms.Panel();
-            this.debugLog = new System.Windows.Forms.TextBox();
-            this.warningSectionOuter = new System.Windows.Forms.Panel();
-            this.warningSectionInner = new System.Windows.Forms.Panel();
-            this.warningText = new System.Windows.Forms.LinkLabel();
-            this.warningImage = new System.Windows.Forms.PictureBox();
-            this.titleLabel = new System.Windows.Forms.Label();
             this.blas1skinSection = new System.Windows.Forms.Panel();
             this.blas1skinScroll = new System.Windows.Forms.VScrollBar();
             this.blas2modSection = new System.Windows.Forms.Panel();
@@ -55,14 +48,8 @@ namespace BlasModInstaller
             this.pageb1sBtn = new System.Windows.Forms.Button();
             this.pageb2mBtn = new System.Windows.Forms.Button();
             this.detailsSectionOuter = new System.Windows.Forms.Panel();
-            this.detailsSectionInner = new System.Windows.Forms.Panel();
-            this.detailsVersion = new System.Windows.Forms.Label();
-            this.detailsDescription = new System.Windows.Forms.Label();
-            this.detailsName = new System.Windows.Forms.Label();
             this.divider3 = new System.Windows.Forms.Panel();
             this.linksSection = new System.Windows.Forms.Panel();
-            this.githubImage = new System.Windows.Forms.PictureBox();
-            this.discordImage = new System.Windows.Forms.PictureBox();
             this.githubText = new System.Windows.Forms.LinkLabel();
             this.discordText = new System.Windows.Forms.LinkLabel();
             this.divider2 = new System.Windows.Forms.Panel();
@@ -79,26 +66,39 @@ namespace BlasModInstaller
             this.allUninstallBtn = new System.Windows.Forms.Button();
             this.allDisableBtn = new System.Windows.Forms.Button();
             this.sideSectionOuter = new System.Windows.Forms.Panel();
+            this.titleSectionInner = new System.Windows.Forms.Panel();
+            this.debugLog = new System.Windows.Forms.TextBox();
+            this.warningSectionOuter = new System.Windows.Forms.Panel();
+            this.warningSectionInner = new System.Windows.Forms.Panel();
+            this.warningText = new System.Windows.Forms.LinkLabel();
+            this.warningImage = new System.Windows.Forms.PictureBox();
+            this.titleLabel = new System.Windows.Forms.Label();
+            this.detailsSectionInner = new System.Windows.Forms.Panel();
+            this.detailsVersion = new System.Windows.Forms.Label();
+            this.detailsDescription = new System.Windows.Forms.Label();
+            this.detailsName = new System.Windows.Forms.Label();
+            this.githubImage = new System.Windows.Forms.PictureBox();
+            this.discordImage = new System.Windows.Forms.PictureBox();
             this.blas1modSection.SuspendLayout();
             this.validationSection.SuspendLayout();
             this.mainSection.SuspendLayout();
             this.titleSectionOuter.SuspendLayout();
-            this.titleSectionInner.SuspendLayout();
-            this.warningSectionOuter.SuspendLayout();
-            this.warningSectionInner.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.warningImage)).BeginInit();
             this.blas1skinSection.SuspendLayout();
             this.blas2modSection.SuspendLayout();
             this.sideSectionInner.SuspendLayout();
             this.pageSection.SuspendLayout();
             this.detailsSectionOuter.SuspendLayout();
-            this.detailsSectionInner.SuspendLayout();
             this.linksSection.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.githubImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.discordImage)).BeginInit();
             this.sortSection.SuspendLayout();
             this.allSection.SuspendLayout();
             this.sideSectionOuter.SuspendLayout();
+            this.titleSectionInner.SuspendLayout();
+            this.warningSectionOuter.SuspendLayout();
+            this.warningSectionInner.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.warningImage)).BeginInit();
+            this.detailsSectionInner.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.githubImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.discordImage)).BeginInit();
             this.SuspendLayout();
             // 
             // blas1modScroll
@@ -195,100 +195,6 @@ namespace BlasModInstaller
             this.titleSectionOuter.Name = "titleSectionOuter";
             this.titleSectionOuter.Size = new System.Drawing.Size(1150, 120);
             this.titleSectionOuter.TabIndex = 9;
-            // 
-            // titleSectionInner
-            // 
-            this.titleSectionInner.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.titleSectionInner.BackColor = System.Drawing.Color.Maroon;
-            this.titleSectionInner.BackgroundImage = global::BlasModInstaller.Properties.Resources.background1;
-            this.titleSectionInner.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.titleSectionInner.Controls.Add(this.debugLog);
-            this.titleSectionInner.Controls.Add(this.warningSectionOuter);
-            this.titleSectionInner.Controls.Add(this.titleLabel);
-            this.titleSectionInner.Location = new System.Drawing.Point(0, 0);
-            this.titleSectionInner.Name = "titleSectionInner";
-            this.titleSectionInner.Size = new System.Drawing.Size(1150, 118);
-            this.titleSectionInner.TabIndex = 1;
-            // 
-            // debugLog
-            // 
-            this.debugLog.BackColor = System.Drawing.Color.Black;
-            this.debugLog.ForeColor = System.Drawing.SystemColors.Menu;
-            this.debugLog.Location = new System.Drawing.Point(10, 12);
-            this.debugLog.Multiline = true;
-            this.debugLog.Name = "debugLog";
-            this.debugLog.ReadOnly = true;
-            this.debugLog.Size = new System.Drawing.Size(253, 98);
-            this.debugLog.TabIndex = 0;
-            this.debugLog.Visible = false;
-            // 
-            // warningSectionOuter
-            // 
-            this.warningSectionOuter.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.warningSectionOuter.BackColor = System.Drawing.Color.Red;
-            this.warningSectionOuter.Controls.Add(this.warningSectionInner);
-            this.warningSectionOuter.Location = new System.Drawing.Point(902, 12);
-            this.warningSectionOuter.Name = "warningSectionOuter";
-            this.warningSectionOuter.Size = new System.Drawing.Size(220, 80);
-            this.warningSectionOuter.TabIndex = 6;
-            this.warningSectionOuter.Visible = false;
-            // 
-            // warningSectionInner
-            // 
-            this.warningSectionInner.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.warningSectionInner.BackColor = System.Drawing.Color.Black;
-            this.warningSectionInner.Controls.Add(this.warningText);
-            this.warningSectionInner.Controls.Add(this.warningImage);
-            this.warningSectionInner.Location = new System.Drawing.Point(2, 2);
-            this.warningSectionInner.Name = "warningSectionInner";
-            this.warningSectionInner.Size = new System.Drawing.Size(216, 76);
-            this.warningSectionInner.TabIndex = 0;
-            // 
-            // warningText
-            // 
-            this.warningText.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.warningText.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.warningText.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.warningText.LinkArea = new System.Windows.Forms.LinkArea(57, 8);
-            this.warningText.LinkColor = System.Drawing.Color.Cyan;
-            this.warningText.Location = new System.Drawing.Point(52, 10);
-            this.warningText.Name = "warningText";
-            this.warningText.Size = new System.Drawing.Size(160, 56);
-            this.warningText.TabIndex = 3;
-            this.warningText.TabStop = true;
-            this.warningText.Text = "A new update is available for the mod installer.  Please download it now.";
-            this.warningText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.warningText.UseCompatibleTextRendering = true;
-            this.warningText.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ClickInstallerUpdateLink);
-            // 
-            // warningImage
-            // 
-            this.warningImage.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.warningImage.BackColor = System.Drawing.Color.Black;
-            this.warningImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.warningImage.Image = global::BlasModInstaller.Properties.Resources.warning;
-            this.warningImage.Location = new System.Drawing.Point(10, 20);
-            this.warningImage.Name = "warningImage";
-            this.warningImage.Size = new System.Drawing.Size(36, 36);
-            this.warningImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.warningImage.TabIndex = 4;
-            this.warningImage.TabStop = false;
-            // 
-            // titleLabel
-            // 
-            this.titleLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.titleLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.titleLabel.Font = new System.Drawing.Font("Trebuchet MS", 20F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.titleLabel.Location = new System.Drawing.Point(0, 0);
-            this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(1150, 118);
-            this.titleLabel.TabIndex = 0;
-            this.titleLabel.Text = "Blasphemous Mods";
-            this.titleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // blas1skinSection
             // 
@@ -440,52 +346,6 @@ namespace BlasModInstaller
             this.detailsSectionOuter.Size = new System.Drawing.Size(220, 150);
             this.detailsSectionOuter.TabIndex = 7;
             // 
-            // detailsSectionInner
-            // 
-            this.detailsSectionInner.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.detailsSectionInner.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.detailsSectionInner.Controls.Add(this.detailsVersion);
-            this.detailsSectionInner.Controls.Add(this.detailsDescription);
-            this.detailsSectionInner.Controls.Add(this.detailsName);
-            this.detailsSectionInner.Location = new System.Drawing.Point(2, 2);
-            this.detailsSectionInner.Name = "detailsSectionInner";
-            this.detailsSectionInner.Size = new System.Drawing.Size(216, 146);
-            this.detailsSectionInner.TabIndex = 0;
-            // 
-            // detailsVersion
-            // 
-            this.detailsVersion.Font = new System.Drawing.Font("Trebuchet MS", 9F);
-            this.detailsVersion.ForeColor = System.Drawing.Color.White;
-            this.detailsVersion.Location = new System.Drawing.Point(3, 100);
-            this.detailsVersion.Name = "detailsVersion";
-            this.detailsVersion.Size = new System.Drawing.Size(210, 40);
-            this.detailsVersion.TabIndex = 2;
-            this.detailsVersion.Text = "Latest version";
-            this.detailsVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // detailsDescription
-            // 
-            this.detailsDescription.Font = new System.Drawing.Font("Trebuchet MS", 9F);
-            this.detailsDescription.ForeColor = System.Drawing.Color.White;
-            this.detailsDescription.Location = new System.Drawing.Point(3, 35);
-            this.detailsDescription.Name = "detailsDescription";
-            this.detailsDescription.Size = new System.Drawing.Size(210, 60);
-            this.detailsDescription.TabIndex = 1;
-            this.detailsDescription.Text = "Description";
-            // 
-            // detailsName
-            // 
-            this.detailsName.Font = new System.Drawing.Font("Trebuchet MS", 12F);
-            this.detailsName.ForeColor = System.Drawing.Color.White;
-            this.detailsName.Location = new System.Drawing.Point(3, 5);
-            this.detailsName.Name = "detailsName";
-            this.detailsName.Size = new System.Drawing.Size(210, 20);
-            this.detailsName.TabIndex = 0;
-            this.detailsName.Text = "Name";
-            this.detailsName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // divider3
             // 
             this.divider3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -509,27 +369,6 @@ namespace BlasModInstaller
             this.linksSection.Size = new System.Drawing.Size(220, 100);
             this.linksSection.TabIndex = 24;
             this.linksSection.Visible = false;
-            // 
-            // githubImage
-            // 
-            this.githubImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.githubImage.Image = global::BlasModInstaller.Properties.Resources.git;
-            this.githubImage.Location = new System.Drawing.Point(27, 58);
-            this.githubImage.Name = "githubImage";
-            this.githubImage.Size = new System.Drawing.Size(34, 34);
-            this.githubImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.githubImage.TabIndex = 25;
-            this.githubImage.TabStop = false;
-            // 
-            // discordImage
-            // 
-            this.discordImage.Image = global::BlasModInstaller.Properties.Resources.discord;
-            this.discordImage.Location = new System.Drawing.Point(27, 8);
-            this.discordImage.Name = "discordImage";
-            this.discordImage.Size = new System.Drawing.Size(34, 34);
-            this.discordImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.discordImage.TabIndex = 23;
-            this.discordImage.TabStop = false;
             // 
             // githubText
             // 
@@ -762,6 +601,168 @@ namespace BlasModInstaller
             this.sideSectionOuter.Size = new System.Drawing.Size(250, 900);
             this.sideSectionOuter.TabIndex = 9;
             // 
+            // titleSectionInner
+            // 
+            this.titleSectionInner.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.titleSectionInner.BackColor = System.Drawing.Color.Maroon;
+            this.titleSectionInner.BackgroundImage = global::BlasModInstaller.Properties.Resources.background1;
+            this.titleSectionInner.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.titleSectionInner.Controls.Add(this.debugLog);
+            this.titleSectionInner.Controls.Add(this.warningSectionOuter);
+            this.titleSectionInner.Controls.Add(this.titleLabel);
+            this.titleSectionInner.Location = new System.Drawing.Point(0, 0);
+            this.titleSectionInner.Name = "titleSectionInner";
+            this.titleSectionInner.Size = new System.Drawing.Size(1150, 118);
+            this.titleSectionInner.TabIndex = 1;
+            // 
+            // debugLog
+            // 
+            this.debugLog.BackColor = System.Drawing.Color.Black;
+            this.debugLog.ForeColor = System.Drawing.SystemColors.Menu;
+            this.debugLog.Location = new System.Drawing.Point(10, 12);
+            this.debugLog.Multiline = true;
+            this.debugLog.Name = "debugLog";
+            this.debugLog.ReadOnly = true;
+            this.debugLog.Size = new System.Drawing.Size(253, 98);
+            this.debugLog.TabIndex = 0;
+            this.debugLog.Visible = false;
+            // 
+            // warningSectionOuter
+            // 
+            this.warningSectionOuter.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.warningSectionOuter.BackColor = System.Drawing.Color.Red;
+            this.warningSectionOuter.Controls.Add(this.warningSectionInner);
+            this.warningSectionOuter.Location = new System.Drawing.Point(902, 12);
+            this.warningSectionOuter.Name = "warningSectionOuter";
+            this.warningSectionOuter.Size = new System.Drawing.Size(220, 80);
+            this.warningSectionOuter.TabIndex = 6;
+            this.warningSectionOuter.Visible = false;
+            // 
+            // warningSectionInner
+            // 
+            this.warningSectionInner.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.warningSectionInner.BackColor = System.Drawing.Color.Black;
+            this.warningSectionInner.Controls.Add(this.warningText);
+            this.warningSectionInner.Controls.Add(this.warningImage);
+            this.warningSectionInner.Location = new System.Drawing.Point(2, 2);
+            this.warningSectionInner.Name = "warningSectionInner";
+            this.warningSectionInner.Size = new System.Drawing.Size(216, 76);
+            this.warningSectionInner.TabIndex = 0;
+            // 
+            // warningText
+            // 
+            this.warningText.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.warningText.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.warningText.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.warningText.LinkArea = new System.Windows.Forms.LinkArea(57, 8);
+            this.warningText.LinkColor = System.Drawing.Color.Cyan;
+            this.warningText.Location = new System.Drawing.Point(52, 10);
+            this.warningText.Name = "warningText";
+            this.warningText.Size = new System.Drawing.Size(160, 56);
+            this.warningText.TabIndex = 3;
+            this.warningText.TabStop = true;
+            this.warningText.Text = "A new update is available for the mod installer.  Please download it now.";
+            this.warningText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.warningText.UseCompatibleTextRendering = true;
+            this.warningText.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ClickInstallerUpdateLink);
+            // 
+            // warningImage
+            // 
+            this.warningImage.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.warningImage.BackColor = System.Drawing.Color.Black;
+            this.warningImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.warningImage.Image = global::BlasModInstaller.Properties.Resources.warning;
+            this.warningImage.Location = new System.Drawing.Point(10, 20);
+            this.warningImage.Name = "warningImage";
+            this.warningImage.Size = new System.Drawing.Size(36, 36);
+            this.warningImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.warningImage.TabIndex = 4;
+            this.warningImage.TabStop = false;
+            // 
+            // titleLabel
+            // 
+            this.titleLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.titleLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.titleLabel.Font = new System.Drawing.Font("Trebuchet MS", 20F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.titleLabel.Location = new System.Drawing.Point(0, 0);
+            this.titleLabel.Name = "titleLabel";
+            this.titleLabel.Size = new System.Drawing.Size(1150, 118);
+            this.titleLabel.TabIndex = 0;
+            this.titleLabel.Text = "Blasphemous Mods";
+            this.titleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // detailsSectionInner
+            // 
+            this.detailsSectionInner.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.detailsSectionInner.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.detailsSectionInner.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.detailsSectionInner.Controls.Add(this.detailsVersion);
+            this.detailsSectionInner.Controls.Add(this.detailsDescription);
+            this.detailsSectionInner.Controls.Add(this.detailsName);
+            this.detailsSectionInner.Location = new System.Drawing.Point(2, 2);
+            this.detailsSectionInner.Name = "detailsSectionInner";
+            this.detailsSectionInner.Size = new System.Drawing.Size(216, 146);
+            this.detailsSectionInner.TabIndex = 0;
+            // 
+            // detailsVersion
+            // 
+            this.detailsVersion.Font = new System.Drawing.Font("Trebuchet MS", 9F);
+            this.detailsVersion.ForeColor = System.Drawing.Color.White;
+            this.detailsVersion.Location = new System.Drawing.Point(3, 100);
+            this.detailsVersion.Name = "detailsVersion";
+            this.detailsVersion.Size = new System.Drawing.Size(210, 40);
+            this.detailsVersion.TabIndex = 2;
+            this.detailsVersion.Text = "Latest version";
+            this.detailsVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // detailsDescription
+            // 
+            this.detailsDescription.Font = new System.Drawing.Font("Trebuchet MS", 9F);
+            this.detailsDescription.ForeColor = System.Drawing.Color.White;
+            this.detailsDescription.Location = new System.Drawing.Point(3, 35);
+            this.detailsDescription.Name = "detailsDescription";
+            this.detailsDescription.Size = new System.Drawing.Size(210, 60);
+            this.detailsDescription.TabIndex = 1;
+            this.detailsDescription.Text = "Description";
+            // 
+            // detailsName
+            // 
+            this.detailsName.Font = new System.Drawing.Font("Trebuchet MS", 12F);
+            this.detailsName.ForeColor = System.Drawing.Color.White;
+            this.detailsName.Location = new System.Drawing.Point(3, 5);
+            this.detailsName.Name = "detailsName";
+            this.detailsName.Size = new System.Drawing.Size(210, 20);
+            this.detailsName.TabIndex = 0;
+            this.detailsName.Text = "Name";
+            this.detailsName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // githubImage
+            // 
+            this.githubImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.githubImage.Image = global::BlasModInstaller.Properties.Resources.git;
+            this.githubImage.Location = new System.Drawing.Point(27, 58);
+            this.githubImage.Name = "githubImage";
+            this.githubImage.Size = new System.Drawing.Size(34, 34);
+            this.githubImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.githubImage.TabIndex = 25;
+            this.githubImage.TabStop = false;
+            // 
+            // discordImage
+            // 
+            this.discordImage.Image = global::BlasModInstaller.Properties.Resources.discord;
+            this.discordImage.Location = new System.Drawing.Point(27, 8);
+            this.discordImage.Name = "discordImage";
+            this.discordImage.Size = new System.Drawing.Size(34, 34);
+            this.discordImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.discordImage.TabIndex = 23;
+            this.discordImage.TabStop = false;
+            // 
             // UIHandler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -782,24 +783,24 @@ namespace BlasModInstaller
             this.validationSection.ResumeLayout(false);
             this.mainSection.ResumeLayout(false);
             this.titleSectionOuter.ResumeLayout(false);
-            this.titleSectionInner.ResumeLayout(false);
-            this.titleSectionInner.PerformLayout();
-            this.warningSectionOuter.ResumeLayout(false);
-            this.warningSectionInner.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.warningImage)).EndInit();
             this.blas1skinSection.ResumeLayout(false);
             this.blas2modSection.ResumeLayout(false);
             this.sideSectionInner.ResumeLayout(false);
             this.pageSection.ResumeLayout(false);
             this.detailsSectionOuter.ResumeLayout(false);
-            this.detailsSectionInner.ResumeLayout(false);
             this.linksSection.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.githubImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.discordImage)).EndInit();
             this.sortSection.ResumeLayout(false);
             this.sortSection.PerformLayout();
             this.allSection.ResumeLayout(false);
             this.sideSectionOuter.ResumeLayout(false);
+            this.titleSectionInner.ResumeLayout(false);
+            this.titleSectionInner.PerformLayout();
+            this.warningSectionOuter.ResumeLayout(false);
+            this.warningSectionInner.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.warningImage)).EndInit();
+            this.detailsSectionInner.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.githubImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.discordImage)).EndInit();
             this.ResumeLayout(false);
 
         }

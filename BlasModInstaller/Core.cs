@@ -1,6 +1,7 @@
 ﻿using BlasModInstaller.Grouping;
 using BlasModInstaller.Loading;
 using BlasModInstaller.Mods;
+using BlasModInstaller.Previewing;
 using BlasModInstaller.Properties;
 using BlasModInstaller.Skins;
 using BlasModInstaller.Sorting;
@@ -61,9 +62,13 @@ namespace BlasModInstaller
             var blas1Validator = new Blas1Validator();
             var blas2Validator = new Blas2Validator();
 
+            var modPreviewer = new ModPreviewer();
+            var skinPreviewer = new SkinPreviewer();
+
             var blas1modPage = new InstallerPage(blas1modTitle, Resources.background1,
                 blas1modGrouper,
                 blas1modLoader,
+                modPreviewer,
                 blas1modSorter,
                 blas1modUI,
                 blas1Validator);
@@ -71,6 +76,7 @@ namespace BlasModInstaller
             var blas1skinPage = new InstallerPage(blas1skinTitle, Resources.background1,
                 blas1skinGrouper,
                 blas1skinLoader,
+                skinPreviewer,
                 blas1skinSorter,
                 blas1skinUI,
                 blas1Validator);
@@ -78,6 +84,7 @@ namespace BlasModInstaller
             var blas2modPage = new InstallerPage(blas2modTitle, Resources.background2,
                 blas2modGrouper,
                 blas2modLoader,
+                modPreviewer,
                 blas2modSorter,
                 blas2modUI,
                 blas2Validator);

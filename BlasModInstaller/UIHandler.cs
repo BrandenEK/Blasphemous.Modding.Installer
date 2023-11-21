@@ -202,7 +202,7 @@ namespace BlasModInstaller
 
             divider3.Visible = validated;
 
-            detailsSectionOuter.Visible = validated && currentPage.Grouper.CanEnable;
+            detailsSectionOuter.Visible = validated;
         }
 
         #region Side section top

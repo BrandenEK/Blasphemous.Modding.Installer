@@ -17,7 +17,7 @@ namespace BlasModInstaller.Skins
             this.id = id;
             this.name = name;
             this.author = author;
-            this.version = version;
+            this.version = version ?? "0.1.0";
         }
 
         public SkinData(SkinData data)
@@ -25,7 +25,7 @@ namespace BlasModInstaller.Skins
             id = data.id;
             name = data.name;
             author = data.author;
-            version = data.version;
+            version = data.version ?? "0.1.0";
         }
     }
 }

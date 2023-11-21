@@ -90,6 +90,9 @@
     <Compile Include="Data.cs" />
     <Compile Include="GithubHandler.cs" />
     <Compile Include="Mods\ModData.cs" />
+    <Compile Include="Previewing\IPreviewer.cs" />
+    <Compile Include="Previewing\ModPreviewer.cs" />
+    <Compile Include="Previewing\SkinPreviewer.cs" />
     <Compile Include="SettingsHandler.cs" />
     <Compile Include="Skins\SkinData.cs" />
     <Compile Include="Sorting\ISorter.cs" />
@@ -142,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="blasphemous.ico" />
+    <None Include="Resources\skinPreview.png" />
     <None Include="Resources\git.png" />
     <None Include="Resources\background2.png" />
     <None Include="Resources\background1.png" />
