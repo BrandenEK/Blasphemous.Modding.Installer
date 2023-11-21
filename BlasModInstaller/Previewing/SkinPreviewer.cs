@@ -28,26 +28,30 @@ namespace BlasModInstaller.Previewing
 
         private async Task<Bitmap> LoadPreviewImageAsync(Skin skin)
         {
-            // If preview is already in cache, use it
-            if (skin.ExistsInCache("preview.png", out string cachePath))
-                return new Bitmap(cachePath);
+            // Check for file in the cache
+            bool previewExists = skin.ExistsInCache("preview.png", out string previewCache);
 
-            // Otherwise, download from web into cache
-            using (WebClient client = new WebClient())
+            // If it was missing, download it from web to cache
+            if (!previewExists)
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(cachePath));
-
-                try
+                Core.UIHandler.Log("Downloading skin preview from web");
+                using (WebClient client = new WebClient())
                 {
-                    await client.DownloadFileTaskAsync(new Uri(skin.PreviewURL), cachePath);
-                    return new Bitmap(cachePath);
-                }
-                catch (Exception e)
-                {
-                    Core.UIHandler.Log("Failed to load skin preview: " + e.Message);
-                    return Resources.warning;
+                    try
+                    {
+                        await client.DownloadFileTaskAsync(new Uri(skin.PreviewURL), previewCache);
+                        return new Bitmap(previewCache);
+                    }
+                    catch (Exception e)
+                    {
+                        Core.UIHandler.Log("Failed to load skin preview: " + e.Message);
+                        return Resources.warning;
+                    }
                 }
             }
+
+            // Create new image from preview in cache
+            return new Bitmap(previewCache);
         }
 
         public void Clear()
