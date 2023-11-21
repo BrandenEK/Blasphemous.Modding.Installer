@@ -50,6 +50,10 @@ namespace BlasModInstaller
             this.blas2modSection = new System.Windows.Forms.Panel();
             this.blas2modScroll = new System.Windows.Forms.VScrollBar();
             this.sideSectionInner = new System.Windows.Forms.Panel();
+            this.pageSection = new System.Windows.Forms.Panel();
+            this.pageb1mBtn = new System.Windows.Forms.Button();
+            this.pageb1sBtn = new System.Windows.Forms.Button();
+            this.pageb2mBtn = new System.Windows.Forms.Button();
             this.detailsSectionOuter = new System.Windows.Forms.Panel();
             this.detailsSectionInner = new System.Windows.Forms.Panel();
             this.detailsVersion = new System.Windows.Forms.Label();
@@ -74,11 +78,7 @@ namespace BlasModInstaller
             this.allEnableBtn = new System.Windows.Forms.Button();
             this.allUninstallBtn = new System.Windows.Forms.Button();
             this.allDisableBtn = new System.Windows.Forms.Button();
-            this.pageb2mBtn = new System.Windows.Forms.Button();
-            this.pageb1sBtn = new System.Windows.Forms.Button();
-            this.pageb1mBtn = new System.Windows.Forms.Button();
             this.sideSectionOuter = new System.Windows.Forms.Panel();
-            this.pageSection = new System.Windows.Forms.Panel();
             this.blas1modSection.SuspendLayout();
             this.validationSection.SuspendLayout();
             this.mainSection.SuspendLayout();
@@ -90,6 +90,7 @@ namespace BlasModInstaller
             this.blas1skinSection.SuspendLayout();
             this.blas2modSection.SuspendLayout();
             this.sideSectionInner.SuspendLayout();
+            this.pageSection.SuspendLayout();
             this.detailsSectionOuter.SuspendLayout();
             this.detailsSectionInner.SuspendLayout();
             this.linksSection.SuspendLayout();
@@ -98,7 +99,6 @@ namespace BlasModInstaller
             this.sortSection.SuspendLayout();
             this.allSection.SuspendLayout();
             this.sideSectionOuter.SuspendLayout();
-            this.pageSection.SuspendLayout();
             this.SuspendLayout();
             // 
             // blas1modScroll
@@ -359,6 +359,76 @@ namespace BlasModInstaller
             this.sideSectionInner.Size = new System.Drawing.Size(248, 900);
             this.sideSectionInner.TabIndex = 8;
             // 
+            // pageSection
+            // 
+            this.pageSection.Controls.Add(this.pageb1mBtn);
+            this.pageSection.Controls.Add(this.pageb1sBtn);
+            this.pageSection.Controls.Add(this.pageb2mBtn);
+            this.pageSection.Location = new System.Drawing.Point(15, 15);
+            this.pageSection.Name = "pageSection";
+            this.pageSection.Size = new System.Drawing.Size(220, 235);
+            this.pageSection.TabIndex = 14;
+            // 
+            // pageb1mBtn
+            // 
+            this.pageb1mBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.pageb1mBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.pageb1mBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.pageb1mBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.pageb1mBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.pageb1mBtn.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pageb1mBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.pageb1mBtn.Location = new System.Drawing.Point(0, 60);
+            this.pageb1mBtn.Name = "pageb1mBtn";
+            this.pageb1mBtn.Size = new System.Drawing.Size(220, 35);
+            this.pageb1mBtn.TabIndex = 1;
+            this.pageb1mBtn.Text = "Blasphemous Mods";
+            this.pageb1mBtn.UseVisualStyleBackColor = false;
+            this.pageb1mBtn.Click += new System.EventHandler(this.ClickedBlas1Mods);
+            this.pageb1mBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
+            this.pageb1mBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
+            this.pageb1mBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
+            // 
+            // pageb1sBtn
+            // 
+            this.pageb1sBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.pageb1sBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.pageb1sBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.pageb1sBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.pageb1sBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.pageb1sBtn.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pageb1sBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.pageb1sBtn.Location = new System.Drawing.Point(0, 105);
+            this.pageb1sBtn.Name = "pageb1sBtn";
+            this.pageb1sBtn.Size = new System.Drawing.Size(220, 35);
+            this.pageb1sBtn.TabIndex = 2;
+            this.pageb1sBtn.Text = "Blasphemous Skins";
+            this.pageb1sBtn.UseVisualStyleBackColor = false;
+            this.pageb1sBtn.Click += new System.EventHandler(this.ClickedBlas1Skins);
+            this.pageb1sBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
+            this.pageb1sBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
+            this.pageb1sBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
+            // 
+            // pageb2mBtn
+            // 
+            this.pageb2mBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.pageb2mBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.pageb2mBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.pageb2mBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.pageb2mBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.pageb2mBtn.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pageb2mBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.pageb2mBtn.Location = new System.Drawing.Point(0, 150);
+            this.pageb2mBtn.Name = "pageb2mBtn";
+            this.pageb2mBtn.Size = new System.Drawing.Size(220, 35);
+            this.pageb2mBtn.TabIndex = 3;
+            this.pageb2mBtn.Text = "Blasphemous II Mods";
+            this.pageb2mBtn.UseVisualStyleBackColor = false;
+            this.pageb2mBtn.Click += new System.EventHandler(this.ClickedBlas2Mods);
+            this.pageb2mBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
+            this.pageb2mBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
+            this.pageb2mBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
+            // 
             // detailsSectionOuter
             // 
             this.detailsSectionOuter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -421,7 +491,7 @@ namespace BlasModInstaller
             this.divider3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.divider3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.divider3.Location = new System.Drawing.Point(44, 485);
+            this.divider3.Location = new System.Drawing.Point(44, 490);
             this.divider3.Name = "divider3";
             this.divider3.Size = new System.Drawing.Size(160, 1);
             this.divider3.TabIndex = 23;
@@ -681,66 +751,6 @@ namespace BlasModInstaller
             this.allDisableBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
             this.allDisableBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
             // 
-            // pageb2mBtn
-            // 
-            this.pageb2mBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.pageb2mBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.pageb2mBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.pageb2mBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.pageb2mBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.pageb2mBtn.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pageb2mBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.pageb2mBtn.Location = new System.Drawing.Point(0, 150);
-            this.pageb2mBtn.Name = "pageb2mBtn";
-            this.pageb2mBtn.Size = new System.Drawing.Size(220, 35);
-            this.pageb2mBtn.TabIndex = 3;
-            this.pageb2mBtn.Text = "Blasphemous II Mods";
-            this.pageb2mBtn.UseVisualStyleBackColor = false;
-            this.pageb2mBtn.Click += new System.EventHandler(this.ClickedBlas2Mods);
-            this.pageb2mBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
-            this.pageb2mBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
-            this.pageb2mBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
-            // 
-            // pageb1sBtn
-            // 
-            this.pageb1sBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.pageb1sBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.pageb1sBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.pageb1sBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.pageb1sBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.pageb1sBtn.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pageb1sBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.pageb1sBtn.Location = new System.Drawing.Point(0, 105);
-            this.pageb1sBtn.Name = "pageb1sBtn";
-            this.pageb1sBtn.Size = new System.Drawing.Size(220, 35);
-            this.pageb1sBtn.TabIndex = 2;
-            this.pageb1sBtn.Text = "Blasphemous Skins";
-            this.pageb1sBtn.UseVisualStyleBackColor = false;
-            this.pageb1sBtn.Click += new System.EventHandler(this.ClickedBlas1Skins);
-            this.pageb1sBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
-            this.pageb1sBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
-            this.pageb1sBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
-            // 
-            // pageb1mBtn
-            // 
-            this.pageb1mBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.pageb1mBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.pageb1mBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.pageb1mBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.pageb1mBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.pageb1mBtn.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pageb1mBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.pageb1mBtn.Location = new System.Drawing.Point(0, 60);
-            this.pageb1mBtn.Name = "pageb1mBtn";
-            this.pageb1mBtn.Size = new System.Drawing.Size(220, 35);
-            this.pageb1mBtn.TabIndex = 1;
-            this.pageb1mBtn.Text = "Blasphemous Mods";
-            this.pageb1mBtn.UseVisualStyleBackColor = false;
-            this.pageb1mBtn.Click += new System.EventHandler(this.ClickedBlas1Mods);
-            this.pageb1mBtn.MouseEnter += new System.EventHandler(this.ShowSideButtonBorder);
-            this.pageb1mBtn.MouseLeave += new System.EventHandler(this.HideSideButtonBorder);
-            this.pageb1mBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RemoveButtonFocus);
-            // 
             // sideSectionOuter
             // 
             this.sideSectionOuter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -751,16 +761,6 @@ namespace BlasModInstaller
             this.sideSectionOuter.Name = "sideSectionOuter";
             this.sideSectionOuter.Size = new System.Drawing.Size(250, 900);
             this.sideSectionOuter.TabIndex = 9;
-            // 
-            // pageSection
-            // 
-            this.pageSection.Controls.Add(this.pageb1mBtn);
-            this.pageSection.Controls.Add(this.pageb1sBtn);
-            this.pageSection.Controls.Add(this.pageb2mBtn);
-            this.pageSection.Location = new System.Drawing.Point(15, 15);
-            this.pageSection.Name = "pageSection";
-            this.pageSection.Size = new System.Drawing.Size(220, 235);
-            this.pageSection.TabIndex = 14;
             // 
             // UIHandler
             // 
@@ -790,6 +790,7 @@ namespace BlasModInstaller
             this.blas1skinSection.ResumeLayout(false);
             this.blas2modSection.ResumeLayout(false);
             this.sideSectionInner.ResumeLayout(false);
+            this.pageSection.ResumeLayout(false);
             this.detailsSectionOuter.ResumeLayout(false);
             this.detailsSectionInner.ResumeLayout(false);
             this.linksSection.ResumeLayout(false);
@@ -799,7 +800,6 @@ namespace BlasModInstaller
             this.sortSection.PerformLayout();
             this.allSection.ResumeLayout(false);
             this.sideSectionOuter.ResumeLayout(false);
-            this.pageSection.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
