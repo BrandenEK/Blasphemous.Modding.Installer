@@ -257,8 +257,8 @@ namespace BlasModInstaller.Mods
             _ui.SetPosition(modIdx);
         }
 
-        public void MouseEnter(object sender, EventArgs e) => Core.UIHandler.FillModDetails(Data);
+        public void MouseEnter(object sender, EventArgs e) => ModPage.Previewer.PreviewMod(this);
 
-        public void MouseLeave(object sender, EventArgs e) => Core.UIHandler.ClearModDetails();
+        public void MouseLeave(object sender, EventArgs e) => ModPage.Previewer.Clear();
     }
 }

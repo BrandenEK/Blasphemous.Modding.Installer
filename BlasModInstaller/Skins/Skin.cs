@@ -68,8 +68,7 @@ namespace BlasModInstaller.Skins
         public string PathToSkinFolder => $"{RootFolder}\\Modding\\skins\\{Data.id}";
         public string InfoURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/info.txt";
         public string TextureURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/texture.png";
-        public string IdlePreviewURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{SubFolder}/{Data.id}/idlePreview.png";
-        public string ChargedPreviewURL => $"https://github.com/BrandenEK/Blasphemous-Custom-Skins/blob/main/{SubFolder}/{Data.id}/chargedPreview.png";
+        public string PreviewURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/preview.png";
 
         // Main methods
 
@@ -124,18 +123,6 @@ namespace BlasModInstaller.Skins
             }
         }
 
-        public void ClickedPreviewIdle(object sender, EventArgs e)
-        {
-            try { Process.Start(IdlePreviewURL); }
-            catch (Exception) { MessageBox.Show("Link does not exist!", "Invalid Link"); }
-        }
-
-        public void ClickedPreviewCharged(object sender, EventArgs e)
-        {
-            try { Process.Start(ChargedPreviewURL); }
-            catch (Exception) { MessageBox.Show("Link does not exist!", "Invalid Link"); }
-        }
-
         public void ClickedUpdate(object sender, EventArgs e)
         {
             Uninstall();
@@ -153,6 +140,10 @@ namespace BlasModInstaller.Skins
         {
             _ui.SetPosition(skinIdx);
         }
+
+        public void MouseEnter(object sender, EventArgs e) => SkinPage.Previewer.PreviewSkin(this);
+
+        public void MouseLeave(object sender, EventArgs e) => SkinPage.Previewer.Clear();
 
         // Sorting methods
 

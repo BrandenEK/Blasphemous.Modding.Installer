@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using BlasModInstaller.Mods;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace BlasModInstaller.Skins
@@ -87,6 +88,8 @@ namespace BlasModInstaller.Skins
                 TextAlign = ContentAlignment.MiddleLeft,
                 Font = Fonts.SKIN_NAME,
             };
+            nameText.MouseEnter += skin.MouseEnter;
+            nameText.MouseLeave += skin.MouseLeave;
 
             authorText = new Label
             {
@@ -107,7 +110,7 @@ namespace BlasModInstaller.Skins
                 Name = skin.Data.name,
                 Parent = innerPanel,
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(parentPanel.Width - 550, 11),
+                Location = new Point(parentPanel.Width - 300, 11),
                 Size = new Size(130, 24),
                 BackColor = Color.Black,
                 ForeColor = Color.White,
@@ -122,43 +125,43 @@ namespace BlasModInstaller.Skins
             updateButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
             updateButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
-            previewIdleButton = new Button
-            {
-                Name = skin.Data.name,
-                Parent = innerPanel,
-                Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(parentPanel.Width - 390, 11),
-                Size = new Size(110, 24),
-                BackColor = Colors.BLUE,
-                Font = Fonts.BUTTON,
-                Text = "Preview Idle",
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand,
-                TabStop = false,
-            };
-            previewIdleButton.FlatAppearance.BorderColor = Color.Black;
-            previewIdleButton.Click += skin.ClickedPreviewIdle;
-            previewIdleButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
-            previewIdleButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
+            //previewIdleButton = new Button
+            //{
+            //    Name = skin.Data.name,
+            //    Parent = innerPanel,
+            //    Anchor = AnchorStyles.Top | AnchorStyles.Right,
+            //    Location = new Point(parentPanel.Width - 390, 11),
+            //    Size = new Size(110, 24),
+            //    BackColor = Colors.BLUE,
+            //    Font = Fonts.BUTTON,
+            //    Text = "Preview Idle",
+            //    FlatStyle = FlatStyle.Flat,
+            //    Cursor = Cursors.Hand,
+            //    TabStop = false,
+            //};
+            //previewIdleButton.FlatAppearance.BorderColor = Color.Black;
+            //previewIdleButton.Click += skin.ClickedPreviewIdle;
+            //previewIdleButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            //previewIdleButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
-            previewChargedButton = new Button
-            {
-                Name = skin.Data.name,
-                Parent = innerPanel,
-                Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(parentPanel.Width - 260, 11),
-                Size = new Size(110, 24),
-                BackColor = Colors.BLUE,
-                Font = Fonts.BUTTON,
-                Text = "Preview Charged",
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand,
-                TabStop = false,
-            };
-            previewChargedButton.FlatAppearance.BorderColor = Color.Black;
-            previewChargedButton.Click += skin.ClickedPreviewCharged;
-            previewChargedButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
-            previewChargedButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
+            //previewChargedButton = new Button
+            //{
+            //    Name = skin.Data.name,
+            //    Parent = innerPanel,
+            //    Anchor = AnchorStyles.Top | AnchorStyles.Right,
+            //    Location = new Point(parentPanel.Width - 260, 11),
+            //    Size = new Size(110, 24),
+            //    BackColor = Colors.BLUE,
+            //    Font = Fonts.BUTTON,
+            //    Text = "Preview Charged",
+            //    FlatStyle = FlatStyle.Flat,
+            //    Cursor = Cursors.Hand,
+            //    TabStop = false,
+            //};
+            //previewChargedButton.FlatAppearance.BorderColor = Color.Black;
+            //previewChargedButton.Click += skin.ClickedPreviewCharged;
+            //previewChargedButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+            //previewChargedButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
             installButton = new Button
             {

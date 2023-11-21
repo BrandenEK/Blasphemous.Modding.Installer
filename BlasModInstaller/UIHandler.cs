@@ -24,6 +24,9 @@ namespace BlasModInstaller
             Text = "Blasphemous Mod Installer v" + Core.CurrentInstallerVersion.ToString(3);
             Core.SettingsHandler.LoadWindowSettings();
 
+            foreach (var page in Core.AllPages)
+                page.Previewer.Clear();
+
             OpenSection(Core.SettingsHandler.Config.LastSection);
         }
 
@@ -71,22 +74,6 @@ namespace BlasModInstaller
             OpenSection(Core.SettingsHandler.Config.LastSection);
         }
 
-        // Details section
-
-        internal void FillModDetails(ModData mod)
-        {
-            detailsName.Text = mod.name;
-            detailsDescription.Text = "    " + mod.description;
-            detailsVersion.Text = $"Latest version:{Environment.NewLine}v{mod.latestVersion} on {mod.latestReleaseDate:MM/dd/yyyy}";
-        }
-
-        internal void ClearModDetails()
-        {
-            detailsName.Text = string.Empty;
-            detailsDescription.Text = string.Empty;
-            detailsVersion.Text = string.Empty;
-        }
-
         // ...
 
         public Panel GetUIElementByType(SectionType type)
@@ -99,6 +86,11 @@ namespace BlasModInstaller
                 default: return null;
             }
         }
+
+        public Label PreviewName => detailsName;
+        public Label PreviewDescription => detailsDescription;
+        public Label PreviewVersion => detailsVersion;
+        public Panel PreviewBackground => detailsSectionInner;
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
@@ -147,13 +139,14 @@ namespace BlasModInstaller
 
         private void OpenSection(SectionType section)
         {
+            Core.CurrentPage.Previewer.Clear();
+
             Core.SettingsHandler.Config.LastSection = section;
             var currentPage = Core.CurrentPage;
 
             // Update background and info
             titleLabel.Text = currentPage.Title;
             titleSectionInner.BackgroundImage = currentPage.Image;
-            ClearModDetails();
 
             // Validate the status of mods
             bool folderValid = currentPage.Validator.IsRootFolderValid;
@@ -195,14 +188,14 @@ namespace BlasModInstaller
 
             divider2.Visible = validated;
 
-            installBtn.Visible = validated && currentPage.Grouper.CanInstall;
-            uninstallBtn.Visible = validated && currentPage.Grouper.CanInstall;
-            enableBtn.Visible = validated && currentPage.Grouper.CanEnable;
-            disableBtn.Visible = validated && currentPage.Grouper.CanEnable;
+            allInstallBtn.Visible = validated && currentPage.Grouper.CanInstall;
+            allUninstallBtn.Visible = validated && currentPage.Grouper.CanInstall;
+            allEnableBtn.Visible = validated && currentPage.Grouper.CanEnable;
+            allDisableBtn.Visible = validated && currentPage.Grouper.CanEnable;
 
             divider3.Visible = validated;
 
-            detailsSectionOuter.Visible = validated && currentPage.Grouper.CanEnable;
+            detailsSectionOuter.Visible = validated;
         }
 
         #region Side section top
