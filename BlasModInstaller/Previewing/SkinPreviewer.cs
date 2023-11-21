@@ -1,22 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BlasModInstaller.Mods;
+using BlasModInstaller.Properties;
+using BlasModInstaller.Skins;
+using System;
 using System.Windows.Forms;
 
 namespace BlasModInstaller.Previewing
 {
     internal class SkinPreviewer : IPreviewer
     {
-        public void Clear(Panel ui)
+        private readonly Panel _background;
+
+        public SkinPreviewer(Panel background)
         {
-            throw new NotImplementedException();
+            _background = background;
         }
 
-        public void Preview(Panel ui)
+        public void PreviewMod(ModData mod) => throw new NotImplementedException();
+
+        public void PreviewSkin(SkinData skin)
         {
-            throw new NotImplementedException();
+            _background.BackgroundImage = Resources.skinPreview;
+        }
+
+        public void Clear()
+        {
+            //_background.BackgroundImage?.Dispose();
+            _background.BackgroundImage = null;
         }
     }
 }

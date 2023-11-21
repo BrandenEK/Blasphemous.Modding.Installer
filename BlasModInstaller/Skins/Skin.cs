@@ -154,6 +154,10 @@ namespace BlasModInstaller.Skins
             _ui.SetPosition(skinIdx);
         }
 
+        public void MouseEnter(object sender, EventArgs e) => SkinPage.Previewer.PreviewSkin(Data);
+
+        public void MouseLeave(object sender, EventArgs e) => SkinPage.Previewer.Clear();
+
         // Sorting methods
 
         public int CompareTo(object obj) => SortBy(obj as Skin, SkinSort);

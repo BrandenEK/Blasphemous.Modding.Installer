@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using BlasModInstaller.Mods;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace BlasModInstaller.Skins
@@ -87,6 +88,8 @@ namespace BlasModInstaller.Skins
                 TextAlign = ContentAlignment.MiddleLeft,
                 Font = Fonts.SKIN_NAME,
             };
+            nameText.MouseEnter += skin.MouseEnter;
+            nameText.MouseLeave += skin.MouseLeave;
 
             authorText = new Label
             {

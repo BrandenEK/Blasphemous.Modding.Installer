@@ -1,11 +1,14 @@
-﻿using System.Windows.Forms;
+﻿using BlasModInstaller.Mods;
+using BlasModInstaller.Skins;
 
 namespace BlasModInstaller.Previewing
 {
     internal interface IPreviewer
     {
-        void Preview(Panel ui);
+        void PreviewMod(ModData mod);
 
-        void Clear(Panel ui);
+        void PreviewSkin(SkinData skin);
+
+        void Clear();
     }
 }

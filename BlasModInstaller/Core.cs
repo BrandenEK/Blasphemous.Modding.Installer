@@ -62,8 +62,8 @@ namespace BlasModInstaller
             var blas1Validator = new Blas1Validator();
             var blas2Validator = new Blas2Validator();
 
-            var modPreviewer = new ModPreviewer();
-            var skinPreviewer = new SkinPreviewer();
+            var modPreviewer = new ModPreviewer(UIHandler.PreviewName, UIHandler.PreviewDescription, UIHandler.PreviewVersion);
+            var skinPreviewer = new SkinPreviewer(UIHandler.PreviewBackground);
 
             var blas1modPage = new InstallerPage(blas1modTitle, Resources.background1,
                 blas1modGrouper,
