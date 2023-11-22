@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BlasModInstaller.Skins
@@ -15,12 +13,12 @@ namespace BlasModInstaller.Skins
 
         private bool _downloading;
 
-        public Skin(SkinData data, Panel panel, int initialIndex, SectionType skinType)
+        public Skin(SkinData data, Panel panel, SectionType skinType)
         {
             Data = data;
             _skinType = skinType;
             _ui = new SkinUI(this, panel);
-            SetUIPosition(initialIndex);
+            SetUIPosition(-1);
             UpdateUI();
             SkinPage.UIHolder.AdjustPageWidth();
         }
@@ -30,14 +28,14 @@ namespace BlasModInstaller.Skins
         private InstallerPage SkinPage => Core.Blas1SkinPage;
         private SortType SkinSort => Core.SettingsHandler.Config.Blas1SkinSort;
 
-        public bool Installed => File.Exists($"{RootFolder}\\Modding\\skins\\{Data.id}\\info.txt");
+        public bool Installed => File.Exists(PathToSkinFolder + "/info.txt");
 
         public Version LocalVersion
         {
             get
             {
-                string infoPath = PathToSkinFolder + "\\info.txt";
-                if (File.Exists(infoPath))
+                string infoPath = PathToSkinFolder + "/info.txt";
+                if (Installed)
                 {
                     SkinData data = JsonConvert.DeserializeObject<SkinData>(File.ReadAllText(infoPath));
                     return GithubHandler.CleanSemanticVersion(data.version);
@@ -63,37 +61,51 @@ namespace BlasModInstaller.Skins
         // Paths
 
         private string RootFolder => Core.SettingsHandler.GetRootPathBySection(_skinType);
+        public string PathToSkinFolder => $"{RootFolder}/Modding/skins/{Data.id}";
 
         private string SubFolder => "blasphemous1";
-        public string PathToSkinFolder => $"{RootFolder}\\Modding\\skins\\{Data.id}";
         public string InfoURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/info.txt";
         public string TextureURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/texture.png";
         public string PreviewURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/preview.png";
 
+        public bool ExistsInCache(string fileName, out string cachePath)
+        {
+            cachePath = $"{Core.DataCache}/blas1skins/{Data.id}/{Data.version}/{fileName}";
+            Directory.CreateDirectory(Path.GetDirectoryName(cachePath));
+
+            return File.Exists(cachePath) && new FileInfo(cachePath).Length > 0;
+        }
+
         // Main methods
 
-        public async Task Install()
+        public async void Install()
         {
-            _downloading = true;
-            using (WebClient client = new WebClient())
+            string installPath = PathToSkinFolder;
+            Directory.CreateDirectory(installPath);
+
+            // Check for files in the cache
+            bool infoExists = ExistsInCache("info.txt", out string infoCache);
+            bool textureExists = ExistsInCache("texture.png", out string textureCache);
+
+            // If they were missing, download them from web to cache
+            if (!infoExists || !textureExists)
             {
-                _ui.ShowDownloadingStatus();
+                Core.UIHandler.Log("Downloading skin texture from web");
+                using (WebClient client = new WebClient())
+                {
+                    _downloading = true;
+                    _ui.ShowDownloadingStatus();
 
-                string downloadPath = $"{UIHandler.DownloadsPath}{Data.id}";
-                Directory.CreateDirectory(downloadPath);
-
-                string installPath = PathToSkinFolder;
-                Directory.CreateDirectory(installPath);
-
-                await client.DownloadFileTaskAsync(new Uri(InfoURL), downloadPath + "\\info.txt");
-                await client.DownloadFileTaskAsync(new Uri(TextureURL), downloadPath + "\\texture.png");
-
-                File.Copy(downloadPath + "\\info.txt", installPath + "\\info.txt");
-                File.Copy(downloadPath + "\\texture.png", installPath + "\\texture.png");
-
-                Directory.Delete(downloadPath, true);
+                    await client.DownloadFileTaskAsync(new Uri(InfoURL), infoCache);
+                    await client.DownloadFileTaskAsync(new Uri(TextureURL), textureCache);
+                    
+                    _downloading = false;
+                }
             }
-            _downloading = false;
+
+            // Copy files from cache to game folder
+            File.Copy(infoCache, installPath + "/info.txt");
+            File.Copy(textureCache, installPath + "/texture.png");
 
             UpdateUI();
         }

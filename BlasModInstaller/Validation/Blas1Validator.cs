@@ -13,21 +13,26 @@ namespace BlasModInstaller.Validation
 
         public async Task InstallModdingTools()
         {
-            using (WebClient client = new WebClient())
+            string toolsCache = Core.DataCache + "/tools/blas1.zip";
+            Directory.CreateDirectory(Path.GetDirectoryName(toolsCache));
+
+            // If tools dont already exist in cache, download from web
+            if (!File.Exists(toolsCache))
             {
-                string toolsPath = "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools.zip";
-                string downloadPath = UIHandler.DownloadsPath + "Blas1_Tools.zip";
-                string installPath = Core.SettingsHandler.Config.Blas1RootFolder;
-
-                await client.DownloadFileTaskAsync(new Uri(toolsPath), downloadPath);
-
-                using (ZipFile zipFile = ZipFile.Read(downloadPath))
+                Core.UIHandler.Log("Downloading tools from web");
+                using (WebClient client = new WebClient())
                 {
-                    foreach (ZipEntry file in zipFile)
-                        file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
+                    string toolsPath = "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools.zip";
+                    await client.DownloadFileTaskAsync(new Uri(toolsPath), toolsCache);
                 }
+            }
 
-                File.Delete(downloadPath);
+            // Extract data in cache to game folder
+            string installPath = Core.SettingsHandler.Config.Blas1RootFolder;
+            using (ZipFile zipFile = ZipFile.Read(toolsCache))
+            {
+                foreach (ZipEntry file in zipFile)
+                    file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
             }
         }
 

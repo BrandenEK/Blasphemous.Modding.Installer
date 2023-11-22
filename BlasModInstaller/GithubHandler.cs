@@ -24,25 +24,49 @@ namespace BlasModInstaller
         /// <summary>
         /// Returns the lastest release version of the specified repository
         /// </summary>
-        public async Task<Release> GetLatestRelease(string owner, string repo)
+        public async Task<Release> GetLatestReleaseAsync(string owner, string repo)
         {
-            return await _client.Repository.Release.GetLatest(owner, repo);
+            try
+            {
+                return await _client.Repository.Release.GetLatest(owner, repo);
+            }
+            catch
+            {
+                Core.UIHandler.Log("API limit reached!");
+                return null;
+            }
         }
 
         /// <summary>
         /// Returns the entire contents of the specified repository
         /// </summary>
-        public async Task<IReadOnlyList<RepositoryContent>> GetRepositoryContents(string owner, string repo)
+        public async Task<IReadOnlyList<RepositoryContent>> GetRepositoryContentsAsync(string owner, string repo)
         {
-            return await _client.Repository.Content.GetAllContents(owner, repo);
+            try
+            {
+                return await _client.Repository.Content.GetAllContents(owner, repo);
+            }
+            catch
+            {
+                Core.UIHandler.Log("API limit reached!");
+                return null;
+            }
         }
 
         /// <summary>
         /// Returns the contents of a directory in a repository
         /// </summary>
-        public async Task<IReadOnlyList<RepositoryContent>> GetRepositoryDirectory(string owner, string repo, string path)
+        public async Task<IReadOnlyList<RepositoryContent>> GetRepositoryDirectoryAsync(string owner, string repo, string path)
         {
-            return await _client.Repository.Content.GetAllContents(owner, repo, path);
+            try
+            {
+                return await _client.Repository.Content.GetAllContents(owner, repo, path);
+            }
+            catch
+            {
+                Core.UIHandler.Log("API limit reached!");
+                return null;
+            }
         }
 
         /// <summary>
@@ -64,9 +88,12 @@ namespace BlasModInstaller
         /// When starting the installer, check if there is a more recent version, and if so display the update panel
         /// </summary>
         /// <returns></returns>
-        private async Task CheckForNewerInstallerRelease()
+        private async void CheckForNewerInstallerRelease()
         {
-            Release latestRelease = await GetLatestRelease("BrandenEK", "Blasphemous-Mod-Installer");
+            Release latestRelease = await GetLatestReleaseAsync("BrandenEK", "Blasphemous-Mod-Installer");
+            if (latestRelease is null)
+                return;
+
             Version newestVersion = CleanSemanticVersion(latestRelease.TagName);
 
             if (newestVersion.CompareTo(Core.CurrentInstallerVersion) > 0)
@@ -87,7 +114,7 @@ namespace BlasModInstaller
             {
                 Process.Start(_installerLatestReleaseLink);
             }
-            catch (Exception)
+            catch
             {
                 MessageBox.Show("Link does not exist!", "Invalid Link");
             }
@@ -102,7 +129,7 @@ namespace BlasModInstaller
             {
                 return new Version(version.ToLower().Replace("v", ""));
             }
-            catch (Exception)
+            catch
             {
                 return new Version(0, 1, 0);
             }

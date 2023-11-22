@@ -1,5 +1,4 @@
-﻿using BlasModInstaller.Mods;
-using BlasModInstaller.Validation;
+﻿using BlasModInstaller.Validation;
 using System;
 using System.Drawing;
 using System.IO;
@@ -9,13 +8,12 @@ namespace BlasModInstaller
 {
     public partial class UIHandler : Form
     {
-        public static string DownloadsPath => Environment.CurrentDirectory + "\\downloads\\";
-
         public int MainSectionWidth => mainSection.Width;
 
         public UIHandler()
         {
-            Directory.CreateDirectory(DownloadsPath);
+            Directory.CreateDirectory(Core.DataCache);
+
             InitializeComponent();
         }
 
@@ -114,8 +112,14 @@ namespace BlasModInstaller
 
         public void Log(string message)
         {
-            if (Core.SettingsHandler.Config.DebugMode)
-                debugLog.Text += message + "\r\n";
+            if (!Core.SettingsHandler.Config.DebugMode)
+                return;
+
+            debugLog.Text += message + "\r\n";
+            debugLog.SelectionLength = 0;
+            debugLog.SelectionStart = debugLog.Text.Length;
+            debugLog.Focus();
+            debugLog.ScrollToCaret();
         }
 
         private void ShowSideButtonBorder(object sender, EventArgs e)

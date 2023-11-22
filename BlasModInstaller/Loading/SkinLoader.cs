@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace BlasModInstaller.Loading
 {
@@ -51,7 +50,7 @@ namespace BlasModInstaller.Loading
 
                 for (int i = 0; i < localData.Length; i++)
                 {
-                    _skins.Add(new Skin(localData[i], _uiHolder.SectionPanel, i, _skinType));
+                    _skins.Add(new Skin(localData[i], _uiHolder.SectionPanel, _skinType));
                 }
             }
 
@@ -60,14 +59,17 @@ namespace BlasModInstaller.Loading
             _sorter.Sort();
         }
 
-        private async Task LoadRemoteSkins()
+        private async void LoadRemoteSkins()
         {
             var newSkins = new List<Skin>();
 
             using (HttpClient client = new HttpClient())
             {
                 IReadOnlyList<Octokit.RepositoryContent> contents = 
-                    await Core.GithubHandler.GetRepositoryDirectory("BrandenEK", "Blasphemous-Custom-Skins", _remoteDataPath);
+                    await Core.GithubHandler.GetRepositoryDirectoryAsync("BrandenEK", "Blasphemous-Custom-Skins", _remoteDataPath);
+
+                if (contents is null)
+                    return;
                 
                 foreach (var item in contents)
                 {
@@ -83,7 +85,7 @@ namespace BlasModInstaller.Loading
                     }
                     else
                     {
-                        newSkins.Add(new Skin(data, _uiHolder.SectionPanel, _skins.Count, _skinType));
+                        newSkins.Add(new Skin(data, _uiHolder.SectionPanel, _skinType));
                     }
                 }
 

@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace BlasModInstaller.Loading
 {
@@ -52,7 +51,7 @@ namespace BlasModInstaller.Loading
 
                 for (int i = 0; i < localData.Length; i++)
                 {
-                    _mods.Add(new Mod(localData[i], _uiHolder.SectionPanel, i, _modType));
+                    _mods.Add(new Mod(localData[i], _uiHolder.SectionPanel, _modType));
                 }
             }
 
@@ -61,7 +60,7 @@ namespace BlasModInstaller.Loading
             _sorter.Sort();
         }
 
-        private async Task LoadRemoteMods()
+        private async void LoadRemoteMods()
         {
             var newMods = new List<Mod>();
 
@@ -72,7 +71,10 @@ namespace BlasModInstaller.Loading
 
                 foreach (var data in remoteData)
                 {
-                    Octokit.Release latestRelease = await Core.GithubHandler.GetLatestRelease(data.githubAuthor, data.githubRepo);
+                    Octokit.Release latestRelease = await Core.GithubHandler.GetLatestReleaseAsync(data.githubAuthor, data.githubRepo);
+                    if (latestRelease is null)
+                        return;
+
                     Version latestVersion = GithubHandler.CleanSemanticVersion(latestRelease.TagName);
                     string latestDownloadURL = latestRelease.Assets[0].BrowserDownloadUrl;
                     DateTimeOffset latestReleaseDate = latestRelease.CreatedAt;
@@ -88,7 +90,7 @@ namespace BlasModInstaller.Loading
                     }
                     else
                     {
-                        newMods.Add(new Mod(fullData, _uiHolder.SectionPanel, _mods.Count, _modType));
+                        newMods.Add(new Mod(fullData, _uiHolder.SectionPanel, _modType));
                     }
                 }
 

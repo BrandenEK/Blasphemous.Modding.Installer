@@ -25,7 +25,7 @@ namespace BlasModInstaller
             Application.SetCompatibleTextRenderingDefault(false);
 
             UIHandler = new UIHandler();
-            SettingsHandler = new SettingsHandler(Environment.CurrentDirectory + "\\installer.cfg");
+            SettingsHandler = new SettingsHandler(Environment.CurrentDirectory + "/installer.cfg");
             GithubHandler = new GithubHandler(SettingsHandler.Config.GithubToken);
 
             List<Mod> blas1mods = new List<Mod>();
@@ -36,9 +36,9 @@ namespace BlasModInstaller
             string blas1skinTitle = "Blasphemous Skins";
             string blas2modTitle = "Blasphemous II Mods";
 
-            string blas1modLocalPath = Environment.CurrentDirectory + "\\downloads\\BlasphemousMods.json";
-            string blas1skinLocalPath = Environment.CurrentDirectory + "\\downloads\\BlasphemousSkins.json";
-            string blas2modLocalPath = Environment.CurrentDirectory + "\\downloads\\BlasphemousIIMods.json";
+            string blas1modLocalPath = DataCache + "/blas1mods.json";
+            string blas1skinLocalPath = DataCache + "/blas1skins.json";
+            string blas2modLocalPath = DataCache + "/blas2mods.json";
 
             string blas1modRemotePath = "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousMods.json";
             string blas2modRemotePath = "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousIIMods.json";
@@ -100,7 +100,7 @@ namespace BlasModInstaller
         public static SettingsHandler SettingsHandler { get; private set; }
         public static GithubHandler GithubHandler { get; private set; }
 
-        private static Dictionary<SectionType, InstallerPage> _pages = new Dictionary<SectionType, InstallerPage>();
+        private static readonly Dictionary<SectionType, InstallerPage> _pages = new Dictionary<SectionType, InstallerPage>();
 
         public static InstallerPage CurrentPage => _pages[SettingsHandler.Config.LastSection];
         public static IEnumerable<InstallerPage> AllPages => _pages.Values;
@@ -109,8 +109,10 @@ namespace BlasModInstaller
         public static InstallerPage Blas1SkinPage => _pages[SectionType.Blas1Skins];
         public static InstallerPage Blas2ModPage => _pages[SectionType.Blas2Mods];
 
+        public static string DataCache => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/BlasModInstaller";
+
         // Don't forget to increase this when releasing an update!  Have to do it here
         // because I'm not sure how to increase file version for windows forms
-        public static Version CurrentInstallerVersion => new Version(1, 2, 1);
+        public static Version CurrentInstallerVersion => new Version(1, 3, 0);
     }
 }

@@ -4,7 +4,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BlasModInstaller.Mods
@@ -16,12 +15,12 @@ namespace BlasModInstaller.Mods
 
         private bool _downloading = false;
 
-        public Mod(ModData data, Panel panel, int initialIndex, SectionType modType)
+        public Mod(ModData data, Panel panel, SectionType modType)
         {
             Data = data;
             _modType = modType;
             _ui = new ModUI(this, panel);
-            SetUIPosition(initialIndex);
+            SetUIPosition(-1);
             UpdateUI();
             ModPage.UIHolder.AdjustPageWidth();
         }
@@ -78,38 +77,54 @@ namespace BlasModInstaller.Mods
         private string RootFolder => Core.SettingsHandler.GetRootPathBySection(_modType);
         public string GithubLink => $"https://github.com/{Data.githubAuthor}/{Data.githubRepo}";
 
-        public string PathToEnabledPlugin => $"{RootFolder}\\Modding\\plugins\\{Data.pluginFile}";
-        public string PathToDisabledPlugin => $"{RootFolder}\\Modding\\disabled\\{Data.pluginFile}";
-        public string PathToConfigFile => $"{RootFolder}\\Modding\\config\\{Data.name}.cfg";
-        public string PathToDataFolder => $"{RootFolder}\\Modding\\data\\{Data.name}";
-        public string PathToKeybindingsFile => $"{RootFolder}\\Modding\\keybindings\\{Data.name}.txt";
-        public string PathToLevelsFolder => $"{RootFolder}\\Modding\\levels\\{Data.name}";
-        public string PathToLocalizationFile => $"{RootFolder}\\Modding\\localization\\{Data.name}.txt";
-        public string PathToLogFile => $"{RootFolder}\\Modding\\logs\\{Data.name}.log";
+        public string PathToEnabledPlugin => $"{RootFolder}/Modding/plugins/{Data.pluginFile}";
+        public string PathToDisabledPlugin => $"{RootFolder}/Modding/disabled/{Data.pluginFile}";
+        public string PathToConfigFile => $"{RootFolder}/Modding/config/{Data.name}.cfg";
+        public string PathToDataFolder => $"{RootFolder}/Modding/data/{Data.name}";
+        public string PathToKeybindingsFile => $"{RootFolder}/Modding/keybindings/{Data.name}.txt";
+        public string PathToLevelsFolder => $"{RootFolder}/Modding/levels/{Data.name}";
+        public string PathToLocalizationFile => $"{RootFolder}/Modding/localization/{Data.name}.txt";
+        public string PathToLogFile => $"{RootFolder}/Modding/logs/{Data.name}.log";
+
+        public bool ExistsInCache(string fileName, out string cachePath)
+        {
+            cachePath = $"{Core.DataCache}/blas{(_modType == SectionType.Blas1Mods ? "1" : "2")}mods/{Data.name}/{Data.latestVersion}/{fileName}";
+            Directory.CreateDirectory(Path.GetDirectoryName(cachePath));
+
+            return File.Exists(cachePath) && new FileInfo(cachePath).Length > 0;
+        }
 
         // Main methods
 
-        public async Task Install()
+        public async void Install()
         {
-            _downloading = true;
-            using (WebClient client = new WebClient())
+            string installPath = RootFolder + "/Modding";
+            Directory.CreateDirectory(installPath);
+
+            // Check for data in the cache
+            bool zipExists = ExistsInCache("data.zip", out string zipCache);
+
+            // If it was missing, download it from web to cache
+            if (!zipExists)
             {
-                _ui.ShowDownloadingStatus();
-
-                string downloadPath = $"{UIHandler.DownloadsPath}{Data.name.Replace(' ', '_')}.zip";
-                string installPath = RootFolder + "\\Modding";
-
-                await client.DownloadFileTaskAsync(new Uri(Data.latestDownloadURL), downloadPath);
-
-                using (ZipFile zipFile = ZipFile.Read(downloadPath))
+                Core.UIHandler.Log("Downloading mod data from web");
+                using (WebClient client = new WebClient())
                 {
-                    foreach (ZipEntry file in zipFile)
-                        file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
-                }
+                    _downloading = true;
+                    _ui.ShowDownloadingStatus();
 
-                File.Delete(downloadPath);
+                    await client.DownloadFileTaskAsync(new Uri(Data.latestDownloadURL), zipCache);
+                    
+                    _downloading = false;
+                }
             }
-            _downloading = false;
+
+            // Extract data in cache to game folder
+            using (ZipFile zipFile = ZipFile.Read(zipCache))
+            {
+                foreach (ZipEntry file in zipFile)
+                    file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
+            }
 
             UpdateUI();
         }
@@ -140,7 +155,7 @@ namespace BlasModInstaller.Mods
                 {
                     if (modLoader.InstalledModsThatRequireDll(dll) == 0)
                     {
-                        string dllPath = RootFolder + "\\Modding\\data\\" + dll;
+                        string dllPath = RootFolder + "/Modding/data/" + dll;
                         if (File.Exists(dllPath))
                             File.Delete(dllPath);
                     }

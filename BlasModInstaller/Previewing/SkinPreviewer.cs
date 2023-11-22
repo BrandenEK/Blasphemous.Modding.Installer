@@ -3,7 +3,6 @@ using BlasModInstaller.Properties;
 using BlasModInstaller.Skins;
 using System;
 using System.Drawing;
-using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -28,25 +27,30 @@ namespace BlasModInstaller.Previewing
 
         private async Task<Bitmap> LoadPreviewImageAsync(Skin skin)
         {
-            // Check for cache
+            // Check for file in the cache
+            bool previewExists = skin.ExistsInCache("preview.png", out string previewCache);
 
-            // Set loading image
-
-            using (WebClient client = new WebClient())
+            // If it was missing, download it from web to cache
+            if (!previewExists)
             {
-                string downloadPath = $"{UIHandler.DownloadsPath}blas1skins\\{skin.Data.id}\\{skin.Data.version}";
-                Directory.CreateDirectory(downloadPath);
-
-                try
+                Core.UIHandler.Log("Downloading skin preview from web");
+                using (WebClient client = new WebClient())
                 {
-                    await client.DownloadFileTaskAsync(new Uri(skin.PreviewURL), downloadPath + "\\preview.png");
-                    return new Bitmap(downloadPath + "\\preview.png");
-                }
-                catch (Exception)
-                {
-                    return Resources.warning;
+                    try
+                    {
+                        await client.DownloadFileTaskAsync(new Uri(skin.PreviewURL), previewCache);
+                        return new Bitmap(previewCache);
+                    }
+                    catch (Exception e)
+                    {
+                        Core.UIHandler.Log("Failed to load skin preview: " + e.Message);
+                        return Resources.warning;
+                    }
                 }
             }
+
+            // Create new image from preview in cache
+            return new Bitmap(previewCache);
         }
 
         public void Clear()
