@@ -71,7 +71,10 @@ namespace BlasModInstaller.Loading
 
                 foreach (var data in remoteData)
                 {
-                    Octokit.Release latestRelease = await Core.GithubHandler.GetLatestRelease(data.githubAuthor, data.githubRepo);
+                    Octokit.Release latestRelease = await Core.GithubHandler.GetLatestReleaseAsync(data.githubAuthor, data.githubRepo);
+                    if (latestRelease is null)
+                        return;
+
                     Version latestVersion = GithubHandler.CleanSemanticVersion(latestRelease.TagName);
                     string latestDownloadURL = latestRelease.Assets[0].BrowserDownloadUrl;
                     DateTimeOffset latestReleaseDate = latestRelease.CreatedAt;

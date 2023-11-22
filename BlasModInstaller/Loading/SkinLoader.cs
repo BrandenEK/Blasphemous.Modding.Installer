@@ -66,7 +66,10 @@ namespace BlasModInstaller.Loading
             using (HttpClient client = new HttpClient())
             {
                 IReadOnlyList<Octokit.RepositoryContent> contents = 
-                    await Core.GithubHandler.GetRepositoryDirectory("BrandenEK", "Blasphemous-Custom-Skins", _remoteDataPath);
+                    await Core.GithubHandler.GetRepositoryDirectoryAsync("BrandenEK", "Blasphemous-Custom-Skins", _remoteDataPath);
+
+                if (contents is null)
+                    return;
                 
                 foreach (var item in contents)
                 {
