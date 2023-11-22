@@ -64,7 +64,7 @@ namespace BlasModInstaller
         /// When starting the installer, check if there is a more recent version, and if so display the update panel
         /// </summary>
         /// <returns></returns>
-        private async Task CheckForNewerInstallerRelease()
+        private async void CheckForNewerInstallerRelease()
         {
             Release latestRelease = await GetLatestRelease("BrandenEK", "Blasphemous-Mod-Installer");
             Version newestVersion = CleanSemanticVersion(latestRelease.TagName);
@@ -87,7 +87,7 @@ namespace BlasModInstaller
             {
                 Process.Start(_installerLatestReleaseLink);
             }
-            catch (Exception)
+            catch
             {
                 MessageBox.Show("Link does not exist!", "Invalid Link");
             }
@@ -102,7 +102,7 @@ namespace BlasModInstaller
             {
                 return new Version(version.ToLower().Replace("v", ""));
             }
-            catch (Exception)
+            catch
             {
                 return new Version(0, 1, 0);
             }
