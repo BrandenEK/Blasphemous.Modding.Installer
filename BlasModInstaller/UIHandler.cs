@@ -12,8 +12,7 @@ namespace BlasModInstaller
 
         public UIHandler()
         {
-            var cache = Directory.CreateDirectory(Core.DataCache);
-            cache.Attributes |= FileAttributes.Hidden;
+            Directory.CreateDirectory(Core.DataCache);
 
             InitializeComponent();
         }

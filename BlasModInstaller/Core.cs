@@ -109,7 +109,7 @@ namespace BlasModInstaller
         public static InstallerPage Blas1SkinPage => _pages[SectionType.Blas1Skins];
         public static InstallerPage Blas2ModPage => _pages[SectionType.Blas2Mods];
 
-        public static string DataCache => Environment.CurrentDirectory + "/cache";
+        public static string DataCache => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/BlasModInstaller";
 
         // Don't forget to increase this when releasing an update!  Have to do it here
         // because I'm not sure how to increase file version for windows forms
