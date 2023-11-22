@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace BlasModInstaller.Loading
 {
@@ -60,7 +59,7 @@ namespace BlasModInstaller.Loading
             _sorter.Sort();
         }
 
-        private async Task LoadRemoteSkins()
+        private async void LoadRemoteSkins()
         {
             var newSkins = new List<Skin>();
 

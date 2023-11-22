@@ -2,7 +2,6 @@
 using System;
 using System.IO;
 using System.Net;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BlasModInstaller.Skins
@@ -79,7 +78,7 @@ namespace BlasModInstaller.Skins
 
         // Main methods
 
-        public async Task Install()
+        public async void Install()
         {
             string installPath = PathToSkinFolder;
             Directory.CreateDirectory(installPath);

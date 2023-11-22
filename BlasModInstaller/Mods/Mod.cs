@@ -4,7 +4,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BlasModInstaller.Mods
@@ -97,7 +96,7 @@ namespace BlasModInstaller.Mods
 
         // Main methods
 
-        public async Task Install()
+        public async void Install()
         {
             string installPath = RootFolder + "/Modding";
             Directory.CreateDirectory(installPath);

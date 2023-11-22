@@ -1,5 +1,4 @@
-﻿using BlasModInstaller.Mods;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace BlasModInstaller.Skins
@@ -13,9 +12,9 @@ namespace BlasModInstaller.Skins
         private readonly Label authorText;
 
         private readonly Button updateButton;
-        private readonly Button previewIdleButton;
-        private readonly Button previewChargedButton;
         private readonly Button installButton;
+        //private readonly Button previewIdleButton;
+        //private readonly Button previewChargedButton;
 
         public void UpdateUI(string name, string author, bool installed, bool canUpdate)
         {
