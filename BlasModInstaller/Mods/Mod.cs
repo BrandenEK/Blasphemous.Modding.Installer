@@ -15,12 +15,12 @@ namespace BlasModInstaller.Mods
 
         private bool _downloading = false;
 
-        public Mod(ModData data, Panel panel, int initialIndex, SectionType modType)
+        public Mod(ModData data, Panel panel, SectionType modType)
         {
             Data = data;
             _modType = modType;
             _ui = new ModUI(this, panel);
-            SetUIPosition(initialIndex);
+            SetUIPosition(-1);
             UpdateUI();
             ModPage.UIHolder.AdjustPageWidth();
         }

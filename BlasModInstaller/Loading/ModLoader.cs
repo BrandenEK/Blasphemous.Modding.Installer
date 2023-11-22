@@ -51,7 +51,7 @@ namespace BlasModInstaller.Loading
 
                 for (int i = 0; i < localData.Length; i++)
                 {
-                    _mods.Add(new Mod(localData[i], _uiHolder.SectionPanel, i, _modType));
+                    _mods.Add(new Mod(localData[i], _uiHolder.SectionPanel, _modType));
                 }
             }
 
@@ -87,7 +87,7 @@ namespace BlasModInstaller.Loading
                     }
                     else
                     {
-                        newMods.Add(new Mod(fullData, _uiHolder.SectionPanel, _mods.Count, _modType));
+                        newMods.Add(new Mod(fullData, _uiHolder.SectionPanel, _modType));
                     }
                 }
 

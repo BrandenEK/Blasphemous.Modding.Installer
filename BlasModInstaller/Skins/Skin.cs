@@ -13,12 +13,12 @@ namespace BlasModInstaller.Skins
 
         private bool _downloading;
 
-        public Skin(SkinData data, Panel panel, int initialIndex, SectionType skinType)
+        public Skin(SkinData data, Panel panel, SectionType skinType)
         {
             Data = data;
             _skinType = skinType;
             _ui = new SkinUI(this, panel);
-            SetUIPosition(initialIndex);
+            SetUIPosition(-1);
             UpdateUI();
             SkinPage.UIHolder.AdjustPageWidth();
         }

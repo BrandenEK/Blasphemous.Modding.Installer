@@ -50,7 +50,7 @@ namespace BlasModInstaller.Loading
 
                 for (int i = 0; i < localData.Length; i++)
                 {
-                    _skins.Add(new Skin(localData[i], _uiHolder.SectionPanel, i, _skinType));
+                    _skins.Add(new Skin(localData[i], _uiHolder.SectionPanel, _skinType));
                 }
             }
 
@@ -82,7 +82,7 @@ namespace BlasModInstaller.Loading
                     }
                     else
                     {
-                        newSkins.Add(new Skin(data, _uiHolder.SectionPanel, _skins.Count, _skinType));
+                        newSkins.Add(new Skin(data, _uiHolder.SectionPanel, _skinType));
                     }
                 }
 
