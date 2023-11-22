@@ -16,7 +16,7 @@ namespace BlasModInstaller.Validation
             using (WebClient client = new WebClient())
             {
                 string toolsPath = "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools.zip";
-                string downloadPath = UIHandler.DownloadsPath + "Blas1_Tools.zip";
+                string downloadPath = Core.DataCache + "/Blas1tools.zip";
                 string installPath = Core.SettingsHandler.Config.Blas1RootFolder;
 
                 await client.DownloadFileTaskAsync(new Uri(toolsPath), downloadPath);

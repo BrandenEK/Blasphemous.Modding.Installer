@@ -25,7 +25,7 @@ namespace BlasModInstaller
             Application.SetCompatibleTextRenderingDefault(false);
 
             UIHandler = new UIHandler();
-            SettingsHandler = new SettingsHandler(Environment.CurrentDirectory + "\\installer.cfg");
+            SettingsHandler = new SettingsHandler(Environment.CurrentDirectory + "/installer.cfg");
             GithubHandler = new GithubHandler(SettingsHandler.Config.GithubToken);
 
             List<Mod> blas1mods = new List<Mod>();
@@ -36,9 +36,9 @@ namespace BlasModInstaller
             string blas1skinTitle = "Blasphemous Skins";
             string blas2modTitle = "Blasphemous II Mods";
 
-            string blas1modLocalPath = Environment.CurrentDirectory + "\\downloads\\BlasphemousMods.json";
-            string blas1skinLocalPath = Environment.CurrentDirectory + "\\downloads\\BlasphemousSkins.json";
-            string blas2modLocalPath = Environment.CurrentDirectory + "\\downloads\\BlasphemousIIMods.json";
+            string blas1modLocalPath = DataCache + "/blas1mods.json";
+            string blas1skinLocalPath = DataCache + "/blas1skins.json";
+            string blas2modLocalPath = DataCache + "/blas2mods.json";
 
             string blas1modRemotePath = "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousMods.json";
             string blas2modRemotePath = "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousIIMods.json";

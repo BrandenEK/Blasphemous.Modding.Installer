@@ -8,8 +8,6 @@ namespace BlasModInstaller
 {
     public partial class UIHandler : Form
     {
-        public static string DownloadsPath => Environment.CurrentDirectory + "\\downloads\\";
-
         public int MainSectionWidth => mainSection.Width;
 
         public UIHandler()
