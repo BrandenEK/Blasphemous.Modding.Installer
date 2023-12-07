@@ -15,7 +15,8 @@
     "InitialReleaseDate": "2023-09-15",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "BlasII.CheatConsole",
-    "PluginFile": "CheatConsole.dll"
+    "PluginFile": "CheatConsole.dll",
+    "Dependencies": [ "Modding API" ]
   },
   {
     "Name": "Debug Mod",
@@ -24,7 +25,8 @@
     "InitialReleaseDate": "2023-09-15",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "BlasII.DebugMod",
-    "PluginFile": "DebugMod.dll"
+    "PluginFile": "DebugMod.dll",
+    "Dependencies": [ "Modding API" ]
   },
   {
     "Name": "Save and Quit",
@@ -33,7 +35,8 @@
     "InitialReleaseDate": "2023-10-10",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "BlasII.SaveAndQuit",
-    "PluginFile": "SaveAndQuit.dll"
+    "PluginFile": "SaveAndQuit.dll",
+    "Dependencies": [ "Modding API" ]
   },
   {
     "Name": "Randomizer",
@@ -42,7 +45,9 @@
     "InitialReleaseDate": "2023-10-24",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "BlasII.Randomizer",
-    "PluginFile": "Randomizer.dll"
+    "PluginFile": "Randomizer.dll",
+    "RequiredDlls": [ "LogicParser.dll" ],
+    "Dependencies": [ "Modding API" ]
   },
   {
     "Name": "Quality of Life",
@@ -51,6 +56,7 @@
     "InitialReleaseDate": "2023-11-05",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "BlasII.QualityOfLife",
-    "PluginFile": "QualityOfLife.dll"
-  },
+    "PluginFile": "QualityOfLife.dll",
+    "Dependencies": [ "Modding API" ]
+  }
 ]
