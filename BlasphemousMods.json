@@ -16,10 +16,8 @@
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Randomizer",
     "PluginFile": "BlasphemousRandomizer.dll",
-    "RequiredDlls":
-    [
-        "LogicParser.dll"
-    ]
+    "RequiredDlls": [ "LogicParser.dll" ],
+    "Dependencies": [ "Modding API" ]
   },
   {
     "Name": "Rando Map",
@@ -29,10 +27,8 @@
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Rando-Map",
     "PluginFile": "RandoMap.dll",
-    "RequiredDlls":
-    [
-        "LogicParser.dll"
-    ]
+    "RequiredDlls": [ "LogicParser.dll" ],
+    "Dependencies": [ "Modding API", "Randomizer" ]
   },
   {
     "Name": "Multiworld",
@@ -42,18 +38,8 @@
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Multiworld",
     "PluginFile": "BlasphemousMultiworld.dll",
-    "RequiredDlls":
-    [
-        "Archipelago.MultiClient.Net.dll",
-        "c-wspp.dll",
-        "libcrypto-3-x64.dll",
-        "libgcc_s_seh-1.dll",
-        "libssl-3-x64.dll",
-        "libssp-0.dll",
-        "libstdc++-6.dll",
-        "libwinpthread-1.dll",
-        "websocket-sharp.dll"
-    ]
+    "RequiredDlls": [ "Archipelago.MultiClient.Net.dll", "c-wspp.dll", "websocket-sharp.dll" ],
+    "Dependencies": [ "Modding API", "Randomizer" ]
   },
   {
     "Name": "PrieWarp",
@@ -62,7 +48,8 @@
     "InitialReleaseDate": "2023-06-03",
     "GithubAuthor": "BadMagic100",
     "GithubRepo": "Blasphemous-PrieWarp",
-    "PluginFile": "PrieWarp.dll"
+    "PluginFile": "PrieWarp.dll",
+    "Dependencies": [ "Modding API" ]
   },
   {
     "Name": "Multiplayer",
@@ -72,10 +59,8 @@
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Multiplayer",
     "PluginFile": "BlasClient.dll",
-    "RequiredDlls":
-    [
-        "SimpleTCP.dll"
-    ]
+    "RequiredDlls": [ "SimpleTCP.dll" ],
+    "Dependencies": [ "Modding API" ]
   },
   {
     "Name": "Boots of Pleading",
@@ -84,7 +69,8 @@
     "InitialReleaseDate": "2023-03-21",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Boots-of-Pleading",
-    "PluginFile": "BootsOfPleading.dll"
+    "PluginFile": "BootsOfPleading.dll",
+    "Dependencies": [ "Modding API" ]
   },
   {
     "Name": "Double Jump",
@@ -93,7 +79,8 @@
     "InitialReleaseDate": "2023-03-26",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Double-Jump",
-    "PluginFile": "BlasDoubleJump.dll"
+    "PluginFile": "BlasDoubleJump.dll",
+    "Dependencies": [ "Modding API" ]
   },
   {
     "Name": "Random Prayer",
@@ -102,7 +89,8 @@
     "InitialReleaseDate": "2023-03-27",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Random-Prayer-Use",
-    "PluginFile": "RandomPrayerUse.dll"
+    "PluginFile": "RandomPrayerUse.dll",
+    "Dependencies": [ "Modding API" ]
   },
   {
     "Name": "Debug Mod",
@@ -111,7 +99,8 @@
     "InitialReleaseDate": "2023-03-26",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Debug-Mod",
-    "PluginFile": "DebugMod.dll"
+    "PluginFile": "DebugMod.dll",
+    "Dependencies": [ "Modding API" ]
   },
   {
     "Name": "OHKO",
@@ -120,7 +109,8 @@
     "InitialReleaseDate": "2023-06-11",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-OHKO",
-    "PluginFile": "OneHitKO.dll"
+    "PluginFile": "OneHitKO.dll",
+    "Dependencies": [ "Modding API" ]
   },
   {
     "Name": "Andalusian",
@@ -129,7 +119,8 @@
     "InitialReleaseDate": "2023-06-23",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous-Andalusian",
-    "PluginFile": "Andalusian.dll"
+    "PluginFile": "Andalusian.dll",
+    "Dependencies": [ "Modding API" ]
   },
   {
     "Name": "Iter Tormenti",
@@ -138,6 +129,7 @@
     "InitialReleaseDate": "2023-09-19",
     "GithubAuthor": "NeonPixels",
     "GithubRepo": "blasphemous.iter-tormenti",
-    "PluginFile": "IterTormenti.dll"
-  },
+    "PluginFile": "IterTormenti.dll",
+    "Dependencies": [ "Modding API" ]
+  }
 ]
