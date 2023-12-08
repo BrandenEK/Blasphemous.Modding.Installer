@@ -33,17 +33,11 @@ namespace BlasModInstaller.Mods
         private InstallerPage ModPage => _modType == SectionType.Blas1Mods ? Core.Blas1ModPage : Core.Blas2ModPage;
         private SortType ModSort => _modType == SectionType.Blas1Mods ? Core.SettingsHandler.Config.Blas1ModSort : Core.SettingsHandler.Config.Blas2ModSort;
 
-        public bool RequiresDll(string dllName)
-        {
-            if (Data.requiredDlls == null) return false;
+        public bool RequiresDll(string dllName) =>
+            Data.requiredDlls != null && Data.requiredDlls.Contains(dllName);
 
-            foreach (string dll in Data.requiredDlls)
-            {
-                if (dll == dllName)
-                    return true;
-            }
-            return false;
-        }
+        public bool HasDependency(string modName) =>
+            Data.dependencies != null && Data.dependencies.Contains(modName);
 
         public bool Installed => File.Exists(PathToEnabledPlugin) || File.Exists(PathToDisabledPlugin);
         public bool Enabled => File.Exists(PathToEnabledPlugin);
@@ -135,6 +129,10 @@ namespace BlasModInstaller.Mods
 
         public void Uninstall()
         {
+            // Check for dependents first
+            if (!AreDependentsDisabled())
+                return;
+
             if (File.Exists(PathToEnabledPlugin))
                 File.Delete(PathToEnabledPlugin);
             if (File.Exists(PathToDisabledPlugin))
@@ -177,6 +175,10 @@ namespace BlasModInstaller.Mods
 
         public void Disable()
         {
+            // Check for dependents first
+            if (!AreDependentsDisabled())
+                return;
+
             string enabled = PathToEnabledPlugin;
             string disabled = PathToDisabledPlugin;
             if (File.Exists(enabled))
@@ -232,6 +234,34 @@ namespace BlasModInstaller.Mods
                 if (!mod.Installed)
                     mod.Install();
                 mod.Enable();
+            }
+
+            return true;
+        }
+
+        private bool AreDependentsDisabled()
+        {
+            ModLoader modLoader = ModPage.Loader as ModLoader;
+            IEnumerable<Mod> dependents = modLoader.GetModDependents(this);
+
+            if (dependents.Count() == 0)
+                return true;
+
+            // Build list of mod names
+            var sb = new StringBuilder("This mod has dependents that rely on it:").AppendLine();
+            foreach (var mod in dependents)
+                sb.Append("- ").AppendLine(mod.Data.name);
+            sb.AppendLine().Append("Disable them now?");
+
+            // Prompt if they want to download dependencies
+            if (MessageBox.Show(sb.ToString(), Data.name, MessageBoxButtons.OKCancel) != DialogResult.OK)
+                return false;
+
+            // Download and enable all dependencies
+            Core.UIHandler.Log("Disabling dependents for " + Data.name);
+            foreach (Mod mod in dependents)
+            {
+                mod.Disable();
             }
 
             return true;
