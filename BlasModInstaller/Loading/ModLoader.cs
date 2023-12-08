@@ -120,7 +120,7 @@ namespace BlasModInstaller.Loading
                 return Enumerable.Empty<string>();
 
             return mod.Data.requiredDlls
-                .Where(d => _mods.Where(m => m.RequiresDll(d) && m.Installed).Count() == 0);
+                .Where(d => !_mods.Where(m => m.RequiresDll(d) && m.Installed).Any());
         }
 
         // Get list of mods that this mod requires that need to be enabled

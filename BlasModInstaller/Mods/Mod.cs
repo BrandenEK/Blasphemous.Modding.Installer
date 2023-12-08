@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BlasModInstaller.Mods
@@ -104,16 +105,7 @@ namespace BlasModInstaller.Mods
             // If it was missing, download it from web to cache
             if (!zipExists)
             {
-                Core.UIHandler.Log("Downloading mod data from web");
-                using (WebClient client = new WebClient())
-                {
-                    _downloading = true;
-                    _ui.ShowDownloadingStatus();
-
-                    await client.DownloadFileTaskAsync(new Uri(Data.latestDownloadURL), zipCache);
-                    
-                    _downloading = false;
-                }
+                await DownloadMod(zipCache);
             }
 
             // Extract data in cache to game folder
@@ -125,6 +117,20 @@ namespace BlasModInstaller.Mods
 
             Disable();
             Enable();
+        }
+
+        private async Task DownloadMod(string zipCache)
+        {
+            Core.UIHandler.Log("Downloading mod data from web");
+            using (WebClient client = new WebClient())
+            {
+                _downloading = true;
+                _ui.ShowDownloadingStatus();
+
+                await client.DownloadFileTaskAsync(new Uri(Data.latestDownloadURL), zipCache);
+
+                _downloading = false;
+            }
         }
 
         public void Uninstall()
@@ -212,7 +218,7 @@ namespace BlasModInstaller.Mods
             ModLoader modLoader = ModPage.Loader as ModLoader;
             IEnumerable<Mod> dependencies = modLoader.GetModDependencies(this);
 
-            if (dependencies.Count() == 0)
+            if (!dependencies.Any())
                 return true;
 
             // Build list of mod names
@@ -226,7 +232,7 @@ namespace BlasModInstaller.Mods
                 return false;
 
             // Download and enable all dependencies
-            Core.UIHandler.Log("Installing dependencies for " + Data.name);
+            Core.UIHandler.Log("Enabling dependencies for " + Data.name);
             foreach (Mod mod in dependencies)
             {
                 if (mod.UpdateAvailable)
@@ -244,7 +250,7 @@ namespace BlasModInstaller.Mods
             ModLoader modLoader = ModPage.Loader as ModLoader;
             IEnumerable<Mod> dependents = modLoader.GetModDependents(this);
 
-            if (dependents.Count() == 0)
+            if (!dependents.Any())
                 return true;
 
             // Build list of mod names
