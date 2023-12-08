@@ -94,8 +94,12 @@ namespace BlasModInstaller.Mods
 
         // Main methods
 
-        public async void Install()
+        public async void Install(bool skipDepend)
         {
+            // Check for dependencies first
+            if (!skipDepend && !AreDependenciesEnabled())
+                return;
+
             string installPath = RootFolder + "/Modding";
             Directory.CreateDirectory(installPath);
 
@@ -115,8 +119,7 @@ namespace BlasModInstaller.Mods
                     file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
             }
 
-            Disable();
-            Enable();
+            UpdateUI();
         }
 
         private async Task DownloadMod(string zipCache)
@@ -133,10 +136,10 @@ namespace BlasModInstaller.Mods
             }
         }
 
-        public void Uninstall()
+        public void Uninstall(bool skipDepend)
         {
             // Check for dependents first
-            if (!AreDependentsDisabled())
+            if (!skipDepend && !AreDependentsDisabled())
                 return;
 
             if (File.Exists(PathToEnabledPlugin))
@@ -160,10 +163,10 @@ namespace BlasModInstaller.Mods
             UpdateUI();
         }
 
-        public void Enable()
+        public void Enable(bool skipDepend)
         {
             // Check for dependencies first
-            if (!AreDependenciesEnabled())
+            if (!skipDepend && !AreDependenciesEnabled())
                 return;
 
             string enabled = PathToEnabledPlugin;
@@ -179,10 +182,10 @@ namespace BlasModInstaller.Mods
             UpdateUI();
         }
 
-        public void Disable()
+        public void Disable(bool skipDepend)
         {
             // Check for dependents first
-            if (!AreDependentsDisabled())
+            if (!skipDepend && !AreDependentsDisabled())
                 return;
 
             string enabled = PathToEnabledPlugin;
@@ -236,10 +239,10 @@ namespace BlasModInstaller.Mods
             foreach (Mod mod in dependencies)
             {
                 if (mod.UpdateAvailable)
-                    mod.Uninstall();
+                    mod.Uninstall(true);
                 if (!mod.Installed)
-                    mod.Install();
-                mod.Enable();
+                    mod.Install(true);
+                mod.Enable(true);
             }
 
             return true;
@@ -259,15 +262,15 @@ namespace BlasModInstaller.Mods
                 sb.Append("- ").AppendLine(mod.Data.name);
             sb.AppendLine().Append("Disable them now?");
 
-            // Prompt if they want to download dependencies
+            // Prompt if they want to disable dependencies
             if (MessageBox.Show(sb.ToString(), Data.name, MessageBoxButtons.OKCancel) != DialogResult.OK)
                 return false;
 
-            // Download and enable all dependencies
+            // Disable all dependencies
             Core.UIHandler.Log("Disabling dependents for " + Data.name);
             foreach (Mod mod in dependents)
             {
-                mod.Disable();
+                mod.Disable(true);
             }
 
             return true;
@@ -282,26 +285,26 @@ namespace BlasModInstaller.Mods
             if (Installed)
             {
                 if (MessageBox.Show("Are you sure you want to uninstall this mod?", Data.name, MessageBoxButtons.OKCancel) == DialogResult.OK)
-                    Uninstall();
+                    Uninstall(false);
             }
             else
             {
-                Install();
+                Install(false);
             }
         }
 
         public void ClickedEnable(object sender, EventArgs e)
         {
             if (Enabled)
-                Disable();
+                Disable(false);
             else
-                Enable();
+                Enable(false);
         }
 
         public void ClickedUpdate(object sender, EventArgs e)
         {
-            Uninstall();
-            Install();
+            Uninstall(true);
+            Install(false);
         }
 
         public void ClickedReadme(object sender, EventArgs e)
