@@ -114,9 +114,13 @@ namespace BlasModInstaller.Loading
             return _mods.Find(x => x.Data.name == name);
         }
 
-        public int InstalledModsThatRequireDll(string dllName)
+        public IEnumerable<string> GetUnusedDlls(Mod mod)
         {
-            return _mods.Where(x => x.RequiresDll(dllName) && x.Installed).Count();
+            if (mod.Data.requiredDlls == null || mod.Data.requiredDlls.Length == 0)
+                return Enumerable.Empty<string>();
+
+            return mod.Data.requiredDlls
+                .Where(d => _mods.Where(m => m.RequiresDll(d) && m.Installed).Count() == 0);
         }
 
         public IEnumerable<Mod> GetModDependencies(Mod mod)

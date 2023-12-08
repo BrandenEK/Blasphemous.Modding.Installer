@@ -152,9 +152,7 @@ namespace BlasModInstaller.Mods
             if (Directory.Exists(PathToLevelsFolder))
                 Directory.Delete(PathToLevelsFolder, true);
 
-            if (Data.requiredDlls != null && Data.requiredDlls.Length > 0)
-                RemoveUnusedDlls();
-
+            RemoveUnusedDlls();
             UpdateUI();
         }
 
@@ -197,14 +195,13 @@ namespace BlasModInstaller.Mods
         private void RemoveUnusedDlls()
         {
             ModLoader modLoader = ModPage.Loader as ModLoader;
-            foreach (string dll in Data.requiredDlls)
+            IEnumerable<string> unused = modLoader.GetUnusedDlls(this);
+
+            foreach (string dll in unused)
             {
-                if (modLoader.InstalledModsThatRequireDll(dll) == 0)
-                {
-                    string dllPath = RootFolder + "/Modding/data/" + dll;
-                    if (File.Exists(dllPath))
-                        File.Delete(dllPath);
-                }
+                string dllPath = RootFolder + "/Modding/data/" + dll;
+                if (File.Exists(dllPath))
+                    File.Delete(dllPath);
             }
         }
 
