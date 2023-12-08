@@ -14,6 +14,7 @@ namespace BlasModInstaller.Mods
         [JsonProperty] public readonly string githubRepo;
         [JsonProperty] public readonly string pluginFile;
         [JsonProperty] public readonly string[] requiredDlls;
+        [JsonProperty] public readonly string[] dependencies;
 
         // These properties are determined from the github release
         [JsonProperty] public readonly string latestVersion;
@@ -21,7 +22,7 @@ namespace BlasModInstaller.Mods
         [JsonProperty] public readonly DateTimeOffset latestReleaseDate;
 
         [JsonConstructor]
-        public ModData(string name, string author, string description, DateTimeOffset initialReleaseDate, string githubAuthor, string githubRepo, string pluginFile, string[] requiredDlls, string latestVersion, string latestDownloadURL, DateTimeOffset latestReleaseDate)
+        public ModData(string name, string author, string description, DateTimeOffset initialReleaseDate, string githubAuthor, string githubRepo, string pluginFile, string[] requiredDlls, string[] dependencies, string latestVersion, string latestDownloadURL, DateTimeOffset latestReleaseDate)
         {
             this.name = name;
             this.author = author;
@@ -31,6 +32,7 @@ namespace BlasModInstaller.Mods
             this.githubRepo = githubRepo;
             this.pluginFile = pluginFile;
             this.requiredDlls = requiredDlls;
+            this.dependencies = dependencies;
             this.latestVersion = latestVersion;
             this.latestDownloadURL = latestDownloadURL;
             this.latestReleaseDate = latestReleaseDate;
@@ -46,6 +48,7 @@ namespace BlasModInstaller.Mods
             githubRepo = data.githubRepo;
             pluginFile = data.pluginFile;
             requiredDlls = data.requiredDlls;
+            dependencies = data.dependencies;
             this.latestVersion = latestVersion;
             this.latestDownloadURL = latestDownloadURL;
             this.latestReleaseDate = latestReleaseDate;

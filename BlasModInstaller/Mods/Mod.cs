@@ -1,9 +1,12 @@
 ﻿using BlasModInstaller.Loading;
 using Ionic.Zip;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Text;
 using System.Windows.Forms;
 
 namespace BlasModInstaller.Mods
@@ -126,7 +129,8 @@ namespace BlasModInstaller.Mods
                     file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
             }
 
-            UpdateUI();
+            Disable();
+            Enable();
         }
 
         public void Uninstall()
@@ -149,24 +153,17 @@ namespace BlasModInstaller.Mods
                 Directory.Delete(PathToLevelsFolder, true);
 
             if (Data.requiredDlls != null && Data.requiredDlls.Length > 0)
-            {
-                ModLoader modLoader = ModPage.Loader as ModLoader;
-                foreach (string dll in Data.requiredDlls)
-                {
-                    if (modLoader.InstalledModsThatRequireDll(dll) == 0)
-                    {
-                        string dllPath = RootFolder + "/Modding/data/" + dll;
-                        if (File.Exists(dllPath))
-                            File.Delete(dllPath);
-                    }
-                }
-            }
+                RemoveUnusedDlls();
 
             UpdateUI();
         }
 
         public void Enable()
         {
+            // Check for dependencies first
+            if (!AreDependenciesEnabled())
+                return;
+
             string enabled = PathToEnabledPlugin;
             string disabled = PathToDisabledPlugin;
             if (File.Exists(disabled))
@@ -193,6 +190,54 @@ namespace BlasModInstaller.Mods
             }
 
             UpdateUI();
+        }
+
+        // Helper methods
+
+        private void RemoveUnusedDlls()
+        {
+            ModLoader modLoader = ModPage.Loader as ModLoader;
+            foreach (string dll in Data.requiredDlls)
+            {
+                if (modLoader.InstalledModsThatRequireDll(dll) == 0)
+                {
+                    string dllPath = RootFolder + "/Modding/data/" + dll;
+                    if (File.Exists(dllPath))
+                        File.Delete(dllPath);
+                }
+            }
+        }
+
+        private bool AreDependenciesEnabled()
+        {
+            ModLoader modLoader = ModPage.Loader as ModLoader;
+            IEnumerable<Mod> dependencies = modLoader.GetModDependencies(this);
+
+            if (dependencies.Count() == 0)
+                return true;
+
+            // Build list of mod names
+            var sb = new StringBuilder("This mod has dependencies on the following mods:").AppendLine();
+            foreach (var mod in dependencies)
+                sb.Append("- ").AppendLine(mod.Data.name);
+            sb.AppendLine().Append("Download and enable them now?");
+
+            // Prompt if they want to download dependencies
+            if (MessageBox.Show(sb.ToString(), Data.name, MessageBoxButtons.OKCancel) != DialogResult.OK)
+                return false;
+
+            // Download and enable all dependencies
+            Core.UIHandler.Log("Installing dependencies for " + Data.name);
+            foreach (Mod mod in dependencies)
+            {
+                if (mod.UpdateAvailable)
+                    mod.Uninstall();
+                if (!mod.Installed)
+                    mod.Install();
+                mod.Enable();
+            }
+
+            return true;
         }
 
         // Click methods
