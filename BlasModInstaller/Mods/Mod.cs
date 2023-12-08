@@ -1,9 +1,13 @@
 ﻿using BlasModInstaller.Loading;
 using Ionic.Zip;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BlasModInstaller.Mods
@@ -30,17 +34,11 @@ namespace BlasModInstaller.Mods
         private InstallerPage ModPage => _modType == SectionType.Blas1Mods ? Core.Blas1ModPage : Core.Blas2ModPage;
         private SortType ModSort => _modType == SectionType.Blas1Mods ? Core.SettingsHandler.Config.Blas1ModSort : Core.SettingsHandler.Config.Blas2ModSort;
 
-        public bool RequiresDll(string dllName)
-        {
-            if (Data.requiredDlls == null) return false;
+        public bool RequiresDll(string dllName) =>
+            Data.requiredDlls != null && Data.requiredDlls.Contains(dllName);
 
-            foreach (string dll in Data.requiredDlls)
-            {
-                if (dll == dllName)
-                    return true;
-            }
-            return false;
-        }
+        public bool HasDependency(string modName) =>
+            Data.dependencies != null && Data.dependencies.Contains(modName);
 
         public bool Installed => File.Exists(PathToEnabledPlugin) || File.Exists(PathToDisabledPlugin);
         public bool Enabled => File.Exists(PathToEnabledPlugin);
@@ -96,8 +94,12 @@ namespace BlasModInstaller.Mods
 
         // Main methods
 
-        public async void Install()
+        public async void Install(bool skipDepend)
         {
+            // Check for dependencies first
+            if (!skipDepend && !AreDependenciesEnabled())
+                return;
+
             string installPath = RootFolder + "/Modding";
             Directory.CreateDirectory(installPath);
 
@@ -107,16 +109,7 @@ namespace BlasModInstaller.Mods
             // If it was missing, download it from web to cache
             if (!zipExists)
             {
-                Core.UIHandler.Log("Downloading mod data from web");
-                using (WebClient client = new WebClient())
-                {
-                    _downloading = true;
-                    _ui.ShowDownloadingStatus();
-
-                    await client.DownloadFileTaskAsync(new Uri(Data.latestDownloadURL), zipCache);
-                    
-                    _downloading = false;
-                }
+                await DownloadMod(zipCache);
             }
 
             // Extract data in cache to game folder
@@ -129,8 +122,26 @@ namespace BlasModInstaller.Mods
             UpdateUI();
         }
 
-        public void Uninstall()
+        private async Task DownloadMod(string zipCache)
         {
+            Core.UIHandler.Log("Downloading mod data from web");
+            using (WebClient client = new WebClient())
+            {
+                _downloading = true;
+                _ui.ShowDownloadingStatus();
+
+                await client.DownloadFileTaskAsync(new Uri(Data.latestDownloadURL), zipCache);
+
+                _downloading = false;
+            }
+        }
+
+        public void Uninstall(bool skipDepend)
+        {
+            // Check for dependents first
+            if (!skipDepend && !AreDependentsDisabled())
+                return;
+
             if (File.Exists(PathToEnabledPlugin))
                 File.Delete(PathToEnabledPlugin);
             if (File.Exists(PathToDisabledPlugin))
@@ -148,25 +159,16 @@ namespace BlasModInstaller.Mods
             if (Directory.Exists(PathToLevelsFolder))
                 Directory.Delete(PathToLevelsFolder, true);
 
-            if (Data.requiredDlls != null && Data.requiredDlls.Length > 0)
-            {
-                ModLoader modLoader = ModPage.Loader as ModLoader;
-                foreach (string dll in Data.requiredDlls)
-                {
-                    if (modLoader.InstalledModsThatRequireDll(dll) == 0)
-                    {
-                        string dllPath = RootFolder + "/Modding/data/" + dll;
-                        if (File.Exists(dllPath))
-                            File.Delete(dllPath);
-                    }
-                }
-            }
-
+            RemoveUnusedDlls();
             UpdateUI();
         }
 
-        public void Enable()
+        public void Enable(bool skipDepend)
         {
+            // Check for dependencies first
+            if (!skipDepend && !AreDependenciesEnabled())
+                return;
+
             string enabled = PathToEnabledPlugin;
             string disabled = PathToDisabledPlugin;
             if (File.Exists(disabled))
@@ -180,8 +182,12 @@ namespace BlasModInstaller.Mods
             UpdateUI();
         }
 
-        public void Disable()
+        public void Disable(bool skipDepend)
         {
+            // Check for dependents first
+            if (!skipDepend && !AreDependentsDisabled())
+                return;
+
             string enabled = PathToEnabledPlugin;
             string disabled = PathToDisabledPlugin;
             if (File.Exists(enabled))
@@ -195,6 +201,81 @@ namespace BlasModInstaller.Mods
             UpdateUI();
         }
 
+        // Helper methods
+
+        private void RemoveUnusedDlls()
+        {
+            ModLoader modLoader = ModPage.Loader as ModLoader;
+            IEnumerable<string> unused = modLoader.GetUnusedDlls(this);
+
+            foreach (string dll in unused)
+            {
+                string dllPath = RootFolder + "/Modding/data/" + dll;
+                if (File.Exists(dllPath))
+                    File.Delete(dllPath);
+            }
+        }
+
+        private bool AreDependenciesEnabled()
+        {
+            ModLoader modLoader = ModPage.Loader as ModLoader;
+            IEnumerable<Mod> dependencies = modLoader.GetModDependencies(this);
+
+            if (!dependencies.Any())
+                return true;
+
+            // Build list of mod names
+            var sb = new StringBuilder("This mod has dependencies on the following mods:").AppendLine();
+            foreach (var mod in dependencies)
+                sb.Append("- ").AppendLine(mod.Data.name);
+            sb.AppendLine().Append("Download and enable them now?");
+
+            // Prompt if they want to download dependencies
+            if (MessageBox.Show(sb.ToString(), Data.name, MessageBoxButtons.OKCancel) != DialogResult.OK)
+                return false;
+
+            // Download and enable all dependencies
+            Core.UIHandler.Log("Enabling dependencies for " + Data.name);
+            foreach (Mod mod in dependencies)
+            {
+                if (mod.UpdateAvailable)
+                    mod.Uninstall(true);
+                if (!mod.Installed)
+                    mod.Install(true);
+                mod.Enable(true);
+            }
+
+            return true;
+        }
+
+        private bool AreDependentsDisabled()
+        {
+            ModLoader modLoader = ModPage.Loader as ModLoader;
+            IEnumerable<Mod> dependents = modLoader.GetModDependents(this);
+
+            if (!dependents.Any())
+                return true;
+
+            // Build list of mod names
+            var sb = new StringBuilder("This mod has dependents that rely on it:").AppendLine();
+            foreach (var mod in dependents)
+                sb.Append("- ").AppendLine(mod.Data.name);
+            sb.AppendLine().Append("Disable them now?");
+
+            // Prompt if they want to disable dependencies
+            if (MessageBox.Show(sb.ToString(), Data.name, MessageBoxButtons.OKCancel) != DialogResult.OK)
+                return false;
+
+            // Disable all dependencies
+            Core.UIHandler.Log("Disabling dependents for " + Data.name);
+            foreach (Mod mod in dependents)
+            {
+                mod.Disable(true);
+            }
+
+            return true;
+        }
+
         // Click methods
 
         public void ClickedInstall(object sender, EventArgs e)
@@ -204,26 +285,26 @@ namespace BlasModInstaller.Mods
             if (Installed)
             {
                 if (MessageBox.Show("Are you sure you want to uninstall this mod?", Data.name, MessageBoxButtons.OKCancel) == DialogResult.OK)
-                    Uninstall();
+                    Uninstall(false);
             }
             else
             {
-                Install();
+                Install(false);
             }
         }
 
         public void ClickedEnable(object sender, EventArgs e)
         {
             if (Enabled)
-                Disable();
+                Disable(false);
             else
-                Enable();
+                Enable(false);
         }
 
         public void ClickedUpdate(object sender, EventArgs e)
         {
-            Uninstall();
-            Install();
+            Uninstall(true);
+            Install(false);
         }
 
         public void ClickedReadme(object sender, EventArgs e)

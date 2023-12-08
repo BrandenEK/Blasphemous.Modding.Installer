@@ -25,8 +25,8 @@ namespace BlasModInstaller.Grouping
             Core.UIHandler.Log("Installing all mods");
             foreach (Mod mod in toInstall)
             {
-                mod.Uninstall();
-                mod.Install();
+                mod.Uninstall(true);
+                mod.Install(true);
             }
         }
 
@@ -40,7 +40,7 @@ namespace BlasModInstaller.Grouping
             Core.UIHandler.Log("Uninstalling all mods");
             foreach (Mod mod in toUninstall)
             {
-                mod.Uninstall();
+                mod.Uninstall(true);
             }
         }
 
@@ -54,7 +54,7 @@ namespace BlasModInstaller.Grouping
             Core.UIHandler.Log("Enabling all mods");
             foreach (Mod mod in toEnable)
             {
-                mod.Enable();
+                mod.Enable(true);
             }
         }
 
@@ -68,7 +68,7 @@ namespace BlasModInstaller.Grouping
             Core.UIHandler.Log("Disabling all mods");
             foreach (Mod mod in toDisable)
             {
-                mod.Disable();
+                mod.Disable(true);
             }
         }
 

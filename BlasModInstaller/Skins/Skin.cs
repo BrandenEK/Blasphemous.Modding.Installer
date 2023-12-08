@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BlasModInstaller.Skins
@@ -90,17 +91,7 @@ namespace BlasModInstaller.Skins
             // If they were missing, download them from web to cache
             if (!infoExists || !textureExists)
             {
-                Core.UIHandler.Log("Downloading skin texture from web");
-                using (WebClient client = new WebClient())
-                {
-                    _downloading = true;
-                    _ui.ShowDownloadingStatus();
-
-                    await client.DownloadFileTaskAsync(new Uri(InfoURL), infoCache);
-                    await client.DownloadFileTaskAsync(new Uri(TextureURL), textureCache);
-                    
-                    _downloading = false;
-                }
+                await DownloadSkin(infoCache, textureCache);
             }
 
             // Copy files from cache to game folder
@@ -108,6 +99,21 @@ namespace BlasModInstaller.Skins
             File.Copy(textureCache, installPath + "/texture.png");
 
             UpdateUI();
+        }
+
+        private async Task DownloadSkin(string infoCache, string textureCache)
+        {
+            Core.UIHandler.Log("Downloading skin texture from web");
+            using (WebClient client = new WebClient())
+            {
+                _downloading = true;
+                _ui.ShowDownloadingStatus();
+
+                await client.DownloadFileTaskAsync(new Uri(InfoURL), infoCache);
+                await client.DownloadFileTaskAsync(new Uri(TextureURL), textureCache);
+
+                _downloading = false;
+            }
         }
 
         public void Uninstall()
