@@ -58,5 +58,16 @@
     "GithubRepo": "BlasII.QualityOfLife",
     "PluginFile": "QualityOfLife.dll",
     "Dependencies": [ "Modding API" ]
+  },
+  {
+    "Name": "Rando Map",
+    "Author": "Damocles",
+    "Description": "An in-game map tracker for the Blasphemous 2 Randomizer",
+    "InitialReleaseDate": "2023-12-30",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "BlasII.Randomizer.Map",
+    "PluginFile": "RandoMap.dll",
+    "RequiredDlls": [ "LogicParser.dll" ],
+    "Dependencies": [ "Modding API", "Quality of Life", "Randomizer" ]
   }
 ]
