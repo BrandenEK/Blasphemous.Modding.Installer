@@ -103,7 +103,7 @@ namespace BlasModInstaller.Skins
 
         private async Task DownloadSkin(string infoCache, string textureCache)
         {
-            Core.UIHandler.Log("Downloading skin texture from web");
+            Logger.Warn($"Downloading skin texture ({Data.name}) from web");
             using (WebClient client = new WebClient())
             {
                 _downloading = true;

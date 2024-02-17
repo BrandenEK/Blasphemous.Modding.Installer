@@ -32,7 +32,7 @@ namespace BlasModInstaller
             }
             catch (Exception e)
             {
-                Core.UIHandler.Log($"Github failure: {e.Message}");
+                Logger.Error($"Github: {e}");
                 return null;
             }
         }
@@ -46,9 +46,9 @@ namespace BlasModInstaller
             {
                 return await _client.Repository.Content.GetAllContents(owner, repo);
             }
-            catch
+            catch (Exception e)
             {
-                Core.UIHandler.Log("API limit reached!");
+                Logger.Error($"Github: {e}");
                 return null;
             }
         }
@@ -62,9 +62,9 @@ namespace BlasModInstaller
             {
                 return await _client.Repository.Content.GetAllContents(owner, repo, path);
             }
-            catch
+            catch (Exception e)
             {
-                Core.UIHandler.Log("API limit reached!");
+                Logger.Error($"Github: {e}");
                 return null;
             }
         }
@@ -102,7 +102,7 @@ namespace BlasModInstaller
                 Core.UIHandler.UpdatePanelSetVisible(true);
             }
 
-            Core.UIHandler.Log("Remaining api calls: " + (_client.GetLastApiInfo()?.RateLimit.Remaining + 1));
+            Logger.Info("Remaining api calls: " + (_client.GetLastApiInfo()?.RateLimit.Remaining + 1));
         }
 
         /// <summary>

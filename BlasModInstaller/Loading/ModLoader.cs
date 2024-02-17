@@ -55,7 +55,7 @@ namespace BlasModInstaller.Loading
                 }
             }
 
-            Core.UIHandler.Log($"Loaded {_mods.Count} local mods");
+            Logger.Warn($"Loaded {_mods.Count} local mods");
             _uiHolder.SetBackgroundColor();
             _sorter.Sort();
         }
@@ -95,7 +95,7 @@ namespace BlasModInstaller.Loading
                     }
                 }
 
-                Core.UIHandler.Log($"Loaded {remoteData.Length} global mods");
+                Logger.Warn($"Loaded {remoteData.Length} global mods");
                 _mods.Clear();
                 _mods.AddRange(newMods);
             }

@@ -33,7 +33,7 @@ namespace BlasModInstaller.Previewing
             // If it was missing, download it from web to cache
             if (!previewExists)
             {
-                Core.UIHandler.Log("Downloading skin preview from web");
+                Logger.Warn($"Downloading skin preview ({skin.Data.name}) from web");
                 using (WebClient client = new WebClient())
                 {
                     try
@@ -43,7 +43,7 @@ namespace BlasModInstaller.Previewing
                     }
                     catch (Exception e)
                     {
-                        Core.UIHandler.Log("Failed to load skin preview: " + e.Message);
+                        Logger.Error("Failed to load skin preview: " + e.Message);
                         return Resources.warning;
                     }
                 }

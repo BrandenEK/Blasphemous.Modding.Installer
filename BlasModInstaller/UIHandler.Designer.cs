@@ -39,7 +39,6 @@ namespace BlasModInstaller
             this.mainSection = new System.Windows.Forms.Panel();
             this.titleSectionOuter = new System.Windows.Forms.Panel();
             this.titleSectionInner = new System.Windows.Forms.Panel();
-            this.debugLog = new System.Windows.Forms.TextBox();
             this.warningSectionOuter = new System.Windows.Forms.Panel();
             this.warningSectionInner = new System.Windows.Forms.Panel();
             this.warningText = new System.Windows.Forms.LinkLabel();
@@ -204,25 +203,12 @@ namespace BlasModInstaller
             this.titleSectionInner.BackColor = System.Drawing.Color.Maroon;
             this.titleSectionInner.BackgroundImage = global::BlasModInstaller.Properties.Resources.background1;
             this.titleSectionInner.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.titleSectionInner.Controls.Add(this.debugLog);
             this.titleSectionInner.Controls.Add(this.warningSectionOuter);
             this.titleSectionInner.Controls.Add(this.titleLabel);
             this.titleSectionInner.Location = new System.Drawing.Point(0, 0);
             this.titleSectionInner.Name = "titleSectionInner";
             this.titleSectionInner.Size = new System.Drawing.Size(1150, 118);
             this.titleSectionInner.TabIndex = 1;
-            // 
-            // debugLog
-            // 
-            this.debugLog.BackColor = System.Drawing.Color.Black;
-            this.debugLog.ForeColor = System.Drawing.SystemColors.Menu;
-            this.debugLog.Location = new System.Drawing.Point(10, 12);
-            this.debugLog.Multiline = true;
-            this.debugLog.Name = "debugLog";
-            this.debugLog.ReadOnly = true;
-            this.debugLog.Size = new System.Drawing.Size(253, 98);
-            this.debugLog.TabIndex = 0;
-            this.debugLog.Visible = false;
             // 
             // warningSectionOuter
             // 
@@ -784,7 +770,6 @@ namespace BlasModInstaller
             this.mainSection.ResumeLayout(false);
             this.titleSectionOuter.ResumeLayout(false);
             this.titleSectionInner.ResumeLayout(false);
-            this.titleSectionInner.PerformLayout();
             this.warningSectionOuter.ResumeLayout(false);
             this.warningSectionInner.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.warningImage)).EndInit();
@@ -818,7 +803,6 @@ namespace BlasModInstaller
         private System.Windows.Forms.Button pageb1mBtn;
         private System.Windows.Forms.Button pageb1sBtn;
         private System.Windows.Forms.Button pageb2mBtn;
-        private System.Windows.Forms.TextBox debugLog;
         private System.Windows.Forms.Panel blas2modSection;
         private System.Windows.Forms.VScrollBar blas2modScroll;
         private System.Windows.Forms.PictureBox warningImage;
