@@ -5,7 +5,7 @@
     "Description": "An API that is required for almost all other mods and allows for custom skins",
     "InitialReleaseDate": "2023-02-22",
     "GithubAuthor": "BrandenEK",
-    "GithubRepo": "Blasphemous-Modding-API",
+    "GithubRepo": "Blasphemous.ModdingAPI",
     "PluginFile": "ModdingAPI.dll"
   },
   {
