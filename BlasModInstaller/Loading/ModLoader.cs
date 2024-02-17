@@ -71,6 +71,7 @@ namespace BlasModInstaller.Loading
 
                 foreach (var data in remoteData)
                 {
+                    Core.UIHandler.Log($"Getting latest release for {data.name}");
                     Octokit.Release latestRelease = await Core.GithubHandler.GetLatestReleaseAsync(data.githubAuthor, data.githubRepo);
                     if (latestRelease is null)
                         return;

@@ -30,9 +30,9 @@ namespace BlasModInstaller
             {
                 return await _client.Repository.Release.GetLatest(owner, repo);
             }
-            catch
+            catch (Exception e)
             {
-                Core.UIHandler.Log("API limit reached!");
+                Core.UIHandler.Log($"Github failure: {e.Message}");
                 return null;
             }
         }
