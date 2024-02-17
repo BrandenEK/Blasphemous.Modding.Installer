@@ -21,12 +21,10 @@ namespace BlasModInstaller
         [STAThread]
         static void Main()
         {
-            Logger.Show();
-            //Logger.Hide();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Logger.Show();
 
-            Logger.Warn("enabled console");
             UIHandler = new UIHandler();
             SettingsHandler = new SettingsHandler(Environment.CurrentDirectory + "/installer.cfg");
             GithubHandler = new GithubHandler(SettingsHandler.Config.GithubToken);
