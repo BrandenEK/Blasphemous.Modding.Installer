@@ -50,6 +50,9 @@
   <PropertyGroup>
     <ApplicationIcon>blasphemous.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
@@ -89,6 +92,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="GithubHandler.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Mods\ModData.cs" />
     <Compile Include="Previewing\IPreviewer.cs" />
     <Compile Include="Previewing\ModPreviewer.cs" />
