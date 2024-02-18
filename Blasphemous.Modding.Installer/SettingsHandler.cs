@@ -55,7 +55,6 @@ internal class SettingsHandler
         {
             Blas1RootFolder = cfg.Blas1RootFolder,
             Blas2RootFolder = cfg.Blas2RootFolder,
-            GithubToken = cfg.GithubToken,
             CurrentSection = (SectionType)Settings.Default.LastSection,
             Blas1ModSort = (SortType)Settings.Default.Blas1ModSort,
             Blas1SkinSort = (SortType)Settings.Default.Blas1SkinSort,

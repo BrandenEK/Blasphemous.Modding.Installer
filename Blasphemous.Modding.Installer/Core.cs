@@ -13,15 +13,17 @@ namespace Blasphemous.Modding.Installer;
 static class Core
 {
     [STAThread]
-    static void Main()
+    static void Main(string[] args)
     {
+        string? githubToken = args.Length > 0 ? args[0] : null;
+
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
         Logger.Show();
 
         UIHandler = new UIHandler();
         SettingsHandler = new SettingsHandler(Environment.CurrentDirectory + "/installer.cfg");
-        GithubHandler = new GithubHandler(null);
+        GithubHandler = new GithubHandler(githubToken);
 
         List<Mod> blas1mods = new List<Mod>();
         List<Skin> blas1skins = new List<Skin>();

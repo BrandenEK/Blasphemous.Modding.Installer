@@ -6,12 +6,12 @@ namespace Blasphemous.Modding.Installer;
 internal class GithubHandler
 {
     private readonly GitHubClient _client;
-    private string _installerLatestReleaseLink;
+    private string? _installerLatestReleaseLink;
 
     /// <summary>
     /// Initializes a new github client and checks for a newer version of the installer
     /// </summary>
-    public GithubHandler(string githubToken)
+    public GithubHandler(string? githubToken)
     {
         _client = CreateGithubClient(githubToken);
         CheckForNewerInstallerRelease();
@@ -68,9 +68,9 @@ internal class GithubHandler
     /// <summary>
     /// Creates a new github client with the token
     /// </summary>
-    private GitHubClient CreateGithubClient(string githubToken)
+    private GitHubClient CreateGithubClient(string? githubToken)
     {
-        GitHubClient client = new GitHubClient(new ProductHeaderValue("BlasModInstaller"));
+        GitHubClient client = new(new ProductHeaderValue("BlasModInstaller"));
 
         if (!string.IsNullOrEmpty(githubToken))
         {
@@ -109,7 +109,7 @@ internal class GithubHandler
     {
         try
         {
-            Process.Start(_installerLatestReleaseLink);
+            Process.Start(_installerLatestReleaseLink!);
         }
         catch
         {
