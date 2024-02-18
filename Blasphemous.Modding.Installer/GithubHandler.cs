@@ -90,9 +90,10 @@ internal class GithubHandler
         if (latestRelease is null)
             return;
 
+        Version currentVersion = Core.CurrentVersion;
         Version newestVersion = CleanSemanticVersion(latestRelease.TagName);
 
-        if (newestVersion.CompareTo(Core.CurrentInstallerVersion) > 0)
+        if (newestVersion.CompareTo(currentVersion) > 0)
         {
             _installerLatestReleaseLink = latestRelease.HtmlUrl;
             Core.UIHandler.UpdatePanelSetVisible(true);

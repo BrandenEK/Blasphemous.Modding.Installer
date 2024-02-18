@@ -106,7 +106,5 @@ static class Core
 
     public static string DataCache => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/BlasModInstaller";
 
-    // Don't forget to increase this when releasing an update!  Have to do it here
-    // because I'm not sure how to increase file version for windows forms
-    public static Version CurrentInstallerVersion => new Version(1, 3, 1);
+    public static Version CurrentVersion => System.Reflection.Assembly.GetExecutingAssembly().GetName().Version ?? new(0, 1, 0);
 }
