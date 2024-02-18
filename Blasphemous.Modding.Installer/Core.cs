@@ -2,6 +2,7 @@
 using Blasphemous.Modding.Installer.Loading;
 using Blasphemous.Modding.Installer.Mods;
 using Blasphemous.Modding.Installer.Previewing;
+using Blasphemous.Modding.Installer.Properties;
 using Blasphemous.Modding.Installer.Skins;
 using Blasphemous.Modding.Installer.Sorting;
 using Blasphemous.Modding.Installer.UIHolding;
