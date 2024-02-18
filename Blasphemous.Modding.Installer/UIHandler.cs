@@ -179,7 +179,10 @@ public partial class UIHandler : Form
         divider3.Visible = validated;
 
         detailsSectionOuter.Visible = validated;
+        changePathBtn.Visible = validated;
     }
+
+    private void ClickInstallerUpdateLink(object sender, LinkLabelLinkClickedEventArgs e) => Core.GithubHandler.OpenInstallerLink();
 
     #region Side section top
 
@@ -243,17 +246,14 @@ public partial class UIHandler : Form
         Core.CurrentPage.Grouper.DisableAll();
     }
 
-    private void ClickInstallerUpdateLink(object sender, LinkLabelLinkClickedEventArgs e) => Core.GithubHandler.OpenInstallerLink();
-
     #endregion Side section bottom
 
-    private void ClickedDisordLink(object sender, LinkLabelLinkClickedEventArgs e)
-    {
+    #region Side section lower
 
+    private void ClickedChangePath(object sender, EventArgs e)
+    {
+        Logger.Error("Changing path");
     }
 
-    private void ClickedGithubLink(object sender, LinkLabelLinkClickedEventArgs e)
-    {
-
-    }
+    #endregion Side section lower
 }
