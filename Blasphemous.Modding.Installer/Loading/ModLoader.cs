@@ -1,6 +1,7 @@
 ﻿using Blasphemous.Modding.Installer.Mods;
 using Blasphemous.Modding.Installer.Sorting;
 using Blasphemous.Modding.Installer.UIHolding;
+using Newtonsoft.Json;
 
 namespace Blasphemous.Modding.Installer.Loading;
 

@@ -1,4 +1,6 @@
-﻿namespace Blasphemous.Modding.Installer.Skins;
+﻿using Newtonsoft.Json;
+
+namespace Blasphemous.Modding.Installer.Skins;
 
 internal class SkinData
 {

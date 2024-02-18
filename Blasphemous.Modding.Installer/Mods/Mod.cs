@@ -1,4 +1,5 @@
 ﻿using Blasphemous.Modding.Installer.Loading;
+using Ionic.Zip;
 using System.Diagnostics;
 using System.Net;
 using System.Text;

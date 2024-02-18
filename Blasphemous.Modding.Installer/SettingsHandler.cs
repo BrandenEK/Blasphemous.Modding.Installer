@@ -1,4 +1,7 @@
-﻿namespace Blasphemous.Modding.Installer;
+﻿using Blasphemous.Modding.Installer.Properties;
+using Newtonsoft.Json;
+
+namespace Blasphemous.Modding.Installer;
 
 internal class SettingsHandler
 {

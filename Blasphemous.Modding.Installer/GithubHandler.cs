@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Octokit;
+using System.Diagnostics;
 
 namespace Blasphemous.Modding.Installer;
 

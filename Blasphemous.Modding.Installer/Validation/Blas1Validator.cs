@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using Ionic.Zip;
+using System.Net;
 
 namespace Blasphemous.Modding.Installer.Validation;
 

@@ -1,4 +1,6 @@
-﻿namespace Blasphemous.Modding.Installer.Mods;
+﻿using Newtonsoft.Json;
+
+namespace Blasphemous.Modding.Installer.Mods;
 
 internal class ModData
 {

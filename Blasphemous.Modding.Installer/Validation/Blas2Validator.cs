@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Ionic.Zip;
+using System.Diagnostics;
 using System.Net;
 
 namespace Blasphemous.Modding.Installer.Validation;
