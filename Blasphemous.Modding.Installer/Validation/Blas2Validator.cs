@@ -72,5 +72,7 @@ internal class Blas2Validator : IValidator
     }
 
     public string ExeName => _exeName;
-    public string DefaultPath => _defaultPath;
+    public string DefaultPath => string.IsNullOrEmpty(Core.SettingsHandler.Properties.Blas2RootFolder)
+        ? _defaultPath
+        : Core.SettingsHandler.Properties.Blas2RootFolder;
 }
