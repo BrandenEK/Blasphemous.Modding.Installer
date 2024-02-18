@@ -54,7 +54,7 @@ namespace BlasModInstaller.Loading
                 }
             }
 
-            Core.UIHandler.Log($"Loaded {_skins.Count} local skins");
+            Logger.Warn($"Loaded {_skins.Count} local skins");
             _uiHolder.SetBackgroundColor();
             _sorter.Sort();
         }
@@ -89,7 +89,7 @@ namespace BlasModInstaller.Loading
                     }
                 }
 
-                Core.UIHandler.Log($"Loaded {contents.Count} global skins");
+                Logger.Warn($"Loaded {contents.Count} global skins");
                 _skins.Clear();
                 _skins.AddRange(newSkins);
             }

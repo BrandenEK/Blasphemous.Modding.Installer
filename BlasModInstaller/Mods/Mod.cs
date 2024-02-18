@@ -124,7 +124,7 @@ namespace BlasModInstaller.Mods
 
         private async Task DownloadMod(string zipCache)
         {
-            Core.UIHandler.Log("Downloading mod data from web");
+            Logger.Warn($"Downloading mod ({Data.name}) from web");
             using (WebClient client = new WebClient())
             {
                 _downloading = true;
@@ -235,7 +235,7 @@ namespace BlasModInstaller.Mods
                 return false;
 
             // Download and enable all dependencies
-            Core.UIHandler.Log("Enabling dependencies for " + Data.name);
+            Logger.Info("Enabling dependencies for " + Data.name);
             foreach (Mod mod in dependencies)
             {
                 if (mod.UpdateAvailable)
@@ -267,7 +267,7 @@ namespace BlasModInstaller.Mods
                 return false;
 
             // Disable all dependencies
-            Core.UIHandler.Log("Disabling dependents for " + Data.name);
+            Logger.Info("Disabling dependents for " + Data.name);
             foreach (Mod mod in dependents)
             {
                 mod.Disable(true);

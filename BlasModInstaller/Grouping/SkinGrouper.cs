@@ -23,7 +23,7 @@ namespace BlasModInstaller.Grouping
             if (!UIHandler.PromptQuestion(_title, $"Are you sure you wish to install {toInstall.Count()} skins?"))
                 return;
 
-            Core.UIHandler.Log("Installing all skins");
+            Logger.Info("Installing all skins");
             foreach (Skin skin in toInstall)
             {
                 skin.Uninstall();
@@ -38,7 +38,7 @@ namespace BlasModInstaller.Grouping
             if (!UIHandler.PromptQuestion(_title, $"Are you sure you wish to uninstall {toUninstall.Count()} skins?"))
                 return;
 
-            Core.UIHandler.Log("Uninstalling all mods");
+            Logger.Info("Uninstalling all mods");
             foreach (Skin skin in toUninstall)
             {
                 skin.Uninstall();

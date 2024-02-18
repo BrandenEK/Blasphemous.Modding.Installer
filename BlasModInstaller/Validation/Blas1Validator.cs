@@ -19,7 +19,7 @@ namespace BlasModInstaller.Validation
             // If tools dont already exist in cache, download from web
             if (!File.Exists(toolsCache))
             {
-                Core.UIHandler.Log("Downloading tools from web");
+                Logger.Warn("Downloading blas1 tools from web");
                 using (WebClient client = new WebClient())
                 {
                     string toolsPath = "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools.zip";

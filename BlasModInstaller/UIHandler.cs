@@ -43,10 +43,6 @@ namespace BlasModInstaller
 
         public void UpdatePanelSetVisible(bool visible) => warningSectionOuter.Visible = visible;
 
-        // Debug status
-
-        public void DebugLogSetVisible(bool visible) => debugLog.Visible = visible;
-
         // Validation screen
 
         private void ClickLocationButton(object sender, EventArgs e)
@@ -101,25 +97,13 @@ namespace BlasModInstaller
             }
             catch (NullReferenceException)
             {
-                Log("Pages not initialized yet, skipping resizing!");
+                Logger.Error("Pages not initialized yet, skipping resizing!");
             }
         }
 
         public void RemoveButtonFocus(object sender, EventArgs e)
         {
             titleLabel.Focus();
-        }
-
-        public void Log(string message)
-        {
-            if (!Core.SettingsHandler.Config.DebugMode)
-                return;
-
-            debugLog.Text += message + "\r\n";
-            debugLog.SelectionLength = 0;
-            debugLog.SelectionStart = debugLog.Text.Length;
-            debugLog.Focus();
-            debugLog.ScrollToCaret();
         }
 
         private void ShowSideButtonBorder(object sender, EventArgs e)
@@ -158,7 +142,7 @@ namespace BlasModInstaller
             bool toolsUpdated = toolsInstalled && currentPage.Validator.AreModdingToolsUpdated;
 
             bool validated = toolsUpdated;
-            Log("Modding status validation: " + validated);
+            Logger.Info("Modding status validation: " + validated);
 
             if (validated)
             {

@@ -23,6 +23,7 @@ namespace BlasModInstaller
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Logger.Show();
 
             UIHandler = new UIHandler();
             SettingsHandler = new SettingsHandler(Environment.CurrentDirectory + "/installer.cfg");

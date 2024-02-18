@@ -16,7 +16,6 @@ namespace BlasModInstaller
             _configPath = configPath;
 
             LoadConfigSettings();
-            Core.UIHandler.DebugLogSetVisible(Config.DebugMode);
         }
 
         public void LoadConfigSettings()

@@ -22,7 +22,7 @@ namespace BlasModInstaller.Grouping
             if (!UIHandler.PromptQuestion(_title, $"Are you sure you wish to install {toInstall.Count()} mods?"))
                 return;
 
-            Core.UIHandler.Log("Installing all mods");
+            Logger.Info("Installing all mods");
             foreach (Mod mod in toInstall)
             {
                 mod.Uninstall(true);
@@ -37,7 +37,7 @@ namespace BlasModInstaller.Grouping
             if (!UIHandler.PromptQuestion(_title, $"Are you sure you wish to uninstall {toUninstall.Count()} mods?"))
                 return;
 
-            Core.UIHandler.Log("Uninstalling all mods");
+            Logger.Info("Uninstalling all mods");
             foreach (Mod mod in toUninstall)
             {
                 mod.Uninstall(true);
@@ -51,7 +51,7 @@ namespace BlasModInstaller.Grouping
             if (!UIHandler.PromptQuestion(_title, $"Are you sure you wish to enable {toEnable.Count()} mods?"))
                 return;
 
-            Core.UIHandler.Log("Enabling all mods");
+            Logger.Info("Enabling all mods");
             foreach (Mod mod in toEnable)
             {
                 mod.Enable(true);
@@ -65,7 +65,7 @@ namespace BlasModInstaller.Grouping
             if (!UIHandler.PromptQuestion(_title, $"Are you sure you wish to disable {toDisable.Count()} mods?"))
                 return;
 
-            Core.UIHandler.Log("Disabling all mods");
+            Logger.Info("Disabling all mods");
             foreach (Mod mod in toDisable)
             {
                 mod.Disable(true);
