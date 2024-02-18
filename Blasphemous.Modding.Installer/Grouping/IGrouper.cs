@@ -11,6 +11,8 @@ internal interface IGrouper
 
     void DisableAll();
 
+    void RefreshAll();
+
     bool CanInstall { get; }
     bool CanEnable { get; }
 

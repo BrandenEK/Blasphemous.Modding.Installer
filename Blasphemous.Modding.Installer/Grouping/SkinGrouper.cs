@@ -52,6 +52,12 @@ internal class SkinGrouper : IGrouper
         throw new NotImplementedException();
     }
 
+    public void RefreshAll()
+    {
+        foreach (var skin in _skins)
+            skin.UpdateUI();
+    }
+
     public bool CanInstall => true;
     public bool CanEnable => false;
 

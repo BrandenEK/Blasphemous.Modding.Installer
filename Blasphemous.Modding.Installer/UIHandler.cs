@@ -165,6 +165,9 @@ public partial class UIHandler : Form
             if (page != currentPage)
                 page.UIHolder.SectionPanel.Visible = false;
 
+        // Refresh all ui elements on the page
+        currentPage.Grouper.RefreshAll();
+
         // Only show side buttons under certain conditions
         divider1.Visible = validated;
 
