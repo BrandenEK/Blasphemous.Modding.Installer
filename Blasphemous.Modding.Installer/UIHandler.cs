@@ -16,18 +16,17 @@ public partial class UIHandler : Form
     private void OnFormOpen(object sender, EventArgs e)
     {
         Text = "Blasphemous Mod Installer v" + Core.CurrentVersion.ToString(3);
-        Core.SettingsHandler.LoadWindowSettings();
+        Core.SettingsHandler.Load();
 
         foreach (var page in Core.AllPages)
             page.Previewer.Clear();
 
-        OpenSection(Core.SettingsHandler.Config.LastSection);
+        OpenSection(Core.SettingsHandler.Properties.CurrentSection);
     }
 
     private void OnFormClose(object sender, FormClosingEventArgs e)
     {
-        Core.SettingsHandler.SaveConfigSettings();
-        Core.SettingsHandler.SaveWindowSettings();
+        Core.SettingsHandler.Save();
     }
 
     public static bool PromptQuestion(string title, string question)
@@ -52,7 +51,7 @@ public partial class UIHandler : Form
         if (blasLocDialog.ShowDialog() == DialogResult.OK)
         {
             validator.SetRootPath(Path.GetDirectoryName(blasLocDialog.FileName));
-            OpenSection(Core.SettingsHandler.Config.LastSection);
+            OpenSection(Core.SettingsHandler.Properties.CurrentSection);
         }
     }
 
@@ -61,7 +60,7 @@ public partial class UIHandler : Form
         toolsBtn.Enabled = false;
         toolsBtn.Text = "Installing...";
         await Core.CurrentPage.Validator.InstallModdingTools();
-        OpenSection(Core.SettingsHandler.Config.LastSection);
+        OpenSection(Core.SettingsHandler.Properties.CurrentSection);
     }
 
     // ...
@@ -125,7 +124,7 @@ public partial class UIHandler : Form
     {
         Core.CurrentPage.Previewer.Clear();
 
-        Core.SettingsHandler.Config.LastSection = section;
+        Core.SettingsHandler.Properties.CurrentSection = section;
         var currentPage = Core.CurrentPage;
 
         // Update background and info
@@ -142,7 +141,7 @@ public partial class UIHandler : Form
 
         if (validated)
         {
-            SetSortByBox(Core.SettingsHandler.CurrentSortType);
+            SetSortByBox(Core.SettingsHandler.Properties.CurrentSort);
             currentPage.Loader.LoadAllData();
             validationSection.Visible = false;
         }
@@ -198,25 +197,25 @@ public partial class UIHandler : Form
 
     private void ClickedSortByName(object sender, EventArgs e)
     {
-        Core.SettingsHandler.CurrentSortType = SortType.Name;
+        Core.SettingsHandler.Properties.CurrentSort = SortType.Name;
         Core.CurrentPage.Sorter.Sort();
     }
 
     private void ClickedSortByAuthor(object sender, EventArgs e)
     {
-        Core.SettingsHandler.CurrentSortType = SortType.Author;
+        Core.SettingsHandler.Properties.CurrentSort = SortType.Author;
         Core.CurrentPage.Sorter.Sort();
     }
 
     private void ClickedSortByInitialRelease(object sender, EventArgs e)
     {
-        Core.SettingsHandler.CurrentSortType = SortType.InitialRelease;
+        Core.SettingsHandler.Properties.CurrentSort = SortType.InitialRelease;
         Core.CurrentPage.Sorter.Sort();
     }
 
     private void ClickedSortByLatestRelease(object sender, EventArgs e)
     {
-        Core.SettingsHandler.CurrentSortType = SortType.LatestRelease;
+        Core.SettingsHandler.Properties.CurrentSort = SortType.LatestRelease;
         Core.CurrentPage.Sorter.Sort();
     }
 

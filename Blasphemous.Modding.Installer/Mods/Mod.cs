@@ -25,8 +25,13 @@ internal class Mod : IComparable
 
     public ModData Data { get; set; }
 
-    private InstallerPage ModPage => _modType == SectionType.Blas1Mods ? Core.Blas1ModPage : Core.Blas2ModPage;
-    private SortType ModSort => _modType == SectionType.Blas1Mods ? Core.SettingsHandler.Config.Blas1ModSort : Core.SettingsHandler.Config.Blas2ModSort;
+    private InstallerPage ModPage => _modType == SectionType.Blas1Mods
+        ? Core.Blas1ModPage
+        : Core.Blas2ModPage;
+
+    private SortType ModSort => _modType == SectionType.Blas1Mods
+        ? Core.SettingsHandler.Properties.Blas1ModSort
+        : Core.SettingsHandler.Properties.Blas2ModSort;
 
     public bool RequiresDll(string dllName) =>
         Data.requiredDlls != null && Data.requiredDlls.Contains(dllName);
@@ -66,7 +71,7 @@ internal class Mod : IComparable
 
     // Paths
 
-    private string RootFolder => Core.SettingsHandler.GetRootPathBySection(_modType);
+    private string RootFolder => Core.SettingsHandler.Properties.GetRootPathBySection(_modType);
     public string GithubLink => $"https://github.com/{Data.githubAuthor}/{Data.githubRepo}";
 
     public string PathToEnabledPlugin => $"{RootFolder}/Modding/plugins/{Data.pluginFile}";

@@ -21,7 +21,7 @@ static class Core
 
         UIHandler = new UIHandler();
         SettingsHandler = new SettingsHandler(Environment.CurrentDirectory + "/installer.cfg");
-        GithubHandler = new GithubHandler(SettingsHandler.Config.GithubToken);
+        GithubHandler = new GithubHandler(null);
 
         List<Mod> blas1mods = new List<Mod>();
         List<Skin> blas1skins = new List<Skin>();
@@ -97,7 +97,7 @@ static class Core
 
     private static readonly Dictionary<SectionType, InstallerPage> _pages = new Dictionary<SectionType, InstallerPage>();
 
-    public static InstallerPage CurrentPage => _pages[SettingsHandler.Config.LastSection];
+    public static InstallerPage CurrentPage => _pages[SettingsHandler.Properties.CurrentSection];
     public static IEnumerable<InstallerPage> AllPages => _pages.Values;
 
     public static InstallerPage Blas1ModPage => _pages[SectionType.Blas1Mods];
