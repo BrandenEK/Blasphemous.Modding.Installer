@@ -8,7 +8,6 @@ namespace BlasModInstaller
         public string Blas1RootFolder { get; set; }
         public string Blas2RootFolder { get; set; }
         public string GithubToken { get; set; }
-        public bool DebugMode { get; set; }
         public SectionType LastSection { get; set; }
         public SortType Blas1ModSort { get; set; }
         public SortType Blas1SkinSort { get; set; }
