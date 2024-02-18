@@ -14,7 +14,7 @@
     "Description": "A randomizer mod that can shuffle items, enemies, and doors",
     "InitialReleaseDate": "2022-10-03",
     "GithubAuthor": "BrandenEK",
-    "GithubRepo": "Blasphemous-Randomizer",
+    "GithubRepo": "Blasphemous.Randomizer",
     "PluginFile": "BlasphemousRandomizer.dll",
     "RequiredDlls": [ "LogicParser.dll" ],
     "Dependencies": [ "Modding API" ]
@@ -25,7 +25,7 @@
     "Description": "An in-game map tracker for the Blasphemous Randomizer",
     "InitialReleaseDate": "2023-05-28",
     "GithubAuthor": "BrandenEK",
-    "GithubRepo": "Blasphemous-Rando-Map",
+    "GithubRepo": "Blasphemous.Randomizer.MapTracker",
     "PluginFile": "RandoMap.dll",
     "RequiredDlls": [ "LogicParser.dll" ],
     "Dependencies": [ "Modding API", "Randomizer" ]
@@ -36,7 +36,7 @@
     "Description": "A multiworld client that allows the randomizer to connect to Archipelago",
     "InitialReleaseDate": "2023-02-22",
     "GithubAuthor": "BrandenEK",
-    "GithubRepo": "Blasphemous-Multiworld",
+    "GithubRepo": "Blasphemous.Randomizer.Multiworld",
     "PluginFile": "BlasphemousMultiworld.dll",
     "RequiredDlls": [ "Archipelago.MultiClient.Net.dll", "c-wspp.dll", "websocket-sharp.dll" ],
     "Dependencies": [ "Modding API", "Randomizer" ]
@@ -57,7 +57,7 @@
     "Description": "A multiplayer mod that allows you to play Blasphemous cooperatively or against other people",
     "InitialReleaseDate": "2023-03-12",
     "GithubAuthor": "BrandenEK",
-    "GithubRepo": "Blasphemous-Multiplayer",
+    "GithubRepo": "Blasphemous.Multiplayer",
     "PluginFile": "BlasClient.dll",
     "RequiredDlls": [ "SimpleTCP.dll" ],
     "Dependencies": [ "Modding API" ]
@@ -68,7 +68,7 @@
     "Description": "Adds a new relic called the 'Boots of Pleading' that allows you to survive falling in spikes",
     "InitialReleaseDate": "2023-03-21",
     "GithubAuthor": "BrandenEK",
-    "GithubRepo": "Blasphemous-Boots-of-Pleading",
+    "GithubRepo": "Blasphemous.BootsOfPleading",
     "PluginFile": "BootsOfPleading.dll",
     "Dependencies": [ "Modding API" ]
   },
@@ -78,7 +78,7 @@
     "Description": "Adds a new relic called the 'Purified Hand of the Nun' that allows you to double jump",
     "InitialReleaseDate": "2023-03-26",
     "GithubAuthor": "BrandenEK",
-    "GithubRepo": "Blasphemous-Double-Jump",
+    "GithubRepo": "Blasphemous.DoubleJump",
     "PluginFile": "BlasDoubleJump.dll",
     "Dependencies": [ "Modding API" ]
   },
@@ -88,7 +88,7 @@
     "Description": "Adds a new penitence that randomizes which prayer is used each time you attempt to cast one",
     "InitialReleaseDate": "2023-03-27",
     "GithubAuthor": "BrandenEK",
-    "GithubRepo": "Blasphemous-Random-Prayer-Use",
+    "GithubRepo": "Blasphemous.RandomPrayer",
     "PluginFile": "RandomPrayerUse.dll",
     "Dependencies": [ "Modding API" ]
   },
@@ -98,7 +98,7 @@
     "Description": "Enables the hitbox viewer and other features useful for testing and development",
     "InitialReleaseDate": "2023-03-26",
     "GithubAuthor": "BrandenEK",
-    "GithubRepo": "Blasphemous-Debug-Mod",
+    "GithubRepo": "Blasphemous.DebugMod",
     "PluginFile": "DebugMod.dll",
     "Dependencies": [ "Modding API" ]
   },
@@ -108,7 +108,7 @@
     "Description": "A mod that makes any source of damage instantly kill the player",
     "InitialReleaseDate": "2023-06-11",
     "GithubAuthor": "BrandenEK",
-    "GithubRepo": "Blasphemous-OHKO",
+    "GithubRepo": "Blasphemous.OneHitKill",
     "PluginFile": "OneHitKO.dll",
     "Dependencies": [ "Modding API" ]
   },
@@ -118,7 +118,7 @@
     "Description": "Adds the Andalusian language to Blasphemous",
     "InitialReleaseDate": "2023-06-23",
     "GithubAuthor": "BrandenEK",
-    "GithubRepo": "Blasphemous-Andalusian",
+    "GithubRepo": "Blasphemous.Andalusian",
     "PluginFile": "Andalusian.dll",
     "Dependencies": [ "Modding API" ]
   },
