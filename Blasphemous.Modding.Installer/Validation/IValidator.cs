@@ -1,19 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿namespace Blasphemous.Modding.Installer.Validation;
 
-namespace BlasModInstaller.Validation
+internal interface IValidator
 {
-    internal interface IValidator
-    {
-        Task InstallModdingTools();
+    Task InstallModdingTools();
 
-        void SetRootPath(string path);
+    void SetRootPath(string path);
 
-        string ExeName { get; }
-        string DefaultPath { get; }
+    string ExeName { get; }
+    string DefaultPath { get; }
 
-        bool IsRootFolderValid { get; }
+    bool IsRootFolderValid { get; }
 
-        bool AreModdingToolsInstalled { get; }
-        bool AreModdingToolsUpdated { get; }
-    }
+    bool AreModdingToolsInstalled { get; }
+    bool AreModdingToolsUpdated { get; }
 }

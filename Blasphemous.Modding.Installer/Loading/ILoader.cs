@@ -1,8 +1,7 @@
 ﻿
-namespace BlasModInstaller.Loading
+namespace Blasphemous.Modding.Installer.Loading;
+
+internal interface ILoader
 {
-    internal interface ILoader
-    {
-        void LoadAllData();
-    }
+    void LoadAllData();
 }

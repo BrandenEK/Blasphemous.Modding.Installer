@@ -1,14 +1,13 @@
-﻿using BlasModInstaller.Mods;
-using BlasModInstaller.Skins;
+﻿using Blasphemous.Modding.Installer.Mods;
+using Blasphemous.Modding.Installer.Skins;
 
-namespace BlasModInstaller.Previewing
+namespace Blasphemous.Modding.Installer.Previewing;
+
+internal interface IPreviewer
 {
-    internal interface IPreviewer
-    {
-        void PreviewMod(Mod mod);
+    void PreviewMod(Mod mod);
 
-        void PreviewSkin(Skin skin);
+    void PreviewSkin(Skin skin);
 
-        void Clear();
-    }
+    void Clear();
 }

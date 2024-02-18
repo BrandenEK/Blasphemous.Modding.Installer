@@ -1,5 +1,5 @@
 ﻿
-namespace BlasModInstaller
+namespace Blasphemous.Modding.Installer
 {
     partial class UIHandler
     {

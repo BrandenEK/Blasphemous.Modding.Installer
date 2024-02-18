@@ -1,8 +1,7 @@
 ﻿
-namespace BlasModInstaller.Sorting
+namespace Blasphemous.Modding.Installer.Sorting;
+
+internal interface ISorter
 {
-    internal interface ISorter
-    {
-        void Sort();
-    }
+    void Sort();
 }

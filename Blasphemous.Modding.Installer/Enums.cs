@@ -1,18 +1,17 @@
 ﻿
-namespace BlasModInstaller
-{
-    public enum SectionType
-    {
-        Blas1Mods,
-        Blas1Skins,
-        Blas2Mods,
-    }
+namespace Blasphemous.Modding.Installer;
 
-    public enum SortType
-    {
-        Name,
-        Author,
-        InitialRelease,
-        LatestRelease,
-    }
+public enum SectionType
+{
+    Blas1Mods,
+    Blas1Skins,
+    Blas2Mods,
+}
+
+public enum SortType
+{
+    Name,
+    Author,
+    InitialRelease,
+    LatestRelease,
 }

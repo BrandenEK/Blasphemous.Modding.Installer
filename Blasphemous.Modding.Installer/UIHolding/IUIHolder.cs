@@ -1,13 +1,10 @@
-﻿using System.Windows.Forms;
+﻿namespace Blasphemous.Modding.Installer.UIHolding;
 
-namespace BlasModInstaller.UIHolding
+internal interface IUIHolder
 {
-    internal interface IUIHolder
-    {
-        void AdjustPageWidth();
+    void AdjustPageWidth();
 
-        void SetBackgroundColor();
+    void SetBackgroundColor();
 
-        Panel SectionPanel { get; }
-    }
+    Panel SectionPanel { get; }
 }

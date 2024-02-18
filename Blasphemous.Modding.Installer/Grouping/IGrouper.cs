@@ -1,20 +1,19 @@
 ﻿
-namespace BlasModInstaller.Grouping
+namespace Blasphemous.Modding.Installer.Grouping;
+
+internal interface IGrouper
 {
-    internal interface IGrouper
-    {
-        void InstallAll();
+    void InstallAll();
 
-        void UninstallAll();
+    void UninstallAll();
 
-        void EnableAll();
+    void EnableAll();
 
-        void DisableAll();
+    void DisableAll();
 
-        bool CanInstall { get; }
-        bool CanEnable { get; }
+    bool CanInstall { get; }
+    bool CanEnable { get; }
 
-        bool CanSortByCreation { get; } 
-        bool CanSortByDate { get; }
-    }
+    bool CanSortByCreation { get; }
+    bool CanSortByDate { get; }
 }
