@@ -201,7 +201,7 @@ namespace Blasphemous.Modding.Installer
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.titleSectionInner.BackColor = System.Drawing.Color.Maroon;
-            this.titleSectionInner.BackgroundImage = global::BlasModInstaller.Properties.Resources.background1;
+            this.titleSectionInner.BackgroundImage = global::Blasphemous.Modding.Installer.Properties.Resources.background1;
             this.titleSectionInner.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.titleSectionInner.Controls.Add(this.warningSectionOuter);
             this.titleSectionInner.Controls.Add(this.titleLabel);
@@ -256,7 +256,7 @@ namespace Blasphemous.Modding.Installer
             this.warningImage.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.warningImage.BackColor = System.Drawing.Color.Black;
             this.warningImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.warningImage.Image = global::BlasModInstaller.Properties.Resources.warning;
+            this.warningImage.Image = global::Blasphemous.Modding.Installer.Properties.Resources.warning;
             this.warningImage.Location = new System.Drawing.Point(10, 20);
             this.warningImage.Name = "warningImage";
             this.warningImage.Size = new System.Drawing.Size(36, 36);
@@ -500,7 +500,7 @@ namespace Blasphemous.Modding.Installer
             // githubImage
             // 
             this.githubImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.githubImage.Image = global::BlasModInstaller.Properties.Resources.git;
+            this.githubImage.Image = global::Blasphemous.Modding.Installer.Properties.Resources.warning;
             this.githubImage.Location = new System.Drawing.Point(27, 58);
             this.githubImage.Name = "githubImage";
             this.githubImage.Size = new System.Drawing.Size(34, 34);
@@ -510,7 +510,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // discordImage
             // 
-            this.discordImage.Image = global::BlasModInstaller.Properties.Resources.discord;
+            this.discordImage.Image = global::Blasphemous.Modding.Installer.Properties.Resources.warning;
             this.discordImage.Location = new System.Drawing.Point(27, 8);
             this.discordImage.Name = "discordImage";
             this.discordImage.Size = new System.Drawing.Size(34, 34);
