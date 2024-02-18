@@ -106,5 +106,29 @@ namespace Blasphemous.Modding.Installer.Properties {
                 this["Blas2ModSort"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Blas1RootFolder {
+            get {
+                return ((string)(this["Blas1RootFolder"]));
+            }
+            set {
+                this["Blas1RootFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Blas2RootFolder {
+            get {
+                return ((string)(this["Blas2RootFolder"]));
+            }
+            set {
+                this["Blas2RootFolder"] = value;
+            }
+        }
     }
 }

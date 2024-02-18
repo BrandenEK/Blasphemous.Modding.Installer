@@ -22,7 +22,7 @@ static class Core
         Logger.Show();
 
         UIHandler = new UIHandler();
-        SettingsHandler = new SettingsHandler(Environment.CurrentDirectory + "/installer.cfg");
+        SettingsHandler = new SettingsHandler();
         GithubHandler = new GithubHandler(githubToken);
 
         List<Mod> blas1mods = new List<Mod>();

@@ -1,25 +1,9 @@
 ﻿namespace Blasphemous.Modding.Installer;
 
-[Serializable]
-public class OldConfig
-{
-    public string? Blas1RootFolder { get; set; }
-    public string? Blas2RootFolder { get; set; }
-
-    public static OldConfig TempCreateFromSetttings(InstallerSettings settings)
-    {
-        return new OldConfig()
-        {
-            Blas1RootFolder = settings.Blas1RootFolder,
-            Blas2RootFolder = settings.Blas2RootFolder,
-        };
-    }
-}
-
 public class InstallerSettings
 {
-    public string? Blas1RootFolder { get; set; }
-    public string? Blas2RootFolder { get; set; }
+    public string Blas1RootFolder { get; set; } = string.Empty;
+    public string Blas2RootFolder { get; set; } = string.Empty;
 
     public SectionType CurrentSection { get; set; }
     public SortType Blas1ModSort { get; set; }
@@ -49,14 +33,14 @@ public class InstallerSettings
         }
     }
 
-    public string? GetRootPathBySection(SectionType section)
+    public string GetRootPathBySection(SectionType section)
     {
         return section switch
         {
             SectionType.Blas1Mods => Blas1RootFolder,
             SectionType.Blas1Skins => Blas1RootFolder,
             SectionType.Blas2Mods => Blas2RootFolder,
-            _ => null,
+            _ => string.Empty
         };
     }
 }
