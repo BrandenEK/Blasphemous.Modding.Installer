@@ -98,7 +98,7 @@ namespace Blasphemous.Modding.Installer
             blas1modScroll.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             blas1modScroll.Location = new Point(2134, 15);
             blas1modScroll.Name = "blas1modScroll";
-            blas1modScroll.Size = new Size(20, 663);
+            blas1modScroll.Size = new Size(20, 675);
             blas1modScroll.TabIndex = 2;
             blas1modScroll.Visible = false;
             // 
@@ -111,7 +111,7 @@ namespace Blasphemous.Modding.Installer
             blas1modSection.Controls.Add(blas1modScroll);
             blas1modSection.Location = new Point(0, 120);
             blas1modSection.Name = "blas1modSection";
-            blas1modSection.Size = new Size(1150, 741);
+            blas1modSection.Size = new Size(1150, 753);
             blas1modSection.TabIndex = 3;
             blas1modSection.Visible = false;
             // 
@@ -119,7 +119,7 @@ namespace Blasphemous.Modding.Installer
             // 
             locationBtn.Anchor = AnchorStyles.None;
             locationBtn.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            locationBtn.Location = new Point(470, 310);
+            locationBtn.Location = new Point(470, 316);
             locationBtn.Name = "locationBtn";
             locationBtn.Size = new Size(210, 50);
             locationBtn.TabIndex = 0;
@@ -135,14 +135,14 @@ namespace Blasphemous.Modding.Installer
             validationSection.Controls.Add(locationBtn);
             validationSection.Location = new Point(0, 120);
             validationSection.Name = "validationSection";
-            validationSection.Size = new Size(1150, 741);
+            validationSection.Size = new Size(1150, 753);
             validationSection.TabIndex = 4;
             // 
             // toolsBtn
             // 
             toolsBtn.Anchor = AnchorStyles.None;
             toolsBtn.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            toolsBtn.Location = new Point(470, 380);
+            toolsBtn.Location = new Point(470, 386);
             toolsBtn.Name = "toolsBtn";
             toolsBtn.Size = new Size(210, 50);
             toolsBtn.TabIndex = 1;
@@ -167,7 +167,7 @@ namespace Blasphemous.Modding.Installer
             mainSection.Controls.Add(blas2modSection);
             mainSection.Location = new Point(250, 0);
             mainSection.Name = "mainSection";
-            mainSection.Size = new Size(1150, 900);
+            mainSection.Size = new Size(1150, 912);
             mainSection.TabIndex = 7;
             // 
             // titleSectionOuter
@@ -266,7 +266,7 @@ namespace Blasphemous.Modding.Installer
             blas1skinSection.Controls.Add(blas1skinScroll);
             blas1skinSection.Location = new Point(0, 120);
             blas1skinSection.Name = "blas1skinSection";
-            blas1skinSection.Size = new Size(1150, 741);
+            blas1skinSection.Size = new Size(1150, 753);
             blas1skinSection.TabIndex = 5;
             blas1skinSection.Visible = false;
             // 
@@ -275,7 +275,7 @@ namespace Blasphemous.Modding.Installer
             blas1skinScroll.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             blas1skinScroll.Location = new Point(1114, 15);
             blas1skinScroll.Name = "blas1skinScroll";
-            blas1skinScroll.Size = new Size(20, 680);
+            blas1skinScroll.Size = new Size(20, 692);
             blas1skinScroll.TabIndex = 2;
             blas1skinScroll.Visible = false;
             // 
@@ -288,7 +288,7 @@ namespace Blasphemous.Modding.Installer
             blas2modSection.Controls.Add(blas2modScroll);
             blas2modSection.Location = new Point(0, 120);
             blas2modSection.Name = "blas2modSection";
-            blas2modSection.Size = new Size(1150, 741);
+            blas2modSection.Size = new Size(1150, 753);
             blas2modSection.TabIndex = 4;
             blas2modSection.Visible = false;
             // 
@@ -297,7 +297,7 @@ namespace Blasphemous.Modding.Installer
             blas2modScroll.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             blas2modScroll.Location = new Point(1114, 15);
             blas2modScroll.Name = "blas2modScroll";
-            blas2modScroll.Size = new Size(20, 680);
+            blas2modScroll.Size = new Size(20, 692);
             blas2modScroll.TabIndex = 2;
             blas2modScroll.Visible = false;
             // 
@@ -315,11 +315,12 @@ namespace Blasphemous.Modding.Installer
             sideSectionInner.Controls.Add(allSection);
             sideSectionInner.Location = new Point(0, 0);
             sideSectionInner.Name = "sideSectionInner";
-            sideSectionInner.Size = new Size(248, 900);
+            sideSectionInner.Size = new Size(248, 912);
             sideSectionInner.TabIndex = 8;
             // 
             // changePathBtn
             // 
+            changePathBtn.Anchor = AnchorStyles.Bottom;
             changePathBtn.BackColor = Color.FromArgb(30, 30, 30);
             changePathBtn.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
             changePathBtn.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
@@ -327,7 +328,7 @@ namespace Blasphemous.Modding.Installer
             changePathBtn.FlatStyle = FlatStyle.Flat;
             changePathBtn.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             changePathBtn.ForeColor = SystemColors.ButtonHighlight;
-            changePathBtn.Location = new Point(15, 700);
+            changePathBtn.Location = new Point(15, 712);
             changePathBtn.Name = "changePathBtn";
             changePathBtn.Size = new Size(220, 30);
             changePathBtn.TabIndex = 8;
@@ -663,7 +664,7 @@ namespace Blasphemous.Modding.Installer
             sideSectionOuter.Controls.Add(sideSectionInner);
             sideSectionOuter.Location = new Point(0, 0);
             sideSectionOuter.Name = "sideSectionOuter";
-            sideSectionOuter.Size = new Size(250, 900);
+            sideSectionOuter.Size = new Size(250, 912);
             sideSectionOuter.TabIndex = 9;
             // 
             // UIHandler
@@ -671,12 +672,12 @@ namespace Blasphemous.Modding.Installer
             AutoScaleDimensions = new SizeF(6F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gray;
-            ClientSize = new Size(1370, 749);
+            ClientSize = new Size(1370, 761);
             Controls.Add(mainSection);
             Controls.Add(sideSectionOuter);
             Font = new Font("Trebuchet MS", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MinimumSize = new Size(1364, 726);
+            MinimumSize = new Size(1364, 800);
             Name = "UIHandler";
             Text = "Blasphemous Mod Installer";
             FormClosing += OnFormClose;
