@@ -36,9 +36,9 @@ internal class SettingsHandler
 
     public void LoadWindowSettings()
     {
-        Core.UIHandler.WindowState = Properties.Settings.Default.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
-        Core.UIHandler.Location = Properties.Settings.Default.Location;
-        Core.UIHandler.Size = Properties.Settings.Default.Size;
+        Core.UIHandler.WindowState = Settings.Default.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+        Core.UIHandler.Location = Settings.Default.Location;
+        Core.UIHandler.Size = Settings.Default.Size;
     }
 
     public void SaveWindowSettings()
@@ -48,24 +48,24 @@ internal class SettingsHandler
 
         if (windowState == FormWindowState.Maximized)
         {
-            Properties.Settings.Default.Location = windowBounds.Location;
-            Properties.Settings.Default.Size = windowBounds.Size;
-            Properties.Settings.Default.Maximized = true;
+            Settings.Default.Location = windowBounds.Location;
+            Settings.Default.Size = windowBounds.Size;
+            Settings.Default.Maximized = true;
         }
         else if (windowState == FormWindowState.Minimized)
         {
-            Properties.Settings.Default.Location = windowBounds.Location;
-            Properties.Settings.Default.Size = windowBounds.Size;
-            Properties.Settings.Default.Maximized = false;
+            Settings.Default.Location = windowBounds.Location;
+            Settings.Default.Size = windowBounds.Size;
+            Settings.Default.Maximized = false;
         }
         else
         {
-            Properties.Settings.Default.Location = Core.UIHandler.Location;
-            Properties.Settings.Default.Size = Core.UIHandler.Size;
-            Properties.Settings.Default.Maximized = false;
+            Settings.Default.Location = Core.UIHandler.Location;
+            Settings.Default.Size = Core.UIHandler.Size;
+            Settings.Default.Maximized = false;
         }
 
-        Properties.Settings.Default.Save();
+        Settings.Default.Save();
     }
 
     public string GetRootPathBySection(SectionType section)
