@@ -40,8 +40,9 @@ public partial class UIHandler : Form
 
     // Validation screen
 
-    private void ClickLocationButton(object sender, EventArgs e)
+    private void PromptForRootFolder()
     {
+        Logger.Warn("Prompting for root folder");
         IValidator validator = Core.CurrentPage.Validator;
 
         blasLocDialog.Title = $"Choose {validator.ExeName} location";
@@ -55,13 +56,17 @@ public partial class UIHandler : Form
         }
     }
 
-    private async void ClickToolsButton(object sender, EventArgs e)
+    private async void DownloadTools()
     {
         toolsBtn.Enabled = false;
         toolsBtn.Text = "Installing...";
         await Core.CurrentPage.Validator.InstallModdingTools();
         OpenSection(Core.SettingsHandler.Properties.CurrentSection);
     }
+
+    private void ClickLocationButton(object sender, EventArgs e) => PromptForRootFolder();
+
+    private void ClickToolsButton(object sender, EventArgs e) => DownloadTools();
 
     // ...
 
@@ -250,10 +255,7 @@ public partial class UIHandler : Form
 
     #region Side section lower
 
-    private void ClickedChangePath(object sender, EventArgs e)
-    {
-        Logger.Error("Changing path");
-    }
+    private void ClickedChangePath(object sender, EventArgs e) => PromptForRootFolder();
 
     #endregion Side section lower
 }
