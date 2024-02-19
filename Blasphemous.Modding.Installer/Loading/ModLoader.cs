@@ -104,7 +104,7 @@ internal class ModLoader : ILoader
         File.WriteAllText(_localDataPath, JsonConvert.SerializeObject(_mods.Select(x => x.Data)));
     }
 
-    private Mod FindMod(string name)
+    private Mod? FindMod(string name)
     {
         return _mods.Find(x => x.Data.name == name);
     }
@@ -121,12 +121,20 @@ internal class ModLoader : ILoader
     // Get list of mods that this mod requires that need to be enabled
     public IEnumerable<Mod> GetModDependencies(Mod mod)
     {
-        return _mods.Where(x => mod.HasDependency(x.Data.name) && !x.Enabled);
+        var depends = _mods.Where(x => mod.HasDependency(x.Data.name));
+        depends = depends.Concat(depends.SelectMany(x => GetModDependencies(x)));
+        depends = depends.Distinct().Where(x => !x.Enabled);
+
+        return depends;
     }
 
     // Get list of mods that require this mod that need to be disabled
     public IEnumerable<Mod> GetModDependents(Mod mod)
     {
-        return _mods.Where(x => x.HasDependency(mod.Data.name) && x.Enabled);
+        var depends = _mods.Where(x => x.HasDependency(mod.Data.name));
+        depends = depends.Concat(depends.SelectMany(x => GetModDependents(x)));
+        depends = depends.Distinct().Where(x => x.Enabled);
+
+        return depends;
     }
 }

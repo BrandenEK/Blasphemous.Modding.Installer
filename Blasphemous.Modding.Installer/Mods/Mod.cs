@@ -218,6 +218,7 @@ internal class Mod : IComparable
     {
         ModLoader modLoader = ModPage.Loader as ModLoader;
         IEnumerable<Mod> dependencies = modLoader.GetModDependencies(this);
+        Logger.Warn($"Found dependencies: {string.Join(", ", dependencies.Select(x => x.Data.name))}");
 
         if (!dependencies.Any())
             return true;
@@ -250,6 +251,7 @@ internal class Mod : IComparable
     {
         ModLoader modLoader = ModPage.Loader as ModLoader;
         IEnumerable<Mod> dependents = modLoader.GetModDependents(this);
+        Logger.Warn($"Found dependents: {string.Join(", ", dependents.Select(x => x.Data.name))}");
 
         if (!dependents.Any())
             return true;
