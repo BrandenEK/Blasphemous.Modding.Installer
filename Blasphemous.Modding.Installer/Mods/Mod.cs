@@ -20,7 +20,6 @@ internal class Mod : IComparable
         _ui = new ModUI(this, panel);
         SetUIPosition(-1);
         UpdateUI();
-        ModPage.UIHolder.AdjustPageWidth();
     }
 
     public ModData Data { get; set; }

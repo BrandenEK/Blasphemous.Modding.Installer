@@ -28,7 +28,6 @@ internal class ModLoader : ILoader
 
     public void LoadAllData()
     {
-        _uiHolder.AdjustPageWidth();
         if (_loadedData)
             return;
 

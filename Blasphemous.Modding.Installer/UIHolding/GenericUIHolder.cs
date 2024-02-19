@@ -11,12 +11,6 @@ internal class GenericUIHolder<T> : IUIHolder
         _data = data;
     }
 
-    public void AdjustPageWidth()
-    {
-        bool scrollVisible = _panel.VerticalScroll.Visible;
-        _panel.Width = Core.UIHandler.MainSectionWidth + (scrollVisible ? 2 : -15);
-    }
-
     public void SetBackgroundColor()
     {
         _panel.BackColor = _data.Count() % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;

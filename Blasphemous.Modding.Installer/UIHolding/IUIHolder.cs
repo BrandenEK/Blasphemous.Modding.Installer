@@ -2,8 +2,6 @@
 
 internal interface IUIHolder
 {
-    void AdjustPageWidth();
-
     void SetBackgroundColor();
 
     Panel SectionPanel { get; }

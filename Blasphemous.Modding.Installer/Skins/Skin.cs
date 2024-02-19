@@ -17,7 +17,6 @@ internal class Skin : IComparable
         _ui = new SkinUI(this, panel);
         SetUIPosition(-1);
         UpdateUI();
-        SkinPage.UIHolder.AdjustPageWidth();
     }
 
     public SkinData Data { get; set; }
