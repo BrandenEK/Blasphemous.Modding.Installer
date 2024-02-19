@@ -15,15 +15,26 @@ static class Core
     [STAThread]
     static void Main(string[] args)
     {
-        string? githubToken = args.Length > 0 ? args[0] : null;
-
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
         Logger.Show();
 
+        CommandParser parser;
+        try
+        {
+            parser = new(args);
+            TempIgnoreTime = parser.IgnoreTime;
+        }
+        catch (Exception ex)
+        {
+            Logger.Error(ex);
+            Application.Exit();
+            return;
+        }
+
         UIHandler = new UIHandler();
         SettingsHandler = new SettingsHandler();
-        GithubHandler = new GithubHandler(githubToken);
+        GithubHandler = new GithubHandler(parser.GithubToken);
 
         List<Mod> blas1mods = new List<Mod>();
         List<Skin> blas1skins = new List<Skin>();
