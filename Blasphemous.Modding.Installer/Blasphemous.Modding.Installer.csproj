@@ -9,7 +9,12 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationIcon>blasphemous.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="blasphemous.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Basalt.CommandParser" Version="1.0.0" />
