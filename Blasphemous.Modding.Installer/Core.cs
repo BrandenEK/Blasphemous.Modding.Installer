@@ -1,4 +1,5 @@
-﻿using Blasphemous.Modding.Installer.Grouping;
+﻿using Basalt.CommandParser;
+using Blasphemous.Modding.Installer.Grouping;
 using Blasphemous.Modding.Installer.Loading;
 using Blasphemous.Modding.Installer.Mods;
 using Blasphemous.Modding.Installer.Previewing;
@@ -19,13 +20,12 @@ static class Core
         Application.SetCompatibleTextRenderingDefault(false);
         Logger.Show();
 
-        CommandParser parser;
+        InstallerCommand cmd = new();
         try
         {
-            parser = new(args);
-            TempIgnoreTime = parser.IgnoreTime;
+            cmd.Process(args);
         }
-        catch (Exception ex)
+        catch (CommandParserException ex)
         {
             Logger.Error(ex);
             Application.Exit();
@@ -34,7 +34,8 @@ static class Core
 
         UIHandler = new UIHandler();
         SettingsHandler = new SettingsHandler();
-        GithubHandler = new GithubHandler(parser.GithubToken);
+        GithubHandler = new GithubHandler(cmd.GithubToken);
+        TempIgnoreTime = cmd.IgnoreTime;
 
         List<Mod> blas1mods = new List<Mod>();
         List<Skin> blas1skins = new List<Skin>();
