@@ -23,7 +23,7 @@ internal class Skin : IComparable
     public SkinData Data { get; set; }
 
     private InstallerPage SkinPage => Core.Blas1SkinPage;
-    private SortType SkinSort => Core.SettingsHandler.Config.Blas1SkinSort;
+    private SortType SkinSort => Core.SettingsHandler.Properties.Blas1SkinSort;
 
     public bool Installed => File.Exists(PathToSkinFolder + "/info.txt");
 
@@ -57,7 +57,7 @@ internal class Skin : IComparable
 
     // Paths
 
-    private string RootFolder => Core.SettingsHandler.GetRootPathBySection(_skinType);
+    private string RootFolder => Core.SettingsHandler.Properties.GetRootPathBySection(_skinType);
     public string PathToSkinFolder => $"{RootFolder}/Modding/skins/{Data.id}";
 
     private string SubFolder => "blasphemous1";

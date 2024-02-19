@@ -1,104 +1,51 @@
 ﻿using Blasphemous.Modding.Installer.Properties;
-using Newtonsoft.Json;
 
 namespace Blasphemous.Modding.Installer;
 
 internal class SettingsHandler
 {
-    private readonly string _configPath;
+    public InstallerSettings Properties { get; private set; } = new();
 
-    public Config Config { get; private set; }
-
-    public SettingsHandler(string configPath)
-    {
-        _configPath = configPath;
-
-        LoadConfigSettings();
-    }
-
-    public void LoadConfigSettings()
-    {
-        if (File.Exists(_configPath))
-        {
-            Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(_configPath));
-        }
-        else
-        {
-            Config = new Config();
-            SaveConfigSettings();
-        }
-    }
-
-    public void SaveConfigSettings()
-    {
-        File.WriteAllText(_configPath, JsonConvert.SerializeObject(Config, Formatting.Indented));
-    }
-
-    public void LoadWindowSettings()
-    {
-        Core.UIHandler.WindowState = Settings.Default.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
-        Core.UIHandler.Location = Settings.Default.Location;
-        Core.UIHandler.Size = Settings.Default.Size;
-    }
-
-    public void SaveWindowSettings()
+    public void Save()
     {
         FormWindowState windowState = Core.UIHandler.WindowState;
         Rectangle windowBounds = Core.UIHandler.RestoreBounds;
 
-        if (windowState == FormWindowState.Maximized)
-        {
-            Settings.Default.Location = windowBounds.Location;
-            Settings.Default.Size = windowBounds.Size;
-            Settings.Default.Maximized = true;
-        }
-        else if (windowState == FormWindowState.Minimized)
-        {
-            Settings.Default.Location = windowBounds.Location;
-            Settings.Default.Size = windowBounds.Size;
-            Settings.Default.Maximized = false;
-        }
-        else
-        {
-            Settings.Default.Location = Core.UIHandler.Location;
-            Settings.Default.Size = Core.UIHandler.Size;
-            Settings.Default.Maximized = false;
-        }
+        Settings.Default.Location = windowState == FormWindowState.Normal
+            ? Core.UIHandler.Location
+            : windowBounds.Location;
+
+        Settings.Default.Size = windowState == FormWindowState.Normal
+            ? Core.UIHandler.Size
+            : windowBounds.Size;
+
+        Settings.Default.Maximized = windowState == FormWindowState.Maximized;
+
+        Settings.Default.LastSection = (byte)Properties.CurrentSection;
+        Settings.Default.Blas1ModSort = (byte)Properties.Blas1ModSort;
+        Settings.Default.Blas1SkinSort = (byte)Properties.Blas1SkinSort;
+        Settings.Default.Blas2ModSort = (byte)Properties.Blas2ModSort;
+
+        Settings.Default.Blas1RootFolder = Properties.Blas1RootFolder;
+        Settings.Default.Blas2RootFolder = Properties.Blas2RootFolder;
 
         Settings.Default.Save();
     }
 
-    public string GetRootPathBySection(SectionType section)
+    public void Load()
     {
-        switch (section)
-        {
-            case SectionType.Blas1Mods: return Config.Blas1RootFolder;
-            case SectionType.Blas1Skins: return Config.Blas1RootFolder;
-            case SectionType.Blas2Mods: return Config.Blas2RootFolder;
-            default: return null;
-        }
-    }
+        Core.UIHandler.WindowState = Settings.Default.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+        Core.UIHandler.Location = Settings.Default.Location;
+        Core.UIHandler.Size = Settings.Default.Size;
 
-    public SortType CurrentSortType
-    {
-        get
+        Properties = new InstallerSettings()
         {
-            switch (Config.LastSection)
-            {
-                case SectionType.Blas1Mods: return Config.Blas1ModSort;
-                case SectionType.Blas1Skins: return Config.Blas1SkinSort;
-                case SectionType.Blas2Mods: return Config.Blas2ModSort;
-                default: return SortType.Name;
-            }
-        }
-        set
-        {
-            switch (Config.LastSection)
-            {
-                case SectionType.Blas1Mods: Config.Blas1ModSort = value; break;
-                case SectionType.Blas1Skins: Config.Blas1SkinSort = value; break;
-                case SectionType.Blas2Mods: Config.Blas2ModSort = value; break;
-            }
-        }
+            Blas1RootFolder = Settings.Default.Blas1RootFolder,
+            Blas2RootFolder = Settings.Default.Blas2RootFolder,
+            CurrentSection = (SectionType)Settings.Default.LastSection,
+            Blas1ModSort = (SortType)Settings.Default.Blas1ModSort,
+            Blas1SkinSort = (SortType)Settings.Default.Blas1SkinSort,
+            Blas2ModSort = (SortType)Settings.Default.Blas2ModSort,
+        };
     }
 }

@@ -26,7 +26,7 @@ internal class Blas2Validator : IValidator
         }
 
         // Extract data in cache to game folder
-        string installPath = Core.SettingsHandler.Config.Blas2RootFolder;
+        string installPath = Core.SettingsHandler.Properties.Blas2RootFolder;
         using (ZipFile zipFile = ZipFile.Read(toolsCache))
         {
             foreach (ZipEntry file in zipFile)
@@ -36,14 +36,14 @@ internal class Blas2Validator : IValidator
 
     public void SetRootPath(string path)
     {
-        Core.SettingsHandler.Config.Blas2RootFolder = path;
+        Core.SettingsHandler.Properties.Blas2RootFolder = path;
     }
 
     public bool IsRootFolderValid
     {
         get
         {
-            string path = Core.SettingsHandler.Config.Blas2RootFolder;
+            string path = Core.SettingsHandler.Properties.Blas2RootFolder;
             if (File.Exists(path + "\\" + _exeName))
             {
                 Directory.CreateDirectory(path + "\\Modding\\disabled");
@@ -58,7 +58,7 @@ internal class Blas2Validator : IValidator
     {
         get
         {
-            return Directory.Exists(Core.SettingsHandler.Config.Blas2RootFolder + "\\MelonLoader");
+            return Directory.Exists(Core.SettingsHandler.Properties.Blas2RootFolder + "\\MelonLoader");
         }
     }
 
@@ -66,11 +66,13 @@ internal class Blas2Validator : IValidator
     {
         get
         {
-            string filePath = Core.SettingsHandler.Config.Blas2RootFolder + "\\MelonLoader\\net6\\MelonLoader.dll";
+            string filePath = Core.SettingsHandler.Properties.Blas2RootFolder + "\\MelonLoader\\net6\\MelonLoader.dll";
             return File.Exists(filePath) && FileVersionInfo.GetVersionInfo(filePath).FileMajorPart == 2;
         }
     }
 
     public string ExeName => _exeName;
-    public string DefaultPath => _defaultPath;
+    public string DefaultPath => string.IsNullOrEmpty(Core.SettingsHandler.Properties.Blas2RootFolder)
+        ? _defaultPath
+        : Core.SettingsHandler.Properties.Blas2RootFolder;
 }

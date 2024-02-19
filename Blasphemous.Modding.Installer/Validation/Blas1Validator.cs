@@ -25,7 +25,7 @@ internal class Blas1Validator : IValidator
         }
 
         // Extract data in cache to game folder
-        string installPath = Core.SettingsHandler.Config.Blas1RootFolder;
+        string installPath = Core.SettingsHandler.Properties.Blas1RootFolder;
         using (ZipFile zipFile = ZipFile.Read(toolsCache))
         {
             foreach (ZipEntry file in zipFile)
@@ -35,14 +35,14 @@ internal class Blas1Validator : IValidator
 
     public void SetRootPath(string path)
     {
-        Core.SettingsHandler.Config.Blas1RootFolder = path;
+        Core.SettingsHandler.Properties.Blas1RootFolder = path;
     }
 
     public bool IsRootFolderValid
     {
         get
         {
-            string path = Core.SettingsHandler.Config.Blas1RootFolder;
+            string path = Core.SettingsHandler.Properties.Blas1RootFolder;
             if (File.Exists(path + "\\" + _exeName))
             {
                 Directory.CreateDirectory(path + "\\Modding\\disabled");
@@ -57,12 +57,14 @@ internal class Blas1Validator : IValidator
     {
         get
         {
-            return Directory.Exists(Core.SettingsHandler.Config.Blas1RootFolder + "\\BepInEx");
+            return Directory.Exists(Core.SettingsHandler.Properties.Blas1RootFolder + "\\BepInEx");
         }
     }
 
     public bool AreModdingToolsUpdated => true;
 
     public string ExeName => _exeName;
-    public string DefaultPath => _defaultPath;
+    public string DefaultPath => string.IsNullOrEmpty(Core.SettingsHandler.Properties.Blas1RootFolder)
+        ? _defaultPath
+        : Core.SettingsHandler.Properties.Blas1RootFolder;
 }

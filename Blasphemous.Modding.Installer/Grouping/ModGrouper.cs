@@ -70,6 +70,12 @@ internal class ModGrouper : IGrouper
         }
     }
 
+    public void RefreshAll()
+    {
+        foreach (var mod in _mods)
+            mod.UpdateUI();
+    }
+
     public bool CanInstall => true;
     public bool CanEnable => true;
 

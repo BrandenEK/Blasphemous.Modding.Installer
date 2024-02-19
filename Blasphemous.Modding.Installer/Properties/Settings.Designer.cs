@@ -58,5 +58,77 @@ namespace Blasphemous.Modding.Installer.Properties {
                 this["Maximized"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte LastSection {
+            get {
+                return ((byte)(this["LastSection"]));
+            }
+            set {
+                this["LastSection"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte Blas1ModSort {
+            get {
+                return ((byte)(this["Blas1ModSort"]));
+            }
+            set {
+                this["Blas1ModSort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte Blas1SkinSort {
+            get {
+                return ((byte)(this["Blas1SkinSort"]));
+            }
+            set {
+                this["Blas1SkinSort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte Blas2ModSort {
+            get {
+                return ((byte)(this["Blas2ModSort"]));
+            }
+            set {
+                this["Blas2ModSort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Blas1RootFolder {
+            get {
+                return ((string)(this["Blas1RootFolder"]));
+            }
+            set {
+                this["Blas1RootFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Blas2RootFolder {
+            get {
+                return ((string)(this["Blas2RootFolder"]));
+            }
+            set {
+                this["Blas2RootFolder"] = value;
+            }
+        }
     }
 }

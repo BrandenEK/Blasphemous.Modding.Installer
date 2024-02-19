@@ -13,15 +13,17 @@ namespace Blasphemous.Modding.Installer;
 static class Core
 {
     [STAThread]
-    static void Main()
+    static void Main(string[] args)
     {
+        string? githubToken = args.Length > 0 ? args[0] : null;
+
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
         Logger.Show();
 
         UIHandler = new UIHandler();
-        SettingsHandler = new SettingsHandler(Environment.CurrentDirectory + "/installer.cfg");
-        GithubHandler = new GithubHandler(SettingsHandler.Config.GithubToken);
+        SettingsHandler = new SettingsHandler();
+        GithubHandler = new GithubHandler(githubToken);
 
         List<Mod> blas1mods = new List<Mod>();
         List<Skin> blas1skins = new List<Skin>();
@@ -97,7 +99,7 @@ static class Core
 
     private static readonly Dictionary<SectionType, InstallerPage> _pages = new Dictionary<SectionType, InstallerPage>();
 
-    public static InstallerPage CurrentPage => _pages[SettingsHandler.Config.LastSection];
+    public static InstallerPage CurrentPage => _pages[SettingsHandler.Properties.CurrentSection];
     public static IEnumerable<InstallerPage> AllPages => _pages.Values;
 
     public static InstallerPage Blas1ModPage => _pages[SectionType.Blas1Mods];
