@@ -4,7 +4,7 @@ namespace Blasphemous.Modding.Installer;
 
 public partial class UIHandler : Form
 {
-    public int MainSectionWidth => __mainSection.Width;
+    public int MainSectionWidth => _main.Width;
 
     public UIHandler()
     {
@@ -37,7 +37,7 @@ public partial class UIHandler : Form
 
     // Update installer
 
-    public void UpdatePanelSetVisible(bool visible) => warningSectionOuter.Visible = visible;
+    public void UpdatePanelSetVisible(bool visible) => _top_warning_outer.Visible = visible;
 
     // Validation screen
 
@@ -46,21 +46,25 @@ public partial class UIHandler : Form
         Logger.Warn("Prompting for root folder");
         IValidator validator = Core.CurrentPage.Validator;
 
-        blasLocDialog.Title = $"Choose {validator.ExeName} location";
-        blasLocDialog.FileName = validator.ExeName;
-        blasLocDialog.InitialDirectory = validator.DefaultPath;
-
-        if (blasLocDialog.ShowDialog() == DialogResult.OK)
+        OpenFileDialog dialog = new()
         {
-            validator.SetRootPath(Path.GetDirectoryName(blasLocDialog.FileName));
+            FileName = validator.ExeName,
+            Filter = "Exe files (*.exe)|*.exe",
+            InitialDirectory = validator.DefaultPath,
+            Title = $"Choose {validator.ExeName} location",
+        };
+
+        if (dialog.ShowDialog() == DialogResult.OK)
+        {
+            validator.SetRootPath(Path.GetDirectoryName(dialog.FileName));
             OpenSection(Core.SettingsHandler.Properties.CurrentSection);
         }
     }
 
     private async void DownloadTools()
     {
-        toolsBtn.Enabled = false;
-        toolsBtn.Text = "Installing...";
+        _bottom_validation_tools.Enabled = false;
+        _bottom_validation_tools.Text = "Installing...";
         await Core.CurrentPage.Validator.InstallModdingTools();
         OpenSection(Core.SettingsHandler.Properties.CurrentSection);
     }
@@ -75,17 +79,17 @@ public partial class UIHandler : Form
     {
         switch (type)
         {
-            case SectionType.Blas1Mods: return blas1modSection;
-            case SectionType.Blas1Skins: return blas1skinSection;
-            case SectionType.Blas2Mods: return blas2modSection;
+            case SectionType.Blas1Mods: return _bottom_blas1mod;
+            case SectionType.Blas1Skins: return _bottom_blas1skin;
+            case SectionType.Blas2Mods: return _bottom_blas2mod;
             default: return null;
         }
     }
 
-    public Label PreviewName => detailsName;
-    public Label PreviewDescription => detailsDescription;
-    public Label PreviewVersion => detailsVersion;
-    public Panel PreviewBackground => detailsSectionInner;
+    public Label PreviewName => _left_details_name;
+    public Label PreviewDescription => _left_details_desc;
+    public Label PreviewVersion => _left_details_version;
+    public Panel PreviewBackground => _left_details_inner;
 
     private void MainForm_SizeChanged(object sender, EventArgs e)
     {
@@ -104,7 +108,7 @@ public partial class UIHandler : Form
 
     public void RemoveButtonFocus(object sender, EventArgs e)
     {
-        titleLabel.Focus();
+        _top_text.Focus();
     }
 
     private void ShowSideButtonBorder(object sender, EventArgs e)
@@ -120,10 +124,10 @@ public partial class UIHandler : Form
 
     private void SetSortByBox(SortType sort)
     {
-        sortByName.Checked = sort == SortType.Name;
-        sortByAuthor.Checked = sort == SortType.Author;
-        sortByInitialRelease.Checked = sort == SortType.InitialRelease;
-        sortByLatestRelease.Checked = sort == SortType.LatestRelease;
+        _left_sort_name.Checked = sort == SortType.Name;
+        _left_sort_author.Checked = sort == SortType.Author;
+        _left_sort_initialRelease.Checked = sort == SortType.InitialRelease;
+        _left_sort_latestRelease.Checked = sort == SortType.LatestRelease;
     }
 
     private void OpenSection(SectionType section)
@@ -134,8 +138,8 @@ public partial class UIHandler : Form
         var currentPage = Core.CurrentPage;
 
         // Update background and info
-        titleLabel.Text = currentPage.Title;
-        titleSectionInner.BackgroundImage = currentPage.Image;
+        _top_text.Text = currentPage.Title;
+        _top_inner.BackgroundImage = currentPage.Image;
 
         // Validate the status of mods
         bool folderValid = currentPage.Validator.IsRootFolderValid;
@@ -149,15 +153,15 @@ public partial class UIHandler : Form
         {
             SetSortByBox(Core.SettingsHandler.Properties.CurrentSort);
             currentPage.Loader.LoadAllData();
-            validationSection.Visible = false;
+            _bottom_validation.Visible = false;
         }
         else
         {
-            validationSection.Visible = true;
-            locationBtn.Enabled = !folderValid;
-            locationBtn.Text = "Locate " + currentPage.Validator.ExeName;
-            toolsBtn.Enabled = folderValid;
-            toolsBtn.Text = (toolsInstalled ? "Update" : "Install") + " modding tools";
+            _bottom_validation.Visible = true;
+            _bottom_validation_location.Enabled = !folderValid;
+            _bottom_validation_location.Text = "Locate " + currentPage.Validator.ExeName;
+            _bottom_validation_tools.Enabled = folderValid;
+            _bottom_validation_tools.Text = (toolsInstalled ? "Update" : "Install") + " modding tools";
         }
 
         // Show the correct page element
@@ -170,25 +174,25 @@ public partial class UIHandler : Form
         currentPage.Grouper.RefreshAll();
 
         // Only show side buttons under certain conditions
-        divider1.Visible = validated;
+        _left_divider1.Visible = validated;
 
-        sortSection.Visible = validated;
-        sortByName.Visible = validated && currentPage.Grouper.CanSortByCreation;
-        sortByAuthor.Visible = validated && currentPage.Grouper.CanSortByCreation;
-        sortByInitialRelease.Visible = currentPage.Grouper.CanSortByDate;
-        sortByLatestRelease.Visible = currentPage.Grouper.CanSortByDate;
+        _left_sort.Visible = validated;
+        _left_sort_name.Visible = validated && currentPage.Grouper.CanSortByCreation;
+        _left_sort_author.Visible = validated && currentPage.Grouper.CanSortByCreation;
+        _left_sort_initialRelease.Visible = currentPage.Grouper.CanSortByDate;
+        _left_sort_latestRelease.Visible = currentPage.Grouper.CanSortByDate;
 
-        divider2.Visible = validated;
+        _left_divider2.Visible = validated;
 
-        allInstallBtn.Visible = validated && currentPage.Grouper.CanInstall;
-        allUninstallBtn.Visible = validated && currentPage.Grouper.CanInstall;
-        allEnableBtn.Visible = validated && currentPage.Grouper.CanEnable;
-        allDisableBtn.Visible = validated && currentPage.Grouper.CanEnable;
+        _left_all_install.Visible = validated && currentPage.Grouper.CanInstall;
+        _left_all_uninstall.Visible = validated && currentPage.Grouper.CanInstall;
+        _left_all_enable.Visible = validated && currentPage.Grouper.CanEnable;
+        _left_all_disable.Visible = validated && currentPage.Grouper.CanEnable;
 
-        divider3.Visible = validated;
+        _left_divider3.Visible = validated;
 
-        detailsSectionOuter.Visible = validated;
-        changePathBtn.Visible = validated;
+        _left_details_outer.Visible = validated;
+        _left_changePath.Visible = validated;
     }
 
     private void ClickInstallerUpdateLink(object sender, LinkLabelLinkClickedEventArgs e) => Core.GithubHandler.OpenInstallerLink();
