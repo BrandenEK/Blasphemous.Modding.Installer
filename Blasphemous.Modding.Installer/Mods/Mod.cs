@@ -308,8 +308,17 @@ internal class Mod : IComparable
 
     public void ClickedReadme(object sender, EventArgs e)
     {
-        try { Process.Start(GithubLink); }
-        catch (Exception) { MessageBox.Show("Link does not exist!", "Invalid Link"); }
+        try
+        {
+            Process.Start(new ProcessStartInfo(GithubLink)
+            {
+                UseShellExecute = true
+            });
+        }
+        catch
+        {
+            MessageBox.Show("Link does not exist!", "Invalid Link");
+        }
     }
 
     // Sort methods

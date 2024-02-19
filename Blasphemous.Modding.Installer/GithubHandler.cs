@@ -109,7 +109,10 @@ internal class GithubHandler
     {
         try
         {
-            Process.Start(_installerLatestReleaseLink!);
+            Process.Start(new ProcessStartInfo(_installerLatestReleaseLink!)
+            {
+                UseShellExecute = true
+            });
         }
         catch
         {

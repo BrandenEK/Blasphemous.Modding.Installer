@@ -27,6 +27,7 @@ public partial class UIHandler : Form
     private void OnFormClose(object sender, FormClosingEventArgs e)
     {
         Core.SettingsHandler.Save();
+        Logger.Info("Closed installer");
     }
 
     public static bool PromptQuestion(string title, string question)
