@@ -37,6 +37,30 @@ public class InstallerSettings
         }
     }
 
+    public DateTime CurrentTime
+    {
+        get
+        {
+            return CurrentSection switch
+            {
+                SectionType.Blas1Mods => Blas1ModTime,
+                SectionType.Blas1Skins => Blas1SkinTime,
+                SectionType.Blas2Mods => Blas2ModTime,
+                _ => DateTime.Now.AddHours(1),
+            };
+        }
+    }
+
+    public void SetTimeBySection(SectionType section, DateTime time)
+    {
+        switch (section)
+        {
+            case SectionType.Blas1Mods: Blas1ModTime = time; break;
+            case SectionType.Blas1Skins: Blas1SkinTime = time; break;
+            case SectionType.Blas2Mods: Blas2ModTime = time; break;
+        }
+    }
+
     public string GetRootPathBySection(SectionType section)
     {
         return section switch
