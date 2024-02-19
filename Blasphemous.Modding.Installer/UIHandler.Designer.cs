@@ -36,18 +36,9 @@ namespace Blasphemous.Modding.Installer
             validationSection = new Panel();
             toolsBtn = new Button();
             blasLocDialog = new OpenFileDialog();
-            mainSection = new Panel();
-            titleSectionOuter = new Panel();
-            titleSectionInner = new Panel();
-            warningSectionOuter = new Panel();
-            warningSectionInner = new Panel();
-            warningText = new LinkLabel();
-            warningImage = new PictureBox();
-            titleLabel = new Label();
-            blas1skinSection = new Panel();
-            blas1skinScroll = new VScrollBar();
-            blas2modSection = new Panel();
-            blas2modScroll = new VScrollBar();
+            __mainSection = new Panel();
+            __leftSection = new Panel();
+            sideSectionOuter = new Panel();
             sideSectionInner = new Panel();
             changePathBtn = new Button();
             pageSection = new Panel();
@@ -73,45 +64,60 @@ namespace Blasphemous.Modding.Installer
             allEnableBtn = new Button();
             allUninstallBtn = new Button();
             allDisableBtn = new Button();
-            sideSectionOuter = new Panel();
+            __topSection = new Panel();
+            titleSectionOuter = new Panel();
+            titleSectionInner = new Panel();
+            warningSectionOuter = new Panel();
+            warningSectionInner = new Panel();
+            warningText = new LinkLabel();
+            warningImage = new PictureBox();
+            titleLabel = new Label();
+            __bottomSection = new Panel();
+            blas1skinSection = new Panel();
+            blas1skinScroll = new VScrollBar();
+            blas2modSection = new Panel();
+            blas2modScroll = new VScrollBar();
             blas1modSection.SuspendLayout();
             validationSection.SuspendLayout();
-            mainSection.SuspendLayout();
-            titleSectionOuter.SuspendLayout();
-            titleSectionInner.SuspendLayout();
-            warningSectionOuter.SuspendLayout();
-            warningSectionInner.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)warningImage).BeginInit();
-            blas1skinSection.SuspendLayout();
-            blas2modSection.SuspendLayout();
+            __mainSection.SuspendLayout();
+            __leftSection.SuspendLayout();
+            sideSectionOuter.SuspendLayout();
             sideSectionInner.SuspendLayout();
             pageSection.SuspendLayout();
             detailsSectionOuter.SuspendLayout();
             detailsSectionInner.SuspendLayout();
             sortSection.SuspendLayout();
             allSection.SuspendLayout();
-            sideSectionOuter.SuspendLayout();
+            __topSection.SuspendLayout();
+            titleSectionOuter.SuspendLayout();
+            titleSectionInner.SuspendLayout();
+            warningSectionOuter.SuspendLayout();
+            warningSectionInner.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)warningImage).BeginInit();
+            __bottomSection.SuspendLayout();
+            blas1skinSection.SuspendLayout();
+            blas2modSection.SuspendLayout();
             SuspendLayout();
             // 
             // blas1modScroll
             // 
             blas1modScroll.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            blas1modScroll.Location = new Point(1020, 15);
+            blas1modScroll.Location = new Point(2034, 15);
             blas1modScroll.Name = "blas1modScroll";
-            blas1modScroll.Size = new Size(20, 310);
+            blas1modScroll.Size = new Size(20, 502);
             blas1modScroll.TabIndex = 2;
             blas1modScroll.Visible = false;
             // 
             // blas1modSection
             // 
-            blas1modSection.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             blas1modSection.AutoScroll = true;
             blas1modSection.AutoScrollMargin = new Size(0, 15);
             blas1modSection.BackColor = Color.FromArgb(52, 52, 52);
             blas1modSection.Controls.Add(blas1modScroll);
-            blas1modSection.Location = new Point(0, 120);
+            blas1modSection.Dock = DockStyle.Fill;
+            blas1modSection.Location = new Point(0, 0);
             blas1modSection.Name = "blas1modSection";
-            blas1modSection.Size = new Size(36, 388);
+            blas1modSection.Size = new Size(1050, 580);
             blas1modSection.TabIndex = 3;
             blas1modSection.Visible = false;
             // 
@@ -119,7 +125,7 @@ namespace Blasphemous.Modding.Installer
             // 
             locationBtn.Anchor = AnchorStyles.None;
             locationBtn.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            locationBtn.Location = new Point(413, 134);
+            locationBtn.Location = new Point(420, 230);
             locationBtn.Name = "locationBtn";
             locationBtn.Size = new Size(210, 50);
             locationBtn.TabIndex = 0;
@@ -129,20 +135,20 @@ namespace Blasphemous.Modding.Installer
             // 
             // validationSection
             // 
-            validationSection.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             validationSection.BackColor = Color.FromArgb(52, 52, 52);
             validationSection.Controls.Add(toolsBtn);
             validationSection.Controls.Add(locationBtn);
-            validationSection.Location = new Point(0, 120);
+            validationSection.Dock = DockStyle.Fill;
+            validationSection.Location = new Point(0, 0);
             validationSection.Name = "validationSection";
-            validationSection.Size = new Size(1036, 388);
+            validationSection.Size = new Size(1050, 580);
             validationSection.TabIndex = 4;
             // 
             // toolsBtn
             // 
             toolsBtn.Anchor = AnchorStyles.None;
             toolsBtn.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            toolsBtn.Location = new Point(413, 204);
+            toolsBtn.Location = new Point(420, 300);
             toolsBtn.Name = "toolsBtn";
             toolsBtn.Size = new Size(210, 50);
             toolsBtn.TabIndex = 1;
@@ -156,150 +162,37 @@ namespace Blasphemous.Modding.Installer
             blasLocDialog.Filter = "Exe files (*.exe)|*.exe";
             blasLocDialog.Title = "Choose .exe location";
             // 
-            // mainSection
+            // __mainSection
             // 
-            mainSection.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            mainSection.BackColor = Color.White;
-            mainSection.Controls.Add(validationSection);
-            mainSection.Controls.Add(titleSectionOuter);
-            mainSection.Controls.Add(blas1modSection);
-            mainSection.Controls.Add(blas1skinSection);
-            mainSection.Controls.Add(blas2modSection);
-            mainSection.Location = new Point(250, 0);
-            mainSection.Name = "mainSection";
-            mainSection.Size = new Size(1100, 700);
-            mainSection.TabIndex = 7;
+            __mainSection.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            __mainSection.BackColor = Color.White;
+            __mainSection.Controls.Add(__leftSection);
+            __mainSection.Controls.Add(__topSection);
+            __mainSection.Controls.Add(__bottomSection);
+            __mainSection.Location = new Point(10, 10);
+            __mainSection.Name = "__mainSection";
+            __mainSection.Size = new Size(1300, 700);
+            __mainSection.TabIndex = 7;
             // 
-            // titleSectionOuter
+            // __leftSection
             // 
-            titleSectionOuter.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            titleSectionOuter.BackColor = Color.Black;
-            titleSectionOuter.Controls.Add(titleSectionInner);
-            titleSectionOuter.Location = new Point(0, 0);
-            titleSectionOuter.Name = "titleSectionOuter";
-            titleSectionOuter.Size = new Size(1100, 120);
-            titleSectionOuter.TabIndex = 9;
+            __leftSection.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            __leftSection.BackColor = Color.SkyBlue;
+            __leftSection.Controls.Add(sideSectionOuter);
+            __leftSection.Location = new Point(0, 0);
+            __leftSection.Name = "__leftSection";
+            __leftSection.Size = new Size(250, 700);
+            __leftSection.TabIndex = 11;
             // 
-            // titleSectionInner
+            // sideSectionOuter
             // 
-            titleSectionInner.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            titleSectionInner.BackColor = Color.Maroon;
-            titleSectionInner.BackgroundImage = Properties.Resources.background1;
-            titleSectionInner.BackgroundImageLayout = ImageLayout.Center;
-            titleSectionInner.Controls.Add(warningSectionOuter);
-            titleSectionInner.Controls.Add(titleLabel);
-            titleSectionInner.Location = new Point(0, 0);
-            titleSectionInner.Name = "titleSectionInner";
-            titleSectionInner.Size = new Size(1100, 118);
-            titleSectionInner.TabIndex = 1;
-            // 
-            // warningSectionOuter
-            // 
-            warningSectionOuter.Anchor = AnchorStyles.Right;
-            warningSectionOuter.BackColor = Color.Red;
-            warningSectionOuter.Controls.Add(warningSectionInner);
-            warningSectionOuter.Location = new Point(850, 12);
-            warningSectionOuter.Name = "warningSectionOuter";
-            warningSectionOuter.Size = new Size(220, 80);
-            warningSectionOuter.TabIndex = 6;
-            warningSectionOuter.Visible = false;
-            // 
-            // warningSectionInner
-            // 
-            warningSectionInner.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            warningSectionInner.BackColor = Color.Black;
-            warningSectionInner.Controls.Add(warningText);
-            warningSectionInner.Controls.Add(warningImage);
-            warningSectionInner.Location = new Point(2, 2);
-            warningSectionInner.Name = "warningSectionInner";
-            warningSectionInner.Size = new Size(216, 76);
-            warningSectionInner.TabIndex = 0;
-            // 
-            // warningText
-            // 
-            warningText.Anchor = AnchorStyles.Right;
-            warningText.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            warningText.ForeColor = SystemColors.ButtonHighlight;
-            warningText.LinkArea = new LinkArea(57, 8);
-            warningText.LinkColor = Color.Cyan;
-            warningText.Location = new Point(52, 10);
-            warningText.Name = "warningText";
-            warningText.Size = new Size(160, 56);
-            warningText.TabIndex = 3;
-            warningText.TabStop = true;
-            warningText.Text = "A new update is available for the mod installer.  Please download it now.";
-            warningText.TextAlign = ContentAlignment.MiddleLeft;
-            warningText.UseCompatibleTextRendering = true;
-            warningText.LinkClicked += ClickInstallerUpdateLink;
-            // 
-            // warningImage
-            // 
-            warningImage.Anchor = AnchorStyles.Left;
-            warningImage.BackColor = Color.Black;
-            warningImage.BackgroundImageLayout = ImageLayout.Stretch;
-            warningImage.Image = Properties.Resources.warning;
-            warningImage.Location = new Point(10, 20);
-            warningImage.Name = "warningImage";
-            warningImage.Size = new Size(36, 36);
-            warningImage.SizeMode = PictureBoxSizeMode.StretchImage;
-            warningImage.TabIndex = 4;
-            warningImage.TabStop = false;
-            // 
-            // titleLabel
-            // 
-            titleLabel.BackColor = Color.FromArgb(0, 0, 0, 0);
-            titleLabel.Dock = DockStyle.Fill;
-            titleLabel.Font = new Font("Trebuchet MS", 20F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
-            titleLabel.Location = new Point(0, 0);
-            titleLabel.Name = "titleLabel";
-            titleLabel.Size = new Size(1100, 118);
-            titleLabel.TabIndex = 0;
-            titleLabel.Text = "Blasphemous Mods";
-            titleLabel.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // blas1skinSection
-            // 
-            blas1skinSection.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            blas1skinSection.AutoScroll = true;
-            blas1skinSection.AutoScrollMargin = new Size(0, 15);
-            blas1skinSection.BackColor = Color.FromArgb(52, 52, 52);
-            blas1skinSection.Controls.Add(blas1skinScroll);
-            blas1skinSection.Location = new Point(0, 120);
-            blas1skinSection.Name = "blas1skinSection";
-            blas1skinSection.Size = new Size(1036, 388);
-            blas1skinSection.TabIndex = 5;
-            blas1skinSection.Visible = false;
-            // 
-            // blas1skinScroll
-            // 
-            blas1skinScroll.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            blas1skinScroll.Location = new Point(1000, 15);
-            blas1skinScroll.Name = "blas1skinScroll";
-            blas1skinScroll.Size = new Size(20, 327);
-            blas1skinScroll.TabIndex = 2;
-            blas1skinScroll.Visible = false;
-            // 
-            // blas2modSection
-            // 
-            blas2modSection.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            blas2modSection.AutoScroll = true;
-            blas2modSection.AutoScrollMargin = new Size(0, 15);
-            blas2modSection.BackColor = Color.FromArgb(52, 52, 52);
-            blas2modSection.Controls.Add(blas2modScroll);
-            blas2modSection.Location = new Point(0, 120);
-            blas2modSection.Name = "blas2modSection";
-            blas2modSection.Size = new Size(1036, 388);
-            blas2modSection.TabIndex = 4;
-            blas2modSection.Visible = false;
-            // 
-            // blas2modScroll
-            // 
-            blas2modScroll.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            blas2modScroll.Location = new Point(1000, 15);
-            blas2modScroll.Name = "blas2modScroll";
-            blas2modScroll.Size = new Size(20, 327);
-            blas2modScroll.TabIndex = 2;
-            blas2modScroll.Visible = false;
+            sideSectionOuter.BackColor = Color.Black;
+            sideSectionOuter.Controls.Add(sideSectionInner);
+            sideSectionOuter.Dock = DockStyle.Fill;
+            sideSectionOuter.Location = new Point(0, 0);
+            sideSectionOuter.Name = "sideSectionOuter";
+            sideSectionOuter.Size = new Size(250, 700);
+            sideSectionOuter.TabIndex = 9;
             // 
             // sideSectionInner
             // 
@@ -315,7 +208,7 @@ namespace Blasphemous.Modding.Installer
             sideSectionInner.Controls.Add(allSection);
             sideSectionInner.Location = new Point(0, 0);
             sideSectionInner.Name = "sideSectionInner";
-            sideSectionInner.Size = new Size(248, 750);
+            sideSectionInner.Size = new Size(248, 700);
             sideSectionInner.TabIndex = 8;
             // 
             // changePathBtn
@@ -328,7 +221,7 @@ namespace Blasphemous.Modding.Installer
             changePathBtn.FlatStyle = FlatStyle.Flat;
             changePathBtn.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             changePathBtn.ForeColor = SystemColors.ButtonHighlight;
-            changePathBtn.Location = new Point(15, 700);
+            changePathBtn.Location = new Point(15, 650);
             changePathBtn.Name = "changePathBtn";
             changePathBtn.Size = new Size(220, 30);
             changePathBtn.TabIndex = 8;
@@ -657,15 +550,159 @@ namespace Blasphemous.Modding.Installer
             allDisableBtn.MouseLeave += HideSideButtonBorder;
             allDisableBtn.MouseUp += RemoveButtonFocus;
             // 
-            // sideSectionOuter
+            // __topSection
             // 
-            sideSectionOuter.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            sideSectionOuter.BackColor = Color.Black;
-            sideSectionOuter.Controls.Add(sideSectionInner);
-            sideSectionOuter.Location = new Point(0, 0);
-            sideSectionOuter.Name = "sideSectionOuter";
-            sideSectionOuter.Size = new Size(250, 750);
-            sideSectionOuter.TabIndex = 9;
+            __topSection.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            __topSection.BackColor = Color.SpringGreen;
+            __topSection.Controls.Add(titleSectionOuter);
+            __topSection.Location = new Point(250, 0);
+            __topSection.Name = "__topSection";
+            __topSection.Size = new Size(1050, 120);
+            __topSection.TabIndex = 12;
+            // 
+            // titleSectionOuter
+            // 
+            titleSectionOuter.BackColor = Color.Black;
+            titleSectionOuter.Controls.Add(titleSectionInner);
+            titleSectionOuter.Dock = DockStyle.Fill;
+            titleSectionOuter.Location = new Point(0, 0);
+            titleSectionOuter.Name = "titleSectionOuter";
+            titleSectionOuter.Size = new Size(1050, 120);
+            titleSectionOuter.TabIndex = 9;
+            // 
+            // titleSectionInner
+            // 
+            titleSectionInner.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            titleSectionInner.BackColor = Color.Maroon;
+            titleSectionInner.BackgroundImage = Properties.Resources.background1;
+            titleSectionInner.BackgroundImageLayout = ImageLayout.Center;
+            titleSectionInner.Controls.Add(warningSectionOuter);
+            titleSectionInner.Controls.Add(titleLabel);
+            titleSectionInner.Location = new Point(0, 0);
+            titleSectionInner.Name = "titleSectionInner";
+            titleSectionInner.Size = new Size(1050, 118);
+            titleSectionInner.TabIndex = 1;
+            // 
+            // warningSectionOuter
+            // 
+            warningSectionOuter.Anchor = AnchorStyles.Right;
+            warningSectionOuter.BackColor = Color.Red;
+            warningSectionOuter.Controls.Add(warningSectionInner);
+            warningSectionOuter.Location = new Point(800, 12);
+            warningSectionOuter.Name = "warningSectionOuter";
+            warningSectionOuter.Size = new Size(220, 80);
+            warningSectionOuter.TabIndex = 6;
+            warningSectionOuter.Visible = false;
+            // 
+            // warningSectionInner
+            // 
+            warningSectionInner.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            warningSectionInner.BackColor = Color.Black;
+            warningSectionInner.Controls.Add(warningText);
+            warningSectionInner.Controls.Add(warningImage);
+            warningSectionInner.Location = new Point(2, 2);
+            warningSectionInner.Name = "warningSectionInner";
+            warningSectionInner.Size = new Size(216, 76);
+            warningSectionInner.TabIndex = 0;
+            // 
+            // warningText
+            // 
+            warningText.Anchor = AnchorStyles.Right;
+            warningText.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            warningText.ForeColor = SystemColors.ButtonHighlight;
+            warningText.LinkArea = new LinkArea(57, 8);
+            warningText.LinkColor = Color.Cyan;
+            warningText.Location = new Point(52, 10);
+            warningText.Name = "warningText";
+            warningText.Size = new Size(160, 56);
+            warningText.TabIndex = 3;
+            warningText.TabStop = true;
+            warningText.Text = "A new update is available for the mod installer.  Please download it now.";
+            warningText.TextAlign = ContentAlignment.MiddleLeft;
+            warningText.UseCompatibleTextRendering = true;
+            warningText.LinkClicked += ClickInstallerUpdateLink;
+            // 
+            // warningImage
+            // 
+            warningImage.Anchor = AnchorStyles.Left;
+            warningImage.BackColor = Color.Black;
+            warningImage.BackgroundImageLayout = ImageLayout.Stretch;
+            warningImage.Image = Properties.Resources.warning;
+            warningImage.Location = new Point(10, 20);
+            warningImage.Name = "warningImage";
+            warningImage.Size = new Size(36, 36);
+            warningImage.SizeMode = PictureBoxSizeMode.StretchImage;
+            warningImage.TabIndex = 4;
+            warningImage.TabStop = false;
+            // 
+            // titleLabel
+            // 
+            titleLabel.BackColor = Color.FromArgb(0, 0, 0, 0);
+            titleLabel.Dock = DockStyle.Fill;
+            titleLabel.Font = new Font("Trebuchet MS", 20F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            titleLabel.Location = new Point(0, 0);
+            titleLabel.Name = "titleLabel";
+            titleLabel.Size = new Size(1050, 118);
+            titleLabel.TabIndex = 0;
+            titleLabel.Text = "Blasphemous Mods";
+            titleLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // __bottomSection
+            // 
+            __bottomSection.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            __bottomSection.BackColor = Color.Firebrick;
+            __bottomSection.Controls.Add(blas1modSection);
+            __bottomSection.Controls.Add(blas1skinSection);
+            __bottomSection.Controls.Add(blas2modSection);
+            __bottomSection.Controls.Add(validationSection);
+            __bottomSection.Location = new Point(250, 120);
+            __bottomSection.Name = "__bottomSection";
+            __bottomSection.Size = new Size(1050, 580);
+            __bottomSection.TabIndex = 10;
+            // 
+            // blas1skinSection
+            // 
+            blas1skinSection.AutoScroll = true;
+            blas1skinSection.AutoScrollMargin = new Size(0, 15);
+            blas1skinSection.BackColor = Color.FromArgb(52, 52, 52);
+            blas1skinSection.Controls.Add(blas1skinScroll);
+            blas1skinSection.Dock = DockStyle.Fill;
+            blas1skinSection.Location = new Point(0, 0);
+            blas1skinSection.Name = "blas1skinSection";
+            blas1skinSection.Size = new Size(1050, 580);
+            blas1skinSection.TabIndex = 5;
+            blas1skinSection.Visible = false;
+            // 
+            // blas1skinScroll
+            // 
+            blas1skinScroll.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            blas1skinScroll.Location = new Point(1014, 15);
+            blas1skinScroll.Name = "blas1skinScroll";
+            blas1skinScroll.Size = new Size(20, 519);
+            blas1skinScroll.TabIndex = 2;
+            blas1skinScroll.Visible = false;
+            // 
+            // blas2modSection
+            // 
+            blas2modSection.AutoScroll = true;
+            blas2modSection.AutoScrollMargin = new Size(0, 15);
+            blas2modSection.BackColor = Color.FromArgb(52, 52, 52);
+            blas2modSection.Controls.Add(blas2modScroll);
+            blas2modSection.Dock = DockStyle.Fill;
+            blas2modSection.Location = new Point(0, 0);
+            blas2modSection.Name = "blas2modSection";
+            blas2modSection.Size = new Size(1050, 580);
+            blas2modSection.TabIndex = 4;
+            blas2modSection.Visible = false;
+            // 
+            // blas2modScroll
+            // 
+            blas2modScroll.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            blas2modScroll.Location = new Point(1014, 15);
+            blas2modScroll.Name = "blas2modScroll";
+            blas2modScroll.Size = new Size(20, 519);
+            blas2modScroll.TabIndex = 2;
+            blas2modScroll.Visible = false;
             // 
             // UIHandler
             // 
@@ -673,8 +710,7 @@ namespace Blasphemous.Modding.Installer
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gray;
             ClientSize = new Size(1384, 761);
-            Controls.Add(mainSection);
-            Controls.Add(sideSectionOuter);
+            Controls.Add(__mainSection);
             Font = new Font("Trebuchet MS", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(1400, 800);
@@ -685,14 +721,9 @@ namespace Blasphemous.Modding.Installer
             SizeChanged += MainForm_SizeChanged;
             blas1modSection.ResumeLayout(false);
             validationSection.ResumeLayout(false);
-            mainSection.ResumeLayout(false);
-            titleSectionOuter.ResumeLayout(false);
-            titleSectionInner.ResumeLayout(false);
-            warningSectionOuter.ResumeLayout(false);
-            warningSectionInner.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)warningImage).EndInit();
-            blas1skinSection.ResumeLayout(false);
-            blas2modSection.ResumeLayout(false);
+            __mainSection.ResumeLayout(false);
+            __leftSection.ResumeLayout(false);
+            sideSectionOuter.ResumeLayout(false);
             sideSectionInner.ResumeLayout(false);
             pageSection.ResumeLayout(false);
             detailsSectionOuter.ResumeLayout(false);
@@ -700,7 +731,15 @@ namespace Blasphemous.Modding.Installer
             sortSection.ResumeLayout(false);
             sortSection.PerformLayout();
             allSection.ResumeLayout(false);
-            sideSectionOuter.ResumeLayout(false);
+            __topSection.ResumeLayout(false);
+            titleSectionOuter.ResumeLayout(false);
+            titleSectionInner.ResumeLayout(false);
+            warningSectionOuter.ResumeLayout(false);
+            warningSectionInner.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)warningImage).EndInit();
+            __bottomSection.ResumeLayout(false);
+            blas1skinSection.ResumeLayout(false);
+            blas2modSection.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -711,7 +750,7 @@ namespace Blasphemous.Modding.Installer
         private System.Windows.Forms.OpenFileDialog blasLocDialog;
         private System.Windows.Forms.Panel validationSection;
         private System.Windows.Forms.Label titleLabel;
-        private System.Windows.Forms.Panel mainSection;
+        private System.Windows.Forms.Panel __mainSection;
         private System.Windows.Forms.Panel sideSectionInner;
         private System.Windows.Forms.Panel titleSectionOuter;
         private System.Windows.Forms.Button pageb1mBtn;
@@ -749,6 +788,9 @@ namespace Blasphemous.Modding.Installer
         private System.Windows.Forms.Panel allSection;
         private System.Windows.Forms.Panel pageSection;
         private Button changePathBtn;
+        private Panel __bottomSection;
+        private Panel __leftSection;
+        private Panel __topSection;
     }
 }
 

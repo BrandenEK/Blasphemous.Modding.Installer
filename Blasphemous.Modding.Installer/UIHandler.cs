@@ -4,7 +4,7 @@ namespace Blasphemous.Modding.Installer;
 
 public partial class UIHandler : Form
 {
-    public int MainSectionWidth => mainSection.Width;
+    public int MainSectionWidth => __mainSection.Width;
 
     public UIHandler()
     {
