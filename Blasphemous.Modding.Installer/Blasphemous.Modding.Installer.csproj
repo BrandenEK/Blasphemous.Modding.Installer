@@ -50,4 +50,18 @@
     </None>
   </ItemGroup>
 
+  <Target Name="Development" AfterTargets="PostBuildEvent">
+
+    <!-- Export & zip the release build -->
+    <ItemGroup>
+      <BuildFolder Include="$(OutDir)*" />
+    </ItemGroup>
+    <PropertyGroup>
+      <ExportFolder>$(SolutionDir)publish\$(TargetName)</ExportFolder>
+    </PropertyGroup>
+    <Copy SourceFiles="@(BuildFolder)" DestinationFolder="$(ExportFolder)" />
+    <ZipDirectory SourceDirectory="$(ExportFolder)" DestinationFile="$(ExportFolder)\..\$(TargetName).zip" Overwrite="true" />
+
+  </Target>
+
 </Project>
