@@ -32,7 +32,19 @@ internal class SkinLoader : ILoader
             return;
 
         LoadLocalSkins();
-        LoadRemoteSkins();
+
+        if (DateTime.Now >= Core.SettingsHandler.Properties.CurrentTime)
+        {
+            LoadRemoteSkins();
+            DateTime next = DateTime.Now.AddHours(1);
+            Core.SettingsHandler.Properties.SetTimeBySection(_skinType, next);
+            Logger.Warn($"Next remote loading: {next}");
+        }
+        else
+        {
+            Logger.Warn("Skipping remote loading");
+        }
+
         _loadedData = true;
     }
 
