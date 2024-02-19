@@ -32,7 +32,19 @@ internal class ModLoader : ILoader
             return;
 
         LoadLocalMods();
-        LoadRemoteMods();
+
+        if (Core.TempIgnoreTime || DateTime.Now >= Core.SettingsHandler.Properties.CurrentTime)
+        {
+            LoadRemoteMods();
+            DateTime next = DateTime.Now.AddHours(0.5);
+            Core.SettingsHandler.Properties.SetTimeBySection(_modType, next);
+            Logger.Warn($"Next remote loading: {next}");
+        }
+        else
+        {
+            Logger.Warn("Skipping remote loading");
+        }
+
         _loadedData = true;
     }
 
@@ -41,7 +53,7 @@ internal class ModLoader : ILoader
         if (File.Exists(_localDataPath))
         {
             string json = File.ReadAllText(_localDataPath);
-            ModData[] localData = JsonConvert.DeserializeObject<ModData[]>(json);
+            ModData[] localData = JsonConvert.DeserializeObject<ModData[]>(json)!;
 
             for (int i = 0; i < localData.Length; i++)
             {
@@ -61,7 +73,7 @@ internal class ModLoader : ILoader
         using (HttpClient client = new HttpClient())
         {
             string json = await client.GetStringAsync(_remoteDataPath);
-            ModData[] remoteData = JsonConvert.DeserializeObject<ModData[]>(json);
+            ModData[] remoteData = JsonConvert.DeserializeObject<ModData[]>(json)!;
 
             foreach (var data in remoteData)
             {
@@ -74,7 +86,7 @@ internal class ModLoader : ILoader
                 string latestDownloadURL = latestRelease.Assets[0].BrowserDownloadUrl;
                 DateTimeOffset latestReleaseDate = latestRelease.CreatedAt;
 
-                Mod localMod = FindMod(data.name);
+                Mod? localMod = FindMod(data.name);
                 ModData fullData = new ModData(data, latestVersion.ToString(), latestDownloadURL, latestReleaseDate);
 
                 if (localMod != null)
