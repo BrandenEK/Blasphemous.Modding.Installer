@@ -21,6 +21,7 @@ public partial class UIHandler : Form
         foreach (var page in Core.AllPages)
             page.Previewer.Clear();
 
+        RefreshSize();
         OpenSection(Core.SettingsHandler.Properties.CurrentSection);
     }
 
@@ -91,20 +92,15 @@ public partial class UIHandler : Form
     public Label PreviewVersion => _left_details_version;
     public Panel PreviewBackground => _left_details_inner;
 
-    private void MainForm_SizeChanged(object sender, EventArgs e)
+    // Scaling and focusing
+
+    public void RefreshSize()
     {
-        try
-        {
-            foreach (var page in Core.AllPages)
-            {
-                page.UIHolder.AdjustPageWidth();
-            }
-        }
-        catch (NullReferenceException)
-        {
-            Logger.Error("Pages not initialized yet, skipping resizing!");
-        }
+        _main.Location = ClientRectangle.Location;
+        _main.Size = ClientRectangle.Size;
     }
+
+    private void MainForm_SizeChanged(object sender, EventArgs e) => RefreshSize();
 
     public void RemoveButtonFocus(object sender, EventArgs e)
     {
