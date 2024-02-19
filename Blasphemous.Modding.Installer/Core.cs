@@ -93,6 +93,8 @@ static class Core
         Application.Run(UIHandler);
     }
 
+    public static bool TempIgnoreTime { get; private set; }
+
     public static UIHandler UIHandler { get; private set; }
     public static SettingsHandler SettingsHandler { get; private set; }
     public static GithubHandler GithubHandler { get; private set; }

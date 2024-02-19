@@ -33,10 +33,10 @@ internal class SkinLoader : ILoader
 
         LoadLocalSkins();
 
-        if (DateTime.Now >= Core.SettingsHandler.Properties.CurrentTime)
+        if (Core.TempIgnoreTime || DateTime.Now >= Core.SettingsHandler.Properties.CurrentTime)
         {
             LoadRemoteSkins();
-            DateTime next = DateTime.Now.AddHours(1);
+            DateTime next = DateTime.Now.AddHours(0.5);
             Core.SettingsHandler.Properties.SetTimeBySection(_skinType, next);
             Logger.Warn($"Next remote loading: {next}");
         }
@@ -53,7 +53,7 @@ internal class SkinLoader : ILoader
         if (File.Exists(_localDataPath))
         {
             string json = File.ReadAllText(_localDataPath);
-            SkinData[] localData = JsonConvert.DeserializeObject<SkinData[]>(json);
+            SkinData[] localData = JsonConvert.DeserializeObject<SkinData[]>(json)!;
 
             for (int i = 0; i < localData.Length; i++)
             {
@@ -81,9 +81,9 @@ internal class SkinLoader : ILoader
             foreach (var item in contents)
             {
                 string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{_remoteDataPath}/{item.Name}/info.txt");
-                SkinData data = JsonConvert.DeserializeObject<SkinData>(json);
+                SkinData data = JsonConvert.DeserializeObject<SkinData>(json)!;
 
-                Skin localSkin = FindSkin(data.id);
+                Skin? localSkin = FindSkin(data.id);
                 if (localSkin != null)
                 {
                     localSkin.Data = data;
@@ -111,7 +111,7 @@ internal class SkinLoader : ILoader
         File.WriteAllText(_localDataPath, JsonConvert.SerializeObject(_skins.Select(x => x.Data)));
     }
 
-    private Skin FindSkin(string id)
+    private Skin? FindSkin(string id)
     {
         return _skins.Find(x => x.Data.id == id);
     }
