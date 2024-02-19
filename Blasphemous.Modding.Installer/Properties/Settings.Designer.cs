@@ -130,5 +130,38 @@ namespace Blasphemous.Modding.Installer.Properties {
                 this["Blas2RootFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime Blas1ModTime {
+            get {
+                return ((global::System.DateTime)(this["Blas1ModTime"]));
+            }
+            set {
+                this["Blas1ModTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime Blas1SkinTime {
+            get {
+                return ((global::System.DateTime)(this["Blas1SkinTime"]));
+            }
+            set {
+                this["Blas1SkinTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime Blas2ModTime {
+            get {
+                return ((global::System.DateTime)(this["Blas2ModTime"]));
+            }
+            set {
+                this["Blas2ModTime"] = value;
+            }
+        }
     }
 }

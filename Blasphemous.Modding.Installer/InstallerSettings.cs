@@ -10,6 +10,10 @@ public class InstallerSettings
     public SortType Blas1SkinSort { get; set; }
     public SortType Blas2ModSort { get; set; }
 
+    public DateTime Blas1ModTime { get; set; }
+    public DateTime Blas1SkinTime { get; set; }
+    public DateTime Blas2ModTime { get; set; }
+
     public SortType CurrentSort
     {
         get
