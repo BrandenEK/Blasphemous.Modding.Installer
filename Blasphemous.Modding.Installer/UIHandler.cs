@@ -4,8 +4,6 @@ namespace Blasphemous.Modding.Installer;
 
 public partial class UIHandler : Form
 {
-    public int MainSectionWidth => _main.Width;
-
     public UIHandler()
     {
         Directory.CreateDirectory(Core.DataCache);
