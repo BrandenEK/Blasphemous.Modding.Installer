@@ -2,7 +2,7 @@
   {
     "Name": "Modding API",
     "Author": "Damocles",
-    "Description": "An API that is required for almost all other mods and allows for custom skins",
+    "Description": "A modding API that assists the creation of mods for Blasphemous 1",
     "InitialReleaseDate": "2023-02-22",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous.ModdingAPI",
@@ -11,13 +11,13 @@
   {
     "Name": "Randomizer",
     "Author": "Damocles",
-    "Description": "A randomizer mod that can shuffle items, enemies, and doors",
+    "Description": "An item, enemy, and door randomizer",
     "InitialReleaseDate": "2022-10-03",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous.Randomizer",
     "PluginFile": "BlasphemousRandomizer.dll",
     "RequiredDlls": [ "LogicParser.dll" ],
-    "Dependencies": [ "Modding API" ]
+    "Dependencies": [ "Modding API", "Cheat Console", "Level Framework" ]
   },
   {
     "Name": "Rando Map",
@@ -39,7 +39,7 @@
     "GithubRepo": "Blasphemous.Randomizer.Multiworld",
     "PluginFile": "BlasphemousMultiworld.dll",
     "RequiredDlls": [ "Archipelago.MultiClient.Net.dll", "c-wspp.dll", "websocket-sharp.dll" ],
-    "Dependencies": [ "Modding API", "Randomizer" ]
+    "Dependencies": [ "Modding API", "Randomizer", "Cheat Console" ]
   },
   {
     "Name": "PrieWarp",
@@ -60,7 +60,7 @@
     "GithubRepo": "Blasphemous.Multiplayer",
     "PluginFile": "BlasClient.dll",
     "RequiredDlls": [ "SimpleTCP.dll" ],
-    "Dependencies": [ "Modding API" ]
+    "Dependencies": [ "Modding API", "Cheat Console" ]
   },
   {
     "Name": "Boots of Pleading",
@@ -70,7 +70,7 @@
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous.BootsOfPleading",
     "PluginFile": "BootsOfPleading.dll",
-    "Dependencies": [ "Modding API" ]
+    "Dependencies": [ "Modding API", "Item Framework" ]
   },
   {
     "Name": "Double Jump",
@@ -80,7 +80,7 @@
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous.DoubleJump",
     "PluginFile": "BlasDoubleJump.dll",
-    "Dependencies": [ "Modding API" ]
+    "Dependencies": [ "Modding API", "Item Framework", "Level Framework" ]
   },
   {
     "Name": "Random Prayer",
@@ -90,7 +90,7 @@
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous.RandomPrayer",
     "PluginFile": "RandomPrayerUse.dll",
-    "Dependencies": [ "Modding API" ]
+    "Dependencies": [ "Modding API", "Penitence Framework", "Item Framework" ]
   },
   {
     "Name": "Debug Mod",
@@ -105,7 +105,7 @@
   {
     "Name": "OHKO",
     "Author": "Damocles",
-    "Description": "A mod that makes any source of damage instantly kill the player",
+    "Description": "Makes any source of damage instantly kill the player",
     "InitialReleaseDate": "2023-06-11",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous.OneHitKill",
@@ -130,6 +130,56 @@
     "GithubAuthor": "NeonPixels",
     "GithubRepo": "blasphemous.iter-tormenti",
     "PluginFile": "IterTormenti.dll",
+    "Dependencies": [ "Modding API" ]
+  },
+  {
+    "Name": "Item Framework",
+    "Author": "Damocles",
+    "Description": "Framework that allows other mods to implement custom items",
+    "InitialReleaseDate": "2024-02-15",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "Blasphemous.Framework.Items",
+    "PluginFile": "ItemFramework.dll",
+    "Dependencies": [ "Modding API" ]
+  },
+  {
+    "Name": "Penitence Framework",
+    "Author": "Damocles",
+    "Description": "Framework that allows other mods to implement custom penitences",
+    "InitialReleaseDate": "2024-02-15",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "Blasphemous.Framework.Penitence",
+    "PluginFile": "PenitenceFramework.dll",
+    "Dependencies": [ "Modding API" ]
+  },
+  {
+    "Name": "Level Framework",
+    "Author": "Damocles",
+    "Description": "Framework that allows other mods to implement level modifications",
+    "InitialReleaseDate": "2024-02-15",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "Blasphemous.Framework.Levels",
+    "PluginFile": "LevelFramework.dll",
+    "Dependencies": [ "Modding API" ]
+  },
+  {
+    "Name": "Custom Skins",
+    "Author": "Damocles",
+    "Description": "Allows using custom player skins made by the community",
+    "InitialReleaseDate": "2024-02-15",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "Blasphemous.CustomSkins",
+    "PluginFile": "CustomSkins.dll",
+    "Dependencies": [ "Modding API" ]
+  },
+  {
+    "Name": "Cheat Console",
+    "Author": "Damocles",
+    "Description": "Enables the in-game debug console",
+    "InitialReleaseDate": "2024-02-15",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "Blasphemous.CheatConsole",
+    "PluginFile": "CheatConsole.dll",
     "Dependencies": [ "Modding API" ]
   }
 ]

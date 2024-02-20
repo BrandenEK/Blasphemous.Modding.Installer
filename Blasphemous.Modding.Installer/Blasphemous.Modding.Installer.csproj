@@ -4,12 +4,18 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyName>BlasModInstaller</AssemblyName>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+
+    <Title>Blasphemous Mod Installer</Title>
+    <Product>Blasphemous Mod Installer</Product>
+    <Authors>Damocles</Authors>
+    <Company>Damocles</Company>
+    <Description>Easily installs mods and skins for Blasphemous 1 and 2</Description>
     <Version>1.4.0</Version>
-    
+
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWindowsForms>true</UseWindowsForms>
-    <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
