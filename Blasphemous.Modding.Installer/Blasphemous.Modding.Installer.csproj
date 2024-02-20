@@ -9,7 +9,6 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWindowsForms>true</UseWindowsForms>
-    <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
 
