@@ -49,7 +49,7 @@
     "GithubAuthor": "BadMagic100",
     "GithubRepo": "Blasphemous-PrieWarp",
     "PluginFile": "PrieWarp.dll",
-    "Dependencies": [ "Modding API" ]
+    "Dependencies": [ "Modding API", "Cheat Console" ]
   },
   {
     "Name": "Multiplayer",
