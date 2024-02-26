@@ -28,7 +28,7 @@ internal class Mod : IComparable
         ? Core.Blas1ModPage
         : Core.Blas2ModPage;
 
-    private SortType ModSort => _modType == SectionType.Blas1Mods
+    public SortType ModSort => _modType == SectionType.Blas1Mods
         ? Core.SettingsHandler.Properties.Blas1ModSort
         : Core.SettingsHandler.Properties.Blas2ModSort;
 
