@@ -16,19 +16,6 @@ internal class ModSorter : ISorter
 
     public void Sort()
     {
-        //_mods.Sort();
-
-        // Move modding api to the top always
-        //for (int i = 0; i < _mods.Count; i++)
-        //{
-        //    if (_mods[i].Data.name == "Modding API")
-        //    {
-        //        Mod api = _mods[i];
-        //        _mods.RemoveAt(i);
-        //        _mods.Insert(0, api);
-        //        break;
-        //    }
-        //}
         var sorted = _mods
             .OrderBy(mod => GetModPriority(mod))
             .ThenBy(mod => mod, new ModPropertyComparer())
@@ -57,25 +44,25 @@ internal class ModSorter : ISorter
 
         return 1;
     }
-}
 
-internal class ModPropertyComparer : IComparer<Mod>
-{
-    public int Compare(Mod? x, Mod? y)
+    class ModPropertyComparer : IComparer<Mod>
     {
-        if (x == null || y == null)
-            throw new ArgumentException("Null mod when sorting");
-
-        if (x.Equals(y))
-            return 0;
-
-        return x.ModSort switch
+        public int Compare(Mod? x, Mod? y)
         {
-            SortType.Name => x.Data.name.CompareTo(y.Data.name),
-            SortType.Author => x.Data.author.CompareTo(y.Data.author),
-            SortType.InitialRelease => x.Data.initialReleaseDate.CompareTo(y.Data.initialReleaseDate),
-            SortType.LatestRelease => y.Data.latestReleaseDate.CompareTo(x.Data.latestReleaseDate),
-            _ => 0
-        };
+            if (x == null || y == null)
+                throw new ArgumentException("Null mod when sorting");
+
+            if (x.Equals(y))
+                return 0;
+
+            return x.ModSort switch
+            {
+                SortType.Name => x.Data.name.CompareTo(y.Data.name),
+                SortType.Author => x.Data.author.CompareTo(y.Data.author),
+                SortType.InitialRelease => x.Data.initialReleaseDate.CompareTo(y.Data.initialReleaseDate),
+                SortType.LatestRelease => y.Data.latestReleaseDate.CompareTo(x.Data.latestReleaseDate),
+                _ => 0
+            };
+        }
     }
 }
