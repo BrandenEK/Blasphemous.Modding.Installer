@@ -130,7 +130,7 @@
     "GithubAuthor": "NeonPixels",
     "GithubRepo": "blasphemous.iter-tormenti",
     "PluginFile": "IterTormenti.dll",
-    "Dependencies": [ "Modding API", "Penitence Framework" ]
+    "Dependencies": [ "Modding API", "Penitence Framework", "Level Framework" ]
   },
   {
     "Name": "Item Framework",
