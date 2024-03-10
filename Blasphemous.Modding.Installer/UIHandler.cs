@@ -75,25 +75,12 @@ public partial class UIHandler : Form
 
     // ...
 
-    public void StartGameProcess()
+    private void StartGameProcess(bool useModded)
     {
-        string gameDir = Core.SettingsHandler.Properties.CurrentRootPath;
-        string gameExe = Path.Combine(gameDir, Core.CurrentPage.Validator.ExeName);
-        Logger.Info("Starting game process for " + gameExe);
-
-        try
-        {
-            Process.Start(new ProcessStartInfo()
-            {
-                FileName = gameExe,
-                WorkingDirectory = gameDir,
-                //UseShellExecute = true
-            });
-        }
-        catch
-        {
-            MessageBox.Show($"Can not open game at {gameExe}", "Failed to start game");
-        }
+        if (useModded)
+            Core.CurrentPage.GameStarter.StartModded();
+        else
+            Core.CurrentPage.GameStarter.StartVanilla();
     }
 
     public Panel GetUIElementByType(SectionType type)
@@ -280,7 +267,7 @@ public partial class UIHandler : Form
 
     #region Side section lower
 
-    private void ClickedStartGame(object sender, EventArgs e) => StartGameProcess();
+    private void ClickedStartGame(object sender, EventArgs e) => StartGameProcess(true);
 
     private void ClickedChangePath(object sender, EventArgs e) => PromptForRootFolder();
 
