@@ -1,5 +1,4 @@
 ﻿using Blasphemous.Modding.Installer.Validation;
-using System.Diagnostics;
 
 namespace Blasphemous.Modding.Installer;
 
@@ -77,6 +76,8 @@ public partial class UIHandler : Form
 
     private void StartGameProcess(bool useModded)
     {
+        Logger.Info($"Starting {Core.SettingsHandler.Properties.CurrentSection} game as {(useModded ? "Modded" : "Vanilla")}");
+
         if (useModded)
             Core.CurrentPage.GameStarter.StartModded();
         else
@@ -195,7 +196,8 @@ public partial class UIHandler : Form
         _left_divider3.Visible = validated;
 
         _left_details_outer.Visible = validated;
-        _left_startGame.Visible = validated;
+        _left_startVanilla.Visible = validated;
+        _left_startModded.Visible = validated;
         _left_changePath.Visible = validated;
     }
 
@@ -267,7 +269,9 @@ public partial class UIHandler : Form
 
     #region Side section lower
 
-    private void ClickedStartGame(object sender, EventArgs e) => StartGameProcess(true);
+    private void ClickedStartVanilla(object sender, EventArgs e) => StartGameProcess(false);
+
+    private void ClickedStartModded(object sender, EventArgs e) => StartGameProcess(true);
 
     private void ClickedChangePath(object sender, EventArgs e) => PromptForRootFolder();
 
