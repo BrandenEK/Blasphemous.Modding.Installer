@@ -1,4 +1,5 @@
 ﻿using Blasphemous.Modding.Installer.Validation;
+using System.Diagnostics;
 
 namespace Blasphemous.Modding.Installer;
 
@@ -76,7 +77,23 @@ public partial class UIHandler : Form
 
     public void StartGameProcess()
     {
-        string filePath = Core.SettingsHandler.Properties.CurrentRootPath;
+        string gameDir = Core.SettingsHandler.Properties.CurrentRootPath;
+        string gameExe = Path.Combine(gameDir, Core.CurrentPage.Validator.ExeName);
+        Logger.Info("Starting game process for " + gameExe);
+
+        try
+        {
+            Process.Start(new ProcessStartInfo()
+            {
+                FileName = gameExe,
+                WorkingDirectory = gameDir,
+                //UseShellExecute = true
+            });
+        }
+        catch
+        {
+            MessageBox.Show($"Can not open game at {gameExe}", "Failed to start game");
+        }
     }
 
     public Panel GetUIElementByType(SectionType type)
