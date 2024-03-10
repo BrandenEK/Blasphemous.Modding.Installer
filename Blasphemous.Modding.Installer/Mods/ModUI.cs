@@ -54,6 +54,11 @@ internal class ModUI
         enableButton.BackColor = backgroundColor;
     }
 
+    private bool IsDependencyMod(Mod mod)
+    {
+        return mod.Data.name == "Modding API" || mod.Data.name.EndsWith("Framework");
+    }
+
     public ModUI(Mod mod, Panel parentPanel)
     {
         parentPanel.AutoScroll = false;
@@ -87,7 +92,7 @@ internal class ModUI
             Anchor = AnchorStyles.Top | AnchorStyles.Left,
             Location = new Point(10, 8),
             Size = new Size(100, 30),
-            ForeColor = Color.LightGray,
+            ForeColor = IsDependencyMod(mod) ? Color.FromArgb(236, 203, 161) : Color.LightGray,
             TextAlign = ContentAlignment.MiddleLeft,
             Font = Fonts.MOD_NAME,
         };
