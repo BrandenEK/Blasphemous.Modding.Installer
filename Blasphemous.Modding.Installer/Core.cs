@@ -72,7 +72,7 @@ static class Core
         var blas1Validator = new Blas1Validator();
         var blas2Validator = new Blas2Validator();
 
-        var blas1Starter = new Blas1Starter();
+        var blas1Starter = new Blas1Starter(blas1Validator);
         var blas2Starter = new Blas2Starter();
 
         var modPreviewer = new ModPreviewer(UIHandler.PreviewName, UIHandler.PreviewDescription, UIHandler.PreviewVersion);

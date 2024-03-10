@@ -1,37 +1,78 @@
-﻿using System.Diagnostics;
+﻿using Blasphemous.Modding.Installer.Validation;
+using System.Diagnostics;
 
 namespace Blasphemous.Modding.Installer.Starting;
 
-public class Blas1Starter : IGameStarter
+internal class Blas1Starter : IGameStarter
 {
+    private readonly IValidator _validator;
+
+    public Blas1Starter(IValidator validator)
+    {
+        _validator = validator;
+    }
+
     public void StartModded()
     {
-        throw new NotImplementedException();
+        if (SetConfigProperty(true))
+            StartProcess();
     }
 
     public void StartVanilla()
     {
-        throw new NotImplementedException();
+        if (SetConfigProperty(false))
+            StartProcess();
+    }
+
+    private bool SetConfigProperty(bool enabled)
+    {
+        string gameDir = Core.SettingsHandler.Properties.Blas1RootFolder;
+        string configPath = Path.Combine(gameDir, "doorstop_config.ini");
+
+        // Ensure doorstop file exists
+        if (!File.Exists(configPath))
+        {
+            FailWithMessage($"Could not find config file at {configPath}");
+            return false;
+        }
+
+        try
+        {
+            string[] lines = File.ReadAllLines(configPath);
+            lines[2] = $"enabled={enabled.ToString().ToLower()}";
+            File.WriteAllLines(configPath, lines);
+            return true;
+        }
+        catch
+        {
+            FailWithMessage("Failed to write enabled property to doorstop config");
+            return false;
+        }
     }
 
     private void StartProcess()
     {
-        string gameDir = Core.SettingsHandler.Properties.CurrentRootPath;
-        string gameExe = Path.Combine(gameDir, Core.CurrentPage.Validator.ExeName);
-        Logger.Info("Starting game process for " + gameExe);
+        string gameDir = Core.SettingsHandler.Properties.Blas1RootFolder;
+        string gameExe = Path.Combine(gameDir, _validator.ExeName);
+        Logger.Info("Starting process at " + gameExe);
 
         try
         {
             Process.Start(new ProcessStartInfo()
             {
                 FileName = gameExe,
-                WorkingDirectory = gameDir,
-                //UseShellExecute = true
+                WorkingDirectory = gameDir
             });
         }
         catch
         {
-            MessageBox.Show($"Can not open game at {gameExe}", "Failed to start game");
+            FailWithMessage($"Can not open game at {gameExe}");
         }
+    }
+
+    private void FailWithMessage(string message)
+    {
+        Logger.Error(message);
+        MessageBox.Show(message, "Failed to start game");
     }
 }

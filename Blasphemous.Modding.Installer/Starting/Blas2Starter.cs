@@ -1,7 +1,7 @@
 ﻿
 namespace Blasphemous.Modding.Installer.Starting;
 
-public class Blas2Starter : IGameStarter
+internal class Blas2Starter : IGameStarter
 {
     public void StartModded()
     {

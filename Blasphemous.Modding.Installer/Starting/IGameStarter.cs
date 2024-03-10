@@ -1,7 +1,7 @@
 ﻿
 namespace Blasphemous.Modding.Installer.Starting;
 
-public interface IGameStarter
+internal interface IGameStarter
 {
     public void StartVanilla();
 
