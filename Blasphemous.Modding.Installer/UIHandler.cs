@@ -74,15 +74,20 @@ public partial class UIHandler : Form
 
     // ...
 
+    public void StartGameProcess()
+    {
+        string filePath = Core.SettingsHandler.Properties.CurrentRootPath;
+    }
+
     public Panel GetUIElementByType(SectionType type)
     {
-        switch (type)
+        return type switch
         {
-            case SectionType.Blas1Mods: return _bottom_blas1mod;
-            case SectionType.Blas1Skins: return _bottom_blas1skin;
-            case SectionType.Blas2Mods: return _bottom_blas2mod;
-            default: return null;
-        }
+            SectionType.Blas1Mods => _bottom_blas1mod,
+            SectionType.Blas1Skins => _bottom_blas1skin,
+            SectionType.Blas2Mods => _bottom_blas2mod,
+            _ => throw new Exception("Invalid section type: " + type),
+        };
     }
 
     public Label PreviewName => _left_details_name;
@@ -258,7 +263,7 @@ public partial class UIHandler : Form
 
     #region Side section lower
 
-    private void ClickedStartGame(object sender, EventArgs e) { }
+    private void ClickedStartGame(object sender, EventArgs e) => StartGameProcess();
 
     private void ClickedChangePath(object sender, EventArgs e) => PromptForRootFolder();
 
