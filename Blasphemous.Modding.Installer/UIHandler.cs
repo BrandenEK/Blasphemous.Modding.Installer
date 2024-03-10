@@ -186,6 +186,7 @@ public partial class UIHandler : Form
         _left_divider3.Visible = validated;
 
         _left_details_outer.Visible = validated;
+        _left_startGame.Visible = validated;
         _left_changePath.Visible = validated;
     }
 
@@ -256,6 +257,8 @@ public partial class UIHandler : Form
     #endregion Side section bottom
 
     #region Side section lower
+
+    private void ClickedStartGame(object sender, EventArgs e) { }
 
     private void ClickedChangePath(object sender, EventArgs e) => PromptForRootFolder();
 

@@ -76,6 +76,7 @@ namespace Blasphemous.Modding.Installer
             _bottom_blas1skin_scroll = new VScrollBar();
             _bottom_blas2mod = new Panel();
             _bottom_blas2mod_scroll = new VScrollBar();
+            _left_startGame = new Button();
             _bottom_blas1mod.SuspendLayout();
             _bottom_validation.SuspendLayout();
             _main.SuspendLayout();
@@ -191,6 +192,7 @@ namespace Blasphemous.Modding.Installer
             // 
             _left_inner.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             _left_inner.BackColor = Color.FromArgb(30, 30, 30);
+            _left_inner.Controls.Add(_left_startGame);
             _left_inner.Controls.Add(_left_changePath);
             _left_inner.Controls.Add(_left_page);
             _left_inner.Controls.Add(_left_details_outer);
@@ -697,6 +699,27 @@ namespace Blasphemous.Modding.Installer
             _bottom_blas2mod_scroll.TabIndex = 2;
             _bottom_blas2mod_scroll.Visible = false;
             // 
+            // _left_startGame
+            // 
+            _left_startGame.Anchor = AnchorStyles.Bottom;
+            _left_startGame.BackColor = Color.FromArgb(30, 30, 30);
+            _left_startGame.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
+            _left_startGame.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
+            _left_startGame.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
+            _left_startGame.FlatStyle = FlatStyle.Flat;
+            _left_startGame.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_startGame.ForeColor = SystemColors.ButtonHighlight;
+            _left_startGame.Location = new Point(15, 610);
+            _left_startGame.Name = "_left_startGame";
+            _left_startGame.Size = new Size(220, 30);
+            _left_startGame.TabIndex = 24;
+            _left_startGame.Text = "Start game";
+            _left_startGame.UseVisualStyleBackColor = false;
+            _left_startGame.Click += ClickedStartGame;
+            _left_startGame.MouseEnter += ShowSideButtonBorder;
+            _left_startGame.MouseLeave += HideSideButtonBorder;
+            _left_startGame.MouseUp += RemoveButtonFocus;
+            // 
             // UIHandler
             // 
             AutoScaleDimensions = new SizeF(6F, 15F);
@@ -783,6 +806,7 @@ namespace Blasphemous.Modding.Installer
         private Panel _bottom;
         private Panel _left;
         private Panel _top;
+        private Button _left_startGame;
     }
 }
 
