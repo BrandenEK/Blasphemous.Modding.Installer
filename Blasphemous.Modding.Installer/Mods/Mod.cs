@@ -28,10 +28,6 @@ internal class Mod
         ? Core.Blas1ModPage
         : Core.Blas2ModPage;
 
-    public SortType ModSort => _modType == SectionType.Blas1Mods
-        ? Core.SettingsHandler.Properties.Blas1ModSort
-        : Core.SettingsHandler.Properties.Blas2ModSort;
-
     public bool RequiresDll(string dllName) =>
         Data.requiredDlls != null && Data.requiredDlls.Contains(dllName);
 

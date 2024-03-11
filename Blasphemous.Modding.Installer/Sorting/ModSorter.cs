@@ -7,18 +7,22 @@ internal class ModSorter : ISorter
 {
     private readonly IUIHolder _uiHolder;
     private readonly List<Mod> _mods;
+    private readonly SectionType _section;
 
-    public ModSorter(IUIHolder uiHolder, List<Mod> mods)
+    public ModSorter(IUIHolder uiHolder, List<Mod> mods, SectionType section)
     {
         _uiHolder = uiHolder;
         _mods = mods;
+        _section = section;
     }
 
     public void Sort()
     {
+        var comparer = new ModPropertyComparer(Core.SettingsHandler.Properties.GetSort(_section));
+
         var sorted = _mods
             .OrderBy(mod => GetModPriority(mod))
-            .ThenBy(mod => mod, new ModPropertyComparer())
+            .ThenBy(mod => mod, comparer)
             .ThenBy(mod => mod.Data.name)
             .ToArray();
 
@@ -47,6 +51,13 @@ internal class ModSorter : ISorter
 
     class ModPropertyComparer : IComparer<Mod>
     {
+        private readonly SortType _sort;
+
+        public ModPropertyComparer(SortType sort)
+        {
+            _sort = sort;
+        }
+
         public int Compare(Mod? x, Mod? y)
         {
             if (x == null || y == null)
@@ -55,7 +66,7 @@ internal class ModSorter : ISorter
             if (x.Equals(y))
                 return 0;
 
-            return x.ModSort switch
+            return _sort switch
             {
                 SortType.Name => x.Data.name.CompareTo(y.Data.name),
                 SortType.Author => x.Data.author.CompareTo(y.Data.author),
