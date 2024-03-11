@@ -6,6 +6,7 @@ using Blasphemous.Modding.Installer.Previewing;
 using Blasphemous.Modding.Installer.Properties;
 using Blasphemous.Modding.Installer.Skins;
 using Blasphemous.Modding.Installer.Sorting;
+using Blasphemous.Modding.Installer.Starting;
 using Blasphemous.Modding.Installer.UIHolding;
 using Blasphemous.Modding.Installer.Validation;
 
@@ -60,9 +61,9 @@ static class Core
         var blas1skinUI = new GenericUIHolder<Skin>(UIHandler.GetUIElementByType(SectionType.Blas1Skins), blas1skins);
         var blas2modUI = new GenericUIHolder<Mod>(UIHandler.GetUIElementByType(SectionType.Blas2Mods), blas2mods);
 
-        var blas1modSorter = new ModSorter(blas1modUI, blas1mods);
-        var blas1skinSorter = new SkinSorter(blas1skinUI, blas1skins);
-        var blas2modSorter = new ModSorter(blas2modUI, blas2mods);
+        var blas1modSorter = new ModSorter(blas1modUI, blas1mods, SectionType.Blas1Mods);
+        var blas1skinSorter = new SkinSorter(blas1skinUI, blas1skins, SectionType.Blas1Skins);
+        var blas2modSorter = new ModSorter(blas2modUI, blas2mods, SectionType.Blas2Mods);
 
         var blas1modLoader = new ModLoader(blas1modLocalPath, blas1modRemotePath, blas1modUI, blas1modSorter, blas1mods, SectionType.Blas1Mods);
         var blas1skinLoader = new SkinLoader(blas1skinLocalPath, "blasphemous1", blas1skinUI, blas1skinSorter, blas1skins, SectionType.Blas1Skins);
@@ -70,6 +71,9 @@ static class Core
 
         var blas1Validator = new Blas1Validator();
         var blas2Validator = new Blas2Validator();
+
+        var blas1Starter = new Blas1Starter(blas1Validator);
+        var blas2Starter = new Blas2Starter(blas2Validator);
 
         var modPreviewer = new ModPreviewer(UIHandler.PreviewName, UIHandler.PreviewDescription, UIHandler.PreviewVersion);
         var skinPreviewer = new SkinPreviewer(UIHandler.PreviewBackground);
@@ -80,7 +84,8 @@ static class Core
             modPreviewer,
             blas1modSorter,
             blas1modUI,
-            blas1Validator);
+            blas1Validator,
+            blas1Starter);
 
         var blas1skinPage = new InstallerPage(blas1skinTitle, Resources.background1,
             blas1skinGrouper,
@@ -88,7 +93,8 @@ static class Core
             skinPreviewer,
             blas1skinSorter,
             blas1skinUI,
-            blas1Validator);
+            blas1Validator,
+            blas1Starter);
 
         var blas2modPage = new InstallerPage(blas2modTitle, Resources.background2,
             blas2modGrouper,
@@ -96,7 +102,8 @@ static class Core
             modPreviewer,
             blas2modSorter,
             blas2modUI,
-            blas2Validator);
+            blas2Validator,
+            blas2Starter);
 
         _pages.Add(SectionType.Blas1Mods, blas1modPage);
         _pages.Add(SectionType.Blas1Skins, blas1skinPage);

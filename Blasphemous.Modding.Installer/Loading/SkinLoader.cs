@@ -37,7 +37,7 @@ internal class SkinLoader : ILoader
         {
             LoadRemoteSkins();
             DateTime next = DateTime.Now.AddHours(0.5);
-            Core.SettingsHandler.Properties.SetTimeBySection(_skinType, next);
+            Core.SettingsHandler.Properties.SetTime(_skinType, next);
             Logger.Warn($"Next remote loading: {next}");
         }
         else
