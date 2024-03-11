@@ -49,7 +49,7 @@
     "GithubAuthor": "BadMagic100",
     "GithubRepo": "Blasphemous-PrieWarp",
     "PluginFile": "PrieWarp.dll",
-    "Dependencies": [ "Modding API" ]
+    "Dependencies": [ "Modding API", "Cheat Console" ]
   },
   {
     "Name": "Multiplayer",
@@ -100,7 +100,7 @@
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous.DebugMod",
     "PluginFile": "DebugMod.dll",
-    "Dependencies": [ "Modding API" ]
+    "Dependencies": [ "Modding API", "UI Framework" ]
   },
   {
     "Name": "OHKO",
@@ -130,7 +130,7 @@
     "GithubAuthor": "NeonPixels",
     "GithubRepo": "blasphemous.iter-tormenti",
     "PluginFile": "IterTormenti.dll",
-    "Dependencies": [ "Modding API" ]
+    "Dependencies": [ "Modding API", "Penitence Framework", "Level Framework" ]
   },
   {
     "Name": "Item Framework",
@@ -180,6 +180,16 @@
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous.CheatConsole",
     "PluginFile": "CheatConsole.dll",
+    "Dependencies": [ "Modding API" ]
+  },
+  {
+    "Name": "UI Framework",
+    "Author": "Damocles",
+    "Description": "Framework that allows other mods to easily create UI",
+    "InitialReleaseDate": "2024-02-21",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "Blasphemous.Framework.UI",
+    "PluginFile": "UIFramework.dll",
     "Dependencies": [ "Modding API" ]
   }
 ]

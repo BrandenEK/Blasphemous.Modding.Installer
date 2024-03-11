@@ -56,7 +56,7 @@ internal class Skin : IComparable
 
     // Paths
 
-    private string RootFolder => Core.SettingsHandler.Properties.GetRootPathBySection(_skinType);
+    private string RootFolder => Core.SettingsHandler.Properties.GetRootPath(_skinType);
     public string PathToSkinFolder => $"{RootFolder}/Modding/skins/{Data.id}";
 
     private string SubFolder => "blasphemous1";

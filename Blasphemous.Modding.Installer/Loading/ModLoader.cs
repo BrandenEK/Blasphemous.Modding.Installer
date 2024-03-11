@@ -37,7 +37,7 @@ internal class ModLoader : ILoader
         {
             LoadRemoteMods();
             DateTime next = DateTime.Now.AddHours(0.5);
-            Core.SettingsHandler.Properties.SetTimeBySection(_modType, next);
+            Core.SettingsHandler.Properties.SetTime(_modType, next);
             Logger.Warn($"Next remote loading: {next}");
         }
         else
