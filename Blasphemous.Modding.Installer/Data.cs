@@ -5,6 +5,8 @@ public static class Colors
     public readonly static Color LIGHT_GRAY = Color.FromArgb(64, 64, 64);
     public readonly static Color DARK_GRAY = Color.FromArgb(52, 52, 52);
 
+    public readonly static Color SPECIAL = Color.FromArgb(124, 167, 191);
+
     public readonly static Color GREEN = Color.FromArgb(102, 255, 102);
     public readonly static Color RED = Color.FromArgb(255, 102, 102);
     public readonly static Color ORANGE = Color.FromArgb(255, 178, 102);
