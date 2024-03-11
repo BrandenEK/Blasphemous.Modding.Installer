@@ -74,15 +74,25 @@ public partial class UIHandler : Form
 
     // ...
 
+    private void StartGameProcess(bool useModded)
+    {
+        Logger.Info($"Starting {Core.SettingsHandler.Properties.CurrentSection} game as {(useModded ? "Modded" : "Vanilla")}");
+
+        if (useModded)
+            Core.CurrentPage.GameStarter.StartModded();
+        else
+            Core.CurrentPage.GameStarter.StartVanilla();
+    }
+
     public Panel GetUIElementByType(SectionType type)
     {
-        switch (type)
+        return type switch
         {
-            case SectionType.Blas1Mods: return _bottom_blas1mod;
-            case SectionType.Blas1Skins: return _bottom_blas1skin;
-            case SectionType.Blas2Mods: return _bottom_blas2mod;
-            default: return null;
-        }
+            SectionType.Blas1Mods => _bottom_blas1mod,
+            SectionType.Blas1Skins => _bottom_blas1skin,
+            SectionType.Blas2Mods => _bottom_blas2mod,
+            _ => throw new Exception("Invalid section type: " + type),
+        };
     }
 
     public Label PreviewName => _left_details_name;
@@ -186,6 +196,8 @@ public partial class UIHandler : Form
         _left_divider3.Visible = validated;
 
         _left_details_outer.Visible = validated;
+        _left_startVanilla.Visible = validated;
+        _left_startModded.Visible = validated;
         _left_changePath.Visible = validated;
     }
 
@@ -256,6 +268,10 @@ public partial class UIHandler : Form
     #endregion Side section bottom
 
     #region Side section lower
+
+    private void ClickedStartVanilla(object sender, EventArgs e) => StartGameProcess(false);
+
+    private void ClickedStartModded(object sender, EventArgs e) => StartGameProcess(true);
 
     private void ClickedChangePath(object sender, EventArgs e) => PromptForRootFolder();
 

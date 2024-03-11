@@ -70,7 +70,7 @@ internal class Mod : IComparable
 
     // Paths
 
-    private string RootFolder => Core.SettingsHandler.Properties.GetRootPathBySection(_modType);
+    private string RootFolder => Core.SettingsHandler.Properties.GetRootPath(_modType);
     public string GithubLink => $"https://github.com/{Data.githubAuthor}/{Data.githubRepo}";
 
     public string PathToEnabledPlugin => $"{RootFolder}/Modding/plugins/{Data.pluginFile}";
