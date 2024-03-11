@@ -61,9 +61,9 @@ static class Core
         var blas1skinUI = new GenericUIHolder<Skin>(UIHandler.GetUIElementByType(SectionType.Blas1Skins), blas1skins);
         var blas2modUI = new GenericUIHolder<Mod>(UIHandler.GetUIElementByType(SectionType.Blas2Mods), blas2mods);
 
-        var blas1modSorter = new ModSorter(blas1modUI, blas1mods);
-        var blas1skinSorter = new SkinSorter(blas1skinUI, blas1skins);
-        var blas2modSorter = new ModSorter(blas2modUI, blas2mods);
+        var blas1modSorter = new ModSorter(blas1modUI, blas1mods, SectionType.Blas1Mods);
+        var blas1skinSorter = new SkinSorter(blas1skinUI, blas1skins, SectionType.Blas1Skins);
+        var blas2modSorter = new ModSorter(blas2modUI, blas2mods, SectionType.Blas2Mods);
 
         var blas1modLoader = new ModLoader(blas1modLocalPath, blas1modRemotePath, blas1modUI, blas1modSorter, blas1mods, SectionType.Blas1Mods);
         var blas1skinLoader = new SkinLoader(blas1skinLocalPath, "blasphemous1", blas1skinUI, blas1skinSorter, blas1skins, SectionType.Blas1Skins);

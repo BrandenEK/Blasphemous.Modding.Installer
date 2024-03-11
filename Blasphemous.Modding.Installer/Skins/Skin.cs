@@ -3,7 +3,7 @@ using System.Net;
 
 namespace Blasphemous.Modding.Installer.Skins;
 
-internal class Skin : IComparable
+internal class Skin
 {
     private readonly SkinUI _ui;
     private readonly SectionType _skinType;
@@ -22,7 +22,6 @@ internal class Skin : IComparable
     public SkinData Data { get; set; }
 
     private InstallerPage SkinPage => Core.Blas1SkinPage;
-    private SortType SkinSort => Core.SettingsHandler.Properties.Blas1SkinSort;
 
     public bool Installed => File.Exists(PathToSkinFolder + "/info.txt");
 
@@ -157,22 +156,4 @@ internal class Skin : IComparable
     public void MouseEnter(object sender, EventArgs e) => SkinPage.Previewer.PreviewSkin(this);
 
     public void MouseLeave(object sender, EventArgs e) => SkinPage.Previewer.Clear();
-
-    // Sorting methods
-
-    public int CompareTo(object obj) => SortBy(obj as Skin, SkinSort);
-
-    public int SortBy(Skin skin, SortType sort)
-    {
-        if (sort == SortType.Name)
-        {
-            return Data.name.CompareTo(skin.Data.name);
-        }
-        else if (sort == SortType.Author)
-        {
-            int difference = Data.author.CompareTo(skin.Data.author);
-            return difference == 0 ? SortBy(skin, SortType.Name) : difference;
-        }
-        return 0;
-    }
 }

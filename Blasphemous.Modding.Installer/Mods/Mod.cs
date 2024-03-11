@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Blasphemous.Modding.Installer.Mods;
 
-internal class Mod : IComparable
+internal class Mod
 {
     private readonly ModUI _ui;
     private readonly SectionType _modType;
@@ -27,10 +27,6 @@ internal class Mod : IComparable
     private InstallerPage ModPage => _modType == SectionType.Blas1Mods
         ? Core.Blas1ModPage
         : Core.Blas2ModPage;
-
-    private SortType ModSort => _modType == SectionType.Blas1Mods
-        ? Core.SettingsHandler.Properties.Blas1ModSort
-        : Core.SettingsHandler.Properties.Blas2ModSort;
 
     public bool RequiresDll(string dllName) =>
         Data.requiredDlls != null && Data.requiredDlls.Contains(dllName);
@@ -320,34 +316,6 @@ internal class Mod : IComparable
         {
             MessageBox.Show("Link does not exist!", "Invalid Link");
         }
-    }
-
-    // Sort methods
-
-    public int CompareTo(object obj) => SortBy(obj as Mod, ModSort);
-
-    public int SortBy(Mod mod, SortType sort)
-    {
-        if (sort == SortType.Name)
-        {
-            return Data.name.CompareTo(mod.Data.name);
-        }
-        else if (sort == SortType.Author)
-        {
-            int difference = Data.author.CompareTo(mod.Data.author);
-            return difference == 0 ? SortBy(mod, SortType.Name) : difference;
-        }
-        else if (sort == SortType.InitialRelease)
-        {
-            int difference = Data.initialReleaseDate.CompareTo(mod.Data.initialReleaseDate);
-            return difference == 0 ? SortBy(mod, SortType.Name) : difference;
-        }
-        else if (sort == SortType.LatestRelease)
-        {
-            int difference = Data.latestReleaseDate.CompareTo(mod.Data.latestReleaseDate) * -1;
-            return difference == 0 ? SortBy(mod, SortType.Name) : difference;
-        }
-        return 0;
     }
 
     // UI methods
