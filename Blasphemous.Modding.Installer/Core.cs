@@ -62,7 +62,7 @@ static class Core
         var blas2modUI = new GenericUIHolder<Mod>(UIHandler.GetUIElementByType(SectionType.Blas2Mods), blas2mods);
 
         var blas1modSorter = new ModSorter(blas1modUI, blas1mods, SectionType.Blas1Mods);
-        var blas1skinSorter = new SkinSorter(blas1skinUI, blas1skins);
+        var blas1skinSorter = new SkinSorter(blas1skinUI, blas1skins, SectionType.Blas1Skins);
         var blas2modSorter = new ModSorter(blas2modUI, blas2mods, SectionType.Blas2Mods);
 
         var blas1modLoader = new ModLoader(blas1modLocalPath, blas1modRemotePath, blas1modUI, blas1modSorter, blas1mods, SectionType.Blas1Mods);
