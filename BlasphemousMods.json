@@ -191,5 +191,16 @@
     "GithubRepo": "Blasphemous.Framework.UI",
     "PluginFile": "UIFramework.dll",
     "Dependencies": [ "Modding API" ]
+  },
+  },
+  {
+    "Name": "Death Counter",
+    "Author": "Xanathar865",
+    "Description": "Adds a death counter to the map screen",
+    "InitialReleaseDate": "2024-04-30",
+    "GithubAuthor": "Xanathar865",
+    "GithubRepo": "Blasphemous.DeathCounter",
+    "PluginFile": "DeathCounter.dll",
+    "Dependencies": [ "Modding API", "UI Framework", "Cheat Console" ]
   }
 ]
