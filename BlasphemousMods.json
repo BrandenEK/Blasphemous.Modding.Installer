@@ -201,5 +201,15 @@
     "GithubRepo": "Blasphemous.DeathCounter",
     "PluginFile": "DeathCounter.dll",
     "Dependencies": [ "Modding API", "UI Framework", "Cheat Console" ]
+  },
+  {
+    "Name": "Better Saves",
+    "Author": "Damocles",
+    "Description": "Allows naming save files and creating a lot more of them",
+    "InitialReleaseDate": "2024-05-01",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "Blasphemous.BetterSaves",
+    "PluginFile": "BetterSaves.dll",
+    "Dependencies": [ "Modding API", "Cheat Console" ]
   }
 ]
