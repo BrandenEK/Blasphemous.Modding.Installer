@@ -13,7 +13,6 @@ public partial class UIHandler : BasaltForm
         foreach (var page in Core.AllPages)
             page.Previewer.Clear();
 
-        RefreshSize();
         OpenSection(Core.SettingsHandler.Properties.CurrentSection);
     }
 
@@ -93,15 +92,7 @@ public partial class UIHandler : BasaltForm
     public Label PreviewVersion => _left_details_version;
     public Panel PreviewBackground => _left_details_inner;
 
-    // Scaling and focusing
-
-    public void RefreshSize()
-    {
-        _main.Location = ClientRectangle.Location;
-        _main.Size = ClientRectangle.Size;
-    }
-
-    private void MainForm_SizeChanged(object sender, EventArgs e) => RefreshSize();
+    // UI focusing
 
     public void RemoveButtonFocus(object sender, EventArgs e)
     {
