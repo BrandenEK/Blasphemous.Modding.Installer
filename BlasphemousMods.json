@@ -211,5 +211,15 @@
     "GithubRepo": "Blasphemous.BetterSaves",
     "PluginFile": "BetterSaves.dll",
     "Dependencies": [ "Modding API", "Cheat Console" ]
+  },
+  {
+    "Name": "Localization Patcher",
+    "Author": "NewbieElton",
+    "Description": "Allows customizing localization texts of Blasphemous",
+    "InitialReleaseDate": "2024-06-05",
+    "GithubAuthor": "EltonZhang777",
+    "GithubRepo": "Blasphemous.LocalizationPatcher",
+    "PluginFile": "LocalizationPatcher.dll",
+    "Dependencies": [ "Modding API" ]
   }
 ]
