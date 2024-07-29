@@ -17,7 +17,7 @@
     "GithubRepo": "Blasphemous.Randomizer",
     "PluginFile": "BlasphemousRandomizer.dll",
     "RequiredDlls": [ "LogicParser.dll" ],
-    "Dependencies": [ "Modding API", "Cheat Console", "Level Framework" ]
+    "Dependencies": [ "Modding API", "Credits Framework", "Level Framework", "Menu Framework", "UI Framework", "Cheat Console" ]
   },
   {
     "Name": "Multiworld",
@@ -28,7 +28,7 @@
     "GithubRepo": "Blasphemous.Randomizer.Multiworld",
     "PluginFile": "BlasphemousMultiworld.dll",
     "RequiredDlls": [ "Archipelago.MultiClient.Net.dll", "c-wspp.dll", "websocket-sharp.dll" ],
-    "Dependencies": [ "Modding API", "Randomizer", "Cheat Console" ]
+    "Dependencies": [ "Modding API", "Menu Framework", "Randomizer", "Cheat Console" ]
   },
   {
     "Name": "Multiplayer",
@@ -210,7 +210,7 @@
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous.BetterSaves",
     "PluginFile": "BetterSaves.dll",
-    "Dependencies": [ "Modding API", "Cheat Console" ]
+    "Dependencies": [ "Modding API", "Menu Framework", "Cheat Console" ]
   },
   {
     "Name": "Menu Framework",
