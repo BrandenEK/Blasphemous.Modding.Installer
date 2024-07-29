@@ -213,6 +213,16 @@
     "Dependencies": [ "Modding API", "Cheat Console" ]
   },
   {
+    "Name": "Menu Framework",
+    "Author": "Damocles",
+    "Description": "Framework that allows other mods to implement start game menus",
+    "InitialReleaseDate": "2024-05-13",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "Blasphemous.Framework.Menus",
+    "PluginFile": "MenuFramework.dll",
+    "Dependencies": [ "Modding API", "UI Framework" ]
+  },
+  {
     "Name": "Localization Patcher",
     "Author": "NewbieElton",
     "Description": "Allows customizing localization texts of Blasphemous",
@@ -220,6 +230,16 @@
     "GithubAuthor": "EltonZhang777",
     "GithubRepo": "Blasphemous.LocalizationPatcher",
     "PluginFile": "LocalizationPatcher.dll",
+    "Dependencies": [ "Modding API" ]
+  },
+  {
+    "Name": "Credits Framework",
+    "Author": "Damocles",
+    "Description": "Framework that allows other mods to implement sections in the game credits",
+    "InitialReleaseDate": "2024-06-13",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "Blasphemous.Framework.Credits",
+    "PluginFile": "CreditsFramework.dll",
     "Dependencies": [ "Modding API" ]
   }
 ]
