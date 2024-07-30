@@ -205,7 +205,7 @@
   {
     "Name": "Better Saves",
     "Author": "Damocles",
-    "Description": "Allows naming save files and creating a lot more of them",
+    "Description": "Allows creating more save files, naming them, and checking their validity",
     "InitialReleaseDate": "2024-05-01",
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous.BetterSaves",
