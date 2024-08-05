@@ -1,4 +1,4 @@
-﻿namespace Blasphemous.Modding.Installer.PageComponents.Starting;
+﻿namespace Blasphemous.Modding.Installer.PageComponents.Starters;
 
 internal interface IGameStarter
 {

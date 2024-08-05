@@ -1,7 +1,7 @@
 ﻿using Blasphemous.Modding.Installer.Mods;
 using Blasphemous.Modding.Installer.Skins;
 
-namespace Blasphemous.Modding.Installer.PageComponents.Previewing;
+namespace Blasphemous.Modding.Installer.PageComponents.Previewers;
 
 internal interface IPreviewer
 {

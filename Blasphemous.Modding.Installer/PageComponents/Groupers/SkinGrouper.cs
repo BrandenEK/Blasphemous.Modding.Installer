@@ -1,6 +1,6 @@
 ﻿using Blasphemous.Modding.Installer.Skins;
 
-namespace Blasphemous.Modding.Installer.PageComponents.Grouping;
+namespace Blasphemous.Modding.Installer.PageComponents.Groupers;
 
 internal class SkinGrouper : IGrouper
 {

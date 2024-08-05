@@ -1,4 +1,4 @@
-﻿using Blasphemous.Modding.Installer.PageComponents.Loading;
+﻿using Blasphemous.Modding.Installer.PageComponents.Loaders;
 using Ionic.Zip;
 using System.Diagnostics;
 using System.Net;

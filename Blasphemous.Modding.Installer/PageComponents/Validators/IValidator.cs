@@ -1,4 +1,4 @@
-﻿namespace Blasphemous.Modding.Installer.PageComponents.Validation;
+﻿namespace Blasphemous.Modding.Installer.PageComponents.Validators;
 
 internal interface IValidator
 {

@@ -1,4 +1,4 @@
-﻿namespace Blasphemous.Modding.Installer.PageComponents.UIHolding;
+﻿namespace Blasphemous.Modding.Installer.PageComponents.UIHolders;
 
 internal interface IUIHolder
 {
