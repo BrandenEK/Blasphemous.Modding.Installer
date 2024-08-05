@@ -1,4 +1,5 @@
-﻿
+﻿using Blasphemous.Modding.Installer.UIComponents;
+
 namespace Blasphemous.Modding.Installer
 {
     partial class UIHandler
@@ -38,13 +39,13 @@ namespace Blasphemous.Modding.Installer
             _left = new Panel();
             _left_outer = new Panel();
             _left_inner = new Panel();
-            _left_startVanilla = new Button();
-            _left_startModded = new Button();
-            _left_changePath = new Button();
+            _left_startVanilla = new TransparentButton();
+            _left_startModded = new TransparentButton();
+            _left_changePath = new TransparentButton();
             _left_page = new Panel();
-            _left_page_blas1mod = new Button();
-            _left_page_blas1skin = new Button();
-            _left_page_blas2mod = new Button();
+            _left_page_blas1mod = new TransparentButton();
+            _left_page_blas1skin = new TransparentButton();
+            _left_page_blas2mod = new TransparentButton();
             _left_details_outer = new Panel();
             _left_details_inner = new Panel();
             _left_details_version = new Label();
@@ -60,10 +61,10 @@ namespace Blasphemous.Modding.Installer
             _left_sort_latestRelease = new RadioButton();
             _left_sort_initialRelease = new RadioButton();
             _left_all = new Panel();
-            _left_all_install = new Button();
-            _left_all_enable = new Button();
-            _left_all_uninstall = new Button();
-            _left_all_disable = new Button();
+            _left_all_install = new TransparentButton();
+            _left_all_enable = new TransparentButton();
+            _left_all_uninstall = new TransparentButton();
+            _left_all_disable = new TransparentButton();
             _top = new Panel();
             _top_outer = new Panel();
             _top_inner = new Panel();
@@ -211,9 +212,6 @@ namespace Blasphemous.Modding.Installer
             _left_startVanilla.Text = "Start game (Vanilla)";
             _left_startVanilla.UseVisualStyleBackColor = false;
             _left_startVanilla.Click += ClickedStartVanilla;
-            _left_startVanilla.MouseEnter += ShowSideButtonBorder;
-            _left_startVanilla.MouseLeave += HideSideButtonBorder;
-            _left_startVanilla.MouseUp += RemoveButtonFocus;
             // 
             // _left_startModded
             // 
@@ -232,9 +230,6 @@ namespace Blasphemous.Modding.Installer
             _left_startModded.Text = "Start game (Modded)";
             _left_startModded.UseVisualStyleBackColor = false;
             _left_startModded.Click += ClickedStartModded;
-            _left_startModded.MouseEnter += ShowSideButtonBorder;
-            _left_startModded.MouseLeave += HideSideButtonBorder;
-            _left_startModded.MouseUp += RemoveButtonFocus;
             // 
             // _left_changePath
             // 
@@ -253,9 +248,6 @@ namespace Blasphemous.Modding.Installer
             _left_changePath.Text = "Change exe location";
             _left_changePath.UseVisualStyleBackColor = false;
             _left_changePath.Click += ClickedChangePath;
-            _left_changePath.MouseEnter += ShowSideButtonBorder;
-            _left_changePath.MouseLeave += HideSideButtonBorder;
-            _left_changePath.MouseUp += RemoveButtonFocus;
             // 
             // _left_page
             // 
@@ -283,9 +275,6 @@ namespace Blasphemous.Modding.Installer
             _left_page_blas1mod.Text = "Blasphemous Mods";
             _left_page_blas1mod.UseVisualStyleBackColor = false;
             _left_page_blas1mod.Click += ClickedBlas1Mods;
-            _left_page_blas1mod.MouseEnter += ShowSideButtonBorder;
-            _left_page_blas1mod.MouseLeave += HideSideButtonBorder;
-            _left_page_blas1mod.MouseUp += RemoveButtonFocus;
             // 
             // _left_page_blas1skin
             // 
@@ -303,9 +292,6 @@ namespace Blasphemous.Modding.Installer
             _left_page_blas1skin.Text = "Blasphemous Skins";
             _left_page_blas1skin.UseVisualStyleBackColor = false;
             _left_page_blas1skin.Click += ClickedBlas1Skins;
-            _left_page_blas1skin.MouseEnter += ShowSideButtonBorder;
-            _left_page_blas1skin.MouseLeave += HideSideButtonBorder;
-            _left_page_blas1skin.MouseUp += RemoveButtonFocus;
             // 
             // _left_page_blas2mod
             // 
@@ -323,9 +309,6 @@ namespace Blasphemous.Modding.Installer
             _left_page_blas2mod.Text = "Blasphemous II Mods";
             _left_page_blas2mod.UseVisualStyleBackColor = false;
             _left_page_blas2mod.Click += ClickedBlas2Mods;
-            _left_page_blas2mod.MouseEnter += ShowSideButtonBorder;
-            _left_page_blas2mod.MouseLeave += HideSideButtonBorder;
-            _left_page_blas2mod.MouseUp += RemoveButtonFocus;
             // 
             // _left_details_outer
             // 
@@ -511,9 +494,6 @@ namespace Blasphemous.Modding.Installer
             _left_all_install.Text = "Install all";
             _left_all_install.UseVisualStyleBackColor = false;
             _left_all_install.Click += ClickedInstallAll;
-            _left_all_install.MouseEnter += ShowSideButtonBorder;
-            _left_all_install.MouseLeave += HideSideButtonBorder;
-            _left_all_install.MouseUp += RemoveButtonFocus;
             // 
             // _left_all_enable
             // 
@@ -531,9 +511,6 @@ namespace Blasphemous.Modding.Installer
             _left_all_enable.Text = "Enable all";
             _left_all_enable.UseVisualStyleBackColor = false;
             _left_all_enable.Click += ClickedEnableAll;
-            _left_all_enable.MouseEnter += ShowSideButtonBorder;
-            _left_all_enable.MouseLeave += HideSideButtonBorder;
-            _left_all_enable.MouseUp += RemoveButtonFocus;
             // 
             // _left_all_uninstall
             // 
@@ -551,9 +528,6 @@ namespace Blasphemous.Modding.Installer
             _left_all_uninstall.Text = "Uninstall all";
             _left_all_uninstall.UseVisualStyleBackColor = false;
             _left_all_uninstall.Click += ClickedUninstallAll;
-            _left_all_uninstall.MouseEnter += ShowSideButtonBorder;
-            _left_all_uninstall.MouseLeave += HideSideButtonBorder;
-            _left_all_uninstall.MouseUp += RemoveButtonFocus;
             // 
             // _left_all_disable
             // 
@@ -571,9 +545,6 @@ namespace Blasphemous.Modding.Installer
             _left_all_disable.Text = "Disable all";
             _left_all_disable.UseVisualStyleBackColor = false;
             _left_all_disable.Click += ClickedDisableAll;
-            _left_all_disable.MouseEnter += ShowSideButtonBorder;
-            _left_all_disable.MouseLeave += HideSideButtonBorder;
-            _left_all_disable.MouseUp += RemoveButtonFocus;
             // 
             // _top
             // 
@@ -773,9 +744,6 @@ namespace Blasphemous.Modding.Installer
         private System.Windows.Forms.Label _top_text;
         private System.Windows.Forms.Panel _left_inner;
         private System.Windows.Forms.Panel _top_outer;
-        private System.Windows.Forms.Button _left_page_blas1mod;
-        private System.Windows.Forms.Button _left_page_blas1skin;
-        private System.Windows.Forms.Button _left_page_blas2mod;
         private System.Windows.Forms.Panel _bottom_blas2mod;
         private System.Windows.Forms.VScrollBar _bottom_blas2mod_scroll;
         private System.Windows.Forms.PictureBox _top_warning_image;
@@ -792,10 +760,6 @@ namespace Blasphemous.Modding.Installer
         private System.Windows.Forms.RadioButton _left_sort_name;
         private System.Windows.Forms.Label _left_sort_text;
         private System.Windows.Forms.Panel _left_sort;
-        private System.Windows.Forms.Button _left_all_install;
-        private System.Windows.Forms.Button _left_all_disable;
-        private System.Windows.Forms.Button _left_all_enable;
-        private System.Windows.Forms.Button _left_all_uninstall;
         private System.Windows.Forms.Panel _left_divider1;
         private System.Windows.Forms.Panel _left_divider2;
         private System.Windows.Forms.Button _bottom_validation_tools;
@@ -807,12 +771,19 @@ namespace Blasphemous.Modding.Installer
         private System.Windows.Forms.Label _left_details_version;
         private System.Windows.Forms.Panel _left_all;
         private System.Windows.Forms.Panel _left_page;
-        private Button _left_changePath;
         private Panel _bottom;
         private Panel _left;
         private Panel _top;
-        private Button _left_startModded;
-        private Button _left_startVanilla;
+        private TransparentButton _left_page_blas1mod;
+        private TransparentButton _left_page_blas1skin;
+        private TransparentButton _left_page_blas2mod;
+        private TransparentButton _left_all_install;
+        private TransparentButton _left_all_disable;
+        private TransparentButton _left_all_enable;
+        private TransparentButton _left_all_uninstall;
+        private TransparentButton _left_changePath;
+        private TransparentButton _left_startModded;
+        private TransparentButton _left_startVanilla;
     }
 }
 

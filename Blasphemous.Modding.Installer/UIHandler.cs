@@ -94,20 +94,9 @@ public partial class UIHandler : BasaltForm
 
     // UI focusing
 
-    public void RemoveButtonFocus(object sender, EventArgs e)
+    public void RemoveButtonFocus(object? sender, EventArgs e)
     {
         _top_text.Focus();
-    }
-
-    private void ShowSideButtonBorder(object sender, EventArgs e)
-    {
-        (sender as Button).FlatAppearance.BorderColor = Color.White;
-    }
-
-    private void HideSideButtonBorder(object sender, EventArgs e)
-    {
-        (sender as Button).FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
-        RemoveButtonFocus(null, null);
     }
 
     private void SetSortByBox(SortType sort)
