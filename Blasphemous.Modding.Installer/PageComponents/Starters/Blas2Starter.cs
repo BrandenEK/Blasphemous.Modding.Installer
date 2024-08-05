@@ -1,7 +1,7 @@
-﻿using Blasphemous.Modding.Installer.Validation;
+﻿using Blasphemous.Modding.Installer.PageComponents.Validators;
 using System.Diagnostics;
 
-namespace Blasphemous.Modding.Installer.Starting;
+namespace Blasphemous.Modding.Installer.PageComponents.Starters;
 
 internal class Blas2Starter : IGameStarter
 {

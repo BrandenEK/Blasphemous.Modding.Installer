@@ -1,5 +1,5 @@
 ﻿
-namespace Blasphemous.Modding.Installer.Components;
+namespace Blasphemous.Modding.Installer.UIComponents;
 
 public class RowColorer
 {

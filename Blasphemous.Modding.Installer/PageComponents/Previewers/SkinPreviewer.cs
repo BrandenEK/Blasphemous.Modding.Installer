@@ -3,7 +3,7 @@ using Blasphemous.Modding.Installer.Properties;
 using Blasphemous.Modding.Installer.Skins;
 using System.Net;
 
-namespace Blasphemous.Modding.Installer.Previewing;
+namespace Blasphemous.Modding.Installer.PageComponents.Previewers;
 
 internal class SkinPreviewer : IPreviewer
 {

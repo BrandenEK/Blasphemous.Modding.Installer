@@ -1,6 +1,6 @@
 ﻿using Blasphemous.Modding.Installer.Mods;
 
-namespace Blasphemous.Modding.Installer.Grouping;
+namespace Blasphemous.Modding.Installer.PageComponents.Groupers;
 
 internal class ModGrouper : IGrouper
 {

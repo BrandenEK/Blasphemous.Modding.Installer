@@ -1,9 +1,9 @@
 ﻿using Blasphemous.Modding.Installer.Mods;
-using Blasphemous.Modding.Installer.Sorting;
-using Blasphemous.Modding.Installer.UIHolding;
+using Blasphemous.Modding.Installer.PageComponents.Sorters;
+using Blasphemous.Modding.Installer.PageComponents.UIHolders;
 using Newtonsoft.Json;
 
-namespace Blasphemous.Modding.Installer.Loading;
+namespace Blasphemous.Modding.Installer.PageComponents.Loaders;
 
 internal class ModLoader : ILoader
 {

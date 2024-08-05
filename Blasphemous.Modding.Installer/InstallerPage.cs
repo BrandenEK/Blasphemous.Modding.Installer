@@ -1,10 +1,10 @@
-﻿using Blasphemous.Modding.Installer.Starting;
-using Blasphemous.Modding.Installer.Grouping;
-using Blasphemous.Modding.Installer.Loading;
-using Blasphemous.Modding.Installer.Previewing;
-using Blasphemous.Modding.Installer.Sorting;
-using Blasphemous.Modding.Installer.UIHolding;
-using Blasphemous.Modding.Installer.Validation;
+﻿using Blasphemous.Modding.Installer.PageComponents.Groupers;
+using Blasphemous.Modding.Installer.PageComponents.Loaders;
+using Blasphemous.Modding.Installer.PageComponents.Previewers;
+using Blasphemous.Modding.Installer.PageComponents.Sorters;
+using Blasphemous.Modding.Installer.PageComponents.Starters;
+using Blasphemous.Modding.Installer.PageComponents.UIHolders;
+using Blasphemous.Modding.Installer.PageComponents.Validators;
 
 namespace Blasphemous.Modding.Installer;
 

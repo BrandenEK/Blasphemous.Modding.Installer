@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Net;
 
-namespace Blasphemous.Modding.Installer.Validation;
+namespace Blasphemous.Modding.Installer.PageComponents.Validators;
 
 internal class Blas2Validator : IValidator
 {

@@ -1,4 +1,4 @@
-﻿namespace Blasphemous.Modding.Installer.UIHolding;
+﻿namespace Blasphemous.Modding.Installer.PageComponents.UIHolders;
 
 internal class GenericUIHolder<T> : IUIHolder
 {

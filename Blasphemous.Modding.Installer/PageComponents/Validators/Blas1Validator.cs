@@ -1,7 +1,7 @@
 ﻿using Ionic.Zip;
 using System.Net;
 
-namespace Blasphemous.Modding.Installer.Validation;
+namespace Blasphemous.Modding.Installer.PageComponents.Validators;
 
 internal class Blas1Validator : IValidator
 {
