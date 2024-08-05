@@ -1,14 +1,14 @@
 ﻿using Basalt.CommandParser;
-using Blasphemous.Modding.Installer.Grouping;
-using Blasphemous.Modding.Installer.Loading;
 using Blasphemous.Modding.Installer.Mods;
-using Blasphemous.Modding.Installer.Previewing;
+using Blasphemous.Modding.Installer.PageComponents.Grouping;
+using Blasphemous.Modding.Installer.PageComponents.Loading;
+using Blasphemous.Modding.Installer.PageComponents.Previewing;
+using Blasphemous.Modding.Installer.PageComponents.Sorting;
+using Blasphemous.Modding.Installer.PageComponents.Starting;
+using Blasphemous.Modding.Installer.PageComponents.UIHolding;
+using Blasphemous.Modding.Installer.PageComponents.Validation;
 using Blasphemous.Modding.Installer.Properties;
 using Blasphemous.Modding.Installer.Skins;
-using Blasphemous.Modding.Installer.Sorting;
-using Blasphemous.Modding.Installer.Starting;
-using Blasphemous.Modding.Installer.UIHolding;
-using Blasphemous.Modding.Installer.Validation;
 
 namespace Blasphemous.Modding.Installer;
 

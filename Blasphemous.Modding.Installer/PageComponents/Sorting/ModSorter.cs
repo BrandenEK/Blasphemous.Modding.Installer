@@ -1,7 +1,7 @@
 ﻿using Blasphemous.Modding.Installer.Mods;
-using Blasphemous.Modding.Installer.UIHolding;
+using Blasphemous.Modding.Installer.PageComponents.UIHolding;
 
-namespace Blasphemous.Modding.Installer.Sorting;
+namespace Blasphemous.Modding.Installer.PageComponents.Sorting;
 
 internal class ModSorter : ISorter
 {

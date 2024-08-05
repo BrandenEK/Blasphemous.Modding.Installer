@@ -1,5 +1,4 @@
-﻿
-namespace Blasphemous.Modding.Installer.Grouping;
+﻿namespace Blasphemous.Modding.Installer.PageComponents.Grouping;
 
 internal interface IGrouper
 {

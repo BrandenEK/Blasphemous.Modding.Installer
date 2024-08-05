@@ -1,9 +1,9 @@
-﻿using Blasphemous.Modding.Installer.Skins;
-using Blasphemous.Modding.Installer.Sorting;
-using Blasphemous.Modding.Installer.UIHolding;
+﻿using Blasphemous.Modding.Installer.PageComponents.Sorting;
+using Blasphemous.Modding.Installer.PageComponents.UIHolding;
+using Blasphemous.Modding.Installer.Skins;
 using Newtonsoft.Json;
 
-namespace Blasphemous.Modding.Installer.Loading;
+namespace Blasphemous.Modding.Installer.PageComponents.Loading;
 
 internal class SkinLoader : ILoader
 {

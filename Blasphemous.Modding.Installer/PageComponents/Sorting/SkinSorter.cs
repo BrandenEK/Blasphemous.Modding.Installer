@@ -1,7 +1,7 @@
-﻿using Blasphemous.Modding.Installer.Skins;
-using Blasphemous.Modding.Installer.UIHolding;
+﻿using Blasphemous.Modding.Installer.PageComponents.UIHolding;
+using Blasphemous.Modding.Installer.Skins;
 
-namespace Blasphemous.Modding.Installer.Sorting;
+namespace Blasphemous.Modding.Installer.PageComponents.Sorting;
 
 internal class SkinSorter : ISorter
 {

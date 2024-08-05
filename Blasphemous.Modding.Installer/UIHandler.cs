@@ -1,4 +1,4 @@
-﻿using Blasphemous.Modding.Installer.Validation;
+﻿using Blasphemous.Modding.Installer.PageComponents.Validation;
 
 namespace Blasphemous.Modding.Installer;
 
