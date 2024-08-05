@@ -154,7 +154,7 @@ internal class Skin
         _ui.SetPosition(skinIdx);
     }
 
-    public void MouseEnter(object sender, EventArgs e) => SkinPage.Previewer.PreviewSkin(this);
+    public void OnStartHover() => SkinPage.Previewer.PreviewSkin(this);
 
-    public void MouseLeave(object sender, EventArgs e) => SkinPage.Previewer.Clear();
+    public void OnEndHover() => SkinPage.Previewer.Clear();
 }

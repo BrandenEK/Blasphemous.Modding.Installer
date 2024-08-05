@@ -331,7 +331,7 @@ internal class Mod
         _ui.SetPosition(modIdx);
     }
 
-    public void MouseEnter(object sender, EventArgs e) => ModPage.Previewer.PreviewMod(this);
+    public void OnStartHover() => ModPage.Previewer.PreviewMod(this);
 
-    public void MouseLeave(object sender, EventArgs e) => ModPage.Previewer.Clear();
+    public void OnEndHover() => ModPage.Previewer.Clear();
 }
