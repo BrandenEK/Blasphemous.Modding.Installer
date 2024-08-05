@@ -4,6 +4,7 @@ public static class Colors
 {
     public readonly static Color LIGHT_GRAY = Color.FromArgb(64, 64, 64);
     public readonly static Color DARK_GRAY = Color.FromArgb(52, 52, 52);
+    public readonly static Color SELECTED_GRAY = Color.FromArgb(20, 20, 20);
 
     public readonly static Color SPECIAL = Color.FromArgb(124, 167, 191);
 
