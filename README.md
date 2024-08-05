@@ -26,6 +26,7 @@
 ### Command line arguments
 - ```-[g]ithub {token}``` Uses your GitHub OAuth token to increase the API rate limit
 - ```-[i]gnore``` Ignores the wait time of 30 mins before mod versions are rechecked
+- ```-[d]ebug``` Runs in debug mode with a console
 
 ---
 

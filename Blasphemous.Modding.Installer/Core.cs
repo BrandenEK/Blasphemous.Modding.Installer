@@ -1,6 +1,4 @@
-﻿using Basalt.CommandParser;
-using Basalt.Framework.Logging;
-using Basalt.Framework.Logging.Standard;
+﻿using Basalt.BetterForms;
 using Blasphemous.Modding.Installer.Mods;
 using Blasphemous.Modding.Installer.PageComponents.Groupers;
 using Blasphemous.Modding.Installer.PageComponents.Loaders;
@@ -17,34 +15,17 @@ namespace Blasphemous.Modding.Installer;
 static class Core
 {
     [STAThread]
-    static void Main(string[] args)
+    static void Main()
     {
-        // Setup form and folders
-        Application.EnableVisualStyles();
-        Application.SetCompatibleTextRenderingDefault(false);
-        Directory.CreateDirectory(InstallerFolder);
-
-        // Setup logging
-        Logger.AddLogger(new FileLogger(InstallerFolder));
-#if DEBUG
-        Logger.AddLogger(new ConsoleLogger(Title));
-#endif
-
-        // Setup args data
-        InstallerCommand cmd = new();
-        try
+        BasaltApplication.Run<UIHandler, InstallerCommand>(InitializeCore, "Blasphemous Mod Installer", new string[]
         {
-            cmd.Process(args);
-        }
-        catch (CommandParserException ex)
-        {
-            Logger.Fatal(ex);
-            Application.Exit();
-            return;
-        }
+            InstallerFolder
+        });
+    }
 
-        // Setup handlers
-        UIHandler = new UIHandler();
+    static void InitializeCore(UIHandler form, InstallerCommand cmd)
+    {
+        UIHandler = form;
         SettingsHandler = new SettingsHandler();
         GithubHandler = new GithubHandler(cmd.GithubToken);
         TempIgnoreTime = cmd.IgnoreTime;
@@ -119,8 +100,6 @@ static class Core
         _pages.Add(SectionType.Blas1Mods, blas1modPage);
         _pages.Add(SectionType.Blas1Skins, blas1skinPage);
         _pages.Add(SectionType.Blas2Mods, blas2modPage);
-
-        Application.Run(UIHandler);
     }
 
     public static bool TempIgnoreTime { get; private set; }
@@ -129,7 +108,7 @@ static class Core
     public static SettingsHandler SettingsHandler { get; private set; }
     public static GithubHandler GithubHandler { get; private set; }
 
-    private static readonly Dictionary<SectionType, InstallerPage> _pages = new Dictionary<SectionType, InstallerPage>();
+    private static readonly Dictionary<SectionType, InstallerPage> _pages = new();
 
     public static InstallerPage CurrentPage => _pages[SettingsHandler.Properties.CurrentSection];
     public static IEnumerable<InstallerPage> AllPages => _pages.Values;
@@ -140,7 +119,4 @@ static class Core
 
     public static string InstallerFolder { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "BlasModInstaller");
     public static string DataCache => InstallerFolder; // Should probably be moved
-
-    public static Version CurrentVersion => System.Reflection.Assembly.GetExecutingAssembly().GetName().Version ?? new(0, 1, 0);
-    public static string Title { get; } = $"Blasphemous Mod Installer v{CurrentVersion.ToString(3)}";
 }
