@@ -1,4 +1,5 @@
-﻿using Ionic.Zip;
+﻿using Basalt.Framework.Logging;
+using Ionic.Zip;
 using System.Diagnostics;
 using System.Net;
 

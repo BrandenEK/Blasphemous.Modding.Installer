@@ -1,4 +1,5 @@
-﻿using Ionic.Zip;
+﻿using Basalt.Framework.Logging;
+using Ionic.Zip;
 using System.Net;
 
 namespace Blasphemous.Modding.Installer.PageComponents.Validators;

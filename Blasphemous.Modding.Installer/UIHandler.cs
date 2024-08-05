@@ -1,4 +1,5 @@
-﻿using Blasphemous.Modding.Installer.PageComponents.Validators;
+﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.PageComponents.Validators;
 
 namespace Blasphemous.Modding.Installer;
 
