@@ -1,5 +1,6 @@
 ﻿using Basalt.CommandParser;
 using Basalt.Framework.Logging;
+using Basalt.Framework.Logging.Standard;
 using Blasphemous.Modding.Installer.Mods;
 using Blasphemous.Modding.Installer.PageComponents.Groupers;
 using Blasphemous.Modding.Installer.PageComponents.Loaders;
@@ -18,10 +19,12 @@ static class Core
     [STAThread]
     static void Main(string[] args)
     {
+        // Setup form and folders
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
-        Logger.Show();
+        Directory.CreateDirectory(InstallerFolder);
 
+        // Setup args data
         InstallerCommand cmd = new();
         try
         {
@@ -34,6 +37,13 @@ static class Core
             return;
         }
 
+        // Setup logging
+        Logger.AddLogger(new FileLogger(InstallerFolder));
+#if DEBUG
+        Logger.AddLogger(new ConsoleLogger(Title));
+#endif
+
+        // Setup handlers
         UIHandler = new UIHandler();
         SettingsHandler = new SettingsHandler();
         GithubHandler = new GithubHandler(cmd.GithubToken);
@@ -128,7 +138,9 @@ static class Core
     public static InstallerPage Blas1SkinPage => _pages[SectionType.Blas1Skins];
     public static InstallerPage Blas2ModPage => _pages[SectionType.Blas2Mods];
 
-    public static string DataCache => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/BlasModInstaller";
+    public static string InstallerFolder { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "BlasModInstaller");
+    public static string DataCache => InstallerFolder; // Should probably be moved
 
     public static Version CurrentVersion => System.Reflection.Assembly.GetExecutingAssembly().GetName().Version ?? new(0, 1, 0);
+    public static string Title { get; } = $"Blasphemous Mod Installer v{CurrentVersion.ToString(3)}";
 }

@@ -14,7 +14,7 @@ public partial class UIHandler : Form
 
     private void OnFormOpen(object sender, EventArgs e)
     {
-        Text = "Blasphemous Mod Installer v" + Core.CurrentVersion.ToString(3);
+        Text = Core.Title;
         Core.SettingsHandler.Load();
 
         foreach (var page in Core.AllPages)
