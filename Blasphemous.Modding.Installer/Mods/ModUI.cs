@@ -1,4 +1,4 @@
-﻿using Blasphemous.Modding.Installer.Components;
+﻿using Blasphemous.Modding.Installer.UIComponents;
 
 namespace Blasphemous.Modding.Installer.Mods;
 
