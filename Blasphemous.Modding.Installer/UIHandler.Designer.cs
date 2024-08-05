@@ -1,4 +1,5 @@
-﻿
+﻿using Blasphemous.Modding.Installer.UIComponents;
+
 namespace Blasphemous.Modding.Installer
 {
     partial class UIHandler
@@ -35,17 +36,16 @@ namespace Blasphemous.Modding.Installer
             _bottom_validation_location = new Button();
             _bottom_validation = new Panel();
             _bottom_validation_tools = new Button();
-            _main = new Panel();
             _left = new Panel();
             _left_outer = new Panel();
             _left_inner = new Panel();
-            _left_startVanilla = new Button();
-            _left_startModded = new Button();
-            _left_changePath = new Button();
+            _left_startVanilla = new TransparentButton();
+            _left_startModded = new TransparentButton();
+            _left_changePath = new TransparentButton();
             _left_page = new Panel();
-            _left_page_blas1mod = new Button();
-            _left_page_blas1skin = new Button();
-            _left_page_blas2mod = new Button();
+            _left_page_blas1mod = new TransparentButton();
+            _left_page_blas1skin = new TransparentButton();
+            _left_page_blas2mod = new TransparentButton();
             _left_details_outer = new Panel();
             _left_details_inner = new Panel();
             _left_details_version = new Label();
@@ -61,10 +61,10 @@ namespace Blasphemous.Modding.Installer
             _left_sort_latestRelease = new RadioButton();
             _left_sort_initialRelease = new RadioButton();
             _left_all = new Panel();
-            _left_all_install = new Button();
-            _left_all_enable = new Button();
-            _left_all_uninstall = new Button();
-            _left_all_disable = new Button();
+            _left_all_install = new TransparentButton();
+            _left_all_enable = new TransparentButton();
+            _left_all_uninstall = new TransparentButton();
+            _left_all_disable = new TransparentButton();
             _top = new Panel();
             _top_outer = new Panel();
             _top_inner = new Panel();
@@ -80,7 +80,6 @@ namespace Blasphemous.Modding.Installer
             _bottom_blas2mod_scroll = new VScrollBar();
             _bottom_blas1mod.SuspendLayout();
             _bottom_validation.SuspendLayout();
-            _main.SuspendLayout();
             _left.SuspendLayout();
             _left_outer.SuspendLayout();
             _left_inner.SuspendLayout();
@@ -103,9 +102,9 @@ namespace Blasphemous.Modding.Installer
             // _bottom_blas1mod_scroll
             // 
             _bottom_blas1mod_scroll.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            _bottom_blas1mod_scroll.Location = new Point(2034, 15);
+            _bottom_blas1mod_scroll.Location = new Point(2118, 15);
             _bottom_blas1mod_scroll.Name = "_bottom_blas1mod_scroll";
-            _bottom_blas1mod_scroll.Size = new Size(20, 602);
+            _bottom_blas1mod_scroll.Size = new Size(20, 663);
             _bottom_blas1mod_scroll.TabIndex = 2;
             _bottom_blas1mod_scroll.Visible = false;
             // 
@@ -118,7 +117,7 @@ namespace Blasphemous.Modding.Installer
             _bottom_blas1mod.Dock = DockStyle.Fill;
             _bottom_blas1mod.Location = new Point(0, 0);
             _bottom_blas1mod.Name = "_bottom_blas1mod";
-            _bottom_blas1mod.Size = new Size(1050, 680);
+            _bottom_blas1mod.Size = new Size(1134, 741);
             _bottom_blas1mod.TabIndex = 3;
             _bottom_blas1mod.Visible = false;
             // 
@@ -126,7 +125,7 @@ namespace Blasphemous.Modding.Installer
             // 
             _bottom_validation_location.Anchor = AnchorStyles.None;
             _bottom_validation_location.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            _bottom_validation_location.Location = new Point(420, 280);
+            _bottom_validation_location.Location = new Point(462, 310);
             _bottom_validation_location.Name = "_bottom_validation_location";
             _bottom_validation_location.Size = new Size(210, 50);
             _bottom_validation_location.TabIndex = 0;
@@ -142,14 +141,14 @@ namespace Blasphemous.Modding.Installer
             _bottom_validation.Dock = DockStyle.Fill;
             _bottom_validation.Location = new Point(0, 0);
             _bottom_validation.Name = "_bottom_validation";
-            _bottom_validation.Size = new Size(1050, 680);
+            _bottom_validation.Size = new Size(1134, 741);
             _bottom_validation.TabIndex = 4;
             // 
             // _bottom_validation_tools
             // 
             _bottom_validation_tools.Anchor = AnchorStyles.None;
             _bottom_validation_tools.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            _bottom_validation_tools.Location = new Point(420, 350);
+            _bottom_validation_tools.Location = new Point(462, 380);
             _bottom_validation_tools.Name = "_bottom_validation_tools";
             _bottom_validation_tools.Size = new Size(210, 50);
             _bottom_validation_tools.TabIndex = 1;
@@ -157,26 +156,14 @@ namespace Blasphemous.Modding.Installer
             _bottom_validation_tools.UseVisualStyleBackColor = true;
             _bottom_validation_tools.Click += ClickToolsButton;
             // 
-            // _main
-            // 
-            _main.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            _main.BackColor = Color.White;
-            _main.Controls.Add(_left);
-            _main.Controls.Add(_top);
-            _main.Controls.Add(_bottom);
-            _main.Location = new Point(10, 10);
-            _main.Name = "_main";
-            _main.Size = new Size(1300, 800);
-            _main.TabIndex = 7;
-            // 
             // _left
             // 
-            _left.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             _left.BackColor = Color.SkyBlue;
             _left.Controls.Add(_left_outer);
+            _left.Dock = DockStyle.Left;
             _left.Location = new Point(0, 0);
             _left.Name = "_left";
-            _left.Size = new Size(250, 800);
+            _left.Size = new Size(250, 861);
             _left.TabIndex = 11;
             // 
             // _left_outer
@@ -186,7 +173,7 @@ namespace Blasphemous.Modding.Installer
             _left_outer.Dock = DockStyle.Fill;
             _left_outer.Location = new Point(0, 0);
             _left_outer.Name = "_left_outer";
-            _left_outer.Size = new Size(250, 800);
+            _left_outer.Size = new Size(250, 861);
             _left_outer.TabIndex = 9;
             // 
             // _left_inner
@@ -205,7 +192,7 @@ namespace Blasphemous.Modding.Installer
             _left_inner.Controls.Add(_left_all);
             _left_inner.Location = new Point(0, 0);
             _left_inner.Name = "_left_inner";
-            _left_inner.Size = new Size(248, 800);
+            _left_inner.Size = new Size(248, 861);
             _left_inner.TabIndex = 8;
             // 
             // _left_startVanilla
@@ -218,16 +205,13 @@ namespace Blasphemous.Modding.Installer
             _left_startVanilla.FlatStyle = FlatStyle.Flat;
             _left_startVanilla.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             _left_startVanilla.ForeColor = SystemColors.ButtonHighlight;
-            _left_startVanilla.Location = new Point(15, 670);
+            _left_startVanilla.Location = new Point(15, 731);
             _left_startVanilla.Name = "_left_startVanilla";
             _left_startVanilla.Size = new Size(220, 30);
             _left_startVanilla.TabIndex = 25;
             _left_startVanilla.Text = "Start game (Vanilla)";
             _left_startVanilla.UseVisualStyleBackColor = false;
             _left_startVanilla.Click += ClickedStartVanilla;
-            _left_startVanilla.MouseEnter += ShowSideButtonBorder;
-            _left_startVanilla.MouseLeave += HideSideButtonBorder;
-            _left_startVanilla.MouseUp += RemoveButtonFocus;
             // 
             // _left_startModded
             // 
@@ -239,16 +223,13 @@ namespace Blasphemous.Modding.Installer
             _left_startModded.FlatStyle = FlatStyle.Flat;
             _left_startModded.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             _left_startModded.ForeColor = SystemColors.ButtonHighlight;
-            _left_startModded.Location = new Point(15, 710);
+            _left_startModded.Location = new Point(15, 771);
             _left_startModded.Name = "_left_startModded";
             _left_startModded.Size = new Size(220, 30);
             _left_startModded.TabIndex = 24;
             _left_startModded.Text = "Start game (Modded)";
             _left_startModded.UseVisualStyleBackColor = false;
             _left_startModded.Click += ClickedStartModded;
-            _left_startModded.MouseEnter += ShowSideButtonBorder;
-            _left_startModded.MouseLeave += HideSideButtonBorder;
-            _left_startModded.MouseUp += RemoveButtonFocus;
             // 
             // _left_changePath
             // 
@@ -260,16 +241,13 @@ namespace Blasphemous.Modding.Installer
             _left_changePath.FlatStyle = FlatStyle.Flat;
             _left_changePath.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             _left_changePath.ForeColor = SystemColors.ButtonHighlight;
-            _left_changePath.Location = new Point(15, 750);
+            _left_changePath.Location = new Point(15, 811);
             _left_changePath.Name = "_left_changePath";
             _left_changePath.Size = new Size(220, 30);
             _left_changePath.TabIndex = 8;
             _left_changePath.Text = "Change exe location";
             _left_changePath.UseVisualStyleBackColor = false;
             _left_changePath.Click += ClickedChangePath;
-            _left_changePath.MouseEnter += ShowSideButtonBorder;
-            _left_changePath.MouseLeave += HideSideButtonBorder;
-            _left_changePath.MouseUp += RemoveButtonFocus;
             // 
             // _left_page
             // 
@@ -297,9 +275,6 @@ namespace Blasphemous.Modding.Installer
             _left_page_blas1mod.Text = "Blasphemous Mods";
             _left_page_blas1mod.UseVisualStyleBackColor = false;
             _left_page_blas1mod.Click += ClickedBlas1Mods;
-            _left_page_blas1mod.MouseEnter += ShowSideButtonBorder;
-            _left_page_blas1mod.MouseLeave += HideSideButtonBorder;
-            _left_page_blas1mod.MouseUp += RemoveButtonFocus;
             // 
             // _left_page_blas1skin
             // 
@@ -317,9 +292,6 @@ namespace Blasphemous.Modding.Installer
             _left_page_blas1skin.Text = "Blasphemous Skins";
             _left_page_blas1skin.UseVisualStyleBackColor = false;
             _left_page_blas1skin.Click += ClickedBlas1Skins;
-            _left_page_blas1skin.MouseEnter += ShowSideButtonBorder;
-            _left_page_blas1skin.MouseLeave += HideSideButtonBorder;
-            _left_page_blas1skin.MouseUp += RemoveButtonFocus;
             // 
             // _left_page_blas2mod
             // 
@@ -337,9 +309,6 @@ namespace Blasphemous.Modding.Installer
             _left_page_blas2mod.Text = "Blasphemous II Mods";
             _left_page_blas2mod.UseVisualStyleBackColor = false;
             _left_page_blas2mod.Click += ClickedBlas2Mods;
-            _left_page_blas2mod.MouseEnter += ShowSideButtonBorder;
-            _left_page_blas2mod.MouseLeave += HideSideButtonBorder;
-            _left_page_blas2mod.MouseUp += RemoveButtonFocus;
             // 
             // _left_details_outer
             // 
@@ -525,9 +494,6 @@ namespace Blasphemous.Modding.Installer
             _left_all_install.Text = "Install all";
             _left_all_install.UseVisualStyleBackColor = false;
             _left_all_install.Click += ClickedInstallAll;
-            _left_all_install.MouseEnter += ShowSideButtonBorder;
-            _left_all_install.MouseLeave += HideSideButtonBorder;
-            _left_all_install.MouseUp += RemoveButtonFocus;
             // 
             // _left_all_enable
             // 
@@ -545,9 +511,6 @@ namespace Blasphemous.Modding.Installer
             _left_all_enable.Text = "Enable all";
             _left_all_enable.UseVisualStyleBackColor = false;
             _left_all_enable.Click += ClickedEnableAll;
-            _left_all_enable.MouseEnter += ShowSideButtonBorder;
-            _left_all_enable.MouseLeave += HideSideButtonBorder;
-            _left_all_enable.MouseUp += RemoveButtonFocus;
             // 
             // _left_all_uninstall
             // 
@@ -565,9 +528,6 @@ namespace Blasphemous.Modding.Installer
             _left_all_uninstall.Text = "Uninstall all";
             _left_all_uninstall.UseVisualStyleBackColor = false;
             _left_all_uninstall.Click += ClickedUninstallAll;
-            _left_all_uninstall.MouseEnter += ShowSideButtonBorder;
-            _left_all_uninstall.MouseLeave += HideSideButtonBorder;
-            _left_all_uninstall.MouseUp += RemoveButtonFocus;
             // 
             // _left_all_disable
             // 
@@ -585,18 +545,15 @@ namespace Blasphemous.Modding.Installer
             _left_all_disable.Text = "Disable all";
             _left_all_disable.UseVisualStyleBackColor = false;
             _left_all_disable.Click += ClickedDisableAll;
-            _left_all_disable.MouseEnter += ShowSideButtonBorder;
-            _left_all_disable.MouseLeave += HideSideButtonBorder;
-            _left_all_disable.MouseUp += RemoveButtonFocus;
             // 
             // _top
             // 
-            _top.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             _top.BackColor = Color.SpringGreen;
             _top.Controls.Add(_top_outer);
+            _top.Dock = DockStyle.Top;
             _top.Location = new Point(250, 0);
             _top.Name = "_top";
-            _top.Size = new Size(1050, 120);
+            _top.Size = new Size(1134, 120);
             _top.TabIndex = 12;
             // 
             // _top_outer
@@ -606,7 +563,7 @@ namespace Blasphemous.Modding.Installer
             _top_outer.Dock = DockStyle.Fill;
             _top_outer.Location = new Point(0, 0);
             _top_outer.Name = "_top_outer";
-            _top_outer.Size = new Size(1050, 120);
+            _top_outer.Size = new Size(1134, 120);
             _top_outer.TabIndex = 9;
             // 
             // _top_inner
@@ -619,7 +576,7 @@ namespace Blasphemous.Modding.Installer
             _top_inner.Controls.Add(_top_text);
             _top_inner.Location = new Point(0, 0);
             _top_inner.Name = "_top_inner";
-            _top_inner.Size = new Size(1050, 118);
+            _top_inner.Size = new Size(1134, 118);
             _top_inner.TabIndex = 1;
             // 
             // _top_warning_outer
@@ -627,7 +584,7 @@ namespace Blasphemous.Modding.Installer
             _top_warning_outer.Anchor = AnchorStyles.Right;
             _top_warning_outer.BackColor = Color.Red;
             _top_warning_outer.Controls.Add(_top_warning_inner);
-            _top_warning_outer.Location = new Point(800, 12);
+            _top_warning_outer.Location = new Point(884, 12);
             _top_warning_outer.Name = "_top_warning_outer";
             _top_warning_outer.Size = new Size(220, 80);
             _top_warning_outer.TabIndex = 6;
@@ -681,22 +638,22 @@ namespace Blasphemous.Modding.Installer
             _top_text.Font = new Font("Trebuchet MS", 20F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             _top_text.Location = new Point(0, 0);
             _top_text.Name = "_top_text";
-            _top_text.Size = new Size(1050, 118);
+            _top_text.Size = new Size(1134, 118);
             _top_text.TabIndex = 0;
             _top_text.Text = "Blasphemous Mods";
             _top_text.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // _bottom
             // 
-            _bottom.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             _bottom.BackColor = Color.Firebrick;
             _bottom.Controls.Add(_bottom_blas1mod);
             _bottom.Controls.Add(_bottom_blas1skin);
             _bottom.Controls.Add(_bottom_blas2mod);
             _bottom.Controls.Add(_bottom_validation);
+            _bottom.Dock = DockStyle.Fill;
             _bottom.Location = new Point(250, 120);
             _bottom.Name = "_bottom";
-            _bottom.Size = new Size(1050, 680);
+            _bottom.Size = new Size(1134, 741);
             _bottom.TabIndex = 10;
             // 
             // _bottom_blas1skin
@@ -708,16 +665,16 @@ namespace Blasphemous.Modding.Installer
             _bottom_blas1skin.Dock = DockStyle.Fill;
             _bottom_blas1skin.Location = new Point(0, 0);
             _bottom_blas1skin.Name = "_bottom_blas1skin";
-            _bottom_blas1skin.Size = new Size(1050, 680);
+            _bottom_blas1skin.Size = new Size(1134, 741);
             _bottom_blas1skin.TabIndex = 5;
             _bottom_blas1skin.Visible = false;
             // 
             // _bottom_blas1skin_scroll
             // 
             _bottom_blas1skin_scroll.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            _bottom_blas1skin_scroll.Location = new Point(1014, 15);
+            _bottom_blas1skin_scroll.Location = new Point(1098, 15);
             _bottom_blas1skin_scroll.Name = "_bottom_blas1skin_scroll";
-            _bottom_blas1skin_scroll.Size = new Size(20, 619);
+            _bottom_blas1skin_scroll.Size = new Size(20, 680);
             _bottom_blas1skin_scroll.TabIndex = 2;
             _bottom_blas1skin_scroll.Visible = false;
             // 
@@ -730,16 +687,16 @@ namespace Blasphemous.Modding.Installer
             _bottom_blas2mod.Dock = DockStyle.Fill;
             _bottom_blas2mod.Location = new Point(0, 0);
             _bottom_blas2mod.Name = "_bottom_blas2mod";
-            _bottom_blas2mod.Size = new Size(1050, 680);
+            _bottom_blas2mod.Size = new Size(1134, 741);
             _bottom_blas2mod.TabIndex = 4;
             _bottom_blas2mod.Visible = false;
             // 
             // _bottom_blas2mod_scroll
             // 
             _bottom_blas2mod_scroll.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            _bottom_blas2mod_scroll.Location = new Point(1014, 15);
+            _bottom_blas2mod_scroll.Location = new Point(1098, 15);
             _bottom_blas2mod_scroll.Name = "_bottom_blas2mod_scroll";
-            _bottom_blas2mod_scroll.Size = new Size(20, 619);
+            _bottom_blas2mod_scroll.Size = new Size(20, 680);
             _bottom_blas2mod_scroll.TabIndex = 2;
             _bottom_blas2mod_scroll.Visible = false;
             // 
@@ -749,15 +706,15 @@ namespace Blasphemous.Modding.Installer
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gray;
             ClientSize = new Size(1384, 861);
-            Controls.Add(_main);
+            Controls.Add(_bottom);
+            Controls.Add(_top);
+            Controls.Add(_left);
             Font = new Font("Trebuchet MS", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(1400, 900);
             Name = "UIHandler";
-            SizeChanged += MainForm_SizeChanged;
             _bottom_blas1mod.ResumeLayout(false);
             _bottom_validation.ResumeLayout(false);
-            _main.ResumeLayout(false);
             _left.ResumeLayout(false);
             _left_outer.ResumeLayout(false);
             _left_inner.ResumeLayout(false);
@@ -785,12 +742,8 @@ namespace Blasphemous.Modding.Installer
         private System.Windows.Forms.Button _bottom_validation_location;
         private System.Windows.Forms.Panel _bottom_validation;
         private System.Windows.Forms.Label _top_text;
-        private System.Windows.Forms.Panel _main;
         private System.Windows.Forms.Panel _left_inner;
         private System.Windows.Forms.Panel _top_outer;
-        private System.Windows.Forms.Button _left_page_blas1mod;
-        private System.Windows.Forms.Button _left_page_blas1skin;
-        private System.Windows.Forms.Button _left_page_blas2mod;
         private System.Windows.Forms.Panel _bottom_blas2mod;
         private System.Windows.Forms.VScrollBar _bottom_blas2mod_scroll;
         private System.Windows.Forms.PictureBox _top_warning_image;
@@ -807,10 +760,6 @@ namespace Blasphemous.Modding.Installer
         private System.Windows.Forms.RadioButton _left_sort_name;
         private System.Windows.Forms.Label _left_sort_text;
         private System.Windows.Forms.Panel _left_sort;
-        private System.Windows.Forms.Button _left_all_install;
-        private System.Windows.Forms.Button _left_all_disable;
-        private System.Windows.Forms.Button _left_all_enable;
-        private System.Windows.Forms.Button _left_all_uninstall;
         private System.Windows.Forms.Panel _left_divider1;
         private System.Windows.Forms.Panel _left_divider2;
         private System.Windows.Forms.Button _bottom_validation_tools;
@@ -822,12 +771,19 @@ namespace Blasphemous.Modding.Installer
         private System.Windows.Forms.Label _left_details_version;
         private System.Windows.Forms.Panel _left_all;
         private System.Windows.Forms.Panel _left_page;
-        private Button _left_changePath;
         private Panel _bottom;
         private Panel _left;
         private Panel _top;
-        private Button _left_startModded;
-        private Button _left_startVanilla;
+        private TransparentButton _left_page_blas1mod;
+        private TransparentButton _left_page_blas1skin;
+        private TransparentButton _left_page_blas2mod;
+        private TransparentButton _left_all_install;
+        private TransparentButton _left_all_disable;
+        private TransparentButton _left_all_enable;
+        private TransparentButton _left_all_uninstall;
+        private TransparentButton _left_changePath;
+        private TransparentButton _left_startModded;
+        private TransparentButton _left_startVanilla;
     }
 }
 

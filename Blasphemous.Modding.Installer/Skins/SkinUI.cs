@@ -1,4 +1,5 @@
-﻿using Blasphemous.Modding.Installer.UIComponents;
+﻿using Blasphemous.Modding.Installer.Extensions;
+using Blasphemous.Modding.Installer.UIComponents;
 
 namespace Blasphemous.Modding.Installer.Skins;
 
@@ -85,8 +86,6 @@ internal class SkinUI
             TextAlign = ContentAlignment.MiddleLeft,
             Font = Fonts.SKIN_NAME,
         };
-        nameText.MouseEnter += skin.MouseEnter;
-        nameText.MouseLeave += skin.MouseLeave;
 
         authorText = new Label
         {
@@ -177,6 +176,8 @@ internal class SkinUI
         installButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
         _colorer = new RowColorer(innerPanel, new Control[] { installButton });
+        innerPanel.AddMouseEnterEvent(skin.OnStartHover);
+        innerPanel.AddMouseLeaveEvent(skin.OnEndHover);
         parentPanel.AutoScroll = true;
     }
 }
