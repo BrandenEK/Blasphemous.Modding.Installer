@@ -24,6 +24,12 @@ static class Core
         Application.SetCompatibleTextRenderingDefault(false);
         Directory.CreateDirectory(InstallerFolder);
 
+        // Setup logging
+        Logger.AddLogger(new FileLogger(InstallerFolder));
+#if DEBUG
+        Logger.AddLogger(new ConsoleLogger(Title));
+#endif
+
         // Setup args data
         InstallerCommand cmd = new();
         try
@@ -32,16 +38,10 @@ static class Core
         }
         catch (CommandParserException ex)
         {
-            Logger.Error(ex);
+            Logger.Fatal(ex);
             Application.Exit();
             return;
         }
-
-        // Setup logging
-        Logger.AddLogger(new FileLogger(InstallerFolder));
-#if DEBUG
-        Logger.AddLogger(new ConsoleLogger(Title));
-#endif
 
         // Setup handlers
         UIHandler = new UIHandler();
