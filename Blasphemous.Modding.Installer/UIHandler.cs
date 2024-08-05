@@ -1,20 +1,13 @@
-﻿using Basalt.Framework.Logging;
+﻿using Basalt.BetterForms;
+using Basalt.Framework.Logging;
 using Blasphemous.Modding.Installer.PageComponents.Validators;
 
 namespace Blasphemous.Modding.Installer;
 
-public partial class UIHandler : Form
+public partial class UIHandler : BasaltForm
 {
-    public UIHandler()
+    protected override void OnFormOpenPost()
     {
-        Directory.CreateDirectory(Core.DataCache);
-
-        InitializeComponent();
-    }
-
-    private void OnFormOpen(object sender, EventArgs e)
-    {
-        Text = Core.Title;
         Core.SettingsHandler.Load();
 
         foreach (var page in Core.AllPages)
@@ -24,10 +17,9 @@ public partial class UIHandler : Form
         OpenSection(Core.SettingsHandler.Properties.CurrentSection);
     }
 
-    private void OnFormClose(object sender, FormClosingEventArgs e)
+    protected override void OnFormClose(FormClosingEventArgs e)
     {
         Core.SettingsHandler.Save();
-        Logger.Info("Closed installer");
     }
 
     public static bool PromptQuestion(string title, string question)

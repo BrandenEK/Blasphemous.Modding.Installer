@@ -91,7 +91,7 @@ internal class GithubHandler
         if (latestRelease is null)
             return;
 
-        Version currentVersion = Core.CurrentVersion;
+        Version currentVersion = Core.UIHandler.CurrentVersion;
         Version newestVersion = CleanSemanticVersion(latestRelease.TagName);
 
         if (newestVersion.CompareTo(currentVersion) > 0)

@@ -754,9 +754,6 @@ namespace Blasphemous.Modding.Installer
             Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(1400, 900);
             Name = "UIHandler";
-            Text = "Blasphemous Mod Installer";
-            FormClosing += OnFormClose;
-            Load += OnFormOpen;
             SizeChanged += MainForm_SizeChanged;
             _bottom_blas1mod.ResumeLayout(false);
             _bottom_validation.ResumeLayout(false);

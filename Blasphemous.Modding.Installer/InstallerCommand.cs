@@ -1,9 +1,9 @@
-﻿
+﻿using Basalt.BetterForms;
 using Basalt.CommandParser;
 
 namespace Blasphemous.Modding.Installer;
 
-public class InstallerCommand : CommandData
+public class InstallerCommand : BasaltCommand
 {
     [StringArgument('g', "github")]
     public string GithubToken { get; set; } = string.Empty;
