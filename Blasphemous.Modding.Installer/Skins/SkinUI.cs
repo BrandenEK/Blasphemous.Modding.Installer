@@ -1,4 +1,6 @@
-﻿namespace Blasphemous.Modding.Installer.Skins;
+﻿using Blasphemous.Modding.Installer.Components;
+
+namespace Blasphemous.Modding.Installer.Skins;
 
 internal class SkinUI
 {
@@ -12,6 +14,8 @@ internal class SkinUI
     private readonly Button installButton;
     //private readonly Button previewIdleButton;
     //private readonly Button previewChargedButton;
+
+    private readonly RowColorer _colorer;
 
     public void UpdateUI(string name, string author, bool installed, bool canUpdate)
     {
@@ -40,11 +44,8 @@ internal class SkinUI
 
     public void SetPosition(int skinIdx)
     {
-        Color backgroundColor = skinIdx % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
-
+        _colorer.UpdatePosition(skinIdx);
         outerPanel.Location = new Point(0, (Sizes.SKIN_HEIGHT - 2) * skinIdx - 2);
-        innerPanel.BackColor = backgroundColor;
-        installButton.BackColor = backgroundColor;
     }
 
     public SkinUI(Skin skin, Panel parentPanel)
@@ -175,6 +176,7 @@ internal class SkinUI
         installButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
         installButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
+        _colorer = new RowColorer(innerPanel, new Control[] { installButton });
         parentPanel.AutoScroll = true;
     }
 }

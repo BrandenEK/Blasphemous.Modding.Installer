@@ -1,4 +1,6 @@
-﻿namespace Blasphemous.Modding.Installer.Mods;
+﻿using Blasphemous.Modding.Installer.Components;
+
+namespace Blasphemous.Modding.Installer.Mods;
 
 internal class ModUI
 {
@@ -13,8 +15,7 @@ internal class ModUI
     private readonly Button installButton;
     private readonly Button enableButton;
 
-    private int _modIdx;
-    private bool _isHovering = false;
+    private readonly RowColorer _colorer;
 
     public void UpdateUI(string name, string version, string author, bool installed, bool enabled, bool canUpdate)
     {
@@ -49,22 +50,8 @@ internal class ModUI
 
     public void SetPosition(int modIdx)
     {
-        _modIdx = modIdx;
+        _colorer.UpdatePosition(modIdx);
         outerPanel.Location = new Point(0, (Sizes.MOD_HEIGHT - 2) * modIdx - 2);
-        UpdateColor();
-    }
-
-    private void UpdateColor()
-    {
-        Color backgroundColor = _isHovering
-            ? Colors.SELECTED_GRAY
-            : _modIdx % 2 == 0
-                ? Colors.DARK_GRAY
-                : Colors.LIGHT_GRAY;
-
-        innerPanel.BackColor = backgroundColor;
-        installButton.BackColor = backgroundColor;
-        enableButton.BackColor = backgroundColor;
     }
 
     private bool IsDependencyMod(Mod mod)
@@ -197,33 +184,7 @@ internal class ModUI
         enableButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
         enableButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
-        AddMouseEnterEvent(innerPanel);
-        AddMouseLeaveEvent(innerPanel);
-
+        _colorer = new RowColorer(innerPanel, new Control[] { installButton, enableButton });
         parentPanel.AutoScroll = true;
-    }
-
-    private void AddMouseEnterEvent(Control control)
-    {
-        EventHandler action = (_, __) => ChangeHoverStatus(true);
-
-        control.MouseEnter += action;
-        foreach (Control child in control.Controls)
-            child.MouseEnter += action;
-    }
-
-    private void AddMouseLeaveEvent(Control control)
-    {
-        EventHandler action = (_, __) => ChangeHoverStatus(false);
-
-        control.MouseLeave += action;
-        foreach (Control child in control.Controls)
-            child.MouseLeave += action;
-    }
-
-    private void ChangeHoverStatus(bool status)
-    {
-        _isHovering = status;
-        UpdateColor();
     }
 }
