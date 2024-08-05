@@ -1,4 +1,5 @@
-﻿
+﻿using Blasphemous.Modding.Installer.Extensions;
+
 namespace Blasphemous.Modding.Installer.UIComponents;
 
 public class RowColorer
@@ -14,8 +15,8 @@ public class RowColorer
         _parent = parent;
         _transparentChildren = transparentChildren;
 
-        AddMouseEnterEvent(parent);
-        AddMouseLeaveEvent(parent);
+        parent.AddMouseEnterEvent(() => ChangeHoverStatus(true));
+        parent.AddMouseLeaveEvent(() => ChangeHoverStatus(false));
     }
 
     public void UpdatePosition(int position)
@@ -35,24 +36,6 @@ public class RowColorer
         _parent.BackColor = backgroundColor;
         foreach (Control control in _transparentChildren)
             control.BackColor = backgroundColor;
-    }
-
-    private void AddMouseEnterEvent(Control control)
-    {
-        EventHandler action = (_, __) => ChangeHoverStatus(true);
-
-        control.MouseEnter += action;
-        foreach (Control child in control.Controls)
-            child.MouseEnter += action;
-    }
-
-    private void AddMouseLeaveEvent(Control control)
-    {
-        EventHandler action = (_, __) => ChangeHoverStatus(false);
-
-        control.MouseLeave += action;
-        foreach (Control child in control.Controls)
-            child.MouseLeave += action;
     }
 
     private void ChangeHoverStatus(bool status)
