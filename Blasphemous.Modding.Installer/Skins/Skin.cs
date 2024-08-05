@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Basalt.Framework.Logging;
+using Newtonsoft.Json;
 using System.Net;
 
 namespace Blasphemous.Modding.Installer.Skins;

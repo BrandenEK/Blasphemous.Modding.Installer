@@ -1,4 +1,5 @@
-﻿using Blasphemous.Modding.Installer.PageComponents.Validators;
+﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.PageComponents.Validators;
 
 namespace Blasphemous.Modding.Installer;
 
@@ -13,7 +14,7 @@ public partial class UIHandler : Form
 
     private void OnFormOpen(object sender, EventArgs e)
     {
-        Text = "Blasphemous Mod Installer v" + Core.CurrentVersion.ToString(3);
+        Text = Core.Title;
         Core.SettingsHandler.Load();
 
         foreach (var page in Core.AllPages)

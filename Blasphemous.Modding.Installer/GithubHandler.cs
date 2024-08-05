@@ -1,4 +1,5 @@
-﻿using Octokit;
+﻿using Basalt.Framework.Logging;
+using Octokit;
 using System.Diagnostics;
 
 namespace Blasphemous.Modding.Installer;

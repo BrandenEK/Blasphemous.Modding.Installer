@@ -1,4 +1,5 @@
-﻿using Blasphemous.Modding.Installer.Mods;
+﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Mods;
 using Blasphemous.Modding.Installer.Properties;
 using Blasphemous.Modding.Installer.Skins;
 using System.Net;

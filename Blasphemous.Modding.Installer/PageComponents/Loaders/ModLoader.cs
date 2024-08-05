@@ -1,4 +1,5 @@
-﻿using Blasphemous.Modding.Installer.Mods;
+﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Mods;
 using Blasphemous.Modding.Installer.PageComponents.Sorters;
 using Blasphemous.Modding.Installer.PageComponents.UIHolders;
 using Newtonsoft.Json;

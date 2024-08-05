@@ -1,4 +1,5 @@
-﻿using Blasphemous.Modding.Installer.Mods;
+﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Mods;
 
 namespace Blasphemous.Modding.Installer.PageComponents.Groupers;
 
