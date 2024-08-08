@@ -19,7 +19,7 @@ static class Core
     {
         BasaltApplication.Run<UIHandler, InstallerCommand>(InitializeCore, "Blasphemous Mod Installer", new string[]
         {
-            InstallerFolder
+            InstallerFolder, CacheFolder
         });
     }
 
@@ -38,9 +38,9 @@ static class Core
         string blas1skinTitle = "Blasphemous Skins";
         string blas2modTitle = "Blasphemous II Mods";
 
-        string blas1modLocalPath = DataCache + "/blas1mods.json";
-        string blas1skinLocalPath = DataCache + "/blas1skins.json";
-        string blas2modLocalPath = DataCache + "/blas2mods.json";
+        string blas1modLocalPath = Path.Combine(CacheFolder, "blas1mods.json");
+        string blas1skinLocalPath = Path.Combine(CacheFolder, "blas1skins.json");
+        string blas2modLocalPath = Path.Combine(CacheFolder, "blas2mods.json");
 
         string blas1modRemotePath = "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousMods.json";
         string blas2modRemotePath = "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousIIMods.json";
@@ -118,5 +118,5 @@ static class Core
     public static InstallerPage Blas2ModPage => _pages[SectionType.Blas2Mods];
 
     public static string InstallerFolder { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "BlasModInstaller");
-    public static string DataCache => InstallerFolder; // Should probably be moved
+    public static string CacheFolder { get; } = Path.Combine(InstallerFolder, "cache");
 }

@@ -81,7 +81,7 @@ internal class Mod
 
     public bool ExistsInCache(string fileName, out string cachePath)
     {
-        cachePath = $"{Core.DataCache}/blas{(_modType == SectionType.Blas1Mods ? "1" : "2")}mods/{Data.name}/{Data.latestVersion}/{fileName}";
+        cachePath = $"{Core.CacheFolder}/blas{(_modType == SectionType.Blas1Mods ? "1" : "2")}mods/{Data.name}/{Data.latestVersion}/{fileName}";
         Directory.CreateDirectory(Path.GetDirectoryName(cachePath));
 
         return File.Exists(cachePath) && new FileInfo(cachePath).Length > 0;
