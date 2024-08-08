@@ -169,9 +169,9 @@ public partial class UIHandler : BasaltForm
         _left_divider3.Visible = validated;
 
         _left_details_outer.Visible = validated;
-        _left_startVanilla.Visible = validated;
-        _left_startModded.Visible = validated;
-        _left_changePath.Visible = validated;
+        _left_startVanilla.ExpectedVisibility = validated;
+        _left_startModded.ExpectedVisibility = validated;
+        _left_changePath.ExpectedVisibility = validated;
     }
 
     private void ClickInstallerUpdateLink(object sender, LinkLabelLinkClickedEventArgs e) => Core.GithubHandler.OpenInstallerLink();

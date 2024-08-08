@@ -39,9 +39,9 @@ namespace Blasphemous.Modding.Installer
             _left = new Panel();
             _left_outer = new Panel();
             _left_inner = new Panel();
-            _left_startVanilla = new TransparentButton();
-            _left_startModded = new TransparentButton();
-            _left_changePath = new TransparentButton();
+            _left_startVanilla = new ButtonWithCutoff();
+            _left_startModded = new ButtonWithCutoff();
+            _left_changePath = new ButtonWithCutoff();
             _left_page = new Panel();
             _left_page_blas1mod = new TransparentButton();
             _left_page_blas1skin = new TransparentButton();
@@ -199,6 +199,7 @@ namespace Blasphemous.Modding.Installer
             // 
             _left_startVanilla.Anchor = AnchorStyles.Bottom;
             _left_startVanilla.BackColor = Color.FromArgb(30, 30, 30);
+            _left_startVanilla.ExpectedVisibility = true;
             _left_startVanilla.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
             _left_startVanilla.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
             _left_startVanilla.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
@@ -211,12 +212,14 @@ namespace Blasphemous.Modding.Installer
             _left_startVanilla.TabIndex = 25;
             _left_startVanilla.Text = "Start game (Vanilla)";
             _left_startVanilla.UseVisualStyleBackColor = false;
+            _left_startVanilla.VerticalCutoff = 680;
             _left_startVanilla.Click += ClickedStartVanilla;
             // 
             // _left_startModded
             // 
             _left_startModded.Anchor = AnchorStyles.Bottom;
             _left_startModded.BackColor = Color.FromArgb(30, 30, 30);
+            _left_startModded.ExpectedVisibility = true;
             _left_startModded.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
             _left_startModded.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
             _left_startModded.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
@@ -229,12 +232,14 @@ namespace Blasphemous.Modding.Installer
             _left_startModded.TabIndex = 24;
             _left_startModded.Text = "Start game (Modded)";
             _left_startModded.UseVisualStyleBackColor = false;
+            _left_startModded.VerticalCutoff = 680;
             _left_startModded.Click += ClickedStartModded;
             // 
             // _left_changePath
             // 
             _left_changePath.Anchor = AnchorStyles.Bottom;
             _left_changePath.BackColor = Color.FromArgb(30, 30, 30);
+            _left_changePath.ExpectedVisibility = true;
             _left_changePath.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
             _left_changePath.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
             _left_changePath.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
@@ -247,6 +252,7 @@ namespace Blasphemous.Modding.Installer
             _left_changePath.TabIndex = 8;
             _left_changePath.Text = "Change exe location";
             _left_changePath.UseVisualStyleBackColor = false;
+            _left_changePath.VerticalCutoff = 680;
             _left_changePath.Click += ClickedChangePath;
             // 
             // _left_page
@@ -781,9 +787,9 @@ namespace Blasphemous.Modding.Installer
         private TransparentButton _left_all_disable;
         private TransparentButton _left_all_enable;
         private TransparentButton _left_all_uninstall;
-        private TransparentButton _left_changePath;
-        private TransparentButton _left_startModded;
-        private TransparentButton _left_startVanilla;
+        private ButtonWithCutoff _left_changePath;
+        private ButtonWithCutoff _left_startModded;
+        private ButtonWithCutoff _left_startVanilla;
     }
 }
 
