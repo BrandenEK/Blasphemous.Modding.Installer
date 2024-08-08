@@ -58,7 +58,21 @@ internal class Blas1Validator : IValidator
     {
         get
         {
-            return Directory.Exists(Core.SettingsHandler.Properties.Blas1RootFolder + "\\BepInEx");
+            bool installed = Directory.Exists(Core.SettingsHandler.Properties.Blas1RootFolder + "\\BepInEx");
+            
+            // Temporary delete old folders I dont want anymore
+            if (installed)
+            {
+                string docs = Path.Combine(Core.SettingsHandler.Properties.Blas1RootFolder, "Modding", "docs");
+                if (Directory.Exists(docs))
+                    Directory.Delete(docs, true);
+
+                string output = Path.Combine(Core.SettingsHandler.Properties.Blas1RootFolder, "Modding", "output");
+                if (Directory.Exists(output))
+                    Directory.Delete(output, true);
+            }
+
+            return installed;
         }
     }
 
