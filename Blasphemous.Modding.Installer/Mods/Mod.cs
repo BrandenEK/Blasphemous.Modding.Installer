@@ -73,11 +73,11 @@ internal class Mod
     public string PathToEnabledPlugin => $"{RootFolder}/Modding/plugins/{Data.pluginFile}";
     public string PathToDisabledPlugin => $"{RootFolder}/Modding/disabled/{Data.pluginFile}";
     public string PathToConfigFile => $"{RootFolder}/Modding/config/{Data.name}.cfg";
+    public string PathToContentFolder => $"{RootFolder}/Modding/content/{Data.name}";
     public string PathToDataFolder => $"{RootFolder}/Modding/data/{Data.name}";
     public string PathToKeybindingsFile => $"{RootFolder}/Modding/keybindings/{Data.name}.txt";
     public string PathToLevelsFolder => $"{RootFolder}/Modding/levels/{Data.name}";
     public string PathToLocalizationFile => $"{RootFolder}/Modding/localization/{Data.name}.txt";
-    public string PathToLogFile => $"{RootFolder}/Modding/logs/{Data.name}.log";
 
     public bool ExistsInCache(string fileName, out string cachePath)
     {
@@ -141,18 +141,16 @@ internal class Mod
             File.Delete(PathToEnabledPlugin);
         if (File.Exists(PathToDisabledPlugin))
             File.Delete(PathToDisabledPlugin);
-        if (File.Exists(PathToConfigFile))
-            File.Delete(PathToConfigFile);
-        if (File.Exists(PathToKeybindingsFile))
-            File.Delete(PathToKeybindingsFile);
-        if (File.Exists(PathToLocalizationFile))
-            File.Delete(PathToLocalizationFile);
-        if (File.Exists(PathToLogFile))
-            File.Delete(PathToLogFile);
+        // Keep config file
+        // Keep content folder
         if (Directory.Exists(PathToDataFolder))
             Directory.Delete(PathToDataFolder, true);
+        if (File.Exists(PathToKeybindingsFile))
+            File.Delete(PathToKeybindingsFile);
         if (Directory.Exists(PathToLevelsFolder))
             Directory.Delete(PathToLevelsFolder, true);
+        if (File.Exists(PathToLocalizationFile))
+            File.Delete(PathToLocalizationFile);
 
         RemoveUnusedDlls();
         UpdateUI();
