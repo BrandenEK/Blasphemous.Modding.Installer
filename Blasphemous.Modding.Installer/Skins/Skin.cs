@@ -66,7 +66,7 @@ internal class Skin
 
     public bool ExistsInCache(string fileName, out string cachePath)
     {
-        cachePath = $"{Core.DataCache}/blas1skins/{Data.id}/{Data.version}/{fileName}";
+        cachePath = $"{Core.CacheFolder}/blas1skins/{Data.id}/{Data.version}/{fileName}";
         Directory.CreateDirectory(Path.GetDirectoryName(cachePath));
 
         return File.Exists(cachePath) && new FileInfo(cachePath).Length > 0;

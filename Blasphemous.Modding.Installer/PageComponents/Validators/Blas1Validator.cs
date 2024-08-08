@@ -11,7 +11,7 @@ internal class Blas1Validator : IValidator
 
     public async Task InstallModdingTools()
     {
-        string toolsCache = Core.DataCache + "/tools/blas1.zip";
+        string toolsCache = Path.Combine(Core.CacheFolder, "tools", "blas1.zip");
         Directory.CreateDirectory(Path.GetDirectoryName(toolsCache));
 
         // If tools dont already exist in cache, download from web
