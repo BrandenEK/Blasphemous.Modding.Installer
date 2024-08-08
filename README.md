@@ -14,7 +14,7 @@
 1. Install the modding tools (One time only) 
    - Click the link to download the tools for your operating system
       - Blasphemous 1 ([Windows](https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-windows.zip)/Linux/Mac)
-	  - Blasphemous 2 ([Windows](https://github.com/BrandenEK/BlasII.ModdingTools/raw/main/modding-tools.zip)/Linux/Mac)
+	  - Blasphemous 2 ([Windows](https://github.com/BrandenEK/BlasII.ModdingTools/raw/main/modding-tools-windows.zip)/Linux/Mac)
    - Extract the contents of the zip file into the game's root directory
    - You should now have a folder called "Modding" in the same folder as "Blasphemous.exe" or "Blasphemous 2.exe"
 2. Install the mod (Whenever there is an update)
