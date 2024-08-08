@@ -21,7 +21,7 @@ internal class Blas2Validator : IValidator
             Logger.Warn("Downloading blas2 tools from web");
             using (WebClient client = new WebClient())
             {
-                string toolsPath = "https://github.com/BrandenEK/BlasII.ModdingTools/raw/main/modding-tools.zip";
+                string toolsPath = "https://github.com/BrandenEK/BlasII.ModdingTools/raw/main/modding-tools-windows.zip";
                 await client.DownloadFileTaskAsync(new Uri(toolsPath), toolsCache);
             }
         }
