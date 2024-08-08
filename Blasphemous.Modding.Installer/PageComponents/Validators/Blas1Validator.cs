@@ -20,7 +20,7 @@ internal class Blas1Validator : IValidator
             Logger.Warn("Downloading blas1 tools from web");
             using (WebClient client = new WebClient())
             {
-                string toolsPath = "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools.zip";
+                string toolsPath = "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-windows.zip";
                 await client.DownloadFileTaskAsync(new Uri(toolsPath), toolsCache);
             }
         }
