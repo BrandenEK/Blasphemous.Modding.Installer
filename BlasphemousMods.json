@@ -241,5 +241,15 @@
     "GithubRepo": "Blasphemous.Framework.Credits",
     "PluginFile": "CreditsFramework.dll",
     "Dependencies": [ "Modding API" ]
+  },
+  {
+    "Name": "Atrium Of Atonement",
+    "Author": "NewbieElton",
+    "Description": "Offers bossrush QoL (including loadout selection, challenge single boss, etc.)",
+    "InitialReleaseDate": "2024-08-09",
+    "GithubAuthor": "EltonZhang777",
+    "GithubRepo": "Blasphemous.AtriumOfAtonement",
+    "PluginFile": "AtriumOfAtonement.dll",
+    "Dependencies": [ "Modding API", "Cheat Console", "Menu Framework", "UI Framework", "Level Framework" ]
   }
 ]
