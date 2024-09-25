@@ -89,7 +89,7 @@
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous.Randomizer.MapTracker",
     "PluginFile": "RandoMap.dll",
-    "RequiredDlls": [ "LogicParser.dll" ],
+    "RequiredDlls": [ "Basalt.LogicParser.dll", "LogicParser.dll" ],
     "Dependencies": [ "Modding API", "Randomizer" ]
   },
   {
