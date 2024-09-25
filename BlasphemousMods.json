@@ -16,7 +16,7 @@
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous.Randomizer",
     "PluginFile": "BlasphemousRandomizer.dll",
-    "RequiredDlls": [ "LogicParser.dll" ],
+    "RequiredDlls": [ "Basalt.LogicParser.dll", "LogicParser.dll" ],
     "Dependencies": [ "Modding API", "Credits Framework", "Level Framework", "Menu Framework", "UI Framework", "Cheat Console" ]
   },
   {
