@@ -32,6 +32,7 @@ public partial class UIHandler : BasaltForm
 
     // Validation screen
 
+    // Maybe move this to the StandardValidator?? But it calls OpenSection
     private void PromptForRootFolder()
     {
         Logger.Warn("Prompting for root folder");
@@ -50,7 +51,9 @@ public partial class UIHandler : BasaltForm
             string path = Path.GetDirectoryName(dialog.FileName)!;
             validator.SetRootPath(path);
             OpenSection(Core.SettingsHandler.Properties.CurrentSection);
-            OnPathChanged?.Invoke(path);
+
+            // Not necessary since we just opened a new section
+            //OnPathChanged?.Invoke(path);
         }
     }
 

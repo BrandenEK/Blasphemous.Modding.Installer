@@ -30,7 +30,7 @@ internal abstract class StandardValidator : IValidator
         _remoteVersionPath = remoteVersionPath;
 
         UIHandler.OnPageOpened += OnPageOpened;
-        UIHandler.OnPathChanged += OnPathChanged;
+        //UIHandler.OnPathChanged += OnPathChanged;
     }
 
     private void OnPageOpened(InstallerPage page)
@@ -56,23 +56,23 @@ internal abstract class StandardValidator : IValidator
         }
     }
 
-    private void OnPathChanged(string path)
-    {
-        if (Core.CurrentPage.Validator != this)
-            return;
+    //private void OnPathChanged(string path)
+    //{
+    //    if (Core.CurrentPage.Validator != this)
+    //        return;
 
-        bool isValid = IsRootFolderValid;
-        Core.UIHandler.UpdateRootFolderText(isValid ? RootFolder : $"Click to locate {_exeName}");
+    //    bool isValid = IsRootFolderValid;
+    //    Core.UIHandler.UpdateRootFolderText(isValid ? RootFolder : $"Click to locate {_exeName}");
 
-        if (!isValid)
-        {
-            Core.UIHandler.HideToolStatus();
-        }
-        else
-        {
-            RefreshAndUpdateStatus();
-        }
-    }
+    //    if (!isValid)
+    //    {
+    //        Core.UIHandler.HideToolStatus();
+    //    }
+    //    else
+    //    {
+    //        RefreshAndUpdateStatus();
+    //    }
+    //}
 
     private ToolStatus GetCurrentStatus()
     {
