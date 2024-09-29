@@ -103,16 +103,16 @@ static class Core
         // Validators
         var blas1Validator = new Blas1Validator(
             "blas1tools",
-            "C:/Program Files (x86)/Steam/steamapps/common/Blasphemous",
+            Path.Combine("C:", "Program Files (x86)", "Steam", "steamapps", "common", "Blasphemous"),
             "Blasphemous.exe",
-            "BepInEx/patchers/BepInEx.MultiFolderLoader.dll",
+            Path.Combine("BepInEx", "patchers", "BepInEx.MultiFolderLoader.dll"),
             "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-windows.zip",
             "https://raw.githubusercontent.com/BrandenEK/Blasphemous.ModdingTools/main/modding-tools-windows.version");
         var blas2Validator = new Blas2Validator(
             "blas2tools",
-            "C:/Program Files (x86)/Steam/steamapps/common/Blasphemous 2",
+            Path.Combine("C:", "Program Files (x86)", "Steam", "steamapps", "common", "Blasphemous 2"),
             "Blasphemous 2.exe",
-            "MelonLoader/net6/MelonLoader.dll",
+            Path.Combine("MelonLoader", "net6", "MelonLoader.dll"),
             "https://github.com/BrandenEK/BlasII.ModdingTools/raw/main/modding-tools-windows.zip",
             "https://raw.githubusercontent.com/BrandenEK/BlasII.ModdingTools/main/modding-tools-windows.version");
 
