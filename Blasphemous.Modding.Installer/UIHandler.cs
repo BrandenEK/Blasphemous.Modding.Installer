@@ -26,12 +26,7 @@ public partial class UIHandler : BasaltForm
         return MessageBox.Show(question, title, MessageBoxButtons.OKCancel) == DialogResult.OK;
     }
 
-    // Update installer
-
-    public void UpdatePanelSetVisible(bool visible) => _top_warning_outer.Visible = visible;
-
-    // Validation screen
-
+    // Maybe move this to the StandardValidator?? But it calls OpenSection
     private void PromptForRootFolder()
     {
         Logger.Warn("Prompting for root folder");
@@ -50,13 +45,11 @@ public partial class UIHandler : BasaltForm
             string path = Path.GetDirectoryName(dialog.FileName)!;
             validator.SetRootPath(path);
             OpenSection(Core.SettingsHandler.Properties.CurrentSection);
-            OnPathChanged?.Invoke(path);
+
+            // Not necessary since we just opened a new section
+            //OnPathChanged?.Invoke(path);
         }
     }
-
-    private void ClickLocationButton(object sender, EventArgs e) => PromptForRootFolder();
-
-    private void ClickToolsButton(object sender, EventArgs e) { }
 
     // ...
 
@@ -131,10 +124,6 @@ public partial class UIHandler : BasaltForm
         else
         {
             _bottom_validation.Visible = true;
-            _bottom_validation_location.Enabled = !folderValid;
-            _bottom_validation_location.Text = "Locate " + currentPage.Validator.ExeName;
-            _bottom_validation_tools.Enabled = folderValid;
-            //_bottom_validation_tools.Text = (toolsInstalled ? "Update" : "Install") + " modding tools";
         }
 
         // Show the correct page element
@@ -167,7 +156,6 @@ public partial class UIHandler : BasaltForm
         _left_details_outer.Visible = validated;
         _left_startVanilla.ExpectedVisibility = validated;
         _left_startModded.ExpectedVisibility = validated;
-        _left_changePath.ExpectedVisibility = validated;
 
         Logger.Debug($"Opened page: {currentPage.Title}");
         OnPageOpened?.Invoke(currentPage);
@@ -175,9 +163,24 @@ public partial class UIHandler : BasaltForm
 
     // Top section
 
-    private void ClickInstallerUpdateLink(object sender, LinkLabelLinkClickedEventArgs e) => Core.GithubHandler.OpenInstallerLink();
+    public void UpdateVersionWarningVisibility(bool visible)
+    {
+        _top_warning_outer.Visible = visible;
+    }
 
-    // Middle section
+    private void ClickedVersionWarning(object sender, LinkLabelLinkClickedEventArgs e) => Core.GithubHandler.OpenInstallerLink();
+
+    // Middle section path
+
+    public void UpdateRootFolderText(string text)
+    {
+        _middle_path.Text = text;
+        _middle_path.Width = _middle_path.PreferredWidth;
+    }
+
+    private void ClickedRootFolder(object sender, EventArgs e) => PromptForRootFolder();
+
+    // Middle section tools
 
     public void UpdateToolStatus(string text, Bitmap icon)
     {
@@ -268,8 +271,6 @@ public partial class UIHandler : BasaltForm
     private void ClickedStartVanilla(object sender, EventArgs e) => StartGameProcess(false);
 
     private void ClickedStartModded(object sender, EventArgs e) => StartGameProcess(true);
-
-    private void ClickedChangePath(object sender, EventArgs e) => PromptForRootFolder();
 
     // Events
     
