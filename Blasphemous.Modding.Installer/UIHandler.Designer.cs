@@ -585,7 +585,7 @@ namespace Blasphemous.Modding.Installer
             _top_warning_text.Text = "A new update is available for the mod installer.  Please download it now.";
             _top_warning_text.TextAlign = ContentAlignment.MiddleLeft;
             _top_warning_text.UseCompatibleTextRendering = true;
-            _top_warning_text.LinkClicked += ClickInstallerUpdateLink;
+            _top_warning_text.LinkClicked += ClickedVersionWarning;
             // 
             // _top_warning_image
             // 

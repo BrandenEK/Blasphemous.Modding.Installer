@@ -168,7 +168,7 @@ public partial class UIHandler : BasaltForm
         _top_warning_outer.Visible = visible;
     }
 
-    private void ClickInstallerUpdateLink(object sender, LinkLabelLinkClickedEventArgs e) => Core.GithubHandler.OpenInstallerLink();
+    private void ClickedVersionWarning(object sender, LinkLabelLinkClickedEventArgs e) => Core.GithubHandler.OpenInstallerLink();
 
     // Middle section path
 
