@@ -63,6 +63,13 @@ internal class Blas1Validator : IValidator
         UpdateStatusUI();
     }
 
+    private void InvalidateAndUpdateStatus()
+    {
+        _currentStatus = ToolStatus.Invalid;
+        _currentStatus = GetCurrentStatus();
+        UpdateStatusUI();
+    }
+
     private void UpdateStatusUI()
     {
         string text = _currentStatus switch
@@ -96,7 +103,7 @@ internal class Blas1Validator : IValidator
         Logger.Info("Installing modding tools");
         SetAndUpdateStatus(ToolStatus.Downloading);
         await InstallModdingTools();
-        RefreshAndUpdateStatus();
+        InvalidateAndUpdateStatus();
     }
 
 
@@ -131,8 +138,6 @@ internal class Blas1Validator : IValidator
             foreach (ZipEntry file in zipFile)
                 file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
         }
-
-        _currentStatus = ToolStatus.NotInstalled;
     }
 
     public void SetRootPath(string path)
@@ -191,5 +196,6 @@ internal class Blas1Validator : IValidator
         NotInstalled,
         InstalledNotUpdated,
         InstalledAndUpdated,
+        Invalid
     }
 }
