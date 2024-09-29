@@ -62,35 +62,65 @@ static class Core
         string blas1skinTitle = "Blasphemous Skins";
         string blas2modTitle = "Blasphemous II Mods";
 
-        string blas1modLocalPath = Path.Combine(CacheFolder, "blas1mods.json");
-        string blas1skinLocalPath = Path.Combine(CacheFolder, "blas1skins.json");
-        string blas2modLocalPath = Path.Combine(CacheFolder, "blas2mods.json");
-
-        string blas1modRemotePath = "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousMods.json";
-        string blas2modRemotePath = "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousIIMods.json";
-
+        // Groupers
         var blas1modGrouper = new ModGrouper(blas1modTitle, blas1mods);
         var blas1skinGrouper = new SkinGrouper(blas1skinTitle, blas1skins);
         var blas2modGrouper = new ModGrouper(blas2modTitle, blas2mods);
 
+        // UI holders
         var blas1modUI = new GenericUIHolder<Mod>(UIHandler.GetUIElementByType(SectionType.Blas1Mods), blas1mods);
         var blas1skinUI = new GenericUIHolder<Skin>(UIHandler.GetUIElementByType(SectionType.Blas1Skins), blas1skins);
         var blas2modUI = new GenericUIHolder<Mod>(UIHandler.GetUIElementByType(SectionType.Blas2Mods), blas2mods);
 
+        // Sorters
         var blas1modSorter = new ModSorter(blas1modUI, blas1mods, SectionType.Blas1Mods);
         var blas1skinSorter = new SkinSorter(blas1skinUI, blas1skins, SectionType.Blas1Skins);
         var blas2modSorter = new ModSorter(blas2modUI, blas2mods, SectionType.Blas2Mods);
 
-        var blas1modLoader = new ModLoader(blas1modLocalPath, blas1modRemotePath, blas1modUI, blas1modSorter, blas1mods, SectionType.Blas1Mods);
-        var blas1skinLoader = new SkinLoader(blas1skinLocalPath, "blasphemous1", blas1skinUI, blas1skinSorter, blas1skins, SectionType.Blas1Skins);
-        var blas2modLoader = new ModLoader(blas2modLocalPath, blas2modRemotePath, blas2modUI, blas2modSorter, blas2mods, SectionType.Blas2Mods);
+        // Loaders
+        var blas1modLoader = new ModLoader(
+            Path.Combine(CacheFolder, "blas1mods.json"),
+            "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousMods.json",
+            blas1modUI,
+            blas1modSorter,
+            blas1mods,
+            SectionType.Blas1Mods);
+        var blas1skinLoader = new SkinLoader(
+            Path.Combine(CacheFolder, "blas1skins.json"),
+            "blasphemous1",
+            blas1skinUI,
+            blas1skinSorter,
+            blas1skins,
+            SectionType.Blas1Skins);
+        var blas2modLoader = new ModLoader(
+            Path.Combine(CacheFolder, "blas2mods.json"),
+            "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousIIMods.json",
+            blas2modUI,
+            blas2modSorter,
+            blas2mods,
+            SectionType.Blas2Mods);
 
-        var blas1Validator = new Blas1Validator();
-        var blas2Validator = new Blas2Validator();
+        // Validators
+        var blas1Validator = new Blas1Validator(
+            "blas1tools",
+            Path.Combine("C:", "Program Files (x86)", "Steam", "steamapps", "common", "Blasphemous"),
+            "Blasphemous.exe",
+            Path.Combine("BepInEx", "patchers", "BepInEx.MultiFolderLoader.dll"),
+            "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-windows.zip",
+            "https://raw.githubusercontent.com/BrandenEK/Blasphemous.ModdingTools/main/modding-tools-windows.version");
+        var blas2Validator = new Blas2Validator(
+            "blas2tools",
+            Path.Combine("C:", "Program Files (x86)", "Steam", "steamapps", "common", "Blasphemous 2"),
+            "Blasphemous 2.exe",
+            Path.Combine("MelonLoader", "net6", "MelonLoader.dll"),
+            "https://github.com/BrandenEK/BlasII.ModdingTools/raw/main/modding-tools-windows.zip",
+            "https://raw.githubusercontent.com/BrandenEK/BlasII.ModdingTools/main/modding-tools-windows.version");
 
+        // Starters
         var blas1Starter = new Blas1Starter(blas1Validator);
         var blas2Starter = new Blas2Starter(blas2Validator);
 
+        // Previewers
         var modPreviewer = new ModPreviewer(UIHandler.PreviewName, UIHandler.PreviewDescription, UIHandler.PreviewVersion);
         var skinPreviewer = new SkinPreviewer(UIHandler.PreviewBackground);
 

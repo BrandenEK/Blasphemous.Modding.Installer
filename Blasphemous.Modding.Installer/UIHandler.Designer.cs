@@ -785,6 +785,7 @@ namespace Blasphemous.Modding.Installer
             _middle_tools.Name = "_middle_tools";
             _middle_tools.Size = new Size(180, 25);
             _middle_tools.TabIndex = 9;
+            _middle_tools.Visible = false;
             // 
             // _tooltip
             // 
