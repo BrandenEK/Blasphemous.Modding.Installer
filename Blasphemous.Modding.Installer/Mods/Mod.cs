@@ -166,10 +166,8 @@ internal class Mod
         string disabled = PathToDisabledPlugin;
         if (File.Exists(disabled))
         {
-            if (!File.Exists(enabled))
-                File.Move(disabled, enabled);
-            else
-                File.Delete(disabled);
+            Directory.CreateDirectory(Path.GetDirectoryName(enabled)!);
+            File.Move(disabled, enabled, true);
         }
 
         UpdateUI();
@@ -185,10 +183,8 @@ internal class Mod
         string disabled = PathToDisabledPlugin;
         if (File.Exists(enabled))
         {
-            if (!File.Exists(disabled))
-                File.Move(enabled, disabled);
-            else
-                File.Delete(enabled);
+            Directory.CreateDirectory(Path.GetDirectoryName(disabled)!);
+            File.Move(enabled, disabled, true);
         }
 
         UpdateUI();
