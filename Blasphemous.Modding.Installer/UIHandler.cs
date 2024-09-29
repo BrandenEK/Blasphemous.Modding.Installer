@@ -47,8 +47,10 @@ public partial class UIHandler : BasaltForm
 
         if (dialog.ShowDialog() == DialogResult.OK)
         {
-            validator.SetRootPath(Path.GetDirectoryName(dialog.FileName));
+            string path = Path.GetDirectoryName(dialog.FileName)!;
+            validator.SetRootPath(path);
             OpenSection(Core.SettingsHandler.Properties.CurrentSection);
+            OnPathChanged?.Invoke(path);
         }
     }
 
@@ -123,7 +125,9 @@ public partial class UIHandler : BasaltForm
         bool toolsInstalled = folderValid && currentPage.Validator.AreModdingToolsInstalled;
         bool toolsUpdated = toolsInstalled && currentPage.Validator.AreModdingToolsUpdated;
 
-        bool validated = toolsUpdated;
+        // Ignore tool stuff here for now
+        bool validated = folderValid;
+
         Logger.Info("Modding status validation: " + validated);
 
         if (validated)
@@ -172,6 +176,9 @@ public partial class UIHandler : BasaltForm
         _left_startVanilla.ExpectedVisibility = validated;
         _left_startModded.ExpectedVisibility = validated;
         _left_changePath.ExpectedVisibility = validated;
+
+        Logger.Debug($"Opened page: {currentPage.Title}");
+        OnPageOpened?.Invoke(currentPage);
     }
 
     // Top section
@@ -182,11 +189,17 @@ public partial class UIHandler : BasaltForm
 
     public void UpdateToolStatus(string text, Bitmap icon)
     {
+        Logger.Info("Updating tool status UI");
         _middle_tools_icon.BackgroundImage = icon;
 
         _tooltip.RemoveAll();
         _tooltip.SetToolTip(_middle_tools_text, text);
         _tooltip.SetToolTip(_middle_tools_icon, text);
+    }
+
+    private void ClickedToolsStatus(object sender, EventArgs e)
+    {
+        Core.CurrentPage.Validator.OnClickToolStatus();
     }
 
     // Side section top
@@ -254,4 +267,12 @@ public partial class UIHandler : BasaltForm
     private void ClickedStartModded(object sender, EventArgs e) => StartGameProcess(true);
 
     private void ClickedChangePath(object sender, EventArgs e) => PromptForRootFolder();
+
+    // Events
+    
+    internal delegate void PageDelegate(InstallerPage page);
+    internal static PageDelegate? OnPageOpened;
+
+    internal delegate void PathDelegate(string path);
+    internal static PathDelegate? OnPathChanged;
 }

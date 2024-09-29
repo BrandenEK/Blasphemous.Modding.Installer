@@ -40,6 +40,11 @@ internal class Blas2Validator : IValidator
         Core.SettingsHandler.Properties.Blas2RootFolder = path;
     }
 
+    public void OnClickToolStatus()
+    {
+        Logger.Error("Not doing anything yet");
+    }
+
     public bool IsRootFolderValid
     {
         get

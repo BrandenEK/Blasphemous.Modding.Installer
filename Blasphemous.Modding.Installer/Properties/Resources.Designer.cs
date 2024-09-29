@@ -83,9 +83,49 @@ namespace Blasphemous.Modding.Installer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icon_check {
+        internal static System.Drawing.Bitmap icon_arrow_light {
             get {
-                object obj = ResourceManager.GetObject("icon-check", resourceCulture);
+                object obj = ResourceManager.GetObject("icon-arrow-light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_check_light {
+            get {
+                object obj = ResourceManager.GetObject("icon-check-light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_circles_light {
+            get {
+                object obj = ResourceManager.GetObject("icon-circles-light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_dash_light {
+            get {
+                object obj = ResourceManager.GetObject("icon-dash-light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_x_light {
+            get {
+                object obj = ResourceManager.GetObject("icon-x-light", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

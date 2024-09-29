@@ -666,13 +666,14 @@ namespace Blasphemous.Modding.Installer
             // 
             _middle_tools_icon.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             _middle_tools_icon.BackColor = Color.Transparent;
-            _middle_tools_icon.BackgroundImage = Properties.Resources.icon_check;
+            _middle_tools_icon.BackgroundImage = Properties.Resources.icon_check_light;
             _middle_tools_icon.BackgroundImageLayout = ImageLayout.Zoom;
             _middle_tools_icon.Location = new Point(150, 0);
             _middle_tools_icon.Name = "_middle_tools_icon";
             _middle_tools_icon.Size = new Size(25, 25);
             _middle_tools_icon.TabIndex = 8;
             _middle_tools_icon.TabStop = false;
+            _middle_tools_icon.Click += ClickedToolsStatus;
             // 
             // _middle_tools_text
             // 
@@ -685,6 +686,7 @@ namespace Blasphemous.Modding.Installer
             _middle_tools_text.TabIndex = 7;
             _middle_tools_text.Text = "Modding Tools";
             _middle_tools_text.TextAlign = ContentAlignment.BottomLeft;
+            _middle_tools_text.Click += ClickedToolsStatus;
             // 
             // _bottom
             // 
@@ -790,6 +792,7 @@ namespace Blasphemous.Modding.Installer
             _tooltip.AutoPopDelay = 100000;
             _tooltip.InitialDelay = 100;
             _tooltip.ReshowDelay = 100;
+            _tooltip.ShowAlways = true;
             // 
             // UIHandler
             // 
