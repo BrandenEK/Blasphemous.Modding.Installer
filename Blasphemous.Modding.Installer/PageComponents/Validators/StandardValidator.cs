@@ -8,20 +8,27 @@ namespace Blasphemous.Modding.Installer.PageComponents.Validators;
 
 internal abstract class StandardValidator : IValidator
 {
-    private readonly string _exeName = "Blasphemous.exe";
-    private readonly string _defaultPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blasphemous";
-    private readonly string _remoteVersionPath = "https://raw.githubusercontent.com/BrandenEK/Blasphemous.ModdingTools/main/modding-tools-windows.version";
-    private readonly string _remoteDownloadPath = "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-windows.zip";
     private readonly string _cacheDir = "blas1tools";
+    private readonly string _defaultPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blasphemous";
+    private readonly string _exeName = "Blasphemous.exe";
     private readonly string _localVersionPath = Path.Combine("BepInEx", "patchers", "BepInEx.MultiFolderLoader.dll");
+    private readonly string _remoteDownloadPath = "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-windows.zip";
+    private readonly string _remoteVersionPath = "https://raw.githubusercontent.com/BrandenEK/Blasphemous.ModdingTools/main/modding-tools-windows.version";
 
     private ToolStatus _currentStatus = ToolStatus.Invalid;
     private string _remoteVersion = string.Empty;
 
     protected abstract string RootFolder { get; set; }
 
-    public StandardValidator()
+    public StandardValidator(string cacheDir, string defaultPath, string exeName, string localVersionPath, string remoteDownloadPath, string remoteVersionPath)
     {
+        _cacheDir = cacheDir;
+        _defaultPath = defaultPath;
+        _exeName = exeName;
+        _localVersionPath = localVersionPath;
+        _remoteDownloadPath = remoteDownloadPath;
+        _remoteVersionPath = remoteVersionPath;
+
         UIHandler.OnPageOpened += OnPageOpened;
         UIHandler.OnPathChanged += OnPathChanged;
     }
