@@ -86,14 +86,6 @@ public partial class UIHandler : BasaltForm
         _top_text.Focus();
     }
 
-    private void SetSortByBox(SortType sort)
-    {
-        _left_sort_name.Checked = sort == SortType.Name;
-        _left_sort_author.Checked = sort == SortType.Author;
-        _left_sort_initialRelease.Checked = sort == SortType.InitialRelease;
-        _left_sort_latestRelease.Checked = sort == SortType.LatestRelease;
-    }
-
     private void OpenSection(SectionType section)
     {
         Core.CurrentPage.Previewer.Clear();
@@ -106,18 +98,11 @@ public partial class UIHandler : BasaltForm
         _top_inner.BackgroundImage = currentPage.Image;
 
         // Validate the status of mods
-        bool folderValid = currentPage.Validator.IsRootFolderValid;
-        //bool toolsInstalled = folderValid && currentPage.Validator.AreModdingToolsInstalled;
-        //bool toolsUpdated = toolsInstalled && currentPage.Validator.AreModdingToolsUpdated;
-
-        // Ignore tool stuff here for now
-        bool validated = folderValid;
-
+        bool validated = currentPage.Validator.IsRootFolderValid;
         Logger.Info("Modding status validation: " + validated);
 
         if (validated)
         {
-            SetSortByBox(Core.SettingsHandler.Properties.CurrentSort);
             currentPage.Loader.LoadAllData();
             _bottom_validation.Visible = false;
         }
@@ -135,27 +120,33 @@ public partial class UIHandler : BasaltForm
         // Refresh all ui elements on the page
         currentPage.Grouper.RefreshAll();
 
-        // Only show side buttons under certain conditions
-        _left_divider1.Visible = validated;
-
+        // Handle UI for sorting
         _left_sort.Visible = validated;
-        _left_sort_name.Visible = validated && currentPage.Grouper.CanSortByCreation;
-        _left_sort_author.Visible = validated && currentPage.Grouper.CanSortByCreation;
-        _left_sort_initialRelease.Visible = currentPage.Grouper.CanSortByDate;
-        _left_sort_latestRelease.Visible = currentPage.Grouper.CanSortByDate;
+        _left_sort_options.Items.Clear();
+        if (currentPage.Grouper.CanSortByCreation)
+        {
+            _left_sort_options.Items.Add("Name");
+            _left_sort_options.Items.Add("Author");
+        }
+        if (currentPage.Grouper.CanSortByDate)
+        {
+            _left_sort_options.Items.Add("Initial release");
+            _left_sort_options.Items.Add("Latest release");
+        }
+        _left_sort_options.SelectedIndex = (int)Core.SettingsHandler.Properties.CurrentSort;
 
-        _left_divider2.Visible = validated;
+        // Handle UI for grouping
+        _left_all.Visible = validated;
+        _left_all_install.Visible = currentPage.Grouper.CanInstall;
+        _left_all_uninstall.Visible = currentPage.Grouper.CanInstall;
+        _left_all_enable.Visible = currentPage.Grouper.CanEnable;
+        _left_all_disable.Visible = currentPage.Grouper.CanEnable;
 
-        _left_all_install.Visible = validated && currentPage.Grouper.CanInstall;
-        _left_all_uninstall.Visible = validated && currentPage.Grouper.CanInstall;
-        _left_all_enable.Visible = validated && currentPage.Grouper.CanEnable;
-        _left_all_disable.Visible = validated && currentPage.Grouper.CanEnable;
+        // Handle UI for previewing
+        _left_details.Visible = validated;
 
-        _left_divider3.Visible = validated;
-
-        _left_details_outer.Visible = validated;
-        _left_startVanilla.ExpectedVisibility = validated;
-        _left_startModded.ExpectedVisibility = validated;
+        // Handle UI for starting
+        _left_start.Visible = validated;
 
         Logger.Debug($"Opened page: {currentPage.Title}");
         OnPageOpened?.Invoke(currentPage);
@@ -220,27 +211,12 @@ public partial class UIHandler : BasaltForm
 
     // Side section middle
 
-    private void ClickedSortByName(object sender, EventArgs e)
+    private void ChangedSortOption(object sender, EventArgs e)
     {
-        Core.SettingsHandler.Properties.CurrentSort = SortType.Name;
-        Core.CurrentPage.Sorter.Sort();
-    }
+        int index = ((ComboBox)sender).SelectedIndex;
+        Logger.Info($"Changing sort to {index}");
 
-    private void ClickedSortByAuthor(object sender, EventArgs e)
-    {
-        Core.SettingsHandler.Properties.CurrentSort = SortType.Author;
-        Core.CurrentPage.Sorter.Sort();
-    }
-
-    private void ClickedSortByInitialRelease(object sender, EventArgs e)
-    {
-        Core.SettingsHandler.Properties.CurrentSort = SortType.InitialRelease;
-        Core.CurrentPage.Sorter.Sort();
-    }
-
-    private void ClickedSortByLatestRelease(object sender, EventArgs e)
-    {
-        Core.SettingsHandler.Properties.CurrentSort = SortType.LatestRelease;
+        Core.SettingsHandler.Properties.CurrentSort = (SortType)index;
         Core.CurrentPage.Sorter.Sort();
     }
 
@@ -268,12 +244,13 @@ public partial class UIHandler : BasaltForm
 
     // Side section lower
 
-    private void ClickedStartVanilla(object sender, EventArgs e) => StartGameProcess(false);
-
-    private void ClickedStartModded(object sender, EventArgs e) => StartGameProcess(true);
+    private void ClickedStart(object sender, EventArgs e)
+    {
+        StartGameProcess(true);
+    }
 
     // Events
-    
+
     internal delegate void PageDelegate(InstallerPage page);
     internal static PageDelegate? OnPageOpened;
 
