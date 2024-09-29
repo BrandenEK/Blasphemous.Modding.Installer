@@ -38,9 +38,10 @@ internal abstract class StandardValidator : IValidator
         if (page.Validator != this)
             return;
 
-        Core.UIHandler.UpdateRootFolderText(RootFolder);
+        bool isValid = IsRootFolderValid;
+        Core.UIHandler.UpdateRootFolderText(isValid ? RootFolder : $"Click to locate {_exeName}");
 
-        if (!IsRootFolderValid)
+        if (!isValid)
         {
             Core.UIHandler.HideToolStatus();
         }
@@ -60,9 +61,10 @@ internal abstract class StandardValidator : IValidator
         if (Core.CurrentPage.Validator != this)
             return;
 
-        Core.UIHandler.UpdateRootFolderText(RootFolder);
+        bool isValid = IsRootFolderValid;
+        Core.UIHandler.UpdateRootFolderText(isValid ? RootFolder : $"Click to locate {_exeName}");
 
-        if (!IsRootFolderValid)
+        if (!isValid)
         {
             Core.UIHandler.HideToolStatus();
         }
