@@ -3,6 +3,7 @@
 internal interface IValidator
 {
     Task InstallModdingTools();
+    void OnClickToolStatus();
 
     void SetRootPath(string path);
 

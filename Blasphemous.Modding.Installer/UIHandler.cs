@@ -125,7 +125,9 @@ public partial class UIHandler : BasaltForm
         bool toolsInstalled = folderValid && currentPage.Validator.AreModdingToolsInstalled;
         bool toolsUpdated = toolsInstalled && currentPage.Validator.AreModdingToolsUpdated;
 
-        bool validated = toolsUpdated;
+        // Ignore tool stuff here for now
+        bool validated = folderValid;
+
         Logger.Info("Modding status validation: " + validated);
 
         if (validated)
@@ -193,6 +195,11 @@ public partial class UIHandler : BasaltForm
         _tooltip.RemoveAll();
         _tooltip.SetToolTip(_middle_tools_text, text);
         _tooltip.SetToolTip(_middle_tools_icon, text);
+    }
+
+    private void ClickedToolsStatus(object sender, EventArgs e)
+    {
+        Core.CurrentPage.Validator.OnClickToolStatus();
     }
 
     // Side section top

@@ -12,6 +12,20 @@ internal class Blas1Validator : IValidator
 
     private ToolStatus _currentStatus = ToolStatus.Checking;
 
+    private ToolStatus CurrentStatus
+    {
+        get
+        {
+            if (!AreModdingToolsInstalled)
+                return ToolStatus.NotInstalled;
+
+            if (!AreModdingToolsUpdated)
+                return ToolStatus.InstalledNotUpdated;
+
+            return _currentStatus = ToolStatus.InstalledAndUpdated;
+        }
+    }
+
     public Blas1Validator()
     {
         UIHandler.OnPageOpened += OnPageOpened;
@@ -23,7 +37,6 @@ internal class Blas1Validator : IValidator
         if (page.Validator != this || !IsRootFolderValid)
             return;
 
-        CheckToolStatus();
         UpdateStatusUI();
     }
 
@@ -32,7 +45,6 @@ internal class Blas1Validator : IValidator
         if (Core.CurrentPage.Validator != this || !IsRootFolderValid)
             return;
 
-        CheckToolStatus();
         UpdateStatusUI();
     }
 
@@ -60,26 +72,49 @@ internal class Blas1Validator : IValidator
 
     private void UpdateStatusUI()
     {
-        string text = _currentStatus switch
+        ToolStatus status = CurrentStatus;
+
+        string text = status switch
         {
             ToolStatus.Checking => "Checking for updates...",
             ToolStatus.NotInstalled => "Not installed - Click to download",
             ToolStatus.InstalledNotUpdated => "Update available - Click to download",
             ToolStatus.InstalledAndUpdated => "Installed and updated",
-            _ => throw new Exception($"Invalid tool status: {_currentStatus}")
+            _ => throw new Exception($"Invalid tool status: {status}")
         };
 
-        Bitmap icon = _currentStatus switch
+        Bitmap icon = status switch
         {
             ToolStatus.Checking => Resources.icon_circles_light,
             ToolStatus.NotInstalled => Resources.icon_x_light,
             ToolStatus.InstalledNotUpdated => Resources.icon_arrow_light,
             ToolStatus.InstalledAndUpdated => Resources.icon_check_light,
-            _ => throw new Exception($"Invalid tool status: {_currentStatus}")
+            _ => throw new Exception($"Invalid tool status: {status}")
         };
 
         Core.UIHandler.UpdateToolStatus(text, icon);
     }
+
+    public async void OnClickToolStatus()
+    {
+        ToolStatus status = CurrentStatus;
+
+        if (status != ToolStatus.NotInstalled && status != ToolStatus.InstalledNotUpdated)
+            return;
+
+        Logger.Info("Installing modding tools");
+        await InstallModdingTools();
+        UpdateStatusUI();
+    }
+
+
+
+
+
+
+
+
+
 
     public async Task InstallModdingTools()
     {
