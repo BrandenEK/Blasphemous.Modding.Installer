@@ -120,9 +120,6 @@ public partial class UIHandler : BasaltForm
         // Refresh all ui elements on the page
         currentPage.Grouper.RefreshAll();
 
-        // Handle UI for paging
-        _left_page_divider.Visible = validated;
-
         // Handle UI for sorting
         _left_sort.Visible = validated;
         _left_sort_options.Items.Clear();
@@ -146,7 +143,7 @@ public partial class UIHandler : BasaltForm
         _left_all_disable.Visible = currentPage.Grouper.CanEnable;
 
         // Handle UI for previewing
-        _left_details_outer.Visible = validated;
+        _left_details.Visible = validated;
 
         // Handle UI for starting
         _left_start.Visible = validated;
