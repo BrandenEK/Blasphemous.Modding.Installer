@@ -49,19 +49,19 @@ namespace Blasphemous.Modding.Installer
             _left_details_version = new Label();
             _left_details_desc = new Label();
             _left_details_name = new Label();
-            _left_divider3 = new Panel();
-            _left_divider2 = new Panel();
-            _left_divider1 = new Panel();
+            _left_page_divider = new Panel();
             _left_sort = new Panel();
             _left_filter_options = new ComboBox();
             _left_filter_text = new Label();
             _left_sort_options = new ComboBox();
             _left_sort_text = new Label();
+            _left_sort_divider = new Panel();
             _left_all = new Panel();
             _left_all_install = new TransparentButton();
             _left_all_enable = new TransparentButton();
             _left_all_uninstall = new TransparentButton();
             _left_all_disable = new TransparentButton();
+            _left_all_divider = new Panel();
             _top = new Panel();
             _top_outer = new Panel();
             _top_inner = new Panel();
@@ -167,9 +167,6 @@ namespace Blasphemous.Modding.Installer
             _left_inner.Controls.Add(_left_startModded);
             _left_inner.Controls.Add(_left_page);
             _left_inner.Controls.Add(_left_details_outer);
-            _left_inner.Controls.Add(_left_divider3);
-            _left_inner.Controls.Add(_left_divider2);
-            _left_inner.Controls.Add(_left_divider1);
             _left_inner.Controls.Add(_left_sort);
             _left_inner.Controls.Add(_left_all);
             _left_inner.Location = new Point(0, 0);
@@ -222,6 +219,7 @@ namespace Blasphemous.Modding.Installer
             _left_page.Controls.Add(_left_page_blas1mod);
             _left_page.Controls.Add(_left_page_blas1skin);
             _left_page.Controls.Add(_left_page_blas2mod);
+            _left_page.Controls.Add(_left_page_divider);
             _left_page.Location = new Point(15, 15);
             _left_page.Name = "_left_page";
             _left_page.Size = new Size(220, 235);
@@ -333,32 +331,14 @@ namespace Blasphemous.Modding.Installer
             _left_details_name.Text = "Name";
             _left_details_name.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // _left_divider3
+            // _left_page_divider
             // 
-            _left_divider3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            _left_divider3.BackColor = SystemColors.ButtonHighlight;
-            _left_divider3.Location = new Point(44, 490);
-            _left_divider3.Name = "_left_divider3";
-            _left_divider3.Size = new Size(160, 1);
-            _left_divider3.TabIndex = 23;
-            // 
-            // _left_divider2
-            // 
-            _left_divider2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            _left_divider2.BackColor = SystemColors.ButtonHighlight;
-            _left_divider2.Location = new Point(44, 350);
-            _left_divider2.Name = "_left_divider2";
-            _left_divider2.Size = new Size(160, 1);
-            _left_divider2.TabIndex = 22;
-            // 
-            // _left_divider1
-            // 
-            _left_divider1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            _left_divider1.BackColor = SystemColors.ButtonHighlight;
-            _left_divider1.Location = new Point(44, 250);
-            _left_divider1.Name = "_left_divider1";
-            _left_divider1.Size = new Size(160, 1);
-            _left_divider1.TabIndex = 21;
+            _left_page_divider.Anchor = AnchorStyles.Bottom;
+            _left_page_divider.BackColor = SystemColors.ButtonHighlight;
+            _left_page_divider.Location = new Point(29, 233);
+            _left_page_divider.Name = "_left_page_divider";
+            _left_page_divider.Size = new Size(160, 1);
+            _left_page_divider.TabIndex = 21;
             // 
             // _left_sort
             // 
@@ -366,6 +346,7 @@ namespace Blasphemous.Modding.Installer
             _left_sort.Controls.Add(_left_filter_text);
             _left_sort.Controls.Add(_left_sort_options);
             _left_sort.Controls.Add(_left_sort_text);
+            _left_sort.Controls.Add(_left_sort_divider);
             _left_sort.Location = new Point(15, 250);
             _left_sort.Name = "_left_sort";
             _left_sort.Size = new Size(220, 100);
@@ -416,13 +397,23 @@ namespace Blasphemous.Modding.Installer
             _left_sort_text.TabIndex = 11;
             _left_sort_text.Text = "Sort by:";
             // 
+            // _left_sort_divider
+            // 
+            _left_sort_divider.Anchor = AnchorStyles.Bottom;
+            _left_sort_divider.BackColor = SystemColors.ButtonHighlight;
+            _left_sort_divider.Location = new Point(29, 98);
+            _left_sort_divider.Name = "_left_sort_divider";
+            _left_sort_divider.Size = new Size(160, 1);
+            _left_sort_divider.TabIndex = 22;
+            // 
             // _left_all
             // 
             _left_all.Controls.Add(_left_all_install);
             _left_all.Controls.Add(_left_all_enable);
             _left_all.Controls.Add(_left_all_uninstall);
             _left_all.Controls.Add(_left_all_disable);
-            _left_all.Location = new Point(15, 370);
+            _left_all.Controls.Add(_left_all_divider);
+            _left_all.Location = new Point(15, 350);
             _left_all.Name = "_left_all";
             _left_all.Size = new Size(220, 120);
             _left_all.TabIndex = 14;
@@ -494,6 +485,15 @@ namespace Blasphemous.Modding.Installer
             _left_all_disable.Text = "Disable all";
             _left_all_disable.UseVisualStyleBackColor = false;
             _left_all_disable.Click += ClickedDisableAll;
+            // 
+            // _left_all_divider
+            // 
+            _left_all_divider.Anchor = AnchorStyles.Bottom;
+            _left_all_divider.BackColor = SystemColors.ButtonHighlight;
+            _left_all_divider.Location = new Point(29, 118);
+            _left_all_divider.Name = "_left_all_divider";
+            _left_all_divider.Size = new Size(160, 1);
+            _left_all_divider.TabIndex = 23;
             // 
             // _top
             // 
@@ -802,9 +802,9 @@ namespace Blasphemous.Modding.Installer
         private System.Windows.Forms.LinkLabel _top_warning_text;
         private System.Windows.Forms.Label _left_sort_text;
         private System.Windows.Forms.Panel _left_sort;
-        private System.Windows.Forms.Panel _left_divider1;
-        private System.Windows.Forms.Panel _left_divider2;
-        private System.Windows.Forms.Panel _left_divider3;
+        private System.Windows.Forms.Panel _left_page_divider;
+        private System.Windows.Forms.Panel _left_sort_divider;
+        private System.Windows.Forms.Panel _left_all_divider;
         private System.Windows.Forms.Panel _left_details_outer;
         private System.Windows.Forms.Panel _left_details_inner;
         private System.Windows.Forms.Label _left_details_name;

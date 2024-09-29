@@ -98,13 +98,7 @@ public partial class UIHandler : BasaltForm
         _top_inner.BackgroundImage = currentPage.Image;
 
         // Validate the status of mods
-        bool folderValid = currentPage.Validator.IsRootFolderValid;
-        //bool toolsInstalled = folderValid && currentPage.Validator.AreModdingToolsInstalled;
-        //bool toolsUpdated = toolsInstalled && currentPage.Validator.AreModdingToolsUpdated;
-
-        // Ignore tool stuff here for now
-        bool validated = folderValid;
-
+        bool validated = currentPage.Validator.IsRootFolderValid;
         Logger.Info("Modding status validation: " + validated);
 
         if (validated)
@@ -126,9 +120,10 @@ public partial class UIHandler : BasaltForm
         // Refresh all ui elements on the page
         currentPage.Grouper.RefreshAll();
 
-        // Only show side buttons under certain conditions
-        _left_divider1.Visible = validated;
+        // Handle UI for paging
+        _left_page_divider.Visible = validated;
 
+        // Handle UI for sorting
         _left_sort.Visible = validated;
         _left_sort_options.Items.Clear();
         if (currentPage.Grouper.CanSortByCreation)
@@ -143,16 +138,17 @@ public partial class UIHandler : BasaltForm
         }
         _left_sort_options.SelectedIndex = (int)Core.SettingsHandler.Properties.CurrentSort;
 
-        _left_divider2.Visible = validated;
+        // Handle UI for grouping
+        _left_all.Visible = validated;
+        _left_all_install.Visible = currentPage.Grouper.CanInstall;
+        _left_all_uninstall.Visible = currentPage.Grouper.CanInstall;
+        _left_all_enable.Visible = currentPage.Grouper.CanEnable;
+        _left_all_disable.Visible = currentPage.Grouper.CanEnable;
 
-        _left_all_install.Visible = validated && currentPage.Grouper.CanInstall;
-        _left_all_uninstall.Visible = validated && currentPage.Grouper.CanInstall;
-        _left_all_enable.Visible = validated && currentPage.Grouper.CanEnable;
-        _left_all_disable.Visible = validated && currentPage.Grouper.CanEnable;
-
-        _left_divider3.Visible = validated;
-
+        // Handle UI for previewing
         _left_details_outer.Visible = validated;
+
+        // Handle UI for starting
         _left_startVanilla.ExpectedVisibility = validated;
         _left_startModded.ExpectedVisibility = validated;
 
