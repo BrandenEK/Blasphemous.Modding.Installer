@@ -47,22 +47,16 @@ public partial class UIHandler : BasaltForm
 
         if (dialog.ShowDialog() == DialogResult.OK)
         {
-            validator.SetRootPath(Path.GetDirectoryName(dialog.FileName));
+            string path = Path.GetDirectoryName(dialog.FileName)!;
+            validator.SetRootPath(path);
             OpenSection(Core.SettingsHandler.Properties.CurrentSection);
+            OnPathChanged?.Invoke(path);
         }
-    }
-
-    private async void DownloadTools()
-    {
-        _bottom_validation_tools.Enabled = false;
-        _bottom_validation_tools.Text = "Installing...";
-        await Core.CurrentPage.Validator.InstallModdingTools();
-        OpenSection(Core.SettingsHandler.Properties.CurrentSection);
     }
 
     private void ClickLocationButton(object sender, EventArgs e) => PromptForRootFolder();
 
-    private void ClickToolsButton(object sender, EventArgs e) => DownloadTools();
+    private void ClickToolsButton(object sender, EventArgs e) { }
 
     // ...
 
@@ -120,10 +114,12 @@ public partial class UIHandler : BasaltForm
 
         // Validate the status of mods
         bool folderValid = currentPage.Validator.IsRootFolderValid;
-        bool toolsInstalled = folderValid && currentPage.Validator.AreModdingToolsInstalled;
-        bool toolsUpdated = toolsInstalled && currentPage.Validator.AreModdingToolsUpdated;
+        //bool toolsInstalled = folderValid && currentPage.Validator.AreModdingToolsInstalled;
+        //bool toolsUpdated = toolsInstalled && currentPage.Validator.AreModdingToolsUpdated;
 
-        bool validated = toolsUpdated;
+        // Ignore tool stuff here for now
+        bool validated = folderValid;
+
         Logger.Info("Modding status validation: " + validated);
 
         if (validated)
@@ -138,7 +134,7 @@ public partial class UIHandler : BasaltForm
             _bottom_validation_location.Enabled = !folderValid;
             _bottom_validation_location.Text = "Locate " + currentPage.Validator.ExeName;
             _bottom_validation_tools.Enabled = folderValid;
-            _bottom_validation_tools.Text = (toolsInstalled ? "Update" : "Install") + " modding tools";
+            //_bottom_validation_tools.Text = (toolsInstalled ? "Update" : "Install") + " modding tools";
         }
 
         // Show the correct page element
@@ -172,11 +168,44 @@ public partial class UIHandler : BasaltForm
         _left_startVanilla.ExpectedVisibility = validated;
         _left_startModded.ExpectedVisibility = validated;
         _left_changePath.ExpectedVisibility = validated;
+
+        Logger.Debug($"Opened page: {currentPage.Title}");
+        OnPageOpened?.Invoke(currentPage);
     }
+
+    // Top section
 
     private void ClickInstallerUpdateLink(object sender, LinkLabelLinkClickedEventArgs e) => Core.GithubHandler.OpenInstallerLink();
 
-    #region Side section top
+    // Middle section
+
+    public void UpdateToolStatus(string text, Bitmap icon)
+    {
+        Logger.Info("Updating tool status UI");
+        ShowToolStatus();
+
+        _middle_tools_icon.BackgroundImage = icon;
+        _tooltip.RemoveAll();
+        _tooltip.SetToolTip(_middle_tools_text, text);
+        _tooltip.SetToolTip(_middle_tools_icon, text);
+    }
+
+    public void ShowToolStatus()
+    {
+        _middle_tools.Visible = true;
+    }
+
+    public void HideToolStatus()
+    {
+        _middle_tools.Visible = false;
+    }
+
+    private void ClickedToolsStatus(object sender, EventArgs e)
+    {
+        Core.CurrentPage.Validator.OnClickToolStatus();
+    }
+
+    // Side section top
 
     private void ClickedBlas1Mods(object sender, EventArgs e) => OpenSection(SectionType.Blas1Mods);
 
@@ -186,9 +215,7 @@ public partial class UIHandler : BasaltForm
 
     private void ClickedSettings(object sender, EventArgs e) { }
 
-    #endregion Side section top
-
-    #region Side section middle
+    // Side section middle
 
     private void ClickedSortByName(object sender, EventArgs e)
     {
@@ -214,9 +241,7 @@ public partial class UIHandler : BasaltForm
         Core.CurrentPage.Sorter.Sort();
     }
 
-    #endregion Side section middle
-
-    #region Side section bottom
+    // Side section bottom
 
     private void ClickedInstallAll(object sender, EventArgs e)
     {
@@ -238,9 +263,7 @@ public partial class UIHandler : BasaltForm
         Core.CurrentPage.Grouper.DisableAll();
     }
 
-    #endregion Side section bottom
-
-    #region Side section lower
+    // Side section lower
 
     private void ClickedStartVanilla(object sender, EventArgs e) => StartGameProcess(false);
 
@@ -248,5 +271,11 @@ public partial class UIHandler : BasaltForm
 
     private void ClickedChangePath(object sender, EventArgs e) => PromptForRootFolder();
 
-    #endregion Side section lower
+    // Events
+    
+    internal delegate void PageDelegate(InstallerPage page);
+    internal static PageDelegate? OnPageOpened;
+
+    internal delegate void PathDelegate(string path);
+    internal static PathDelegate? OnPathChanged;
 }
