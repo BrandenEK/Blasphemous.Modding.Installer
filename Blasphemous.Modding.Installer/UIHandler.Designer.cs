@@ -669,6 +669,7 @@ namespace Blasphemous.Modding.Installer
             _middle_tools_icon.BackColor = Color.Transparent;
             _middle_tools_icon.BackgroundImage = Properties.Resources.icon_check_light;
             _middle_tools_icon.BackgroundImageLayout = ImageLayout.Zoom;
+            _middle_tools_icon.Cursor = Cursors.Hand;
             _middle_tools_icon.Location = new Point(150, 0);
             _middle_tools_icon.Name = "_middle_tools_icon";
             _middle_tools_icon.Size = new Size(25, 25);
@@ -680,6 +681,7 @@ namespace Blasphemous.Modding.Installer
             // 
             _middle_tools_text.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             _middle_tools_text.BackColor = Color.FromArgb(0, 0, 0, 0);
+            _middle_tools_text.Cursor = Cursors.Hand;
             _middle_tools_text.Font = new Font("Trebuchet MS", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
             _middle_tools_text.Location = new Point(0, 1);
             _middle_tools_text.Name = "_middle_tools_text";
@@ -781,6 +783,7 @@ namespace Blasphemous.Modding.Installer
             // 
             _middle_path.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             _middle_path.BackColor = Color.FromArgb(0, 0, 0, 0);
+            _middle_path.Cursor = Cursors.Hand;
             _middle_path.Font = new Font("Trebuchet MS", 12F, FontStyle.Italic, GraphicsUnit.Point);
             _middle_path.Location = new Point(10, 2);
             _middle_path.Name = "_middle_path";
