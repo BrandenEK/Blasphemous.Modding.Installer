@@ -113,6 +113,16 @@ namespace Blasphemous.Modding.Installer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icon_dash_light {
+            get {
+                object obj = ResourceManager.GetObject("icon-dash-light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icon_x_light {
             get {
                 object obj = ResourceManager.GetObject("icon-x-light", resourceCulture);
