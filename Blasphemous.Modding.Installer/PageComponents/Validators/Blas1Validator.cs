@@ -9,6 +9,19 @@ internal class Blas1Validator : IValidator
     private readonly string _exeName = "Blasphemous.exe";
     private readonly string _defaultPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blasphemous";
 
+    public Blas1Validator()
+    {
+        UIHandler.OnPageOpened += OnPageOpened;
+    }
+
+    private void OnPageOpened(InstallerPage page)
+    {
+        if (page.Validator != this)
+            return;
+
+        Logger.Error("Update tools status");
+    }
+
     public async Task InstallModdingTools()
     {
         string toolsCache = Path.Combine(Core.CacheFolder, "tools", "blas1.zip");
