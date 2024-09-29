@@ -9,8 +9,10 @@ internal class Blas1Validator : IValidator
 {
     private readonly string _exeName = "Blasphemous.exe";
     private readonly string _defaultPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blasphemous";
+    private readonly string _remoteVersionPath = "https://raw.githubusercontent.com/BrandenEK/Blasphemous.ModdingTools/main/modding-tools-windows.version";
 
-    private ToolStatus _currentStatus = ToolStatus.Checking;
+    private ToolStatus _currentStatus = ToolStatus.Invalid;
+    private string _remoteVersion = string.Empty;
 
     public Blas1Validator()
     {
@@ -23,7 +25,15 @@ internal class Blas1Validator : IValidator
         if (page.Validator != this || !IsRootFolderValid)
             return;
 
-        RefreshAndUpdateStatus();
+        if (_currentStatus == ToolStatus.Invalid)
+        {
+            SetAndUpdateStatus(ToolStatus.Checking);
+            GetRemoteVersion();
+        }
+        else
+        {
+            RefreshAndUpdateStatus();
+        }
     }
 
     private void OnPathChanged(string path)
@@ -37,9 +47,7 @@ internal class Blas1Validator : IValidator
     private ToolStatus GetCurrentStatus()
     {
         // These temporary states need to be manually deactivated
-        //if (_currentStatus == ToolStatus.Checking)
-        //    return;
-        if (_currentStatus == ToolStatus.Downloading)
+        if (_currentStatus == ToolStatus.Checking || _currentStatus == ToolStatus.Downloading)
             return _currentStatus;
 
         if (!AreModdingToolsInstalled)
@@ -72,6 +80,9 @@ internal class Blas1Validator : IValidator
 
     private void UpdateStatusUI()
     {
+        if (Core.CurrentPage.Validator != this)
+            return;
+
         string text = _currentStatus switch
         {
             ToolStatus.Checking => "Checking for updates...",
@@ -106,7 +117,16 @@ internal class Blas1Validator : IValidator
         InvalidateAndUpdateStatus();
     }
 
+    private async void GetRemoteVersion()
+    {
+        using var client = new HttpClient();
+        string version = await client.GetStringAsync(_remoteVersionPath);
+        version = version.Trim();
 
+        Logger.Debug($"Found remote version: {version}");
+        _remoteVersion = version;
+        InvalidateAndUpdateStatus();
+    }
 
 
 
