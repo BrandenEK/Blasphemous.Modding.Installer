@@ -53,6 +53,8 @@ namespace Blasphemous.Modding.Installer
             _left_divider2 = new Panel();
             _left_divider1 = new Panel();
             _left_sort = new Panel();
+            _left_filter_options = new ComboBox();
+            _left_filter_text = new Label();
             _left_sort_options = new ComboBox();
             _left_sort_text = new Label();
             _left_all = new Panel();
@@ -344,7 +346,7 @@ namespace Blasphemous.Modding.Installer
             // 
             _left_divider2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             _left_divider2.BackColor = SystemColors.ButtonHighlight;
-            _left_divider2.Location = new Point(44, 370);
+            _left_divider2.Location = new Point(44, 350);
             _left_divider2.Name = "_left_divider2";
             _left_divider2.Size = new Size(160, 1);
             _left_divider2.TabIndex = 22;
@@ -360,12 +362,37 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_sort
             // 
+            _left_sort.Controls.Add(_left_filter_options);
+            _left_sort.Controls.Add(_left_filter_text);
             _left_sort.Controls.Add(_left_sort_options);
             _left_sort.Controls.Add(_left_sort_text);
             _left_sort.Location = new Point(15, 250);
             _left_sort.Name = "_left_sort";
-            _left_sort.Size = new Size(220, 120);
+            _left_sort.Size = new Size(220, 100);
             _left_sort.TabIndex = 13;
+            // 
+            // _left_filter_options
+            // 
+            _left_filter_options.DropDownStyle = ComboBoxStyle.DropDownList;
+            _left_filter_options.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_filter_options.FormattingEnabled = true;
+            _left_filter_options.Location = new Point(87, 55);
+            _left_filter_options.Name = "_left_filter_options";
+            _left_filter_options.Size = new Size(121, 26);
+            _left_filter_options.TabIndex = 14;
+            _left_filter_options.Visible = false;
+            // 
+            // _left_filter_text
+            // 
+            _left_filter_text.AutoSize = true;
+            _left_filter_text.Font = new Font("Trebuchet MS", 11.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            _left_filter_text.ForeColor = SystemColors.ButtonHighlight;
+            _left_filter_text.Location = new Point(5, 55);
+            _left_filter_text.Name = "_left_filter_text";
+            _left_filter_text.Size = new Size(78, 20);
+            _left_filter_text.TabIndex = 13;
+            _left_filter_text.Text = "Filter by:";
+            _left_filter_text.Visible = false;
             // 
             // _left_sort_options
             // 
@@ -383,7 +410,7 @@ namespace Blasphemous.Modding.Installer
             _left_sort_text.AutoSize = true;
             _left_sort_text.Font = new Font("Trebuchet MS", 11.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             _left_sort_text.ForeColor = SystemColors.ButtonHighlight;
-            _left_sort_text.Location = new Point(14, 15);
+            _left_sort_text.Location = new Point(5, 15);
             _left_sort_text.Name = "_left_sort_text";
             _left_sort_text.Size = new Size(67, 20);
             _left_sort_text.TabIndex = 11;
@@ -806,6 +833,8 @@ namespace Blasphemous.Modding.Installer
         private Panel _middle_tools;
         private Label _middle_path;
         private ComboBox _left_sort_options;
+        private Label _left_filter_text;
+        private ComboBox _left_filter_options;
     }
 }
 
