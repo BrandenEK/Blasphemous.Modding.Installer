@@ -172,6 +172,9 @@ public partial class UIHandler : BasaltForm
         _left_startVanilla.ExpectedVisibility = validated;
         _left_startModded.ExpectedVisibility = validated;
         _left_changePath.ExpectedVisibility = validated;
+
+        Logger.Debug($"Opened page: {currentPage.Title}");
+        OnPageOpened?.Invoke(currentPage);
     }
 
     // Top section
@@ -254,4 +257,8 @@ public partial class UIHandler : BasaltForm
     private void ClickedStartModded(object sender, EventArgs e) => StartGameProcess(true);
 
     private void ClickedChangePath(object sender, EventArgs e) => PromptForRootFolder();
+
+    // Events
+    internal delegate void PageDelegate(InstallerPage page);
+    internal static PageDelegate? OnPageOpened;
 }
