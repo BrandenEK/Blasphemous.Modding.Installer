@@ -14,8 +14,8 @@ public partial class UIHandler : BasaltForm
             page.Previewer.Clear();
 
         string text = "Tools are up to date (v2.0.0)";
-        _tooltip.SetToolTip(_middle_text, text);
-        _tooltip.SetToolTip(_middle_icon, text);
+        _tooltip.SetToolTip(_middle_tools_text, text);
+        _tooltip.SetToolTip(_middle_tools_icon, text);
 
         OpenSection(Core.SettingsHandler.Properties.CurrentSection);
     }
