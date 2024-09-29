@@ -1,4 +1,5 @@
 ﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Properties;
 using Ionic.Zip;
 using System.Net;
 
@@ -9,17 +10,75 @@ internal class Blas1Validator : IValidator
     private readonly string _exeName = "Blasphemous.exe";
     private readonly string _defaultPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blasphemous";
 
+    private ToolStatus _currentStatus = ToolStatus.Checking;
+
     public Blas1Validator()
     {
         UIHandler.OnPageOpened += OnPageOpened;
+        UIHandler.OnPathChanged += OnPathChanged;
     }
 
     private void OnPageOpened(InstallerPage page)
     {
-        if (page.Validator != this)
+        if (page.Validator != this || !IsRootFolderValid)
             return;
 
-        Logger.Error("Update tools status");
+        CheckToolStatus();
+        UpdateStatusUI();
+    }
+
+    private void OnPathChanged(string path)
+    {
+        if (Core.CurrentPage.Validator != this || !IsRootFolderValid)
+            return;
+
+        CheckToolStatus();
+        UpdateStatusUI();
+    }
+
+    private void CheckToolStatus()
+    {
+        Logger.Info($"Checking tool status...");
+
+        //if (_currentStatus == ToolStatus.Checking)
+        //    return;
+
+        if (!AreModdingToolsInstalled)
+        {
+            _currentStatus = ToolStatus.NotInstalled;
+            return;
+        }
+
+        if (!AreModdingToolsUpdated)
+        {
+            _currentStatus = ToolStatus.InstalledNotUpdated;
+            return;
+        }
+
+        _currentStatus = ToolStatus.InstalledAndUpdated;
+    }
+
+    private void UpdateStatusUI()
+    {
+        string text = _currentStatus switch
+        {
+            ToolStatus.Checking => "Checking for updates...",
+            ToolStatus.NotInstalled => "Not installed - Click to download",
+            ToolStatus.InstalledNotUpdated => "Update available - Click to download",
+            ToolStatus.InstalledAndUpdated => "Installed and updated",
+            _ => throw new Exception($"Invalid tool status: {_currentStatus}")
+        };
+
+        Bitmap icon = _currentStatus switch
+        {
+            ToolStatus.Checking => Resources.icon_circles_light,
+            ToolStatus.NotInstalled => Resources.icon_x_light,
+            ToolStatus.InstalledNotUpdated => Resources.icon_arrow_light,
+            ToolStatus.InstalledAndUpdated => Resources.icon_check_light,
+            _ => throw new Exception($"Invalid tool status: {_currentStatus}")
+        };
+
+        Core.UIHandler.UpdateToolStatus(text, icon);
     }
 
     public async Task InstallModdingTools()
@@ -95,4 +154,12 @@ internal class Blas1Validator : IValidator
     public string DefaultPath => string.IsNullOrEmpty(Core.SettingsHandler.Properties.Blas1RootFolder)
         ? _defaultPath
         : Core.SettingsHandler.Properties.Blas1RootFolder;
+
+    enum ToolStatus
+    {
+        Checking,
+        NotInstalled,
+        InstalledNotUpdated,
+        InstalledAndUpdated,
+    }
 }

@@ -47,8 +47,10 @@ public partial class UIHandler : BasaltForm
 
         if (dialog.ShowDialog() == DialogResult.OK)
         {
-            validator.SetRootPath(Path.GetDirectoryName(dialog.FileName));
+            string path = Path.GetDirectoryName(dialog.FileName)!;
+            validator.SetRootPath(path);
             OpenSection(Core.SettingsHandler.Properties.CurrentSection);
+            OnPathChanged?.Invoke(path);
         }
     }
 
@@ -185,6 +187,7 @@ public partial class UIHandler : BasaltForm
 
     public void UpdateToolStatus(string text, Bitmap icon)
     {
+        Logger.Info("Updating tool status UI");
         _middle_tools_icon.BackgroundImage = icon;
 
         _tooltip.RemoveAll();
@@ -259,6 +262,10 @@ public partial class UIHandler : BasaltForm
     private void ClickedChangePath(object sender, EventArgs e) => PromptForRootFolder();
 
     // Events
+    
     internal delegate void PageDelegate(InstallerPage page);
     internal static PageDelegate? OnPageOpened;
+
+    internal delegate void PathDelegate(string path);
+    internal static PathDelegate? OnPathChanged;
 }
