@@ -24,10 +24,14 @@ internal class Blas1Validator : IValidator
 
     private void OnPageOpened(InstallerPage page)
     {
-        if (page.Validator != this || !IsRootFolderValid)
+        if (page.Validator != this)
             return;
 
-        if (_currentStatus == ToolStatus.Invalid)
+        if (!IsRootFolderValid)
+        {
+            Core.UIHandler.HideToolStatus();
+        }
+        else if (_currentStatus == ToolStatus.Invalid)
         {
             SetAndUpdateStatus(ToolStatus.Checking);
             FetchRemoteVersion();
@@ -40,10 +44,17 @@ internal class Blas1Validator : IValidator
 
     private void OnPathChanged(string path)
     {
-        if (Core.CurrentPage.Validator != this || !IsRootFolderValid)
+        if (Core.CurrentPage.Validator != this)
             return;
 
-        RefreshAndUpdateStatus();
+        if (!IsRootFolderValid)
+        {
+            Core.UIHandler.HideToolStatus();
+        }
+        else
+        {
+            RefreshAndUpdateStatus();
+        }
     }
 
     private ToolStatus GetCurrentStatus()

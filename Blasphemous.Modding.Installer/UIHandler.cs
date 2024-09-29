@@ -182,11 +182,22 @@ public partial class UIHandler : BasaltForm
     public void UpdateToolStatus(string text, Bitmap icon)
     {
         Logger.Info("Updating tool status UI");
-        _middle_tools_icon.BackgroundImage = icon;
+        ShowToolStatus();
 
+        _middle_tools_icon.BackgroundImage = icon;
         _tooltip.RemoveAll();
         _tooltip.SetToolTip(_middle_tools_text, text);
         _tooltip.SetToolTip(_middle_tools_icon, text);
+    }
+
+    public void ShowToolStatus()
+    {
+        _middle_tools.Visible = true;
+    }
+
+    public void HideToolStatus()
+    {
+        _middle_tools.Visible = false;
     }
 
     private void ClickedToolsStatus(object sender, EventArgs e)
