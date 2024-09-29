@@ -84,9 +84,9 @@ namespace Blasphemous.Modding.Installer
             _middle = new Panel();
             _middle_outer = new Panel();
             _middle_inner = new Panel();
+            _middle_path = new Label();
             _middle_tools = new Panel();
             _tooltip = new ToolTip(components);
-            _middle_path = new Label();
             _bottom_blas1mod.SuspendLayout();
             _bottom_validation.SuspendLayout();
             _left.SuspendLayout();
@@ -777,6 +777,18 @@ namespace Blasphemous.Modding.Installer
             _middle_inner.Size = new Size(1334, 28);
             _middle_inner.TabIndex = 0;
             // 
+            // _middle_path
+            // 
+            _middle_path.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            _middle_path.BackColor = Color.FromArgb(0, 0, 0, 0);
+            _middle_path.Font = new Font("Trebuchet MS", 12F, FontStyle.Italic, GraphicsUnit.Point);
+            _middle_path.Location = new Point(10, 2);
+            _middle_path.Name = "_middle_path";
+            _middle_path.Size = new Size(1000, 25);
+            _middle_path.TabIndex = 9;
+            _middle_path.Text = "Root Folder text";
+            _middle_path.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // _middle_tools
             // 
             _middle_tools.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
@@ -796,18 +808,6 @@ namespace Blasphemous.Modding.Installer
             _tooltip.InitialDelay = 100;
             _tooltip.ReshowDelay = 100;
             _tooltip.ShowAlways = true;
-            // 
-            // _middle_path
-            // 
-            _middle_path.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            _middle_path.BackColor = Color.FromArgb(0, 0, 0, 0);
-            _middle_path.Font = new Font("Trebuchet MS", 15.75F, FontStyle.Italic, GraphicsUnit.Point);
-            _middle_path.Location = new Point(6, 1);
-            _middle_path.Name = "_middle_path";
-            _middle_path.Size = new Size(1000, 25);
-            _middle_path.TabIndex = 9;
-            _middle_path.Text = "Root Folder text";
-            _middle_path.TextAlign = ContentAlignment.BottomLeft;
             // 
             // UIHandler
             // 

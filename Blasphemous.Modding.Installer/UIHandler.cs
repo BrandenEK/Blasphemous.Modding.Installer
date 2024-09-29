@@ -177,7 +177,15 @@ public partial class UIHandler : BasaltForm
 
     private void ClickInstallerUpdateLink(object sender, LinkLabelLinkClickedEventArgs e) => Core.GithubHandler.OpenInstallerLink();
 
-    // Middle section
+    // Middle section path
+
+    public void UpdateRootFolderText(string text)
+    {
+        _middle_path.Text = text;
+        _middle_path.Width = _middle_path.PreferredWidth;
+    }
+
+    // Middle section tools
 
     public void UpdateToolStatus(string text, Bitmap icon)
     {

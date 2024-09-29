@@ -38,6 +38,8 @@ internal abstract class StandardValidator : IValidator
         if (page.Validator != this)
             return;
 
+        Core.UIHandler.UpdateRootFolderText(RootFolder);
+
         if (!IsRootFolderValid)
         {
             Core.UIHandler.HideToolStatus();
@@ -57,6 +59,8 @@ internal abstract class StandardValidator : IValidator
     {
         if (Core.CurrentPage.Validator != this)
             return;
+
+        Core.UIHandler.UpdateRootFolderText(RootFolder);
 
         if (!IsRootFolderValid)
         {
