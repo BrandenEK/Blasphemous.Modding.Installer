@@ -84,6 +84,7 @@ namespace Blasphemous.Modding.Installer
             _middle_path = new Label();
             _middle_tools = new Panel();
             _tooltip = new ToolTip(components);
+            _left_sort_options = new ComboBox();
             _bottom_blas1mod.SuspendLayout();
             _left.SuspendLayout();
             _left_outer.SuspendLayout();
@@ -363,6 +364,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_sort
             // 
+            _left_sort.Controls.Add(_left_sort_options);
             _left_sort.Controls.Add(_left_sort_text);
             _left_sort.Controls.Add(_left_sort_name);
             _left_sort.Controls.Add(_left_sort_author);
@@ -378,7 +380,7 @@ namespace Blasphemous.Modding.Installer
             _left_sort_text.AutoSize = true;
             _left_sort_text.Font = new Font("Trebuchet MS", 11.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             _left_sort_text.ForeColor = SystemColors.ButtonHighlight;
-            _left_sort_text.Location = new Point(76, 20);
+            _left_sort_text.Location = new Point(14, 15);
             _left_sort_text.Name = "_left_sort_text";
             _left_sort_text.Size = new Size(67, 20);
             _left_sort_text.TabIndex = 11;
@@ -762,6 +764,15 @@ namespace Blasphemous.Modding.Installer
             _tooltip.ReshowDelay = 100;
             _tooltip.ShowAlways = true;
             // 
+            // _left_sort_options
+            // 
+            _left_sort_options.DropDownStyle = ComboBoxStyle.DropDownList;
+            _left_sort_options.FormattingEnabled = true;
+            _left_sort_options.Location = new Point(87, 15);
+            _left_sort_options.Name = "_left_sort_options";
+            _left_sort_options.Size = new Size(121, 23);
+            _left_sort_options.TabIndex = 12;
+            // 
             // UIHandler
             // 
             AutoScaleDimensions = new SizeF(6F, 15F);
@@ -856,6 +867,7 @@ namespace Blasphemous.Modding.Installer
         private ToolTip _tooltip;
         private Panel _middle_tools;
         private Label _middle_path;
+        private ComboBox _left_sort_options;
     }
 }
 
