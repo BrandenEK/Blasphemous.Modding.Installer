@@ -86,14 +86,6 @@ public partial class UIHandler : BasaltForm
         _top_text.Focus();
     }
 
-    private void SetSortByBox(SortType sort)
-    {
-        _left_sort_name.Checked = sort == SortType.Name;
-        _left_sort_author.Checked = sort == SortType.Author;
-        _left_sort_initialRelease.Checked = sort == SortType.InitialRelease;
-        _left_sort_latestRelease.Checked = sort == SortType.LatestRelease;
-    }
-
     private void OpenSection(SectionType section)
     {
         Core.CurrentPage.Previewer.Clear();
@@ -117,7 +109,6 @@ public partial class UIHandler : BasaltForm
 
         if (validated)
         {
-            SetSortByBox(Core.SettingsHandler.Properties.CurrentSort);
             currentPage.Loader.LoadAllData();
             _bottom_validation.Visible = false;
         }
@@ -151,11 +142,6 @@ public partial class UIHandler : BasaltForm
             _left_sort_options.Items.Add("Latest release");
         }
         _left_sort_options.SelectedIndex = (int)Core.SettingsHandler.Properties.CurrentSort;
-
-        _left_sort_name.Visible = validated && currentPage.Grouper.CanSortByCreation;
-        _left_sort_author.Visible = validated && currentPage.Grouper.CanSortByCreation;
-        _left_sort_initialRelease.Visible = currentPage.Grouper.CanSortByDate;
-        _left_sort_latestRelease.Visible = currentPage.Grouper.CanSortByDate;
 
         _left_divider2.Visible = validated;
 
@@ -239,30 +225,6 @@ public partial class UIHandler : BasaltForm
         Logger.Info($"Changing sort to {index}");
 
         Core.SettingsHandler.Properties.CurrentSort = (SortType)index;
-        Core.CurrentPage.Sorter.Sort();
-    }
-
-    private void ClickedSortByName(object sender, EventArgs e)
-    {
-        Core.SettingsHandler.Properties.CurrentSort = SortType.Name;
-        Core.CurrentPage.Sorter.Sort();
-    }
-
-    private void ClickedSortByAuthor(object sender, EventArgs e)
-    {
-        Core.SettingsHandler.Properties.CurrentSort = SortType.Author;
-        Core.CurrentPage.Sorter.Sort();
-    }
-
-    private void ClickedSortByInitialRelease(object sender, EventArgs e)
-    {
-        Core.SettingsHandler.Properties.CurrentSort = SortType.InitialRelease;
-        Core.CurrentPage.Sorter.Sort();
-    }
-
-    private void ClickedSortByLatestRelease(object sender, EventArgs e)
-    {
-        Core.SettingsHandler.Properties.CurrentSort = SortType.LatestRelease;
         Core.CurrentPage.Sorter.Sort();
     }
 

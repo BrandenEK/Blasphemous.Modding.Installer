@@ -55,10 +55,6 @@ namespace Blasphemous.Modding.Installer
             _left_sort = new Panel();
             _left_sort_options = new ComboBox();
             _left_sort_text = new Label();
-            _left_sort_name = new RadioButton();
-            _left_sort_author = new RadioButton();
-            _left_sort_latestRelease = new RadioButton();
-            _left_sort_initialRelease = new RadioButton();
             _left_all = new Panel();
             _left_all_install = new TransparentButton();
             _left_all_enable = new TransparentButton();
@@ -366,10 +362,6 @@ namespace Blasphemous.Modding.Installer
             // 
             _left_sort.Controls.Add(_left_sort_options);
             _left_sort.Controls.Add(_left_sort_text);
-            _left_sort.Controls.Add(_left_sort_name);
-            _left_sort.Controls.Add(_left_sort_author);
-            _left_sort.Controls.Add(_left_sort_latestRelease);
-            _left_sort.Controls.Add(_left_sort_initialRelease);
             _left_sort.Location = new Point(15, 250);
             _left_sort.Name = "_left_sort";
             _left_sort.Size = new Size(220, 120);
@@ -396,58 +388,6 @@ namespace Blasphemous.Modding.Installer
             _left_sort_text.Size = new Size(67, 20);
             _left_sort_text.TabIndex = 11;
             _left_sort_text.Text = "Sort by:";
-            // 
-            // _left_sort_name
-            // 
-            _left_sort_name.AutoSize = true;
-            _left_sort_name.ForeColor = SystemColors.ButtonHighlight;
-            _left_sort_name.Location = new Point(29, 50);
-            _left_sort_name.Name = "_left_sort_name";
-            _left_sort_name.Size = new Size(52, 20);
-            _left_sort_name.TabIndex = 10;
-            _left_sort_name.TabStop = true;
-            _left_sort_name.Text = "Name";
-            _left_sort_name.UseVisualStyleBackColor = true;
-            _left_sort_name.Click += ClickedSortByName;
-            // 
-            // _left_sort_author
-            // 
-            _left_sort_author.AutoSize = true;
-            _left_sort_author.ForeColor = SystemColors.ButtonHighlight;
-            _left_sort_author.Location = new Point(29, 75);
-            _left_sort_author.Name = "_left_sort_author";
-            _left_sort_author.Size = new Size(59, 20);
-            _left_sort_author.TabIndex = 11;
-            _left_sort_author.TabStop = true;
-            _left_sort_author.Text = "Author";
-            _left_sort_author.UseVisualStyleBackColor = true;
-            _left_sort_author.Click += ClickedSortByAuthor;
-            // 
-            // _left_sort_latestRelease
-            // 
-            _left_sort_latestRelease.AutoSize = true;
-            _left_sort_latestRelease.ForeColor = SystemColors.ButtonHighlight;
-            _left_sort_latestRelease.Location = new Point(105, 75);
-            _left_sort_latestRelease.Name = "_left_sort_latestRelease";
-            _left_sort_latestRelease.Size = new Size(97, 20);
-            _left_sort_latestRelease.TabIndex = 9;
-            _left_sort_latestRelease.TabStop = true;
-            _left_sort_latestRelease.Text = "Latest release";
-            _left_sort_latestRelease.UseVisualStyleBackColor = true;
-            _left_sort_latestRelease.Click += ClickedSortByLatestRelease;
-            // 
-            // _left_sort_initialRelease
-            // 
-            _left_sort_initialRelease.AutoSize = true;
-            _left_sort_initialRelease.ForeColor = SystemColors.ButtonHighlight;
-            _left_sort_initialRelease.Location = new Point(105, 50);
-            _left_sort_initialRelease.Name = "_left_sort_initialRelease";
-            _left_sort_initialRelease.Size = new Size(93, 20);
-            _left_sort_initialRelease.TabIndex = 8;
-            _left_sort_initialRelease.TabStop = true;
-            _left_sort_initialRelease.Text = "Initial release";
-            _left_sort_initialRelease.UseVisualStyleBackColor = true;
-            _left_sort_initialRelease.Click += ClickedSortByInitialRelease;
             // 
             // _left_all
             // 
@@ -833,10 +773,6 @@ namespace Blasphemous.Modding.Installer
         private System.Windows.Forms.Panel _top_inner;
         private System.Windows.Forms.Panel _left_outer;
         private System.Windows.Forms.LinkLabel _top_warning_text;
-        private System.Windows.Forms.RadioButton _left_sort_latestRelease;
-        private System.Windows.Forms.RadioButton _left_sort_initialRelease;
-        private System.Windows.Forms.RadioButton _left_sort_author;
-        private System.Windows.Forms.RadioButton _left_sort_name;
         private System.Windows.Forms.Label _left_sort_text;
         private System.Windows.Forms.Panel _left_sort;
         private System.Windows.Forms.Panel _left_divider1;
