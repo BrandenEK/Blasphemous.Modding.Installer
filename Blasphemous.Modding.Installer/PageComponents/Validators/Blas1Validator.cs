@@ -1,6 +1,7 @@
 ﻿using Basalt.Framework.Logging;
 using Blasphemous.Modding.Installer.Properties;
 using Ionic.Zip;
+using System.Diagnostics;
 using System.Net;
 
 namespace Blasphemous.Modding.Installer.PageComponents.Validators;
@@ -184,25 +185,23 @@ internal class Blas1Validator : IValidator
     {
         get
         {
-            bool installed = Directory.Exists(Core.SettingsHandler.Properties.Blas1RootFolder + "\\BepInEx");
-            
-            // Temporary delete old folders I dont want anymore
-            if (installed)
-            {
-                string docs = Path.Combine(Core.SettingsHandler.Properties.Blas1RootFolder, "Modding", "docs");
-                if (Directory.Exists(docs))
-                    Directory.Delete(docs, true);
+            string path = Path.Combine(Core.SettingsHandler.Properties.Blas1RootFolder, "BepInEx", "patchers", "BepInEx.MultiFolderLoader.dll");
 
-                string output = Path.Combine(Core.SettingsHandler.Properties.Blas1RootFolder, "Modding", "output");
-                if (Directory.Exists(output))
-                    Directory.Delete(output, true);
-            }
-
-            return installed;
+            return File.Exists(path);
         }
     }
 
-    public bool AreModdingToolsUpdated => true;
+    public bool AreModdingToolsUpdated
+    {
+        get
+        {
+            string path = Path.Combine(Core.SettingsHandler.Properties.Blas1RootFolder, "BepInEx", "patchers", "BepInEx.MultiFolderLoader.dll");
+            var localVersion = new Version(FileVersionInfo.GetVersionInfo(path).FileVersion!);
+            var remoteVersion = new Version(_remoteVersion);
+
+            return localVersion >= remoteVersion;
+        }
+    }
 
     public string ExeName => _exeName;
     public string DefaultPath => string.IsNullOrEmpty(Core.SettingsHandler.Properties.Blas1RootFolder)
