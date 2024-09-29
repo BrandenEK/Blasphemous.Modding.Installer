@@ -12,20 +12,6 @@ internal class Blas1Validator : IValidator
 
     private ToolStatus _currentStatus = ToolStatus.Checking;
 
-    private ToolStatus CurrentStatus
-    {
-        get
-        {
-            if (!AreModdingToolsInstalled)
-                return ToolStatus.NotInstalled;
-
-            if (!AreModdingToolsUpdated)
-                return ToolStatus.InstalledNotUpdated;
-
-            return _currentStatus = ToolStatus.InstalledAndUpdated;
-        }
-    }
-
     public Blas1Validator()
     {
         UIHandler.OnPageOpened += OnPageOpened;
@@ -37,7 +23,7 @@ internal class Blas1Validator : IValidator
         if (page.Validator != this || !IsRootFolderValid)
             return;
 
-        UpdateStatusUI();
+        RefreshAndUpdateStatus();
     }
 
     private void OnPathChanged(string path)
@@ -45,51 +31,58 @@ internal class Blas1Validator : IValidator
         if (Core.CurrentPage.Validator != this || !IsRootFolderValid)
             return;
 
+        RefreshAndUpdateStatus();
+    }
+
+    private ToolStatus GetCurrentStatus()
+    {
+        // These temporary states need to be manually deactivated
+        //if (_currentStatus == ToolStatus.Checking)
+        //    return;
+        if (_currentStatus == ToolStatus.Downloading)
+            return _currentStatus;
+
+        if (!AreModdingToolsInstalled)
+            return ToolStatus.NotInstalled;
+
+        if (!AreModdingToolsUpdated)
+            return ToolStatus.InstalledNotUpdated;
+
+        return _currentStatus = ToolStatus.InstalledAndUpdated;
+    }
+
+    private void SetAndUpdateStatus(ToolStatus status)
+    {
+        _currentStatus = status;
         UpdateStatusUI();
     }
 
-    private void CheckToolStatus()
+    private void RefreshAndUpdateStatus()
     {
-        Logger.Info($"Checking tool status...");
-
-        //if (_currentStatus == ToolStatus.Checking)
-        //    return;
-
-        if (!AreModdingToolsInstalled)
-        {
-            _currentStatus = ToolStatus.NotInstalled;
-            return;
-        }
-
-        if (!AreModdingToolsUpdated)
-        {
-            _currentStatus = ToolStatus.InstalledNotUpdated;
-            return;
-        }
-
-        _currentStatus = ToolStatus.InstalledAndUpdated;
+        _currentStatus = GetCurrentStatus();
+        UpdateStatusUI();
     }
 
     private void UpdateStatusUI()
     {
-        ToolStatus status = CurrentStatus;
-
-        string text = status switch
+        string text = _currentStatus switch
         {
             ToolStatus.Checking => "Checking for updates...",
+            ToolStatus.Downloading => "Downloading...",
             ToolStatus.NotInstalled => "Not installed - Click to download",
             ToolStatus.InstalledNotUpdated => "Update available - Click to download",
             ToolStatus.InstalledAndUpdated => "Installed and updated",
-            _ => throw new Exception($"Invalid tool status: {status}")
+            _ => throw new Exception($"Invalid tool status: {_currentStatus}")
         };
 
-        Bitmap icon = status switch
+        Bitmap icon = _currentStatus switch
         {
             ToolStatus.Checking => Resources.icon_circles_light,
+            ToolStatus.Downloading => Resources.icon_dash_light,
             ToolStatus.NotInstalled => Resources.icon_x_light,
             ToolStatus.InstalledNotUpdated => Resources.icon_arrow_light,
             ToolStatus.InstalledAndUpdated => Resources.icon_check_light,
-            _ => throw new Exception($"Invalid tool status: {status}")
+            _ => throw new Exception($"Invalid tool status: {_currentStatus}")
         };
 
         Core.UIHandler.UpdateToolStatus(text, icon);
@@ -97,14 +90,13 @@ internal class Blas1Validator : IValidator
 
     public async void OnClickToolStatus()
     {
-        ToolStatus status = CurrentStatus;
-
-        if (status != ToolStatus.NotInstalled && status != ToolStatus.InstalledNotUpdated)
+        if (_currentStatus != ToolStatus.NotInstalled && _currentStatus != ToolStatus.InstalledNotUpdated)
             return;
 
         Logger.Info("Installing modding tools");
+        SetAndUpdateStatus(ToolStatus.Downloading);
         await InstallModdingTools();
-        UpdateStatusUI();
+        SetAndUpdateStatus(ToolStatus.NotInstalled);
     }
 
 
@@ -193,6 +185,7 @@ internal class Blas1Validator : IValidator
     enum ToolStatus
     {
         Checking,
+        Downloading,
         NotInstalled,
         InstalledNotUpdated,
         InstalledAndUpdated,
