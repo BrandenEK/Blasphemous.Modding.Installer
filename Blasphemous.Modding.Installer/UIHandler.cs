@@ -54,10 +54,6 @@ public partial class UIHandler : BasaltForm
         }
     }
 
-    private void ClickLocationButton(object sender, EventArgs e) { }
-
-    private void ClickToolsButton(object sender, EventArgs e) { }
-
     // ...
 
     private void StartGameProcess(bool useModded)
@@ -278,8 +274,6 @@ public partial class UIHandler : BasaltForm
     private void ClickedStartVanilla(object sender, EventArgs e) => StartGameProcess(false);
 
     private void ClickedStartModded(object sender, EventArgs e) => StartGameProcess(true);
-
-    private void ClickedChangePath(object sender, EventArgs e) => PromptForRootFolder();
 
     // Events
     

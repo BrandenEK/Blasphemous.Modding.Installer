@@ -145,7 +145,7 @@ namespace Blasphemous.Modding.Installer
             _bottom_validation_location.TabIndex = 0;
             _bottom_validation_location.Text = "Locate .exe";
             _bottom_validation_location.UseVisualStyleBackColor = true;
-            _bottom_validation_location.Click += ClickLocationButton;
+            _bottom_validation_location.Visible = false;
             // 
             // _bottom_validation
             // 
@@ -168,7 +168,7 @@ namespace Blasphemous.Modding.Installer
             _bottom_validation_tools.TabIndex = 1;
             _bottom_validation_tools.Text = "Install modding tools";
             _bottom_validation_tools.UseVisualStyleBackColor = true;
-            _bottom_validation_tools.Click += ClickToolsButton;
+            _bottom_validation_tools.Visible = false;
             // 
             // _left
             // 
@@ -267,7 +267,7 @@ namespace Blasphemous.Modding.Installer
             _left_changePath.Text = "Change exe location";
             _left_changePath.UseVisualStyleBackColor = false;
             _left_changePath.VerticalCutoff = 680;
-            _left_changePath.Click += ClickedChangePath;
+            _left_changePath.Visible = false;
             // 
             // _left_page
             // 
