@@ -248,6 +248,11 @@ public partial class UIHandler : BasaltForm
 
     // Side section lower
 
+    private void ClickedStart(object sender, EventArgs e)
+    {
+        StartGameProcess(true);
+    }
+
     private void ClickedStartVanilla(object sender, EventArgs e) => StartGameProcess(false);
 
     private void ClickedStartModded(object sender, EventArgs e) => StartGameProcess(true);

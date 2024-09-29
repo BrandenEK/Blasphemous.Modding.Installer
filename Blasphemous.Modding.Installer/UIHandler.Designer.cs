@@ -83,6 +83,9 @@ namespace Blasphemous.Modding.Installer
             _middle_path = new Label();
             _middle_tools = new Panel();
             _tooltip = new ToolTip(components);
+            _left_start = new Panel();
+            _left_start_button = new TransparentButton();
+            _left_start_divider = new Panel();
             _bottom_blas1mod.SuspendLayout();
             _left.SuspendLayout();
             _left_outer.SuspendLayout();
@@ -106,6 +109,7 @@ namespace Blasphemous.Modding.Installer
             _middle_outer.SuspendLayout();
             _middle_inner.SuspendLayout();
             _middle_tools.SuspendLayout();
+            _left_start.SuspendLayout();
             SuspendLayout();
             // 
             // _bottom_blas1mod_scroll
@@ -163,6 +167,7 @@ namespace Blasphemous.Modding.Installer
             // 
             _left_inner.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             _left_inner.BackColor = Color.FromArgb(30, 30, 30);
+            _left_inner.Controls.Add(_left_start);
             _left_inner.Controls.Add(_left_startVanilla);
             _left_inner.Controls.Add(_left_startModded);
             _left_inner.Controls.Add(_left_page);
@@ -742,6 +747,41 @@ namespace Blasphemous.Modding.Installer
             _tooltip.ReshowDelay = 100;
             _tooltip.ShowAlways = true;
             // 
+            // _left_start
+            // 
+            _left_start.Controls.Add(_left_start_button);
+            _left_start.Controls.Add(_left_start_divider);
+            _left_start.Location = new Point(15, 380);
+            _left_start.Name = "_left_start";
+            _left_start.Size = new Size(220, 120);
+            _left_start.TabIndex = 24;
+            // 
+            // _left_start_button
+            // 
+            _left_start_button.BackColor = Color.FromArgb(30, 30, 30);
+            _left_start_button.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
+            _left_start_button.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
+            _left_start_button.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
+            _left_start_button.FlatStyle = FlatStyle.Flat;
+            _left_start_button.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_start_button.ForeColor = SystemColors.ButtonHighlight;
+            _left_start_button.Location = new Point(35, 70);
+            _left_start_button.Name = "_left_start_button";
+            _left_start_button.Size = new Size(150, 35);
+            _left_start_button.TabIndex = 4;
+            _left_start_button.Text = "Launch game";
+            _left_start_button.UseVisualStyleBackColor = false;
+            _left_start_button.Click += ClickedStart;
+            // 
+            // _left_start_divider
+            // 
+            _left_start_divider.Anchor = AnchorStyles.Bottom;
+            _left_start_divider.BackColor = SystemColors.ButtonHighlight;
+            _left_start_divider.Location = new Point(29, 118);
+            _left_start_divider.Name = "_left_start_divider";
+            _left_start_divider.Size = new Size(160, 1);
+            _left_start_divider.TabIndex = 23;
+            // 
             // UIHandler
             // 
             AutoScaleDimensions = new SizeF(6F, 15F);
@@ -780,6 +820,7 @@ namespace Blasphemous.Modding.Installer
             _middle_outer.ResumeLayout(false);
             _middle_inner.ResumeLayout(false);
             _middle_tools.ResumeLayout(false);
+            _left_start.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -835,6 +876,9 @@ namespace Blasphemous.Modding.Installer
         private ComboBox _left_sort_options;
         private Label _left_filter_text;
         private ComboBox _left_filter_options;
+        private Panel _left_start;
+        private TransparentButton _left_start_button;
+        private Panel _left_start_divider;
     }
 }
 
