@@ -39,10 +39,10 @@ namespace Blasphemous.Modding.Installer
             _left_outer = new Panel();
             _left_inner = new Panel();
             _left_start = new Panel();
+            _left_start_console = new CheckBox();
+            _left_start_modded = new CheckBox();
             _left_start_button = new TransparentButton();
             _left_start_divider = new Panel();
-            _left_startVanilla = new ButtonWithCutoff();
-            _left_startModded = new ButtonWithCutoff();
             _left_page = new Panel();
             _left_page_blas1mod = new TransparentButton();
             _left_page_blas1skin = new TransparentButton();
@@ -86,8 +86,6 @@ namespace Blasphemous.Modding.Installer
             _middle_path = new Label();
             _middle_tools = new Panel();
             _tooltip = new ToolTip(components);
-            _left_start_modded = new CheckBox();
-            _left_start_console = new CheckBox();
             _bottom_blas1mod.SuspendLayout();
             _left.SuspendLayout();
             _left_outer.SuspendLayout();
@@ -170,8 +168,6 @@ namespace Blasphemous.Modding.Installer
             _left_inner.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             _left_inner.BackColor = Color.FromArgb(30, 30, 30);
             _left_inner.Controls.Add(_left_start);
-            _left_inner.Controls.Add(_left_startVanilla);
-            _left_inner.Controls.Add(_left_startModded);
             _left_inner.Controls.Add(_left_page);
             _left_inner.Controls.Add(_left_details_outer);
             _left_inner.Controls.Add(_left_sort);
@@ -191,6 +187,30 @@ namespace Blasphemous.Modding.Installer
             _left_start.Name = "_left_start";
             _left_start.Size = new Size(220, 120);
             _left_start.TabIndex = 24;
+            // 
+            // _left_start_console
+            // 
+            _left_start_console.AutoSize = true;
+            _left_start_console.Font = new Font("Trebuchet MS", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_start_console.ForeColor = SystemColors.ButtonHighlight;
+            _left_start_console.Location = new Point(20, 42);
+            _left_start_console.Name = "_left_start_console";
+            _left_start_console.Size = new Size(123, 22);
+            _left_start_console.TabIndex = 25;
+            _left_start_console.Text = "Run with console";
+            _left_start_console.UseVisualStyleBackColor = true;
+            // 
+            // _left_start_modded
+            // 
+            _left_start_modded.AutoSize = true;
+            _left_start_modded.Font = new Font("Trebuchet MS", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_start_modded.ForeColor = SystemColors.ButtonHighlight;
+            _left_start_modded.Location = new Point(20, 15);
+            _left_start_modded.Name = "_left_start_modded";
+            _left_start_modded.Size = new Size(96, 22);
+            _left_start_modded.TabIndex = 24;
+            _left_start_modded.Text = "Run modded";
+            _left_start_modded.UseVisualStyleBackColor = true;
             // 
             // _left_start_button
             // 
@@ -217,46 +237,6 @@ namespace Blasphemous.Modding.Installer
             _left_start_divider.Name = "_left_start_divider";
             _left_start_divider.Size = new Size(160, 1);
             _left_start_divider.TabIndex = 23;
-            // 
-            // _left_startVanilla
-            // 
-            _left_startVanilla.Anchor = AnchorStyles.Bottom;
-            _left_startVanilla.BackColor = Color.FromArgb(30, 30, 30);
-            _left_startVanilla.ExpectedVisibility = true;
-            _left_startVanilla.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
-            _left_startVanilla.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
-            _left_startVanilla.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
-            _left_startVanilla.FlatStyle = FlatStyle.Flat;
-            _left_startVanilla.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            _left_startVanilla.ForeColor = SystemColors.ButtonHighlight;
-            _left_startVanilla.Location = new Point(15, 731);
-            _left_startVanilla.Name = "_left_startVanilla";
-            _left_startVanilla.Size = new Size(220, 30);
-            _left_startVanilla.TabIndex = 25;
-            _left_startVanilla.Text = "Start game (Vanilla)";
-            _left_startVanilla.UseVisualStyleBackColor = false;
-            _left_startVanilla.VerticalCutoff = 680;
-            _left_startVanilla.Click += ClickedStartVanilla;
-            // 
-            // _left_startModded
-            // 
-            _left_startModded.Anchor = AnchorStyles.Bottom;
-            _left_startModded.BackColor = Color.FromArgb(30, 30, 30);
-            _left_startModded.ExpectedVisibility = true;
-            _left_startModded.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
-            _left_startModded.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
-            _left_startModded.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
-            _left_startModded.FlatStyle = FlatStyle.Flat;
-            _left_startModded.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            _left_startModded.ForeColor = SystemColors.ButtonHighlight;
-            _left_startModded.Location = new Point(15, 771);
-            _left_startModded.Name = "_left_startModded";
-            _left_startModded.Size = new Size(220, 30);
-            _left_startModded.TabIndex = 24;
-            _left_startModded.Text = "Start game (Modded)";
-            _left_startModded.UseVisualStyleBackColor = false;
-            _left_startModded.VerticalCutoff = 680;
-            _left_startModded.Click += ClickedStartModded;
             // 
             // _left_page
             // 
@@ -786,30 +766,6 @@ namespace Blasphemous.Modding.Installer
             _tooltip.ReshowDelay = 100;
             _tooltip.ShowAlways = true;
             // 
-            // _left_start_modded
-            // 
-            _left_start_modded.AutoSize = true;
-            _left_start_modded.Font = new Font("Trebuchet MS", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            _left_start_modded.ForeColor = SystemColors.ButtonHighlight;
-            _left_start_modded.Location = new Point(20, 15);
-            _left_start_modded.Name = "_left_start_modded";
-            _left_start_modded.Size = new Size(96, 22);
-            _left_start_modded.TabIndex = 24;
-            _left_start_modded.Text = "Run modded";
-            _left_start_modded.UseVisualStyleBackColor = true;
-            // 
-            // _left_start_console
-            // 
-            _left_start_console.AutoSize = true;
-            _left_start_console.Font = new Font("Trebuchet MS", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            _left_start_console.ForeColor = SystemColors.ButtonHighlight;
-            _left_start_console.Location = new Point(20, 42);
-            _left_start_console.Name = "_left_start_console";
-            _left_start_console.Size = new Size(123, 22);
-            _left_start_console.TabIndex = 25;
-            _left_start_console.Text = "Run with console";
-            _left_start_console.UseVisualStyleBackColor = true;
-            // 
             // UIHandler
             // 
             AutoScaleDimensions = new SizeF(6F, 15F);
@@ -892,8 +848,6 @@ namespace Blasphemous.Modding.Installer
         private TransparentButton _left_all_disable;
         private TransparentButton _left_all_enable;
         private TransparentButton _left_all_uninstall;
-        private ButtonWithCutoff _left_startModded;
-        private ButtonWithCutoff _left_startVanilla;
         private Label _middle_tools_text;
         private PictureBox _middle_tools_icon;
         private Panel _middle;

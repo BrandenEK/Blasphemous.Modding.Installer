@@ -149,8 +149,7 @@ public partial class UIHandler : BasaltForm
         _left_details_outer.Visible = validated;
 
         // Handle UI for starting
-        _left_startVanilla.ExpectedVisibility = validated;
-        _left_startModded.ExpectedVisibility = validated;
+        _left_start.Visible = validated;
 
         Logger.Debug($"Opened page: {currentPage.Title}");
         OnPageOpened?.Invoke(currentPage);
@@ -252,10 +251,6 @@ public partial class UIHandler : BasaltForm
     {
         StartGameProcess(true);
     }
-
-    private void ClickedStartVanilla(object sender, EventArgs e) => StartGameProcess(false);
-
-    private void ClickedStartModded(object sender, EventArgs e) => StartGameProcess(true);
 
     // Events
 
