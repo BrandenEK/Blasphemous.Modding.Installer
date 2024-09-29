@@ -11,6 +11,7 @@ internal class Blas1Validator : IValidator
     private readonly string _exeName = "Blasphemous.exe";
     private readonly string _defaultPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blasphemous";
     private readonly string _remoteVersionPath = "https://raw.githubusercontent.com/BrandenEK/Blasphemous.ModdingTools/main/modding-tools-windows.version";
+    private readonly string _remoteDownloadPath = "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-windows.zip";
 
     private ToolStatus _currentStatus = ToolStatus.Invalid;
     private string _remoteVersion = string.Empty;
@@ -29,7 +30,7 @@ internal class Blas1Validator : IValidator
         if (_currentStatus == ToolStatus.Invalid)
         {
             SetAndUpdateStatus(ToolStatus.Checking);
-            GetRemoteVersion();
+            FetchRemoteVersion();
         }
         else
         {
@@ -114,11 +115,11 @@ internal class Blas1Validator : IValidator
 
         Logger.Info("Installing modding tools");
         SetAndUpdateStatus(ToolStatus.Downloading);
-        await InstallModdingTools();
+        await DownloadModdingTools();
         InvalidateAndUpdateStatus();
     }
 
-    private async void GetRemoteVersion()
+    private async void FetchRemoteVersion()
     {
         using var client = new HttpClient();
         string version = await client.GetStringAsync(_remoteVersionPath);
@@ -129,37 +130,54 @@ internal class Blas1Validator : IValidator
         InvalidateAndUpdateStatus();
     }
 
-
-
-
-
-
-
-
-    private async Task InstallModdingTools()
+    private async Task DownloadModdingTools()
     {
-        string toolsCache = Path.Combine(Core.CacheFolder, "tools", "blas1.zip");
-        Directory.CreateDirectory(Path.GetDirectoryName(toolsCache));
+        string toolsCache = Path.Combine(Core.CacheFolder, "blas1tools", _remoteVersion, "data.zip");
+        Directory.CreateDirectory(Path.GetDirectoryName(toolsCache)!);
 
         // If tools dont already exist in cache, download from web
         if (!File.Exists(toolsCache))
         {
             Logger.Warn("Downloading blas1 tools from web");
-            using (WebClient client = new WebClient())
-            {
-                string toolsPath = "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-windows.zip";
-                await client.DownloadFileTaskAsync(new Uri(toolsPath), toolsCache);
-            }
+            using var client = new WebClient();
+            await client.DownloadFileTaskAsync(new Uri(_remoteDownloadPath), toolsCache);
         }
 
         // Extract data in cache to game folder
-        string installPath = Core.SettingsHandler.Properties.Blas1RootFolder;
-        using (ZipFile zipFile = ZipFile.Read(toolsCache))
-        {
-            foreach (ZipEntry file in zipFile)
-                file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
-        }
+        using ZipFile zipFile = ZipFile.Read(toolsCache);
+        foreach (ZipEntry file in zipFile)
+            file.Extract(Core.SettingsHandler.Properties.Blas1RootFolder, ExtractExistingFileAction.OverwriteSilently);
     }
+
+
+
+
+
+
+    //private async Task InstallModdingTools()
+    //{
+    //    string toolsCache = Path.Combine(Core.CacheFolder, "blas1tools", "blas1.zip");
+    //    Directory.CreateDirectory(Path.GetDirectoryName(toolsCache));
+
+    //    // If tools dont already exist in cache, download from web
+    //    if (!File.Exists(toolsCache))
+    //    {
+    //        Logger.Warn("Downloading blas1 tools from web");
+    //        using (WebClient client = new WebClient())
+    //        {
+    //            string toolsPath = "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-windows.zip";
+    //            await client.DownloadFileTaskAsync(new Uri(toolsPath), toolsCache);
+    //        }
+    //    }
+
+    //    // Extract data in cache to game folder
+    //    string installPath = Core.SettingsHandler.Properties.Blas1RootFolder;
+    //    using (ZipFile zipFile = ZipFile.Read(toolsCache))
+    //    {
+    //        foreach (ZipEntry file in zipFile)
+    //            file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
+    //    }
+    //}
 
     public void SetRootPath(string path)
     {
