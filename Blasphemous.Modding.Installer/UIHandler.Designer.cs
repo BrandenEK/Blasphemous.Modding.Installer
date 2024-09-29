@@ -86,6 +86,7 @@ namespace Blasphemous.Modding.Installer
             _middle_inner = new Panel();
             _middle_tools = new Panel();
             _tooltip = new ToolTip(components);
+            _middle_path = new Label();
             _bottom_blas1mod.SuspendLayout();
             _bottom_validation.SuspendLayout();
             _left.SuspendLayout();
@@ -685,7 +686,7 @@ namespace Blasphemous.Modding.Installer
             _middle_tools_text.Size = new Size(150, 25);
             _middle_tools_text.TabIndex = 7;
             _middle_tools_text.Text = "Modding Tools";
-            _middle_tools_text.TextAlign = ContentAlignment.BottomLeft;
+            _middle_tools_text.TextAlign = ContentAlignment.MiddleCenter;
             _middle_tools_text.Click += ClickedToolsStatus;
             // 
             // _bottom
@@ -769,6 +770,7 @@ namespace Blasphemous.Modding.Installer
             // 
             _middle_inner.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             _middle_inner.BackColor = Color.FromArgb(80, 80, 80);
+            _middle_inner.Controls.Add(_middle_path);
             _middle_inner.Controls.Add(_middle_tools);
             _middle_inner.Location = new Point(0, 0);
             _middle_inner.Name = "_middle_inner";
@@ -777,11 +779,11 @@ namespace Blasphemous.Modding.Installer
             // 
             // _middle_tools
             // 
-            _middle_tools.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            _middle_tools.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             _middle_tools.BackColor = Color.FromArgb(80, 80, 80);
             _middle_tools.Controls.Add(_middle_tools_icon);
             _middle_tools.Controls.Add(_middle_tools_text);
-            _middle_tools.Location = new Point(20, 1);
+            _middle_tools.Location = new Point(1140, 1);
             _middle_tools.Name = "_middle_tools";
             _middle_tools.Size = new Size(180, 25);
             _middle_tools.TabIndex = 9;
@@ -794,6 +796,18 @@ namespace Blasphemous.Modding.Installer
             _tooltip.InitialDelay = 100;
             _tooltip.ReshowDelay = 100;
             _tooltip.ShowAlways = true;
+            // 
+            // _middle_path
+            // 
+            _middle_path.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            _middle_path.BackColor = Color.FromArgb(0, 0, 0, 0);
+            _middle_path.Font = new Font("Trebuchet MS", 15.75F, FontStyle.Italic, GraphicsUnit.Point);
+            _middle_path.Location = new Point(6, 1);
+            _middle_path.Name = "_middle_path";
+            _middle_path.Size = new Size(1000, 25);
+            _middle_path.TabIndex = 9;
+            _middle_path.Text = "Root Folder text";
+            _middle_path.TextAlign = ContentAlignment.BottomLeft;
             // 
             // UIHandler
             // 
@@ -892,6 +906,7 @@ namespace Blasphemous.Modding.Installer
         private Panel _middle_inner;
         private ToolTip _tooltip;
         private Panel _middle_tools;
+        private Label _middle_path;
     }
 }
 
