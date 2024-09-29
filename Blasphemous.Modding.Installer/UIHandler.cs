@@ -13,10 +13,6 @@ public partial class UIHandler : BasaltForm
         foreach (var page in Core.AllPages)
             page.Previewer.Clear();
 
-        string text = "Tools are up to date (v2.0.0)";
-        _tooltip.SetToolTip(_middle_tools_text, text);
-        _tooltip.SetToolTip(_middle_tools_icon, text);
-
         OpenSection(Core.SettingsHandler.Properties.CurrentSection);
     }
 
@@ -178,9 +174,22 @@ public partial class UIHandler : BasaltForm
         _left_changePath.ExpectedVisibility = validated;
     }
 
+    // Top section
+
     private void ClickInstallerUpdateLink(object sender, LinkLabelLinkClickedEventArgs e) => Core.GithubHandler.OpenInstallerLink();
 
-    #region Side section top
+    // Middle section
+
+    public void UpdateToolStatus(string text, Bitmap icon)
+    {
+        _middle_tools_icon.BackgroundImage = icon;
+
+        _tooltip.RemoveAll();
+        _tooltip.SetToolTip(_middle_tools_text, text);
+        _tooltip.SetToolTip(_middle_tools_icon, text);
+    }
+
+    // Side section top
 
     private void ClickedBlas1Mods(object sender, EventArgs e) => OpenSection(SectionType.Blas1Mods);
 
@@ -190,9 +199,7 @@ public partial class UIHandler : BasaltForm
 
     private void ClickedSettings(object sender, EventArgs e) { }
 
-    #endregion Side section top
-
-    #region Side section middle
+    // Side section middle
 
     private void ClickedSortByName(object sender, EventArgs e)
     {
@@ -218,9 +225,7 @@ public partial class UIHandler : BasaltForm
         Core.CurrentPage.Sorter.Sort();
     }
 
-    #endregion Side section middle
-
-    #region Side section bottom
+    // Side section bottom
 
     private void ClickedInstallAll(object sender, EventArgs e)
     {
@@ -242,15 +247,11 @@ public partial class UIHandler : BasaltForm
         Core.CurrentPage.Grouper.DisableAll();
     }
 
-    #endregion Side section bottom
-
-    #region Side section lower
+    // Side section lower
 
     private void ClickedStartVanilla(object sender, EventArgs e) => StartGameProcess(false);
 
     private void ClickedStartModded(object sender, EventArgs e) => StartGameProcess(true);
 
     private void ClickedChangePath(object sender, EventArgs e) => PromptForRootFolder();
-
-    #endregion Side section lower
 }
