@@ -136,7 +136,7 @@ internal class Blas1Validator : IValidator
 
 
 
-    public async Task InstallModdingTools()
+    private async Task InstallModdingTools()
     {
         string toolsCache = Path.Combine(Core.CacheFolder, "tools", "blas1.zip");
         Directory.CreateDirectory(Path.GetDirectoryName(toolsCache));
@@ -181,7 +181,7 @@ internal class Blas1Validator : IValidator
         }
     }
 
-    public bool AreModdingToolsInstalled
+    private bool AreModdingToolsInstalled
     {
         get
         {
@@ -191,7 +191,7 @@ internal class Blas1Validator : IValidator
         }
     }
 
-    public bool AreModdingToolsUpdated
+    private bool AreModdingToolsUpdated
     {
         get
         {

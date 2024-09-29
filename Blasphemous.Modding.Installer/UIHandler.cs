@@ -54,17 +54,9 @@ public partial class UIHandler : BasaltForm
         }
     }
 
-    private async void DownloadTools()
-    {
-        _bottom_validation_tools.Enabled = false;
-        _bottom_validation_tools.Text = "Installing...";
-        await Core.CurrentPage.Validator.InstallModdingTools();
-        OpenSection(Core.SettingsHandler.Properties.CurrentSection);
-    }
-
     private void ClickLocationButton(object sender, EventArgs e) => PromptForRootFolder();
 
-    private void ClickToolsButton(object sender, EventArgs e) => DownloadTools();
+    private void ClickToolsButton(object sender, EventArgs e) { }
 
     // ...
 
