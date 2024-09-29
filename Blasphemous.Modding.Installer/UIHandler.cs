@@ -26,12 +26,6 @@ public partial class UIHandler : BasaltForm
         return MessageBox.Show(question, title, MessageBoxButtons.OKCancel) == DialogResult.OK;
     }
 
-    // Update installer
-
-    public void UpdatePanelSetVisible(bool visible) => _top_warning_outer.Visible = visible;
-
-    // Validation screen
-
     // Maybe move this to the StandardValidator?? But it calls OpenSection
     private void PromptForRootFolder()
     {
@@ -130,10 +124,6 @@ public partial class UIHandler : BasaltForm
         else
         {
             _bottom_validation.Visible = true;
-            _bottom_validation_location.Enabled = !folderValid;
-            _bottom_validation_location.Text = "Locate " + currentPage.Validator.ExeName;
-            _bottom_validation_tools.Enabled = folderValid;
-            //_bottom_validation_tools.Text = (toolsInstalled ? "Update" : "Install") + " modding tools";
         }
 
         // Show the correct page element
@@ -166,13 +156,17 @@ public partial class UIHandler : BasaltForm
         _left_details_outer.Visible = validated;
         _left_startVanilla.ExpectedVisibility = validated;
         _left_startModded.ExpectedVisibility = validated;
-        _left_changePath.ExpectedVisibility = validated;
 
         Logger.Debug($"Opened page: {currentPage.Title}");
         OnPageOpened?.Invoke(currentPage);
     }
 
     // Top section
+
+    public void UpdateVersionWarningVisibility(bool visible)
+    {
+        _top_warning_outer.Visible = visible;
+    }
 
     private void ClickInstallerUpdateLink(object sender, LinkLabelLinkClickedEventArgs e) => Core.GithubHandler.OpenInstallerLink();
 

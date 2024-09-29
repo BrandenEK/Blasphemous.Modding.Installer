@@ -34,15 +34,12 @@ namespace Blasphemous.Modding.Installer
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIHandler));
             _bottom_blas1mod_scroll = new VScrollBar();
             _bottom_blas1mod = new Panel();
-            _bottom_validation_location = new Button();
             _bottom_validation = new Panel();
-            _bottom_validation_tools = new Button();
             _left = new Panel();
             _left_outer = new Panel();
             _left_inner = new Panel();
             _left_startVanilla = new ButtonWithCutoff();
             _left_startModded = new ButtonWithCutoff();
-            _left_changePath = new ButtonWithCutoff();
             _left_page = new Panel();
             _left_page_blas1mod = new TransparentButton();
             _left_page_blas1skin = new TransparentButton();
@@ -88,7 +85,6 @@ namespace Blasphemous.Modding.Installer
             _middle_tools = new Panel();
             _tooltip = new ToolTip(components);
             _bottom_blas1mod.SuspendLayout();
-            _bottom_validation.SuspendLayout();
             _left.SuspendLayout();
             _left_outer.SuspendLayout();
             _left_inner.SuspendLayout();
@@ -135,40 +131,14 @@ namespace Blasphemous.Modding.Installer
             _bottom_blas1mod.TabIndex = 3;
             _bottom_blas1mod.Visible = false;
             // 
-            // _bottom_validation_location
-            // 
-            _bottom_validation_location.Anchor = AnchorStyles.None;
-            _bottom_validation_location.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            _bottom_validation_location.Location = new Point(562, 295);
-            _bottom_validation_location.Name = "_bottom_validation_location";
-            _bottom_validation_location.Size = new Size(210, 50);
-            _bottom_validation_location.TabIndex = 0;
-            _bottom_validation_location.Text = "Locate .exe";
-            _bottom_validation_location.UseVisualStyleBackColor = true;
-            _bottom_validation_location.Visible = false;
-            // 
             // _bottom_validation
             // 
             _bottom_validation.BackColor = Color.FromArgb(52, 52, 52);
-            _bottom_validation.Controls.Add(_bottom_validation_tools);
-            _bottom_validation.Controls.Add(_bottom_validation_location);
             _bottom_validation.Dock = DockStyle.Fill;
             _bottom_validation.Location = new Point(0, 0);
             _bottom_validation.Name = "_bottom_validation";
             _bottom_validation.Size = new Size(1334, 711);
             _bottom_validation.TabIndex = 4;
-            // 
-            // _bottom_validation_tools
-            // 
-            _bottom_validation_tools.Anchor = AnchorStyles.None;
-            _bottom_validation_tools.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            _bottom_validation_tools.Location = new Point(562, 365);
-            _bottom_validation_tools.Name = "_bottom_validation_tools";
-            _bottom_validation_tools.Size = new Size(210, 50);
-            _bottom_validation_tools.TabIndex = 1;
-            _bottom_validation_tools.Text = "Install modding tools";
-            _bottom_validation_tools.UseVisualStyleBackColor = true;
-            _bottom_validation_tools.Visible = false;
             // 
             // _left
             // 
@@ -196,7 +166,6 @@ namespace Blasphemous.Modding.Installer
             _left_inner.BackColor = Color.FromArgb(30, 30, 30);
             _left_inner.Controls.Add(_left_startVanilla);
             _left_inner.Controls.Add(_left_startModded);
-            _left_inner.Controls.Add(_left_changePath);
             _left_inner.Controls.Add(_left_page);
             _left_inner.Controls.Add(_left_details_outer);
             _left_inner.Controls.Add(_left_divider3);
@@ -248,26 +217,6 @@ namespace Blasphemous.Modding.Installer
             _left_startModded.UseVisualStyleBackColor = false;
             _left_startModded.VerticalCutoff = 680;
             _left_startModded.Click += ClickedStartModded;
-            // 
-            // _left_changePath
-            // 
-            _left_changePath.Anchor = AnchorStyles.Bottom;
-            _left_changePath.BackColor = Color.FromArgb(30, 30, 30);
-            _left_changePath.ExpectedVisibility = true;
-            _left_changePath.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
-            _left_changePath.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
-            _left_changePath.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
-            _left_changePath.FlatStyle = FlatStyle.Flat;
-            _left_changePath.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            _left_changePath.ForeColor = SystemColors.ButtonHighlight;
-            _left_changePath.Location = new Point(15, 811);
-            _left_changePath.Name = "_left_changePath";
-            _left_changePath.Size = new Size(220, 30);
-            _left_changePath.TabIndex = 8;
-            _left_changePath.Text = "Change exe location";
-            _left_changePath.UseVisualStyleBackColor = false;
-            _left_changePath.VerticalCutoff = 680;
-            _left_changePath.Visible = false;
             // 
             // _left_page
             // 
@@ -828,7 +777,6 @@ namespace Blasphemous.Modding.Installer
             MinimumSize = new Size(1280, 720);
             Name = "UIHandler";
             _bottom_blas1mod.ResumeLayout(false);
-            _bottom_validation.ResumeLayout(false);
             _left.ResumeLayout(false);
             _left_outer.ResumeLayout(false);
             _left_inner.ResumeLayout(false);
@@ -858,7 +806,6 @@ namespace Blasphemous.Modding.Installer
         #endregion
         private System.Windows.Forms.VScrollBar _bottom_blas1mod_scroll;
         private System.Windows.Forms.Panel _bottom_blas1mod;
-        private System.Windows.Forms.Button _bottom_validation_location;
         private System.Windows.Forms.Panel _bottom_validation;
         private System.Windows.Forms.Label _top_text;
         private System.Windows.Forms.Panel _left_inner;
@@ -881,7 +828,6 @@ namespace Blasphemous.Modding.Installer
         private System.Windows.Forms.Panel _left_sort;
         private System.Windows.Forms.Panel _left_divider1;
         private System.Windows.Forms.Panel _left_divider2;
-        private System.Windows.Forms.Button _bottom_validation_tools;
         private System.Windows.Forms.Panel _left_divider3;
         private System.Windows.Forms.Panel _left_details_outer;
         private System.Windows.Forms.Panel _left_details_inner;
@@ -900,7 +846,6 @@ namespace Blasphemous.Modding.Installer
         private TransparentButton _left_all_disable;
         private TransparentButton _left_all_enable;
         private TransparentButton _left_all_uninstall;
-        private ButtonWithCutoff _left_changePath;
         private ButtonWithCutoff _left_startModded;
         private ButtonWithCutoff _left_startVanilla;
         private Label _middle_tools_text;
