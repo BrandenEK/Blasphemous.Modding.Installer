@@ -680,8 +680,8 @@ namespace Blasphemous.Modding.Installer
             // 
             _middle_tools_text.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             _middle_tools_text.BackColor = Color.FromArgb(0, 0, 0, 0);
-            _middle_tools_text.Font = new Font("Trebuchet MS", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            _middle_tools_text.Location = new Point(0, 0);
+            _middle_tools_text.Font = new Font("Trebuchet MS", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            _middle_tools_text.Location = new Point(0, 1);
             _middle_tools_text.Name = "_middle_tools_text";
             _middle_tools_text.Size = new Size(150, 25);
             _middle_tools_text.TabIndex = 7;
@@ -788,6 +788,7 @@ namespace Blasphemous.Modding.Installer
             _middle_path.TabIndex = 9;
             _middle_path.Text = "Root Folder text";
             _middle_path.TextAlign = ContentAlignment.MiddleLeft;
+            _middle_path.Click += ClickedRootFolder;
             // 
             // _middle_tools
             // 

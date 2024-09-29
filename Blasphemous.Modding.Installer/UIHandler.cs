@@ -54,7 +54,7 @@ public partial class UIHandler : BasaltForm
         }
     }
 
-    private void ClickLocationButton(object sender, EventArgs e) => PromptForRootFolder();
+    private void ClickLocationButton(object sender, EventArgs e) { }
 
     private void ClickToolsButton(object sender, EventArgs e) { }
 
@@ -184,6 +184,8 @@ public partial class UIHandler : BasaltForm
         _middle_path.Text = text;
         _middle_path.Width = _middle_path.PreferredWidth;
     }
+
+    private void ClickedRootFolder(object sender, EventArgs e) => PromptForRootFolder();
 
     // Middle section tools
 
