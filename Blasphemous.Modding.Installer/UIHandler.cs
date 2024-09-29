@@ -13,6 +13,10 @@ public partial class UIHandler : BasaltForm
         foreach (var page in Core.AllPages)
             page.Previewer.Clear();
 
+        string text = "Tools are up to date (v2.0.0)";
+        _tooltip.SetToolTip(_middle_text, text);
+        _tooltip.SetToolTip(_middle_icon, text);
+
         OpenSection(Core.SettingsHandler.Properties.CurrentSection);
     }
 

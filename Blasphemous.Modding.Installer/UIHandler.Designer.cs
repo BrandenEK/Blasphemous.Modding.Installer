@@ -775,6 +775,9 @@ namespace Blasphemous.Modding.Installer
             // _tooltip
             // 
             _tooltip.AutomaticDelay = 100;
+            _tooltip.AutoPopDelay = 100000;
+            _tooltip.InitialDelay = 100;
+            _tooltip.ReshowDelay = 100;
             // 
             // UIHandler
             // 
