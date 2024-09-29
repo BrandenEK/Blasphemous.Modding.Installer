@@ -139,6 +139,19 @@ public partial class UIHandler : BasaltForm
         _left_divider1.Visible = validated;
 
         _left_sort.Visible = validated;
+        _left_sort_options.Items.Clear();
+        if (currentPage.Grouper.CanSortByCreation)
+        {
+            _left_sort_options.Items.Add("Name");
+            _left_sort_options.Items.Add("Author");
+        }
+        if (currentPage.Grouper.CanSortByDate)
+        {
+            _left_sort_options.Items.Add("Initial release");
+            _left_sort_options.Items.Add("Latest release");
+        }
+        _left_sort_options.SelectedIndex = (int)Core.SettingsHandler.Properties.CurrentSort;
+
         _left_sort_name.Visible = validated && currentPage.Grouper.CanSortByCreation;
         _left_sort_author.Visible = validated && currentPage.Grouper.CanSortByCreation;
         _left_sort_initialRelease.Visible = currentPage.Grouper.CanSortByDate;

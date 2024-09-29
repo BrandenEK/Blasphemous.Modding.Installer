@@ -53,6 +53,7 @@ namespace Blasphemous.Modding.Installer
             _left_divider2 = new Panel();
             _left_divider1 = new Panel();
             _left_sort = new Panel();
+            _left_sort_options = new ComboBox();
             _left_sort_text = new Label();
             _left_sort_name = new RadioButton();
             _left_sort_author = new RadioButton();
@@ -84,7 +85,6 @@ namespace Blasphemous.Modding.Installer
             _middle_path = new Label();
             _middle_tools = new Panel();
             _tooltip = new ToolTip(components);
-            _left_sort_options = new ComboBox();
             _bottom_blas1mod.SuspendLayout();
             _left.SuspendLayout();
             _left_outer.SuspendLayout();
@@ -374,6 +374,16 @@ namespace Blasphemous.Modding.Installer
             _left_sort.Name = "_left_sort";
             _left_sort.Size = new Size(220, 120);
             _left_sort.TabIndex = 13;
+            // 
+            // _left_sort_options
+            // 
+            _left_sort_options.DropDownStyle = ComboBoxStyle.DropDownList;
+            _left_sort_options.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_sort_options.FormattingEnabled = true;
+            _left_sort_options.Location = new Point(87, 15);
+            _left_sort_options.Name = "_left_sort_options";
+            _left_sort_options.Size = new Size(121, 26);
+            _left_sort_options.TabIndex = 12;
             // 
             // _left_sort_text
             // 
@@ -763,15 +773,6 @@ namespace Blasphemous.Modding.Installer
             _tooltip.InitialDelay = 100;
             _tooltip.ReshowDelay = 100;
             _tooltip.ShowAlways = true;
-            // 
-            // _left_sort_options
-            // 
-            _left_sort_options.DropDownStyle = ComboBoxStyle.DropDownList;
-            _left_sort_options.FormattingEnabled = true;
-            _left_sort_options.Location = new Point(87, 15);
-            _left_sort_options.Name = "_left_sort_options";
-            _left_sort_options.Size = new Size(121, 23);
-            _left_sort_options.TabIndex = 12;
             // 
             // UIHandler
             // 
