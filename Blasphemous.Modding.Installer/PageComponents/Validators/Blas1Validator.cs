@@ -1,8 +1,8 @@
 ﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Extensions;
 using Blasphemous.Modding.Installer.Properties;
 using Ionic.Zip;
 using System.Diagnostics;
-using System.Net;
 
 namespace Blasphemous.Modding.Installer.PageComponents.Validators;
 
@@ -139,8 +139,8 @@ internal class Blas1Validator : IValidator
         if (!File.Exists(toolsCache))
         {
             Logger.Warn("Downloading blas1 tools from web");
-            using var client = new WebClient();
-            await client.DownloadFileTaskAsync(new Uri(_remoteDownloadPath), toolsCache);
+            using var client = new HttpClient();
+            await client.DownloadFileAsync(new Uri(_remoteDownloadPath), toolsCache);
         }
 
         // Extract data in cache to game folder
