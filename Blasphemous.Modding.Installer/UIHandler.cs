@@ -233,6 +233,15 @@ public partial class UIHandler : BasaltForm
 
     // Side section middle
 
+    private void ChangedSortOption(object sender, EventArgs e)
+    {
+        int index = ((ComboBox)sender).SelectedIndex;
+        Logger.Info($"Changing sort to {index}");
+
+        Core.SettingsHandler.Properties.CurrentSort = (SortType)index;
+        Core.CurrentPage.Sorter.Sort();
+    }
+
     private void ClickedSortByName(object sender, EventArgs e)
     {
         Core.SettingsHandler.Properties.CurrentSort = SortType.Name;
@@ -286,7 +295,7 @@ public partial class UIHandler : BasaltForm
     private void ClickedStartModded(object sender, EventArgs e) => StartGameProcess(true);
 
     // Events
-    
+
     internal delegate void PageDelegate(InstallerPage page);
     internal static PageDelegate? OnPageOpened;
 

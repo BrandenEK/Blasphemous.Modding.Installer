@@ -384,6 +384,7 @@ namespace Blasphemous.Modding.Installer
             _left_sort_options.Name = "_left_sort_options";
             _left_sort_options.Size = new Size(121, 26);
             _left_sort_options.TabIndex = 12;
+            _left_sort_options.SelectedIndexChanged += ChangedSortOption;
             // 
             // _left_sort_text
             // 
