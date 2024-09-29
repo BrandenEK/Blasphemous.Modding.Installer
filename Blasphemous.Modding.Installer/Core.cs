@@ -85,8 +85,20 @@ static class Core
         var blas1skinLoader = new SkinLoader(blas1skinLocalPath, "blasphemous1", blas1skinUI, blas1skinSorter, blas1skins, SectionType.Blas1Skins);
         var blas2modLoader = new ModLoader(blas2modLocalPath, blas2modRemotePath, blas2modUI, blas2modSorter, blas2mods, SectionType.Blas2Mods);
 
-        var blas1Validator = new Blas1Validator();
-        var blas2Validator = new Blas2Validator();
+        var blas1Validator = new Blas1Validator(
+            "blas1tools",
+            "C:/Program Files (x86)/Steam/steamapps/common/Blasphemous",
+            "Blasphemous.exe",
+            "BepInEx/patchers/BepInEx.MultiFolderLoader.dll",
+            "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-windows.zip",
+            "https://raw.githubusercontent.com/BrandenEK/Blasphemous.ModdingTools/main/modding-tools-windows.version");
+        var blas2Validator = new Blas2Validator(
+            "blas2tools",
+            "C:/Program Files (x86)/Steam/steamapps/common/Blasphemous 2",
+            "Blasphemous 2.exe",
+            "MelonLoader/net6/MelonLoader.dll",
+            "https://github.com/BrandenEK/BlasII.ModdingTools/raw/main/modding-tools-windows.zip",
+            "https://raw.githubusercontent.com/BrandenEK/BlasII.ModdingTools/main/modding-tools-windows.version");
 
         var blas1Starter = new Blas1Starter(blas1Validator);
         var blas2Starter = new Blas2Starter(blas2Validator);
