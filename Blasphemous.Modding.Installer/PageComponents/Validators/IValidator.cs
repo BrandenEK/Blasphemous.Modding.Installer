@@ -2,7 +2,6 @@
 
 internal interface IValidator
 {
-    Task InstallModdingTools();
     void OnClickToolStatus();
 
     void SetRootPath(string path);
@@ -11,7 +10,4 @@ internal interface IValidator
     string DefaultPath { get; }
 
     bool IsRootFolderValid { get; }
-
-    bool AreModdingToolsInstalled { get; }
-    bool AreModdingToolsUpdated { get; }
 }

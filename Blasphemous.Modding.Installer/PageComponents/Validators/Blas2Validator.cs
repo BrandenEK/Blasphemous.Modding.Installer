@@ -10,7 +10,7 @@ internal class Blas2Validator : IValidator
     private readonly string _exeName = "Blasphemous 2.exe";
     private readonly string _defaultPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blasphemous 2";
 
-    public async Task InstallModdingTools()
+    private async Task InstallModdingTools()
     {
         string toolsCache = Path.Combine(Core.CacheFolder, "tools", "blas2.zip");
         Directory.CreateDirectory(Path.GetDirectoryName(toolsCache));
@@ -60,7 +60,7 @@ internal class Blas2Validator : IValidator
         }
     }
 
-    public bool AreModdingToolsInstalled
+    private bool AreModdingToolsInstalled
     {
         get
         {
@@ -68,7 +68,7 @@ internal class Blas2Validator : IValidator
         }
     }
 
-    public bool AreModdingToolsUpdated
+    private bool AreModdingToolsUpdated
     {
         get
         {

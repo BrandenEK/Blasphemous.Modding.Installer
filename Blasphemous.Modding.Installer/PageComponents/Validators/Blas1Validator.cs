@@ -1,7 +1,8 @@
 ﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Extensions;
 using Blasphemous.Modding.Installer.Properties;
 using Ionic.Zip;
-using System.Net;
+using System.Diagnostics;
 
 namespace Blasphemous.Modding.Installer.PageComponents.Validators;
 
@@ -9,8 +10,11 @@ internal class Blas1Validator : IValidator
 {
     private readonly string _exeName = "Blasphemous.exe";
     private readonly string _defaultPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blasphemous";
+    private readonly string _remoteVersionPath = "https://raw.githubusercontent.com/BrandenEK/Blasphemous.ModdingTools/main/modding-tools-windows.version";
+    private readonly string _remoteDownloadPath = "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-windows.zip";
 
-    private ToolStatus _currentStatus = ToolStatus.Checking;
+    private ToolStatus _currentStatus = ToolStatus.Invalid;
+    private string _remoteVersion = string.Empty;
 
     public Blas1Validator()
     {
@@ -23,7 +27,15 @@ internal class Blas1Validator : IValidator
         if (page.Validator != this || !IsRootFolderValid)
             return;
 
-        RefreshAndUpdateStatus();
+        if (_currentStatus == ToolStatus.Invalid)
+        {
+            SetAndUpdateStatus(ToolStatus.Checking);
+            FetchRemoteVersion();
+        }
+        else
+        {
+            RefreshAndUpdateStatus();
+        }
     }
 
     private void OnPathChanged(string path)
@@ -37,9 +49,7 @@ internal class Blas1Validator : IValidator
     private ToolStatus GetCurrentStatus()
     {
         // These temporary states need to be manually deactivated
-        //if (_currentStatus == ToolStatus.Checking)
-        //    return;
-        if (_currentStatus == ToolStatus.Downloading)
+        if (_currentStatus == ToolStatus.Checking || _currentStatus == ToolStatus.Downloading)
             return _currentStatus;
 
         if (!AreModdingToolsInstalled)
@@ -63,8 +73,18 @@ internal class Blas1Validator : IValidator
         UpdateStatusUI();
     }
 
+    private void InvalidateAndUpdateStatus()
+    {
+        _currentStatus = ToolStatus.Invalid;
+        _currentStatus = GetCurrentStatus();
+        UpdateStatusUI();
+    }
+
     private void UpdateStatusUI()
     {
+        if (Core.CurrentPage.Validator != this)
+            return;
+
         string text = _currentStatus switch
         {
             ToolStatus.Checking => "Checking for updates...",
@@ -95,42 +115,38 @@ internal class Blas1Validator : IValidator
 
         Logger.Info("Installing modding tools");
         SetAndUpdateStatus(ToolStatus.Downloading);
-        await InstallModdingTools();
-        SetAndUpdateStatus(ToolStatus.NotInstalled);
+        await DownloadModdingTools();
+        InvalidateAndUpdateStatus();
     }
 
-
-
-
-
-
-
-
-
-
-    public async Task InstallModdingTools()
+    private async void FetchRemoteVersion()
     {
-        string toolsCache = Path.Combine(Core.CacheFolder, "tools", "blas1.zip");
-        Directory.CreateDirectory(Path.GetDirectoryName(toolsCache));
+        using var client = new HttpClient();
+        string version = await client.GetStringAsync(_remoteVersionPath);
+        version = version.Trim();
+
+        Logger.Debug($"Found remote version: {version}");
+        _remoteVersion = version;
+        InvalidateAndUpdateStatus();
+    }
+
+    private async Task DownloadModdingTools()
+    {
+        string toolsCache = Path.Combine(Core.CacheFolder, "blas1tools", _remoteVersion, "data.zip");
+        Directory.CreateDirectory(Path.GetDirectoryName(toolsCache)!);
 
         // If tools dont already exist in cache, download from web
         if (!File.Exists(toolsCache))
         {
             Logger.Warn("Downloading blas1 tools from web");
-            using (WebClient client = new WebClient())
-            {
-                string toolsPath = "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-windows.zip";
-                await client.DownloadFileTaskAsync(new Uri(toolsPath), toolsCache);
-            }
+            using var client = new HttpClient();
+            await client.DownloadFileAsync(new Uri(_remoteDownloadPath), toolsCache);
         }
 
         // Extract data in cache to game folder
-        string installPath = Core.SettingsHandler.Properties.Blas1RootFolder;
-        using (ZipFile zipFile = ZipFile.Read(toolsCache))
-        {
-            foreach (ZipEntry file in zipFile)
-                file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
-        }
+        using ZipFile zipFile = ZipFile.Read(toolsCache);
+        foreach (ZipEntry file in zipFile)
+            file.Extract(Core.SettingsHandler.Properties.Blas1RootFolder, ExtractExistingFileAction.OverwriteSilently);
     }
 
     public void SetRootPath(string path)
@@ -142,40 +158,31 @@ internal class Blas1Validator : IValidator
     {
         get
         {
-            string path = Core.SettingsHandler.Properties.Blas1RootFolder;
-            if (File.Exists(path + "\\" + _exeName))
-            {
-                Directory.CreateDirectory(path + "\\Modding\\disabled");
-                return true;
-            }
-
-            return false;
+            string path = Path.Combine(Core.SettingsHandler.Properties.Blas1RootFolder, _exeName);
+            return File.Exists(path);
         }
     }
 
-    public bool AreModdingToolsInstalled
+    private bool AreModdingToolsInstalled
     {
         get
         {
-            bool installed = Directory.Exists(Core.SettingsHandler.Properties.Blas1RootFolder + "\\BepInEx");
-            
-            // Temporary delete old folders I dont want anymore
-            if (installed)
-            {
-                string docs = Path.Combine(Core.SettingsHandler.Properties.Blas1RootFolder, "Modding", "docs");
-                if (Directory.Exists(docs))
-                    Directory.Delete(docs, true);
-
-                string output = Path.Combine(Core.SettingsHandler.Properties.Blas1RootFolder, "Modding", "output");
-                if (Directory.Exists(output))
-                    Directory.Delete(output, true);
-            }
-
-            return installed;
+            string path = Path.Combine(Core.SettingsHandler.Properties.Blas1RootFolder, "BepInEx", "patchers", "BepInEx.MultiFolderLoader.dll");
+            return File.Exists(path);
         }
     }
 
-    public bool AreModdingToolsUpdated => true;
+    private bool AreModdingToolsUpdated
+    {
+        get
+        {
+            string path = Path.Combine(Core.SettingsHandler.Properties.Blas1RootFolder, "BepInEx", "patchers", "BepInEx.MultiFolderLoader.dll");
+            var localVersion = new Version(FileVersionInfo.GetVersionInfo(path).FileVersion!);
+            var remoteVersion = new Version(_remoteVersion);
+
+            return localVersion >= remoteVersion;
+        }
+    }
 
     public string ExeName => _exeName;
     public string DefaultPath => string.IsNullOrEmpty(Core.SettingsHandler.Properties.Blas1RootFolder)
@@ -189,5 +196,6 @@ internal class Blas1Validator : IValidator
         NotInstalled,
         InstalledNotUpdated,
         InstalledAndUpdated,
+        Invalid
     }
 }

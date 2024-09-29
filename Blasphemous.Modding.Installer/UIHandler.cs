@@ -54,17 +54,9 @@ public partial class UIHandler : BasaltForm
         }
     }
 
-    private async void DownloadTools()
-    {
-        _bottom_validation_tools.Enabled = false;
-        _bottom_validation_tools.Text = "Installing...";
-        await Core.CurrentPage.Validator.InstallModdingTools();
-        OpenSection(Core.SettingsHandler.Properties.CurrentSection);
-    }
-
     private void ClickLocationButton(object sender, EventArgs e) => PromptForRootFolder();
 
-    private void ClickToolsButton(object sender, EventArgs e) => DownloadTools();
+    private void ClickToolsButton(object sender, EventArgs e) { }
 
     // ...
 
@@ -122,8 +114,8 @@ public partial class UIHandler : BasaltForm
 
         // Validate the status of mods
         bool folderValid = currentPage.Validator.IsRootFolderValid;
-        bool toolsInstalled = folderValid && currentPage.Validator.AreModdingToolsInstalled;
-        bool toolsUpdated = toolsInstalled && currentPage.Validator.AreModdingToolsUpdated;
+        //bool toolsInstalled = folderValid && currentPage.Validator.AreModdingToolsInstalled;
+        //bool toolsUpdated = toolsInstalled && currentPage.Validator.AreModdingToolsUpdated;
 
         // Ignore tool stuff here for now
         bool validated = folderValid;
@@ -142,7 +134,7 @@ public partial class UIHandler : BasaltForm
             _bottom_validation_location.Enabled = !folderValid;
             _bottom_validation_location.Text = "Locate " + currentPage.Validator.ExeName;
             _bottom_validation_tools.Enabled = folderValid;
-            _bottom_validation_tools.Text = (toolsInstalled ? "Update" : "Install") + " modding tools";
+            //_bottom_validation_tools.Text = (toolsInstalled ? "Update" : "Install") + " modding tools";
         }
 
         // Show the correct page element
