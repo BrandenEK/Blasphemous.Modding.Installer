@@ -15,6 +15,8 @@ internal abstract class StandardValidator : IValidator
     private readonly string _remoteDownloadPath;
     private readonly string _remoteVersionPath;
 
+    private readonly IconLoader _iconLoader;
+
     private ToolStatus _currentStatus = ToolStatus.Invalid;
     private string _remoteVersion = string.Empty;
 
@@ -28,6 +30,8 @@ internal abstract class StandardValidator : IValidator
         _localVersionPath = localVersionPath;
         _remoteDownloadPath = remoteDownloadPath;
         _remoteVersionPath = remoteVersionPath;
+
+        _iconLoader = new IconLoader();
 
         UIHandler.OnPageOpened += OnPageOpened;
         //UIHandler.OnPathChanged += OnPathChanged;
@@ -125,11 +129,11 @@ internal abstract class StandardValidator : IValidator
 
         Bitmap icon = _currentStatus switch
         {
-            ToolStatus.Checking => Resources.icon_circles_light,
-            ToolStatus.Downloading => Resources.icon_dash_light,
-            ToolStatus.NotInstalled => Resources.icon_x_light,
-            ToolStatus.InstalledNotUpdated => Resources.icon_arrow_light,
-            ToolStatus.InstalledAndUpdated => Resources.icon_check_light,
+            ToolStatus.Checking => _iconLoader.GetIcon("circles"),
+            ToolStatus.Downloading => _iconLoader.GetIcon("dash"),
+            ToolStatus.NotInstalled => _iconLoader.GetIcon("x"),
+            ToolStatus.InstalledNotUpdated => _iconLoader.GetIcon("arrow"),
+            ToolStatus.InstalledAndUpdated => _iconLoader.GetIcon("check"),
             _ => throw new Exception($"Invalid tool status: {_currentStatus}")
         };
 
