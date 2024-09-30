@@ -1,8 +1,8 @@
 ﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Extensions;
 using Blasphemous.Modding.Installer.Mods;
 using Blasphemous.Modding.Installer.Properties;
 using Blasphemous.Modding.Installer.Skins;
-using System.Net;
 
 namespace Blasphemous.Modding.Installer.PageComponents.Previewers;
 
@@ -31,18 +31,17 @@ internal class SkinPreviewer : IPreviewer
         if (!previewExists)
         {
             Logger.Warn($"Downloading skin preview ({skin.Data.name}) from web");
-            using (WebClient client = new WebClient())
+            using var client = new HttpClient();
+
+            try
             {
-                try
-                {
-                    await client.DownloadFileTaskAsync(new Uri(skin.PreviewURL), previewCache);
-                    return new Bitmap(previewCache);
-                }
-                catch (Exception e)
-                {
-                    Logger.Error("Failed to load skin preview: " + e.Message);
-                    return Resources.warning;
-                }
+                await client.DownloadFileAsync(new Uri(skin.PreviewURL), previewCache);
+                return new Bitmap(previewCache);
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Failed to load skin preview: " + e.Message);
+                return Resources.warning;
             }
         }
 

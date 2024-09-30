@@ -52,7 +52,6 @@ static class Core
         UIHandler = form;
         SettingsHandler = new SettingsHandler();
         GithubHandler = new GithubHandler(cmd.GithubToken);
-        TempIgnoreTime = cmd.IgnoreTime;
 
         List<Mod> blas1mods = new List<Mod>();
         List<Skin> blas1skins = new List<Skin>();
@@ -81,18 +80,21 @@ static class Core
         var blas1modLoader = new ModLoader(
             Path.Combine(CacheFolder, "blas1mods.json"),
             "https://raw.githubusercontent.com/BrandenEK/Blasphemous.Modding.Installer/main/BlasphemousMods.json",
+            cmd.IgnoreTime,
             blas1modLister,
             blas1mods,
             SectionType.Blas1Mods);
         var blas1skinLoader = new SkinLoader(
             Path.Combine(CacheFolder, "blas1skins.json"),
             "blasphemous1",
+            cmd.IgnoreTime,
             blas1skinLister,
             blas1skins,
             SectionType.Blas1Skins);
         var blas2modLoader = new ModLoader(
             Path.Combine(CacheFolder, "blas2mods.json"),
             "https://raw.githubusercontent.com/BrandenEK/Blasphemous.Modding.Installer/main/BlasphemousIIMods.json",
+            cmd.IgnoreTime,
             blas2modLister,
             blas2mods,
             SectionType.Blas2Mods);
@@ -149,8 +151,6 @@ static class Core
         _pages.Add(SectionType.Blas1Skins, blas1skinPage);
         _pages.Add(SectionType.Blas2Mods, blas2modPage);
     }
-
-    public static bool TempIgnoreTime { get; private set; }
 
     public static UIHandler UIHandler { get; private set; }
     public static SettingsHandler SettingsHandler { get; private set; }
