@@ -68,37 +68,35 @@ internal class SkinLoader : ILoader
     private async void LoadRemoteSkins()
     {
         var newSkins = new List<Skin>();
+        using var client = new HttpClient();
 
-        using (HttpClient client = new HttpClient())
-        {
-            IReadOnlyList<Octokit.RepositoryContent> contents =
+        IReadOnlyList<Octokit.RepositoryContent> contents =
                 await Core.GithubHandler.GetRepositoryDirectoryAsync("BrandenEK", "Blasphemous-Custom-Skins", _remoteDataPath);
 
-            if (contents is null)
-                return;
+        if (contents is null)
+            return;
 
-            foreach (var item in contents)
+        foreach (var item in contents)
+        {
+            string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{_remoteDataPath}/{item.Name}/info.txt");
+            SkinData data = JsonConvert.DeserializeObject<SkinData>(json)!;
+
+            Skin? localSkin = FindSkin(data.id);
+            if (localSkin != null)
             {
-                string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{_remoteDataPath}/{item.Name}/info.txt");
-                SkinData data = JsonConvert.DeserializeObject<SkinData>(json)!;
-
-                Skin? localSkin = FindSkin(data.id);
-                if (localSkin != null)
-                {
-                    localSkin.Data = data;
-                    localSkin.UpdateUI();
-                    newSkins.Add(localSkin);
-                }
-                else
-                {
-                    newSkins.Add(new Skin(data, _skinType));
-                }
+                localSkin.Data = data;
+                localSkin.UpdateUI();
+                newSkins.Add(localSkin);
             }
-
-            Logger.Warn($"Loaded {contents.Count} global skins");
-            _skins.Clear();
-            _skins.AddRange(newSkins);
+            else
+            {
+                newSkins.Add(new Skin(data, _skinType));
+            }
         }
+
+        Logger.Warn($"Loaded {contents.Count} global skins");
+        _skins.Clear();
+        _skins.AddRange(newSkins);
 
         SaveLocalData();
         if (Core.CurrentPage.Loader == this)

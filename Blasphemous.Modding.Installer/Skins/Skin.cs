@@ -1,6 +1,6 @@
 ﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Extensions;
 using Newtonsoft.Json;
-using System.Net;
 
 namespace Blasphemous.Modding.Installer.Skins;
 
@@ -100,16 +100,15 @@ internal class Skin
     private async Task DownloadSkin(string infoCache, string textureCache)
     {
         Logger.Warn($"Downloading skin texture ({Data.name}) from web");
-        using (WebClient client = new WebClient())
-        {
-            _downloading = true;
-            _ui.ShowDownloadingStatus();
+        using var client = new HttpClient();
 
-            await client.DownloadFileTaskAsync(new Uri(InfoURL), infoCache);
-            await client.DownloadFileTaskAsync(new Uri(TextureURL), textureCache);
+        _downloading = true;
+        _ui.ShowDownloadingStatus();
 
-            _downloading = false;
-        }
+        await client.DownloadFileAsync(new Uri(InfoURL), infoCache);
+        await client.DownloadFileAsync(new Uri(TextureURL), textureCache);
+
+        _downloading = false;
     }
 
     public void Uninstall()

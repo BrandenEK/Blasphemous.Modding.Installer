@@ -1,8 +1,8 @@
 ﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Extensions;
 using Blasphemous.Modding.Installer.PageComponents.Loaders;
 using Ionic.Zip;
 using System.Diagnostics;
-using System.Net;
 using System.Text;
 
 namespace Blasphemous.Modding.Installer.Mods;
@@ -109,11 +109,9 @@ internal class Mod
         }
 
         // Extract data in cache to game folder
-        using (ZipFile zipFile = ZipFile.Read(zipCache))
-        {
-            foreach (ZipEntry file in zipFile)
-                file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
-        }
+        using ZipFile zipFile = ZipFile.Read(zipCache);
+        foreach (ZipEntry file in zipFile)
+            file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
 
         UpdateUI();
     }
@@ -121,15 +119,14 @@ internal class Mod
     private async Task DownloadMod(string zipCache)
     {
         Logger.Warn($"Downloading mod ({Data.name}) from web");
-        using (WebClient client = new WebClient())
-        {
-            _downloading = true;
-            _ui.ShowDownloadingStatus();
+        using var client = new HttpClient();
 
-            await client.DownloadFileTaskAsync(new Uri(Data.latestDownloadURL), zipCache);
+        _downloading = true;
+        _ui.ShowDownloadingStatus();
 
-            _downloading = false;
-        }
+        await client.DownloadFileAsync(new Uri(Data.latestDownloadURL), zipCache);
+
+        _downloading = false;
     }
 
     public void Uninstall(bool skipDepend)

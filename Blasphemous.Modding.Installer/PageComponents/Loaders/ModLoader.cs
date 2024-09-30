@@ -68,42 +68,40 @@ internal class ModLoader : ILoader
     private async void LoadRemoteMods()
     {
         var newMods = new List<Mod>();
+        using var client = new HttpClient();
 
-        using (HttpClient client = new HttpClient())
+        string json = await client.GetStringAsync(_remoteDataPath);
+        ModData[] remoteData = JsonConvert.DeserializeObject<ModData[]>(json)!;
+
+        foreach (var data in remoteData)
         {
-            string json = await client.GetStringAsync(_remoteDataPath);
-            ModData[] remoteData = JsonConvert.DeserializeObject<ModData[]>(json)!;
+            Logger.Info($"Getting latest release for {data.name}");
+            Octokit.Release latestRelease = await Core.GithubHandler.GetLatestReleaseAsync(data.githubAuthor, data.githubRepo);
+            if (latestRelease is null)
+                return;
 
-            foreach (var data in remoteData)
+            Version latestVersion = GithubHandler.CleanSemanticVersion(latestRelease.TagName);
+            string latestDownloadURL = latestRelease.Assets[0].BrowserDownloadUrl;
+            DateTimeOffset latestReleaseDate = latestRelease.CreatedAt;
+
+            Mod? localMod = FindMod(data.name);
+            ModData fullData = new ModData(data, latestVersion.ToString(), latestDownloadURL, latestReleaseDate);
+
+            if (localMod != null)
             {
-                Logger.Info($"Getting latest release for {data.name}");
-                Octokit.Release latestRelease = await Core.GithubHandler.GetLatestReleaseAsync(data.githubAuthor, data.githubRepo);
-                if (latestRelease is null)
-                    return;
-
-                Version latestVersion = GithubHandler.CleanSemanticVersion(latestRelease.TagName);
-                string latestDownloadURL = latestRelease.Assets[0].BrowserDownloadUrl;
-                DateTimeOffset latestReleaseDate = latestRelease.CreatedAt;
-
-                Mod? localMod = FindMod(data.name);
-                ModData fullData = new ModData(data, latestVersion.ToString(), latestDownloadURL, latestReleaseDate);
-
-                if (localMod != null)
-                {
-                    localMod.Data = fullData;
-                    localMod.UpdateUI();
-                    newMods.Add(localMod);
-                }
-                else
-                {
-                    newMods.Add(new Mod(fullData, _modType));
-                }
+                localMod.Data = fullData;
+                localMod.UpdateUI();
+                newMods.Add(localMod);
             }
-
-            Logger.Warn($"Loaded {remoteData.Length} global mods");
-            _mods.Clear();
-            _mods.AddRange(newMods);
+            else
+            {
+                newMods.Add(new Mod(fullData, _modType));
+            }
         }
+
+        Logger.Warn($"Loaded {remoteData.Length} global mods");
+        _mods.Clear();
+        _mods.AddRange(newMods);
 
         SaveLocalData();
         if (Core.CurrentPage.Loader == this)
