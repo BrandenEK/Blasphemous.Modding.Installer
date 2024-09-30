@@ -1,4 +1,6 @@
-﻿
+﻿using Basalt.Framework.Logging;
+using System.Reflection;
+
 namespace Blasphemous.Modding.Installer.PageComponents.Validators;
 
 internal class IconLoader
@@ -7,7 +9,22 @@ internal class IconLoader
 
     public IconLoader()
     {
+        string[] icons = { "check", "x", "arrow", "dash", "circles" };
+        foreach (string name in icons)
+        {
+            Bitmap bmp = LoadIcon(name);
+            _icons.Add(name, bmp);
 
+            Logger.Warn($"Loaded icon {name}");
+        }
+    }
+
+    private Bitmap LoadIcon(string name)
+    {
+        string path = $"Blasphemous.Modding.Installer.Resources.icons.{name}.png";
+        using Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(path)!;
+
+        return new Bitmap(stream);
     }
 
     public Bitmap GetIcon(string name)
