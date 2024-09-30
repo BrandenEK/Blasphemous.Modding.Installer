@@ -72,15 +72,15 @@ static class Core
         var blas1skinFilter = new SkinFilter(SectionType.Blas1Skins);
         var blas2modFilter = new ModFilter(SectionType.Blas2Mods);
 
+        // Groupers
+        var blas1modGrouper = new ModGrouper(blas1modTitle, blas1mods, blas1modFilter);
+        var blas1skinGrouper = new SkinGrouper(blas1skinTitle, blas1skins, blas1skinFilter);
+        var blas2modGrouper = new ModGrouper(blas2modTitle, blas2mods, blas2modFilter);
+
         // Listers
         var blas1modLister = new ModLister(UIHandler.DataHolder, blas1mods, blas1modSorter, blas1modFilter);
         var blas1skinLister = new SkinLister(UIHandler.DataHolder, blas1skins, blas1skinSorter, blas1skinFilter);
         var blas2modLister = new ModLister(UIHandler.DataHolder, blas2mods, blas2modSorter, blas2modFilter);
-
-        // Groupers
-        var blas1modGrouper = new ModGrouper(blas1modTitle, blas1mods, blas1modLister, blas1modFilter);
-        var blas1skinGrouper = new SkinGrouper(blas1skinTitle, blas1skins, blas1skinLister, blas1skinFilter);
-        var blas2modGrouper = new ModGrouper(blas2modTitle, blas2mods, blas2modLister, blas2modFilter);
 
         // Loaders
         var blas1modLoader = new ModLoader(

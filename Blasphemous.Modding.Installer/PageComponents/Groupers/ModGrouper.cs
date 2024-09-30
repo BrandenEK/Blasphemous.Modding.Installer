@@ -1,7 +1,6 @@
 ﻿using Basalt.Framework.Logging;
 using Blasphemous.Modding.Installer.Mods;
 using Blasphemous.Modding.Installer.PageComponents.Filters;
-using Blasphemous.Modding.Installer.PageComponents.Listers;
 
 namespace Blasphemous.Modding.Installer.PageComponents.Groupers;
 
@@ -10,15 +9,13 @@ internal class ModGrouper : IGrouper
     private readonly string _title;
     private readonly IEnumerable<Mod> _mods;
 
-    private readonly ILister _lister;
     private readonly IFilter<Mod> _filter;
 
-    public ModGrouper(string title, IEnumerable<Mod> mods, ILister lister, IFilter<Mod> filter)
+    public ModGrouper(string title, IEnumerable<Mod> mods, IFilter<Mod> filter)
     {
         _title = title;
         _mods = mods;
 
-        _lister = lister;
         _filter = filter;
     }
 
@@ -32,11 +29,9 @@ internal class ModGrouper : IGrouper
         Logger.Info("Installing all mods");
         foreach (Mod mod in toInstall)
         {
-            mod.Uninstall(true, false);
-            mod.Install(true, false);
+            mod.Uninstall(true);
+            mod.Install(true);
         }
-
-        _lister.RefreshList();
     }
 
     public void UninstallAll()
@@ -49,10 +44,8 @@ internal class ModGrouper : IGrouper
         Logger.Info("Uninstalling all mods");
         foreach (Mod mod in toUninstall)
         {
-            mod.Uninstall(true, false);
+            mod.Uninstall(true);
         }
-
-        _lister.RefreshList();
     }
 
     public void EnableAll()
@@ -65,10 +58,8 @@ internal class ModGrouper : IGrouper
         Logger.Info("Enabling all mods");
         foreach (Mod mod in toEnable)
         {
-            mod.Enable(true, false);
+            mod.Enable(true);
         }
-
-        _lister.RefreshList();
     }
 
     public void DisableAll()
@@ -81,10 +72,8 @@ internal class ModGrouper : IGrouper
         Logger.Info("Disabling all mods");
         foreach (Mod mod in toDisable)
         {
-            mod.Disable(true, false);
+            mod.Disable(true);
         }
-
-        _lister.RefreshList();
     }
 
     public void RefreshAll()

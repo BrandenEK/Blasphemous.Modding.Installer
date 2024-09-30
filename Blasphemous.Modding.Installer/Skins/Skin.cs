@@ -75,7 +75,7 @@ internal class Skin
 
     // Main methods
 
-    public async void Install(bool refreshList)
+    public async void Install()
     {
         string installPath = PathToSkinFolder;
         Directory.CreateDirectory(installPath);
@@ -95,8 +95,6 @@ internal class Skin
         File.Copy(textureCache, installPath + "/texture.png");
 
         UpdateUI();
-        if (refreshList)
-            SkinPage.Lister.RefreshList();
     }
 
     private async Task DownloadSkin(string infoCache, string textureCache)
@@ -113,14 +111,12 @@ internal class Skin
         _downloading = false;
     }
 
-    public void Uninstall(bool refreshList)
+    public void Uninstall()
     {
         if (Directory.Exists(PathToSkinFolder))
             Directory.Delete(PathToSkinFolder, true);
 
         UpdateUI();
-        if (refreshList)
-            SkinPage.Lister.RefreshList();
     }
 
     // Click methods
@@ -132,18 +128,18 @@ internal class Skin
         if (Installed)
         {
             if (MessageBox.Show("Are you sure you want to uninstall this skin?", Data.name, MessageBoxButtons.OKCancel) == DialogResult.OK)
-                Uninstall(true);
+                Uninstall();
         }
         else
         {
-            Install(true);
+            Install();
         }
     }
 
     public void ClickedUpdate(object sender, EventArgs e)
     {
-        Uninstall(false);
-        Install(true);
+        Uninstall();
+        Install();
     }
 
     // UI methods
