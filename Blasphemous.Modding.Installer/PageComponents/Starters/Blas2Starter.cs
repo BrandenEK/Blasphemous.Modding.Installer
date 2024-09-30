@@ -15,17 +15,15 @@ internal class Blas2Starter : IGameStarter
 
     public void Start()
     {
+        LaunchOptions launch = Core.SettingsHandler.Properties.CurrentLaunchOptions;
+        string args = string.Empty;
 
-    }
+        if (!launch.RunModded)
+            args += "--no-mods ";
+        if (!launch.RunConsole)
+            args += "--melonloader.hideconsole ";
 
-    public void StartModded()
-    {
-        StartProcess(string.Empty);
-    }
-
-    public void StartVanilla()
-    {
-        StartProcess("--no-mods");
+        StartProcess(args.Trim());
     }
 
     private void StartProcess(string args)
