@@ -146,9 +146,10 @@ public partial class UIHandler : BasaltForm
         _left_details.Visible = validated;
 
         // Handle UI for starting
+        LaunchOptions launch = Core.SettingsHandler.Properties.CurrentLaunchOptions;
         _left_start.Visible = validated;
-        _left_start_modded.Checked = Core.SettingsHandler.Properties.CurrentLaunchOptions.RunModded;
-        _left_start_console.Checked = Core.SettingsHandler.Properties.CurrentLaunchOptions.RunConsole;
+        _left_start_modded.Checked = launch.RunModded;
+        _left_start_console.Checked = launch.RunConsole;
 
         Logger.Debug($"Opened page: {currentPage.Title}");
         OnPageOpened?.Invoke(currentPage);
