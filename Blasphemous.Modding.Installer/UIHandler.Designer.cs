@@ -682,7 +682,7 @@ namespace Blasphemous.Modding.Installer
             // _middle_inner
             // 
             _middle_inner.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            _middle_inner.BackColor = Color.FromArgb(80, 80, 80);
+            _middle_inner.BackColor = SystemColors.WindowFrame;
             _middle_inner.Controls.Add(_middle_path);
             _middle_inner.Controls.Add(_middle_tools);
             _middle_inner.Location = new Point(0, 0);
@@ -707,7 +707,7 @@ namespace Blasphemous.Modding.Installer
             // _middle_tools
             // 
             _middle_tools.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            _middle_tools.BackColor = Color.FromArgb(80, 80, 80);
+            _middle_tools.BackColor = Color.FromArgb(0, 0, 0, 0);
             _middle_tools.Controls.Add(_middle_tools_icon);
             _middle_tools.Controls.Add(_middle_tools_text);
             _middle_tools.Location = new Point(1140, 1);
