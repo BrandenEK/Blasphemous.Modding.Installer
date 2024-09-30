@@ -19,6 +19,7 @@ internal class Mod
         Data = data;
         _modType = modType;
         _ui = new ModUI(this, panel);
+        SetUIVisibility(false);
         SetUIPosition(-1);
         UpdateUI();
     }
@@ -323,6 +324,11 @@ internal class Mod
     public void SetUIPosition(int modIdx)
     {
         _ui.SetPosition(modIdx);
+    }
+
+    public void SetUIVisibility(bool visible)
+    {
+        _ui.SetVisibility(visible);
     }
 
     public void OnStartHover() => ModPage.Previewer.PreviewMod(this);

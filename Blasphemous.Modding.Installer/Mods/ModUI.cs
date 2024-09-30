@@ -55,6 +55,11 @@ internal class ModUI
         outerPanel.Location = new Point(0, (Sizes.MOD_HEIGHT - 2) * modIdx - 2);
     }
 
+    public void SetVisibility(bool visible)
+    {
+        outerPanel.Visible = visible;
+    }
+
     private bool IsDependencyMod(Mod mod)
     {
         return mod.Data.name == "Modding API" || mod.Data.name.EndsWith("Framework");
@@ -73,7 +78,6 @@ internal class ModUI
             Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
             BackColor = Color.Black,
             Size = new Size(parentPanel.Width, Sizes.MOD_HEIGHT),
-            Visible = false,
         };
 
         innerPanel = new Panel

@@ -16,11 +16,25 @@ internal class ModLister : ILister
 
     public void ClearList()
     {
-        throw new NotImplementedException();
+        foreach (Mod mod in _mods)
+        {
+            mod.SetUIVisibility(false);
+        }
     }
 
     public void RefreshList()
     {
         Logger.Info("Refreshing list of mods");
+
+        _background.VerticalScroll.Value = 0;
+
+        int idx = 0;
+        foreach (Mod mod in _mods)
+        {
+            mod.SetUIPosition(idx++);
+            mod.SetUIVisibility(true);
+        }
+
+        _background.BackColor = _mods.Count % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
     }
 }
