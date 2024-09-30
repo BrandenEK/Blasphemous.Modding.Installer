@@ -90,7 +90,7 @@ internal class Mod
 
     // Main methods
 
-    public async void Install(bool skipDepend)
+    public async void Install(bool skipDepend, bool refreshList)
     {
         // Check for dependencies first
         if (!skipDepend && !AreDependenciesEnabled())
@@ -114,6 +114,8 @@ internal class Mod
             file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
 
         UpdateUI();
+        if (refreshList)
+            ModPage.Lister.RefreshList();
     }
 
     private async Task DownloadMod(string zipCache)
@@ -129,7 +131,7 @@ internal class Mod
         _downloading = false;
     }
 
-    public void Uninstall(bool skipDepend)
+    public void Uninstall(bool skipDepend, bool refreshList)
     {
         // Check for dependents first
         if (!skipDepend && !AreDependentsDisabled())
@@ -152,9 +154,11 @@ internal class Mod
 
         RemoveUnusedDlls();
         UpdateUI();
+        if (refreshList)
+            ModPage.Lister.RefreshList();
     }
 
-    public void Enable(bool skipDepend)
+    public void Enable(bool skipDepend, bool refreshList)
     {
         // Check for dependencies first
         if (!skipDepend && !AreDependenciesEnabled())
@@ -169,9 +173,11 @@ internal class Mod
         }
 
         UpdateUI();
+        if (refreshList)
+            ModPage.Lister.RefreshList();
     }
 
-    public void Disable(bool skipDepend)
+    public void Disable(bool skipDepend, bool refreshList)
     {
         // Check for dependents first
         if (!skipDepend && !AreDependentsDisabled())
@@ -186,6 +192,8 @@ internal class Mod
         }
 
         UpdateUI();
+        if (refreshList)
+            ModPage.Lister.RefreshList();
     }
 
     // Helper methods
@@ -227,10 +235,10 @@ internal class Mod
         foreach (Mod mod in dependencies)
         {
             if (mod.UpdateAvailable)
-                mod.Uninstall(true);
+                mod.Uninstall(true, false);
             if (!mod.Installed)
-                mod.Install(true);
-            mod.Enable(true);
+                mod.Install(true, false);
+            mod.Enable(true, false);
         }
 
         return true;
@@ -259,7 +267,7 @@ internal class Mod
         Logger.Info("Disabling dependents for " + Data.name);
         foreach (Mod mod in dependents)
         {
-            mod.Disable(true);
+            mod.Disable(true, false);
         }
 
         return true;
@@ -274,26 +282,26 @@ internal class Mod
         if (Installed)
         {
             if (MessageBox.Show("Are you sure you want to uninstall this mod?", Data.name, MessageBoxButtons.OKCancel) == DialogResult.OK)
-                Uninstall(false);
+                Uninstall(false, true);
         }
         else
         {
-            Install(false);
+            Install(false, true);
         }
     }
 
     public void ClickedEnable(object sender, EventArgs e)
     {
         if (Enabled)
-            Disable(false);
+            Disable(false, true);
         else
-            Enable(false);
+            Enable(false, true);
     }
 
     public void ClickedUpdate(object sender, EventArgs e)
     {
-        Uninstall(true);
-        Install(false);
+        Uninstall(true, false);
+        Install(false, true);
     }
 
     public void ClickedReadme(object sender, EventArgs e)
