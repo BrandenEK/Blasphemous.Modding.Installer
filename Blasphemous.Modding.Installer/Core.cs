@@ -74,7 +74,7 @@ static class Core
 
         // Listers
         var blas1modLister = new ModLister(UIHandler.DataHolder, blas1mods, blas1modSorter);
-        var blas1skinLister = new ModLister(UIHandler.DataHolder, blas2mods, blas2modSorter);
+        var blas1skinLister = new SkinLister(UIHandler.DataHolder, blas1skins, blas1skinSorter);
         var blas2modLister = new ModLister(UIHandler.DataHolder, blas2mods, blas2modSorter);
 
         // Loaders
