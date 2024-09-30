@@ -32,6 +32,9 @@ internal class SkinLister : ILister
 
     public void RefreshList()
     {
+        if (Core.CurrentPage.Lister != this)
+            return;
+
         Logger.Info("Refreshing list of skins");
         var display = _sorter.Sort(_filter.Filter(_skins));
 

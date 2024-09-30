@@ -104,8 +104,7 @@ internal class ModLoader : ILoader
         _mods.AddRange(newMods);
 
         SaveLocalData();
-        if (Core.CurrentPage.Loader == this)
-            _lister.RefreshList();
+        _lister.RefreshList();
     }
 
     private void SaveLocalData()
