@@ -99,7 +99,8 @@ internal class SkinLoader : ILoader
         }
 
         SaveLocalData();
-        _lister.RefreshList();
+        if (Core.CurrentPage.Loader == this)
+            _lister.RefreshList();
     }
 
     private void SaveLocalData()
