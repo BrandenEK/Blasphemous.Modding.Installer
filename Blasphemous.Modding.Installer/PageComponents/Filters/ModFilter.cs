@@ -19,7 +19,7 @@ internal class ModFilter : IFilter<Mod>
         {
             FilterType.NotInstalled => list.Where(x => !x.Installed),
             FilterType.Installed => list.Where(x => x.Installed),
-            FilterType.Disabled => list.Where(x => !x.Enabled),
+            FilterType.Disabled => list.Where(x => x.Installed && !x.Enabled),
             FilterType.Enabled => list.Where(x => x.Enabled),
             _ => list
         };
