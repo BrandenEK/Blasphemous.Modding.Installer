@@ -25,35 +25,53 @@ internal class Blas1Starter : IGameStarter
         StartProcess();
     }
 
-    private bool SetConfigProperty(bool enabled)
+    private bool SetConfigProperty(string fileName, string sectionName, string propertyName, bool value)
     {
-        string gameDir = Core.SettingsHandler.Properties.Blas1RootFolder;
-        string configPath = Path.Combine(gameDir, "doorstop_config.ini");
+        string path = Path.Combine(Core.SettingsHandler.Properties.Blas1RootFolder, fileName);
 
-        // Ensure doorstop file exists
-        if (!File.Exists(configPath))
+        // Ensure file exists
+        if (!File.Exists(path))
         {
-            FailWithMessage($"Could not find config file at {configPath}");
+            FailWithMessage($"Could not find config file at {path}");
             return false;
         }
 
+        // Try to set the property
         try
         {
-            string[] lines = File.ReadAllLines(configPath);
-            lines[2] = $"enabled={enabled.ToString().ToLower()}";
-            File.WriteAllLines(configPath, lines);
-            return true;
+            string[] lines = File.ReadAllLines(path);
+
+            bool foundSection = false;
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (foundSection)
+                {
+                    if (lines[i].StartsWith('['))
+                        break;
+
+                    if (lines[i].StartsWith(propertyName))
+                    {
+                        lines[i] = $"{propertyName} = {value.ToString().ToLower()}";
+                        File.WriteAllLines(path, lines);
+
+                        Logger.Info($"Wrote {propertyName} property to {fileName}");
+                        return true;
+                    }
+                }
+                else
+                {
+                    if (lines[i] == $"[{sectionName}]")
+                        foundSection = true;
+                }
+            }
+
+            throw new Exception();
         }
         catch
         {
-            FailWithMessage("Failed to write enabled property to doorstop config");
+            FailWithMessage($"Failed to write {propertyName} property to {fileName}");
             return false;
         }
-    }
-
-    private bool SetConfigProperty(string fileName, string sectionName, string propertyName, bool value)
-    {
-        return false;
     }
 
     private void StartProcess()
