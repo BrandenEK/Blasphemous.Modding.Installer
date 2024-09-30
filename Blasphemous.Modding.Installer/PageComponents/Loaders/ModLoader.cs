@@ -9,16 +9,18 @@ internal class ModLoader : ILoader
 {
     private readonly string _localDataPath;
     private readonly string _remoteDataPath;
+    private readonly bool _ignoreTime;
     private readonly ILister _lister;
     private readonly List<Mod> _mods;
     private readonly SectionType _modType;
 
     private bool _loadedData;
 
-    public ModLoader(string localDataPath, string remoteDataPath, ILister lister, List<Mod> mods, SectionType modType)
+    public ModLoader(string localDataPath, string remoteDataPath, bool ignoreTime, ILister lister, List<Mod> mods, SectionType modType)
     {
         _localDataPath = localDataPath;
         _remoteDataPath = remoteDataPath;
+        _ignoreTime = ignoreTime;
         _lister = lister;
         _mods = mods;
         _modType = modType;
@@ -31,7 +33,7 @@ internal class ModLoader : ILoader
 
         LoadLocalMods();
 
-        if (Core.TempIgnoreTime || DateTime.Now >= Core.SettingsHandler.Properties.CurrentTime)
+        if (_ignoreTime || DateTime.Now >= Core.SettingsHandler.Properties.CurrentTime)
         {
             LoadRemoteMods();
             DateTime next = DateTime.Now.AddHours(0.5);

@@ -9,16 +9,18 @@ internal class SkinLoader : ILoader
 {
     private readonly string _localDataPath;
     private readonly string _remoteDataPath;
+    private readonly bool _ignoreTime;
     private readonly ILister _lister;
     private readonly List<Skin> _skins;
     private readonly SectionType _skinType;
 
     private bool _loadedData;
 
-    public SkinLoader(string localDataPath, string remoteDataPath, ILister lister, List<Skin> skins, SectionType skinType)
+    public SkinLoader(string localDataPath, string remoteDataPath, bool ignoreTime, ILister lister, List<Skin> skins, SectionType skinType)
     {
         _localDataPath = localDataPath;
         _remoteDataPath = remoteDataPath;
+        _ignoreTime = ignoreTime;
         _lister = lister;
         _skins = skins;
         _skinType = skinType;
@@ -31,7 +33,7 @@ internal class SkinLoader : ILoader
 
         LoadLocalSkins();
 
-        if (Core.TempIgnoreTime || DateTime.Now >= Core.SettingsHandler.Properties.CurrentTime)
+        if (_ignoreTime || DateTime.Now >= Core.SettingsHandler.Properties.CurrentTime)
         {
             LoadRemoteSkins();
             DateTime next = DateTime.Now.AddHours(0.5);
