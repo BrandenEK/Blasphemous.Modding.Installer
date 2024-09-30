@@ -1,6 +1,6 @@
 ﻿using Basalt.Framework.Logging;
 using Blasphemous.Modding.Installer.Extensions;
-using Blasphemous.Modding.Installer.Properties;
+using Blasphemous.Modding.Installer.PageComponents.Validators.IconLoaders;
 using Ionic.Zip;
 using System.Diagnostics;
 
@@ -15,12 +15,14 @@ internal abstract class StandardValidator : IValidator
     private readonly string _remoteDownloadPath;
     private readonly string _remoteVersionPath;
 
+    private readonly IIconLoader _iconLoader;
+
     private ToolStatus _currentStatus = ToolStatus.Invalid;
     private string _remoteVersion = string.Empty;
 
     protected abstract string RootFolder { get; set; }
 
-    public StandardValidator(string cacheDir, string defaultPath, string exeName, string localVersionPath, string remoteDownloadPath, string remoteVersionPath)
+    public StandardValidator(string cacheDir, string defaultPath, string exeName, string localVersionPath, string remoteDownloadPath, string remoteVersionPath, IIconLoader iconLoader)
     {
         _cacheDir = cacheDir;
         _defaultPath = defaultPath;
@@ -28,6 +30,8 @@ internal abstract class StandardValidator : IValidator
         _localVersionPath = localVersionPath;
         _remoteDownloadPath = remoteDownloadPath;
         _remoteVersionPath = remoteVersionPath;
+
+        _iconLoader = iconLoader;
 
         UIHandler.OnPageOpened += OnPageOpened;
         //UIHandler.OnPathChanged += OnPathChanged;
@@ -125,11 +129,11 @@ internal abstract class StandardValidator : IValidator
 
         Bitmap icon = _currentStatus switch
         {
-            ToolStatus.Checking => Resources.icon_circles_light,
-            ToolStatus.Downloading => Resources.icon_dash_light,
-            ToolStatus.NotInstalled => Resources.icon_x_light,
-            ToolStatus.InstalledNotUpdated => Resources.icon_arrow_light,
-            ToolStatus.InstalledAndUpdated => Resources.icon_check_light,
+            ToolStatus.Checking => _iconLoader.GetIcon("circles"),
+            ToolStatus.Downloading => _iconLoader.GetIcon("dash"),
+            ToolStatus.NotInstalled => _iconLoader.GetIcon("x"),
+            ToolStatus.InstalledNotUpdated => _iconLoader.GetIcon("arrow"),
+            ToolStatus.InstalledAndUpdated => _iconLoader.GetIcon("check"),
             _ => throw new Exception($"Invalid tool status: {_currentStatus}")
         };
 

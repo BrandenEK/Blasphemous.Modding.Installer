@@ -1,9 +1,11 @@
 ﻿
+using Blasphemous.Modding.Installer.PageComponents.Validators.IconLoaders;
+
 namespace Blasphemous.Modding.Installer.PageComponents.Validators;
 
 internal class Blas2Validator : StandardValidator
 {
-    public Blas2Validator(string cacheDir, string defaultPath, string exeName, string localVersionPath, string remoteDownloadPath, string remoteVersionPath) : base(cacheDir, defaultPath, exeName, localVersionPath, remoteDownloadPath, remoteVersionPath)
+    public Blas2Validator(string cacheDir, string defaultPath, string exeName, string localVersionPath, string remoteDownloadPath, string remoteVersionPath, IIconLoader iconLoader) : base(cacheDir, defaultPath, exeName, localVersionPath, remoteDownloadPath, remoteVersionPath, iconLoader)
     {
     }
 
