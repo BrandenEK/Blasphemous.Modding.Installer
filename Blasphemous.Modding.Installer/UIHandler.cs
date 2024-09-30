@@ -206,7 +206,7 @@ public partial class UIHandler : BasaltForm
         Logger.Info($"Changing sort to {index}");
 
         Core.SettingsHandler.Properties.CurrentSort = (SortType)index;
-        Core.CurrentPage.Sorter.Sort();
+        Core.CurrentPage.Lister.RefreshList();
     }
 
     // Side section bottom

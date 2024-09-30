@@ -68,18 +68,18 @@ static class Core
         var blas1skinGrouper = new SkinGrouper(blas1skinTitle, blas1skins);
         var blas2modGrouper = new ModGrouper(blas2modTitle, blas2mods);
 
-        // Listers
-        var testLister = new ModLister(UIHandler.GetUIElementByType(SectionType.Blas2Mods), blas2mods);
-
         // UI holders
         var blas1modUI = new GenericUIHolder<Mod>(UIHandler.GetUIElementByType(SectionType.Blas1Mods), blas1mods);
         var blas1skinUI = new GenericUIHolder<Skin>(UIHandler.GetUIElementByType(SectionType.Blas1Skins), blas1skins);
         var blas2modUI = new GenericUIHolder<Mod>(UIHandler.GetUIElementByType(SectionType.Blas2Mods), blas2mods);
 
         // Sorters
-        var blas1modSorter = new ModSorter(blas1modUI, blas1mods, SectionType.Blas1Mods);
-        var blas1skinSorter = new SkinSorter(blas1skinUI, blas1skins, SectionType.Blas1Skins);
-        var blas2modSorter = new ModSorter(blas2modUI, blas2mods, SectionType.Blas2Mods);
+        var blas1modSorter = new ModSorter(SectionType.Blas1Mods);
+        var blas1skinSorter = new SkinSorter(SectionType.Blas1Skins);
+        var blas2modSorter = new ModSorter(SectionType.Blas2Mods);
+
+        // Listers
+        var testLister = new ModLister(UIHandler.GetUIElementByType(SectionType.Blas2Mods), blas2mods, blas2modSorter);
 
         // Loaders
         var blas1modLoader = new ModLoader(
@@ -87,14 +87,12 @@ static class Core
             "https://raw.githubusercontent.com/BrandenEK/Blasphemous.Modding.Installer/main/BlasphemousMods.json",
             blas1modUI,
             testLister,
-            blas1modSorter,
             blas1mods,
             SectionType.Blas1Mods);
         var blas1skinLoader = new SkinLoader(
             Path.Combine(CacheFolder, "blas1skins.json"),
             "blasphemous1",
             blas1skinUI,
-            blas1skinSorter,
             blas1skins,
             SectionType.Blas1Skins);
         var blas2modLoader = new ModLoader(
@@ -102,7 +100,6 @@ static class Core
             "https://raw.githubusercontent.com/BrandenEK/Blasphemous.Modding.Installer/main/BlasphemousIIMods.json",
             blas2modUI,
             testLister,
-            blas2modSorter,
             blas2mods,
             SectionType.Blas2Mods);
 
@@ -135,7 +132,6 @@ static class Core
             testLister,
             blas1modLoader,
             modPreviewer,
-            blas1modSorter,
             blas1modUI,
             blas1Validator,
             blas1Starter);
@@ -145,7 +141,6 @@ static class Core
             testLister,
             blas1skinLoader,
             skinPreviewer,
-            blas1skinSorter,
             blas1skinUI,
             blas1Validator,
             blas1Starter);
@@ -155,7 +150,6 @@ static class Core
             testLister,
             blas2modLoader,
             modPreviewer,
-            blas2modSorter,
             blas2modUI,
             blas2Validator,
             blas2Starter);
