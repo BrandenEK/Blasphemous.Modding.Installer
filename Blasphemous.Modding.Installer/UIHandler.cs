@@ -147,6 +147,8 @@ public partial class UIHandler : BasaltForm
 
         // Handle UI for starting
         _left_start.Visible = validated;
+        _left_start_modded.Checked = Core.SettingsHandler.Properties.CurrentLaunchOptions.RunModded;
+        _left_start_console.Checked = Core.SettingsHandler.Properties.CurrentLaunchOptions.RunConsole;
 
         Logger.Debug($"Opened page: {currentPage.Title}");
         OnPageOpened?.Invoke(currentPage);
@@ -213,7 +215,7 @@ public partial class UIHandler : BasaltForm
 
     private void ChangedSortOption(object sender, EventArgs e)
     {
-        int index = ((ComboBox)sender).SelectedIndex;
+        int index = _left_sort_options.SelectedIndex;
         Logger.Info($"Changing sort to {index}");
 
         Core.SettingsHandler.Properties.CurrentSort = (SortType)index;
@@ -243,6 +245,16 @@ public partial class UIHandler : BasaltForm
     }
 
     // Side section lower
+
+    private void CheckedStartOption(object sender, EventArgs e)
+    {
+        Logger.Info("Updating launch options");
+        Core.SettingsHandler.Properties.CurrentLaunchOptions = new LaunchOptions()
+        {
+            RunModded = _left_start_modded.Checked,
+            RunConsole = _left_start_console.Checked,
+        };
+    }
 
     private void ClickedStart(object sender, EventArgs e)
     {

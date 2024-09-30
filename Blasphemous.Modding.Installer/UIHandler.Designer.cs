@@ -274,6 +274,7 @@ namespace Blasphemous.Modding.Installer
             _left_start_console.TabIndex = 25;
             _left_start_console.Text = "Run with console";
             _left_start_console.UseVisualStyleBackColor = true;
+            _left_start_console.CheckedChanged += CheckedStartOption;
             // 
             // _left_start_modded
             // 
@@ -286,6 +287,7 @@ namespace Blasphemous.Modding.Installer
             _left_start_modded.TabIndex = 24;
             _left_start_modded.Text = "Run modded";
             _left_start_modded.UseVisualStyleBackColor = true;
+            _left_start_modded.CheckedChanged += CheckedStartOption;
             // 
             // _left_start_button
             // 
