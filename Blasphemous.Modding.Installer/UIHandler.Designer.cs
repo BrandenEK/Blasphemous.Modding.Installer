@@ -391,6 +391,7 @@ namespace Blasphemous.Modding.Installer
             _left_filter_options.Name = "_left_filter_options";
             _left_filter_options.Size = new Size(121, 26);
             _left_filter_options.TabIndex = 14;
+            _left_filter_options.SelectedIndexChanged += ChangedFilterOption;
             // 
             // _left_filter_text
             // 

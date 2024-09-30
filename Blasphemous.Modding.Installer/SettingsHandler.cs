@@ -29,6 +29,10 @@ internal class SettingsHandler
         Settings.Default.Blas1SkinSort = (byte)Properties.Blas1SkinSort;
         Settings.Default.Blas2ModSort = (byte)Properties.Blas2ModSort;
 
+        Settings.Default.Blas1ModFilter = (byte)Properties.Blas1ModFilter;
+        Settings.Default.Blas1SkinFilter = (byte)Properties.Blas1SkinFilter;
+        Settings.Default.Blas2ModFilter = (byte)Properties.Blas2ModFilter;
+
         Settings.Default.Blas1ModTime = Properties.Blas1ModTime;
         Settings.Default.Blas1SkinTime = Properties.Blas1SkinTime;
         Settings.Default.Blas2ModTime = Properties.Blas2ModTime;
