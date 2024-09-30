@@ -2,6 +2,7 @@
 using Basalt.Framework.Logging;
 using Blasphemous.Modding.Installer.Mods;
 using Blasphemous.Modding.Installer.PageComponents.Groupers;
+using Blasphemous.Modding.Installer.PageComponents.Listers;
 using Blasphemous.Modding.Installer.PageComponents.Loaders;
 using Blasphemous.Modding.Installer.PageComponents.Previewers;
 using Blasphemous.Modding.Installer.PageComponents.Sorters;
@@ -67,6 +68,9 @@ static class Core
         var blas1skinGrouper = new SkinGrouper(blas1skinTitle, blas1skins);
         var blas2modGrouper = new ModGrouper(blas2modTitle, blas2mods);
 
+        // Listers
+        var testLister= new ModLister();
+
         // UI holders
         var blas1modUI = new GenericUIHolder<Mod>(UIHandler.GetUIElementByType(SectionType.Blas1Mods), blas1mods);
         var blas1skinUI = new GenericUIHolder<Skin>(UIHandler.GetUIElementByType(SectionType.Blas1Skins), blas1skins);
@@ -80,7 +84,7 @@ static class Core
         // Loaders
         var blas1modLoader = new ModLoader(
             Path.Combine(CacheFolder, "blas1mods.json"),
-            "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousMods.json",
+            "https://raw.githubusercontent.com/BrandenEK/Blasphemous.Modding.Installer/main/BlasphemousMods.json",
             blas1modUI,
             blas1modSorter,
             blas1mods,
@@ -94,7 +98,7 @@ static class Core
             SectionType.Blas1Skins);
         var blas2modLoader = new ModLoader(
             Path.Combine(CacheFolder, "blas2mods.json"),
-            "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousIIMods.json",
+            "https://raw.githubusercontent.com/BrandenEK/Blasphemous.Modding.Installer/main/BlasphemousIIMods.json",
             blas2modUI,
             blas2modSorter,
             blas2mods,
@@ -126,6 +130,7 @@ static class Core
 
         var blas1modPage = new InstallerPage(blas1modTitle, Resources.background1,
             blas1modGrouper,
+            testLister,
             blas1modLoader,
             modPreviewer,
             blas1modSorter,
@@ -135,6 +140,7 @@ static class Core
 
         var blas1skinPage = new InstallerPage(blas1skinTitle, Resources.background1,
             blas1skinGrouper,
+            testLister,
             blas1skinLoader,
             skinPreviewer,
             blas1skinSorter,
@@ -144,6 +150,7 @@ static class Core
 
         var blas2modPage = new InstallerPage(blas2modTitle, Resources.background2,
             blas2modGrouper,
+            testLister,
             blas2modLoader,
             modPreviewer,
             blas2modSorter,

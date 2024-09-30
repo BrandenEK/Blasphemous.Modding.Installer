@@ -73,6 +73,7 @@ internal class ModUI
             Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
             BackColor = Color.Black,
             Size = new Size(parentPanel.Width, Sizes.MOD_HEIGHT),
+            Visible = false,
         };
 
         innerPanel = new Panel
