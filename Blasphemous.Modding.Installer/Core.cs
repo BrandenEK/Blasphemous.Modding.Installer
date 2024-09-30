@@ -8,6 +8,7 @@ using Blasphemous.Modding.Installer.PageComponents.Previewers;
 using Blasphemous.Modding.Installer.PageComponents.Sorters;
 using Blasphemous.Modding.Installer.PageComponents.Starters;
 using Blasphemous.Modding.Installer.PageComponents.Validators;
+using Blasphemous.Modding.Installer.PageComponents.Validators.IconLoaders;
 using Blasphemous.Modding.Installer.Properties;
 using Blasphemous.Modding.Installer.Skins;
 
@@ -52,6 +53,8 @@ static class Core
         UIHandler = form;
         SettingsHandler = new SettingsHandler();
         GithubHandler = new GithubHandler(cmd.GithubToken);
+
+        IIconLoader iconLoader = new EmbeddedIconLoader();
 
         List<Mod> blas1mods = new List<Mod>();
         List<Skin> blas1skins = new List<Skin>();
@@ -106,14 +109,16 @@ static class Core
             "Blasphemous.exe",
             Path.Combine("BepInEx", "patchers", "BepInEx.MultiFolderLoader.dll"),
             "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-windows.zip",
-            "https://raw.githubusercontent.com/BrandenEK/Blasphemous.ModdingTools/main/modding-tools-windows.version");
+            "https://raw.githubusercontent.com/BrandenEK/Blasphemous.ModdingTools/main/modding-tools-windows.version",
+            iconLoader);
         var blas2Validator = new Blas2Validator(
             "blas2tools",
             Path.Combine("C:", "Program Files (x86)", "Steam", "steamapps", "common", "Blasphemous 2"),
             "Blasphemous 2.exe",
             Path.Combine("MelonLoader", "net6", "MelonLoader.dll"),
             "https://github.com/BrandenEK/BlasII.ModdingTools/raw/main/modding-tools-windows.zip",
-            "https://raw.githubusercontent.com/BrandenEK/BlasII.ModdingTools/main/modding-tools-windows.version");
+            "https://raw.githubusercontent.com/BrandenEK/BlasII.ModdingTools/main/modding-tools-windows.version",
+            iconLoader);
 
         // Starters
         var blas1Starter = new Blas1Starter(blas1Validator);

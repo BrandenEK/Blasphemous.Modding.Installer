@@ -15,14 +15,14 @@ internal abstract class StandardValidator : IValidator
     private readonly string _remoteDownloadPath;
     private readonly string _remoteVersionPath;
 
-    private readonly EmbeddedIconLoader _iconLoader;
+    private readonly IIconLoader _iconLoader;
 
     private ToolStatus _currentStatus = ToolStatus.Invalid;
     private string _remoteVersion = string.Empty;
 
     protected abstract string RootFolder { get; set; }
 
-    public StandardValidator(string cacheDir, string defaultPath, string exeName, string localVersionPath, string remoteDownloadPath, string remoteVersionPath)
+    public StandardValidator(string cacheDir, string defaultPath, string exeName, string localVersionPath, string remoteDownloadPath, string remoteVersionPath, IIconLoader iconLoader)
     {
         _cacheDir = cacheDir;
         _defaultPath = defaultPath;
@@ -31,7 +31,7 @@ internal abstract class StandardValidator : IValidator
         _remoteDownloadPath = remoteDownloadPath;
         _remoteVersionPath = remoteVersionPath;
 
-        _iconLoader = new EmbeddedIconLoader();
+        _iconLoader = iconLoader;
 
         UIHandler.OnPageOpened += OnPageOpened;
         //UIHandler.OnPathChanged += OnPathChanged;
