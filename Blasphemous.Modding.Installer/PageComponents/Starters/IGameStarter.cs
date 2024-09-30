@@ -2,7 +2,5 @@
 
 internal interface IGameStarter
 {
-    public void StartVanilla();
-
-    public void StartModded();
+    public void Start();
 }

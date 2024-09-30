@@ -13,16 +13,16 @@ internal class Blas1Starter : IGameStarter
         _validator = validator;
     }
 
-    public void StartModded()
+    public void Start()
     {
-        if (SetConfigProperty(true))
-            StartProcess();
-    }
+        LaunchOptions launch = Core.SettingsHandler.Properties.CurrentLaunchOptions;
 
-    public void StartVanilla()
-    {
-        if (SetConfigProperty(false))
-            StartProcess();
+        if (!SetConfigProperty("doorstop_config.ini", "General", "enabled", launch.RunModded))
+            return;
+        if (!SetConfigProperty(Path.Combine("BepInEx", "config", "BepInEx.cfg"), "Logging.Console", "Enabled", launch.RunConsole))
+            return;
+
+        StartProcess();
     }
 
     private bool SetConfigProperty(bool enabled)
@@ -49,6 +49,11 @@ internal class Blas1Starter : IGameStarter
             FailWithMessage("Failed to write enabled property to doorstop config");
             return false;
         }
+    }
+
+    private bool SetConfigProperty(string fileName, string sectionName, string propertyName, bool value)
+    {
+        return false;
     }
 
     private void StartProcess()

@@ -51,18 +51,6 @@ public partial class UIHandler : BasaltForm
         }
     }
 
-    // ...
-
-    private void StartGameProcess(bool useModded)
-    {
-        Logger.Info($"Starting {Core.SettingsHandler.Properties.CurrentSection} game as {(useModded ? "Modded" : "Vanilla")}");
-
-        if (useModded)
-            Core.CurrentPage.GameStarter.StartModded();
-        else
-            Core.CurrentPage.GameStarter.StartVanilla();
-    }
-
     public Panel GetUIElementByType(SectionType type)
     {
         return type switch
@@ -210,8 +198,6 @@ public partial class UIHandler : BasaltForm
 
     private void ClickedBlas2Mods(object sender, EventArgs e) => OpenSection(SectionType.Blas2Mods);
 
-    private void ClickedSettings(object sender, EventArgs e) { }
-
     // Side section middle
 
     private void ChangedSortOption(object sender, EventArgs e)
@@ -259,7 +245,8 @@ public partial class UIHandler : BasaltForm
 
     private void ClickedStart(object sender, EventArgs e)
     {
-        StartGameProcess(true);
+        Logger.Info($"Starting {Core.CurrentPage.Title} game");
+        Core.CurrentPage.GameStarter.Start();
     }
 
     // Events

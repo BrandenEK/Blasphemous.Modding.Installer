@@ -13,6 +13,11 @@ internal class Blas2Starter : IGameStarter
         _validator = validator;
     }
 
+    public void Start()
+    {
+
+    }
+
     public void StartModded()
     {
         StartProcess(string.Empty);
