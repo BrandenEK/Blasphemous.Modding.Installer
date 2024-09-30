@@ -6,6 +6,8 @@ namespace Blasphemous.Modding.Installer;
 
 public partial class UIHandler : BasaltForm
 {
+    private bool _disableEvents = false;
+
     protected override void OnFormOpenPost()
     {
         Core.SettingsHandler.Load();
@@ -24,6 +26,13 @@ public partial class UIHandler : BasaltForm
     public static bool PromptQuestion(string title, string question)
     {
         return MessageBox.Show(question, title, MessageBoxButtons.OKCancel) == DialogResult.OK;
+    }
+
+    private void RunWithoutEvents(Action action)
+    {
+        _disableEvents = true;
+        action();
+        _disableEvents = false;
     }
 
     // Maybe move this to the StandardValidator?? But it calls OpenSection
@@ -105,7 +114,10 @@ public partial class UIHandler : BasaltForm
             _left_sort_options.Items.Add("Initial release");
             _left_sort_options.Items.Add("Latest release");
         }
-        _left_sort_options.SelectedIndex = (int)Core.SettingsHandler.Properties.CurrentSort;
+        RunWithoutEvents(() =>
+        {
+            _left_sort_options.SelectedIndex = (int)Core.SettingsHandler.Properties.CurrentSort;
+        });
 
         // Handle UI for grouping
         _left_all.Visible = validated;
@@ -120,8 +132,11 @@ public partial class UIHandler : BasaltForm
         // Handle UI for starting
         LaunchOptions launch = Core.SettingsHandler.Properties.CurrentLaunchOptions;
         _left_start.Visible = validated;
-        _left_start_modded.Checked = launch.RunModded;
-        _left_start_console.Checked = launch.RunConsole;
+        RunWithoutEvents(() =>
+        {
+            _left_start_modded.Checked = launch.RunModded;
+            _left_start_console.Checked = launch.RunConsole;
+        });
 
         Logger.Debug($"Opened page: {currentPage.Title}");
         OnPageOpened?.Invoke(currentPage);
@@ -186,6 +201,9 @@ public partial class UIHandler : BasaltForm
 
     private void ChangedSortOption(object sender, EventArgs e)
     {
+        if (_disableEvents)
+            return;
+
         int index = _left_sort_options.SelectedIndex;
         Logger.Info($"Changing sort to {index}");
 
@@ -219,6 +237,9 @@ public partial class UIHandler : BasaltForm
 
     private void CheckedStartOption(object sender, EventArgs e)
     {
+        if (_disableEvents)
+            return;
+
         Logger.Info("Updating launch options");
         Core.SettingsHandler.Properties.CurrentLaunchOptions = new LaunchOptions()
         {
