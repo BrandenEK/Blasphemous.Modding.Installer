@@ -51,16 +51,9 @@ public partial class UIHandler : BasaltForm
         }
     }
 
-    public Panel GetUIElementByType(SectionType type)
-    {
-        return type switch
-        {
-            SectionType.Blas1Mods => _bottom_blas1mod,
-            SectionType.Blas1Skins => _bottom_blas1skin,
-            SectionType.Blas2Mods => _bottom_blas2mod,
-            _ => throw new Exception("Invalid section type: " + type),
-        };
-    }
+    // UI retrieval
+
+    public Panel DataHolder => _bottom_holder;
 
     public Label PreviewName => _left_details_name;
     public Label PreviewDescription => _left_details_desc;
@@ -92,18 +85,7 @@ public partial class UIHandler : BasaltForm
         if (validated)
         {
             currentPage.Loader.LoadAllData();
-            _bottom_validation.Visible = false;
         }
-        else
-        {
-            _bottom_validation.Visible = true;
-        }
-
-        // Show the correct page element
-        currentPage.UIHolder.SectionPanel.Visible = validated;
-        foreach (var page in Core.AllPages)
-            if (page != currentPage)
-                page.UIHolder.SectionPanel.Visible = false;
 
         // Refresh all ui elements on the page
         currentPage.Grouper.RefreshAll();

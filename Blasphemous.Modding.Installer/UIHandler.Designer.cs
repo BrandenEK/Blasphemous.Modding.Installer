@@ -32,9 +32,8 @@ namespace Blasphemous.Modding.Installer
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIHandler));
-            _bottom_blas1mod_scroll = new VScrollBar();
-            _bottom_blas1mod = new Panel();
-            _bottom_validation = new Panel();
+            _bottom_holder_scroll = new VScrollBar();
+            _bottom_holder = new Panel();
             _left = new Panel();
             _left_outer = new Panel();
             _left_inner = new Panel();
@@ -78,17 +77,13 @@ namespace Blasphemous.Modding.Installer
             _middle_tools_icon = new PictureBox();
             _middle_tools_text = new Label();
             _bottom = new Panel();
-            _bottom_blas1skin = new Panel();
-            _bottom_blas1skin_scroll = new VScrollBar();
-            _bottom_blas2mod = new Panel();
-            _bottom_blas2mod_scroll = new VScrollBar();
             _middle = new Panel();
             _middle_outer = new Panel();
             _middle_inner = new Panel();
             _middle_path = new Label();
             _middle_tools = new Panel();
             _tooltip = new ToolTip(components);
-            _bottom_blas1mod.SuspendLayout();
+            _bottom_holder.SuspendLayout();
             _left.SuspendLayout();
             _left_outer.SuspendLayout();
             _left_inner.SuspendLayout();
@@ -107,44 +102,32 @@ namespace Blasphemous.Modding.Installer
             ((System.ComponentModel.ISupportInitialize)_top_warning_image).BeginInit();
             ((System.ComponentModel.ISupportInitialize)_middle_tools_icon).BeginInit();
             _bottom.SuspendLayout();
-            _bottom_blas1skin.SuspendLayout();
-            _bottom_blas2mod.SuspendLayout();
             _middle.SuspendLayout();
             _middle_outer.SuspendLayout();
             _middle_inner.SuspendLayout();
             _middle_tools.SuspendLayout();
             SuspendLayout();
             // 
-            // _bottom_blas1mod_scroll
+            // _bottom_holder_scroll
             // 
-            _bottom_blas1mod_scroll.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            _bottom_blas1mod_scroll.Location = new Point(2318, 15);
-            _bottom_blas1mod_scroll.Name = "_bottom_blas1mod_scroll";
-            _bottom_blas1mod_scroll.Size = new Size(20, 633);
-            _bottom_blas1mod_scroll.TabIndex = 2;
-            _bottom_blas1mod_scroll.Visible = false;
+            _bottom_holder_scroll.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            _bottom_holder_scroll.Location = new Point(2318, 15);
+            _bottom_holder_scroll.Name = "_bottom_holder_scroll";
+            _bottom_holder_scroll.Size = new Size(20, 633);
+            _bottom_holder_scroll.TabIndex = 2;
+            _bottom_holder_scroll.Visible = false;
             // 
-            // _bottom_blas1mod
+            // _bottom_holder
             // 
-            _bottom_blas1mod.AutoScroll = true;
-            _bottom_blas1mod.AutoScrollMargin = new Size(0, 15);
-            _bottom_blas1mod.BackColor = Color.FromArgb(52, 52, 52);
-            _bottom_blas1mod.Controls.Add(_bottom_blas1mod_scroll);
-            _bottom_blas1mod.Dock = DockStyle.Fill;
-            _bottom_blas1mod.Location = new Point(0, 0);
-            _bottom_blas1mod.Name = "_bottom_blas1mod";
-            _bottom_blas1mod.Size = new Size(1334, 711);
-            _bottom_blas1mod.TabIndex = 3;
-            _bottom_blas1mod.Visible = false;
-            // 
-            // _bottom_validation
-            // 
-            _bottom_validation.BackColor = Color.FromArgb(52, 52, 52);
-            _bottom_validation.Dock = DockStyle.Fill;
-            _bottom_validation.Location = new Point(0, 0);
-            _bottom_validation.Name = "_bottom_validation";
-            _bottom_validation.Size = new Size(1334, 711);
-            _bottom_validation.TabIndex = 4;
+            _bottom_holder.AutoScroll = true;
+            _bottom_holder.AutoScrollMargin = new Size(0, 15);
+            _bottom_holder.BackColor = Color.FromArgb(52, 52, 52);
+            _bottom_holder.Controls.Add(_bottom_holder_scroll);
+            _bottom_holder.Dock = DockStyle.Fill;
+            _bottom_holder.Location = new Point(0, 0);
+            _bottom_holder.Name = "_bottom_holder";
+            _bottom_holder.Size = new Size(1334, 711);
+            _bottom_holder.TabIndex = 3;
             // 
             // _left
             // 
@@ -670,59 +653,12 @@ namespace Blasphemous.Modding.Installer
             // _bottom
             // 
             _bottom.BackColor = Color.Firebrick;
-            _bottom.Controls.Add(_bottom_blas1mod);
-            _bottom.Controls.Add(_bottom_blas1skin);
-            _bottom.Controls.Add(_bottom_blas2mod);
-            _bottom.Controls.Add(_bottom_validation);
+            _bottom.Controls.Add(_bottom_holder);
             _bottom.Dock = DockStyle.Fill;
             _bottom.Location = new Point(250, 150);
             _bottom.Name = "_bottom";
             _bottom.Size = new Size(1334, 711);
             _bottom.TabIndex = 10;
-            // 
-            // _bottom_blas1skin
-            // 
-            _bottom_blas1skin.AutoScroll = true;
-            _bottom_blas1skin.AutoScrollMargin = new Size(0, 15);
-            _bottom_blas1skin.BackColor = Color.FromArgb(52, 52, 52);
-            _bottom_blas1skin.Controls.Add(_bottom_blas1skin_scroll);
-            _bottom_blas1skin.Dock = DockStyle.Fill;
-            _bottom_blas1skin.Location = new Point(0, 0);
-            _bottom_blas1skin.Name = "_bottom_blas1skin";
-            _bottom_blas1skin.Size = new Size(1334, 711);
-            _bottom_blas1skin.TabIndex = 5;
-            _bottom_blas1skin.Visible = false;
-            // 
-            // _bottom_blas1skin_scroll
-            // 
-            _bottom_blas1skin_scroll.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            _bottom_blas1skin_scroll.Location = new Point(1298, 15);
-            _bottom_blas1skin_scroll.Name = "_bottom_blas1skin_scroll";
-            _bottom_blas1skin_scroll.Size = new Size(20, 650);
-            _bottom_blas1skin_scroll.TabIndex = 2;
-            _bottom_blas1skin_scroll.Visible = false;
-            // 
-            // _bottom_blas2mod
-            // 
-            _bottom_blas2mod.AutoScroll = true;
-            _bottom_blas2mod.AutoScrollMargin = new Size(0, 15);
-            _bottom_blas2mod.BackColor = Color.FromArgb(52, 52, 52);
-            _bottom_blas2mod.Controls.Add(_bottom_blas2mod_scroll);
-            _bottom_blas2mod.Dock = DockStyle.Fill;
-            _bottom_blas2mod.Location = new Point(0, 0);
-            _bottom_blas2mod.Name = "_bottom_blas2mod";
-            _bottom_blas2mod.Size = new Size(1334, 711);
-            _bottom_blas2mod.TabIndex = 4;
-            _bottom_blas2mod.Visible = false;
-            // 
-            // _bottom_blas2mod_scroll
-            // 
-            _bottom_blas2mod_scroll.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            _bottom_blas2mod_scroll.Location = new Point(1298, 15);
-            _bottom_blas2mod_scroll.Name = "_bottom_blas2mod_scroll";
-            _bottom_blas2mod_scroll.Size = new Size(20, 650);
-            _bottom_blas2mod_scroll.TabIndex = 2;
-            _bottom_blas2mod_scroll.Visible = false;
             // 
             // _middle
             // 
@@ -803,7 +739,7 @@ namespace Blasphemous.Modding.Installer
             Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(1280, 720);
             Name = "UIHandler";
-            _bottom_blas1mod.ResumeLayout(false);
+            _bottom_holder.ResumeLayout(false);
             _left.ResumeLayout(false);
             _left_outer.ResumeLayout(false);
             _left_inner.ResumeLayout(false);
@@ -824,8 +760,6 @@ namespace Blasphemous.Modding.Installer
             ((System.ComponentModel.ISupportInitialize)_top_warning_image).EndInit();
             ((System.ComponentModel.ISupportInitialize)_middle_tools_icon).EndInit();
             _bottom.ResumeLayout(false);
-            _bottom_blas1skin.ResumeLayout(false);
-            _bottom_blas2mod.ResumeLayout(false);
             _middle.ResumeLayout(false);
             _middle_outer.ResumeLayout(false);
             _middle_inner.ResumeLayout(false);
@@ -834,19 +768,14 @@ namespace Blasphemous.Modding.Installer
         }
 
         #endregion
-        private System.Windows.Forms.VScrollBar _bottom_blas1mod_scroll;
-        private System.Windows.Forms.Panel _bottom_blas1mod;
-        private System.Windows.Forms.Panel _bottom_validation;
+        private System.Windows.Forms.VScrollBar _bottom_holder_scroll;
+        private System.Windows.Forms.Panel _bottom_holder;
         private System.Windows.Forms.Label _top_text;
         private System.Windows.Forms.Panel _left_inner;
         private System.Windows.Forms.Panel _top_outer;
-        private System.Windows.Forms.Panel _bottom_blas2mod;
-        private System.Windows.Forms.VScrollBar _bottom_blas2mod_scroll;
         private System.Windows.Forms.PictureBox _top_warning_image;
         private System.Windows.Forms.Panel _top_warning_outer;
         private System.Windows.Forms.Panel _top_warning_inner;
-        private System.Windows.Forms.Panel _bottom_blas1skin;
-        private System.Windows.Forms.VScrollBar _bottom_blas1skin_scroll;
         private System.Windows.Forms.Panel _top_inner;
         private System.Windows.Forms.Panel _left_outer;
         private System.Windows.Forms.LinkLabel _top_warning_text;

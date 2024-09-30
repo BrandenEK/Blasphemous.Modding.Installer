@@ -65,8 +65,9 @@ internal class ModUI
         return mod.Data.name == "Modding API" || mod.Data.name.EndsWith("Framework");
     }
 
-    public ModUI(Mod mod, Panel parentPanel)
+    public ModUI(Mod mod)
     {
+        Panel parentPanel = Core.UIHandler.DataHolder;
         parentPanel.AutoScroll = false;
 
         // Panels

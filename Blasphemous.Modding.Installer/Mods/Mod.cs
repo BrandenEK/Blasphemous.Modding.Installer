@@ -14,11 +14,11 @@ internal class Mod
 
     private bool _downloading = false;
 
-    public Mod(ModData data, Panel panel, SectionType modType)
+    public Mod(ModData data, SectionType modType)
     {
         Data = data;
         _modType = modType;
-        _ui = new ModUI(this, panel);
+        _ui = new ModUI(this);
         SetUIVisibility(false);
         SetUIPosition(-1);
         UpdateUI();

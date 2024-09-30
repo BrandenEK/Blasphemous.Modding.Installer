@@ -7,7 +7,6 @@ using Blasphemous.Modding.Installer.PageComponents.Loaders;
 using Blasphemous.Modding.Installer.PageComponents.Previewers;
 using Blasphemous.Modding.Installer.PageComponents.Sorters;
 using Blasphemous.Modding.Installer.PageComponents.Starters;
-using Blasphemous.Modding.Installer.PageComponents.UIHolders;
 using Blasphemous.Modding.Installer.PageComponents.Validators;
 using Blasphemous.Modding.Installer.Properties;
 using Blasphemous.Modding.Installer.Skins;
@@ -68,38 +67,33 @@ static class Core
         var blas1skinGrouper = new SkinGrouper(blas1skinTitle, blas1skins);
         var blas2modGrouper = new ModGrouper(blas2modTitle, blas2mods);
 
-        // UI holders
-        var blas1modUI = new GenericUIHolder<Mod>(UIHandler.GetUIElementByType(SectionType.Blas1Mods), blas1mods);
-        var blas1skinUI = new GenericUIHolder<Skin>(UIHandler.GetUIElementByType(SectionType.Blas1Skins), blas1skins);
-        var blas2modUI = new GenericUIHolder<Mod>(UIHandler.GetUIElementByType(SectionType.Blas2Mods), blas2mods);
-
         // Sorters
         var blas1modSorter = new ModSorter(SectionType.Blas1Mods);
         var blas1skinSorter = new SkinSorter(SectionType.Blas1Skins);
         var blas2modSorter = new ModSorter(SectionType.Blas2Mods);
 
         // Listers
-        var testLister = new ModLister(UIHandler.GetUIElementByType(SectionType.Blas2Mods), blas2mods, blas2modSorter);
+        var blas1modLister = new ModLister(UIHandler.DataHolder, blas1mods, blas1modSorter);
+        var blas1skinLister = new ModLister(UIHandler.DataHolder, blas2mods, blas2modSorter);
+        var blas2modLister = new ModLister(UIHandler.DataHolder, blas2mods, blas2modSorter);
 
         // Loaders
         var blas1modLoader = new ModLoader(
             Path.Combine(CacheFolder, "blas1mods.json"),
             "https://raw.githubusercontent.com/BrandenEK/Blasphemous.Modding.Installer/main/BlasphemousMods.json",
-            blas1modUI,
-            testLister,
+            blas1modLister,
             blas1mods,
             SectionType.Blas1Mods);
         var blas1skinLoader = new SkinLoader(
             Path.Combine(CacheFolder, "blas1skins.json"),
             "blasphemous1",
-            blas1skinUI,
+            blas1skinLister,
             blas1skins,
             SectionType.Blas1Skins);
         var blas2modLoader = new ModLoader(
             Path.Combine(CacheFolder, "blas2mods.json"),
             "https://raw.githubusercontent.com/BrandenEK/Blasphemous.Modding.Installer/main/BlasphemousIIMods.json",
-            blas2modUI,
-            testLister,
+            blas2modLister,
             blas2mods,
             SectionType.Blas2Mods);
 
@@ -129,28 +123,25 @@ static class Core
 
         var blas1modPage = new InstallerPage(blas1modTitle, Resources.background1,
             blas1modGrouper,
-            testLister,
+            blas1modLister,
             blas1modLoader,
             modPreviewer,
-            blas1modUI,
             blas1Validator,
             blas1Starter);
 
         var blas1skinPage = new InstallerPage(blas1skinTitle, Resources.background1,
             blas1skinGrouper,
-            testLister,
+            blas1skinLister,
             blas1skinLoader,
             skinPreviewer,
-            blas1skinUI,
             blas1Validator,
             blas1Starter);
 
         var blas2modPage = new InstallerPage(blas2modTitle, Resources.background2,
             blas2modGrouper,
-            testLister,
+            blas2modLister,
             blas2modLoader,
             modPreviewer,
-            blas2modUI,
             blas2Validator,
             blas2Starter);
 

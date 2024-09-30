@@ -49,8 +49,14 @@ internal class SkinUI
         outerPanel.Location = new Point(0, (Sizes.SKIN_HEIGHT - 2) * skinIdx - 2);
     }
 
-    public SkinUI(Skin skin, Panel parentPanel)
+    public void SetVisibility(bool visible)
     {
+        outerPanel.Visible = visible;
+    }
+
+    public SkinUI(Skin skin)
+    {
+        Panel parentPanel = Core.UIHandler.DataHolder;
         parentPanel.AutoScroll = false;
 
         // Panels
