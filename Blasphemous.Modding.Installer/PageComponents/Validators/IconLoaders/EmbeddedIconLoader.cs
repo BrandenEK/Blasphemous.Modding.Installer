@@ -1,13 +1,13 @@
 ﻿using Basalt.Framework.Logging;
 using System.Reflection;
 
-namespace Blasphemous.Modding.Installer.PageComponents.Validators;
+namespace Blasphemous.Modding.Installer.PageComponents.Validators.IconLoaders;
 
-internal class IconLoader
+internal class EmbeddedIconLoader : IIconLoader
 {
     private readonly Dictionary<string, Bitmap> _icons = new();
 
-    public IconLoader()
+    public EmbeddedIconLoader()
     {
         string[] icons = { "check", "x", "arrow", "dash", "circles" };
         foreach (string name in icons)

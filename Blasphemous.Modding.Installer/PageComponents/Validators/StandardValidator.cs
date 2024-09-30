@@ -1,6 +1,6 @@
 ﻿using Basalt.Framework.Logging;
 using Blasphemous.Modding.Installer.Extensions;
-using Blasphemous.Modding.Installer.Properties;
+using Blasphemous.Modding.Installer.PageComponents.Validators.IconLoaders;
 using Ionic.Zip;
 using System.Diagnostics;
 
@@ -15,7 +15,7 @@ internal abstract class StandardValidator : IValidator
     private readonly string _remoteDownloadPath;
     private readonly string _remoteVersionPath;
 
-    private readonly IconLoader _iconLoader;
+    private readonly EmbeddedIconLoader _iconLoader;
 
     private ToolStatus _currentStatus = ToolStatus.Invalid;
     private string _remoteVersion = string.Empty;
@@ -31,7 +31,7 @@ internal abstract class StandardValidator : IValidator
         _remoteDownloadPath = remoteDownloadPath;
         _remoteVersionPath = remoteVersionPath;
 
-        _iconLoader = new IconLoader();
+        _iconLoader = new EmbeddedIconLoader();
 
         UIHandler.OnPageOpened += OnPageOpened;
         //UIHandler.OnPathChanged += OnPathChanged;
