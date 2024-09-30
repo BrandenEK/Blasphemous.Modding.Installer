@@ -626,7 +626,6 @@ namespace Blasphemous.Modding.Installer
             // 
             _middle_tools_icon.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             _middle_tools_icon.BackColor = Color.Transparent;
-            _middle_tools_icon.BackgroundImage = Properties.Resources.icon_check_light;
             _middle_tools_icon.BackgroundImageLayout = ImageLayout.Zoom;
             _middle_tools_icon.Cursor = Cursors.Hand;
             _middle_tools_icon.Location = new Point(150, 0);
