@@ -70,6 +70,7 @@ public partial class UIHandler : BasaltForm
     private void OpenSection(SectionType section)
     {
         Core.CurrentPage.Previewer.Clear();
+        Core.CurrentPage.Lister.ClearList();
 
         Core.SettingsHandler.Properties.CurrentSection = section;
         var currentPage = Core.CurrentPage;
@@ -88,6 +89,7 @@ public partial class UIHandler : BasaltForm
         }
 
         // Refresh all ui elements on the page
+        currentPage.Lister.RefreshList();
         currentPage.Grouper.RefreshAll();
 
         // Handle UI for sorting
