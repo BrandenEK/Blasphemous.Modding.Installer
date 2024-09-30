@@ -150,8 +150,18 @@ internal abstract class StandardValidator : IValidator
     private async void FetchRemoteVersion()
     {
         using var client = new HttpClient();
-        string version = await client.GetStringAsync(_remoteVersionPath);
-        version = version.Trim();
+        string version;
+
+        try
+        {
+            version = await client.GetStringAsync(_remoteVersionPath);
+            version = version.Trim();
+        }
+        catch
+        {
+            Logger.Error("Failed to fetch tools remote version");
+            return;
+        }
 
         Logger.Debug($"Found remote version: {version}");
         _remoteVersion = version;

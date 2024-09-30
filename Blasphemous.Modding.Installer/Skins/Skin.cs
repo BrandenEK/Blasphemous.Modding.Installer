@@ -11,11 +11,12 @@ internal class Skin
 
     private bool _downloading;
 
-    public Skin(SkinData data, Panel panel, SectionType skinType)
+    public Skin(SkinData data, SectionType skinType)
     {
         Data = data;
         _skinType = skinType;
-        _ui = new SkinUI(this, panel);
+        _ui = new SkinUI(this);
+        SetUIVisibility(false);
         SetUIPosition(-1);
         UpdateUI();
     }
@@ -152,6 +153,11 @@ internal class Skin
     public void SetUIPosition(int skinIdx)
     {
         _ui.SetPosition(skinIdx);
+    }
+
+    public void SetUIVisibility(bool visible)
+    {
+        _ui.SetVisibility(visible);
     }
 
     public void OnStartHover() => SkinPage.Previewer.PreviewSkin(this);

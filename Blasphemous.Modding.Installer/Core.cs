@@ -2,11 +2,11 @@
 using Basalt.Framework.Logging;
 using Blasphemous.Modding.Installer.Mods;
 using Blasphemous.Modding.Installer.PageComponents.Groupers;
+using Blasphemous.Modding.Installer.PageComponents.Listers;
 using Blasphemous.Modding.Installer.PageComponents.Loaders;
 using Blasphemous.Modding.Installer.PageComponents.Previewers;
 using Blasphemous.Modding.Installer.PageComponents.Sorters;
 using Blasphemous.Modding.Installer.PageComponents.Starters;
-using Blasphemous.Modding.Installer.PageComponents.UIHolders;
 using Blasphemous.Modding.Installer.PageComponents.Validators;
 using Blasphemous.Modding.Installer.Properties;
 using Blasphemous.Modding.Installer.Skins;
@@ -67,36 +67,33 @@ static class Core
         var blas1skinGrouper = new SkinGrouper(blas1skinTitle, blas1skins);
         var blas2modGrouper = new ModGrouper(blas2modTitle, blas2mods);
 
-        // UI holders
-        var blas1modUI = new GenericUIHolder<Mod>(UIHandler.GetUIElementByType(SectionType.Blas1Mods), blas1mods);
-        var blas1skinUI = new GenericUIHolder<Skin>(UIHandler.GetUIElementByType(SectionType.Blas1Skins), blas1skins);
-        var blas2modUI = new GenericUIHolder<Mod>(UIHandler.GetUIElementByType(SectionType.Blas2Mods), blas2mods);
-
         // Sorters
-        var blas1modSorter = new ModSorter(blas1modUI, blas1mods, SectionType.Blas1Mods);
-        var blas1skinSorter = new SkinSorter(blas1skinUI, blas1skins, SectionType.Blas1Skins);
-        var blas2modSorter = new ModSorter(blas2modUI, blas2mods, SectionType.Blas2Mods);
+        var blas1modSorter = new ModSorter(SectionType.Blas1Mods);
+        var blas1skinSorter = new SkinSorter(SectionType.Blas1Skins);
+        var blas2modSorter = new ModSorter(SectionType.Blas2Mods);
+
+        // Listers
+        var blas1modLister = new ModLister(UIHandler.DataHolder, blas1mods, blas1modSorter);
+        var blas1skinLister = new SkinLister(UIHandler.DataHolder, blas1skins, blas1skinSorter);
+        var blas2modLister = new ModLister(UIHandler.DataHolder, blas2mods, blas2modSorter);
 
         // Loaders
         var blas1modLoader = new ModLoader(
             Path.Combine(CacheFolder, "blas1mods.json"),
-            "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousMods.json",
-            blas1modUI,
-            blas1modSorter,
+            "https://raw.githubusercontent.com/BrandenEK/Blasphemous.Modding.Installer/main/BlasphemousMods.json",
+            blas1modLister,
             blas1mods,
             SectionType.Blas1Mods);
         var blas1skinLoader = new SkinLoader(
             Path.Combine(CacheFolder, "blas1skins.json"),
             "blasphemous1",
-            blas1skinUI,
-            blas1skinSorter,
+            blas1skinLister,
             blas1skins,
             SectionType.Blas1Skins);
         var blas2modLoader = new ModLoader(
             Path.Combine(CacheFolder, "blas2mods.json"),
-            "https://raw.githubusercontent.com/BrandenEK/Blasphemous-Mod-Installer/main/BlasphemousIIMods.json",
-            blas2modUI,
-            blas2modSorter,
+            "https://raw.githubusercontent.com/BrandenEK/Blasphemous.Modding.Installer/main/BlasphemousIIMods.json",
+            blas2modLister,
             blas2mods,
             SectionType.Blas2Mods);
 
@@ -126,28 +123,25 @@ static class Core
 
         var blas1modPage = new InstallerPage(blas1modTitle, Resources.background1,
             blas1modGrouper,
+            blas1modLister,
             blas1modLoader,
             modPreviewer,
-            blas1modSorter,
-            blas1modUI,
             blas1Validator,
             blas1Starter);
 
         var blas1skinPage = new InstallerPage(blas1skinTitle, Resources.background1,
             blas1skinGrouper,
+            blas1skinLister,
             blas1skinLoader,
             skinPreviewer,
-            blas1skinSorter,
-            blas1skinUI,
             blas1Validator,
             blas1Starter);
 
         var blas2modPage = new InstallerPage(blas2modTitle, Resources.background2,
             blas2modGrouper,
+            blas2modLister,
             blas2modLoader,
             modPreviewer,
-            blas2modSorter,
-            blas2modUI,
             blas2Validator,
             blas2Starter);
 

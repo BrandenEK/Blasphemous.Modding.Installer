@@ -1,6 +1,6 @@
 ﻿namespace Blasphemous.Modding.Installer.PageComponents.Sorters;
 
-internal interface ISorter
+internal interface ISorter<T>
 {
-    void Sort();
+    public IEnumerable<T> Sort(IEnumerable<T> list);
 }

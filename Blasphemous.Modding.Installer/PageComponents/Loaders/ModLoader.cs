@@ -1,7 +1,6 @@
 ﻿using Basalt.Framework.Logging;
 using Blasphemous.Modding.Installer.Mods;
-using Blasphemous.Modding.Installer.PageComponents.Sorters;
-using Blasphemous.Modding.Installer.PageComponents.UIHolders;
+using Blasphemous.Modding.Installer.PageComponents.Listers;
 using Newtonsoft.Json;
 
 namespace Blasphemous.Modding.Installer.PageComponents.Loaders;
@@ -10,19 +9,17 @@ internal class ModLoader : ILoader
 {
     private readonly string _localDataPath;
     private readonly string _remoteDataPath;
-    private readonly IUIHolder _uiHolder;
-    private readonly ISorter _sorter;
+    private readonly ILister _lister;
     private readonly List<Mod> _mods;
     private readonly SectionType _modType;
 
     private bool _loadedData;
 
-    public ModLoader(string localDataPath, string remoteDataPath, IUIHolder uiHolder, ISorter sorter, List<Mod> mods, SectionType modType)
+    public ModLoader(string localDataPath, string remoteDataPath, ILister lister, List<Mod> mods, SectionType modType)
     {
         _localDataPath = localDataPath;
         _remoteDataPath = remoteDataPath;
-        _uiHolder = uiHolder;
-        _sorter = sorter;
+        _lister = lister;
         _mods = mods;
         _modType = modType;
     }
@@ -58,13 +55,12 @@ internal class ModLoader : ILoader
 
             for (int i = 0; i < localData.Length; i++)
             {
-                _mods.Add(new Mod(localData[i], _uiHolder.SectionPanel, _modType));
+                _mods.Add(new Mod(localData[i], _modType));
             }
         }
 
         Logger.Warn($"Loaded {_mods.Count} local mods");
-        _uiHolder.SetBackgroundColor();
-        _sorter.Sort();
+        _lister.RefreshList();
     }
 
     private async void LoadRemoteMods()
@@ -98,7 +94,7 @@ internal class ModLoader : ILoader
                 }
                 else
                 {
-                    newMods.Add(new Mod(fullData, _uiHolder.SectionPanel, _modType));
+                    newMods.Add(new Mod(fullData, _modType));
                 }
             }
 
@@ -108,8 +104,8 @@ internal class ModLoader : ILoader
         }
 
         SaveLocalData();
-        _uiHolder.SetBackgroundColor();
-        _sorter.Sort();
+        if (Core.CurrentPage.Loader == this)
+            _lister.RefreshList();
     }
 
     private void SaveLocalData()

@@ -1,6 +1,5 @@
 ﻿using Basalt.Framework.Logging;
-using Blasphemous.Modding.Installer.PageComponents.Sorters;
-using Blasphemous.Modding.Installer.PageComponents.UIHolders;
+using Blasphemous.Modding.Installer.PageComponents.Listers;
 using Blasphemous.Modding.Installer.Skins;
 using Newtonsoft.Json;
 
@@ -10,19 +9,17 @@ internal class SkinLoader : ILoader
 {
     private readonly string _localDataPath;
     private readonly string _remoteDataPath;
-    private readonly IUIHolder _uiHolder;
-    private readonly ISorter _sorter;
+    private readonly ILister _lister;
     private readonly List<Skin> _skins;
     private readonly SectionType _skinType;
 
     private bool _loadedData;
 
-    public SkinLoader(string localDataPath, string remoteDataPath, IUIHolder uiHolder, ISorter sorter, List<Skin> skins, SectionType skinType)
+    public SkinLoader(string localDataPath, string remoteDataPath, ILister lister, List<Skin> skins, SectionType skinType)
     {
         _localDataPath = localDataPath;
         _remoteDataPath = remoteDataPath;
-        _uiHolder = uiHolder;
-        _sorter = sorter;
+        _lister = lister;
         _skins = skins;
         _skinType = skinType;
     }
@@ -58,13 +55,12 @@ internal class SkinLoader : ILoader
 
             for (int i = 0; i < localData.Length; i++)
             {
-                _skins.Add(new Skin(localData[i], _uiHolder.SectionPanel, _skinType));
+                _skins.Add(new Skin(localData[i], _skinType));
             }
         }
 
         Logger.Warn($"Loaded {_skins.Count} local skins");
-        _uiHolder.SetBackgroundColor();
-        _sorter.Sort();
+        _lister.RefreshList();
     }
 
     private async void LoadRemoteSkins()
@@ -93,7 +89,7 @@ internal class SkinLoader : ILoader
                 }
                 else
                 {
-                    newSkins.Add(new Skin(data, _uiHolder.SectionPanel, _skinType));
+                    newSkins.Add(new Skin(data, _skinType));
                 }
             }
 
@@ -103,8 +99,8 @@ internal class SkinLoader : ILoader
         }
 
         SaveLocalData();
-        _uiHolder.SetBackgroundColor();
-        _sorter.Sort();
+        if (Core.CurrentPage.Loader == this)
+            _lister.RefreshList();
     }
 
     private void SaveLocalData()

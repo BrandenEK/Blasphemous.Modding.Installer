@@ -6,6 +6,8 @@ namespace Blasphemous.Modding.Installer;
 
 public partial class UIHandler : BasaltForm
 {
+    private bool _disableEvents = false;
+
     protected override void OnFormOpenPost()
     {
         Core.SettingsHandler.Load();
@@ -24,6 +26,13 @@ public partial class UIHandler : BasaltForm
     public static bool PromptQuestion(string title, string question)
     {
         return MessageBox.Show(question, title, MessageBoxButtons.OKCancel) == DialogResult.OK;
+    }
+
+    private void RunWithoutEvents(Action action)
+    {
+        _disableEvents = true;
+        action();
+        _disableEvents = false;
     }
 
     // Maybe move this to the StandardValidator?? But it calls OpenSection
@@ -51,16 +60,9 @@ public partial class UIHandler : BasaltForm
         }
     }
 
-    public Panel GetUIElementByType(SectionType type)
-    {
-        return type switch
-        {
-            SectionType.Blas1Mods => _bottom_blas1mod,
-            SectionType.Blas1Skins => _bottom_blas1skin,
-            SectionType.Blas2Mods => _bottom_blas2mod,
-            _ => throw new Exception("Invalid section type: " + type),
-        };
-    }
+    // UI retrieval
+
+    public Panel DataHolder => _bottom_holder;
 
     public Label PreviewName => _left_details_name;
     public Label PreviewDescription => _left_details_desc;
@@ -77,6 +79,7 @@ public partial class UIHandler : BasaltForm
     private void OpenSection(SectionType section)
     {
         Core.CurrentPage.Previewer.Clear();
+        Core.CurrentPage.Lister.ClearList();
 
         Core.SettingsHandler.Properties.CurrentSection = section;
         var currentPage = Core.CurrentPage;
@@ -92,20 +95,10 @@ public partial class UIHandler : BasaltForm
         if (validated)
         {
             currentPage.Loader.LoadAllData();
-            _bottom_validation.Visible = false;
         }
-        else
-        {
-            _bottom_validation.Visible = true;
-        }
-
-        // Show the correct page element
-        currentPage.UIHolder.SectionPanel.Visible = validated;
-        foreach (var page in Core.AllPages)
-            if (page != currentPage)
-                page.UIHolder.SectionPanel.Visible = false;
 
         // Refresh all ui elements on the page
+        currentPage.Lister.RefreshList();
         currentPage.Grouper.RefreshAll();
 
         // Handle UI for sorting
@@ -121,7 +114,10 @@ public partial class UIHandler : BasaltForm
             _left_sort_options.Items.Add("Initial release");
             _left_sort_options.Items.Add("Latest release");
         }
-        _left_sort_options.SelectedIndex = (int)Core.SettingsHandler.Properties.CurrentSort;
+        RunWithoutEvents(() =>
+        {
+            _left_sort_options.SelectedIndex = (int)Core.SettingsHandler.Properties.CurrentSort;
+        });
 
         // Handle UI for grouping
         _left_all.Visible = validated;
@@ -136,8 +132,11 @@ public partial class UIHandler : BasaltForm
         // Handle UI for starting
         LaunchOptions launch = Core.SettingsHandler.Properties.CurrentLaunchOptions;
         _left_start.Visible = validated;
-        _left_start_modded.Checked = launch.RunModded;
-        _left_start_console.Checked = launch.RunConsole;
+        RunWithoutEvents(() =>
+        {
+            _left_start_modded.Checked = launch.RunModded;
+            _left_start_console.Checked = launch.RunConsole;
+        });
 
         Logger.Debug($"Opened page: {currentPage.Title}");
         OnPageOpened?.Invoke(currentPage);
@@ -202,11 +201,14 @@ public partial class UIHandler : BasaltForm
 
     private void ChangedSortOption(object sender, EventArgs e)
     {
+        if (_disableEvents)
+            return;
+
         int index = _left_sort_options.SelectedIndex;
         Logger.Info($"Changing sort to {index}");
 
         Core.SettingsHandler.Properties.CurrentSort = (SortType)index;
-        Core.CurrentPage.Sorter.Sort();
+        Core.CurrentPage.Lister.RefreshList();
     }
 
     // Side section bottom
@@ -235,6 +237,9 @@ public partial class UIHandler : BasaltForm
 
     private void CheckedStartOption(object sender, EventArgs e)
     {
+        if (_disableEvents)
+            return;
+
         Logger.Info("Updating launch options");
         Core.SettingsHandler.Properties.CurrentLaunchOptions = new LaunchOptions()
         {
