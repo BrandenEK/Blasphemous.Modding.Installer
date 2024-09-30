@@ -18,7 +18,7 @@ public enum SortType
 
 public enum FilterType
 {
-    None,
+    All,
     NotInstalled,
     Installed,
     Disabled,
