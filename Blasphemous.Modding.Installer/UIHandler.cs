@@ -51,18 +51,6 @@ public partial class UIHandler : BasaltForm
         }
     }
 
-    // ...
-
-    private void StartGameProcess(bool useModded)
-    {
-        Logger.Info($"Starting {Core.SettingsHandler.Properties.CurrentSection} game as {(useModded ? "Modded" : "Vanilla")}");
-
-        if (useModded)
-            Core.CurrentPage.GameStarter.StartModded();
-        else
-            Core.CurrentPage.GameStarter.StartVanilla();
-    }
-
     public Panel GetUIElementByType(SectionType type)
     {
         return type switch
@@ -146,7 +134,10 @@ public partial class UIHandler : BasaltForm
         _left_details.Visible = validated;
 
         // Handle UI for starting
+        LaunchOptions launch = Core.SettingsHandler.Properties.CurrentLaunchOptions;
         _left_start.Visible = validated;
+        _left_start_modded.Checked = launch.RunModded;
+        _left_start_console.Checked = launch.RunConsole;
 
         Logger.Debug($"Opened page: {currentPage.Title}");
         OnPageOpened?.Invoke(currentPage);
@@ -207,13 +198,11 @@ public partial class UIHandler : BasaltForm
 
     private void ClickedBlas2Mods(object sender, EventArgs e) => OpenSection(SectionType.Blas2Mods);
 
-    private void ClickedSettings(object sender, EventArgs e) { }
-
     // Side section middle
 
     private void ChangedSortOption(object sender, EventArgs e)
     {
-        int index = ((ComboBox)sender).SelectedIndex;
+        int index = _left_sort_options.SelectedIndex;
         Logger.Info($"Changing sort to {index}");
 
         Core.SettingsHandler.Properties.CurrentSort = (SortType)index;
@@ -244,9 +233,20 @@ public partial class UIHandler : BasaltForm
 
     // Side section lower
 
+    private void CheckedStartOption(object sender, EventArgs e)
+    {
+        Logger.Info("Updating launch options");
+        Core.SettingsHandler.Properties.CurrentLaunchOptions = new LaunchOptions()
+        {
+            RunModded = _left_start_modded.Checked,
+            RunConsole = _left_start_console.Checked,
+        };
+    }
+
     private void ClickedStart(object sender, EventArgs e)
     {
-        StartGameProcess(true);
+        Logger.Info($"Starting {Core.CurrentPage.Title} game");
+        Core.CurrentPage.GameStarter.Start();
     }
 
     // Events
