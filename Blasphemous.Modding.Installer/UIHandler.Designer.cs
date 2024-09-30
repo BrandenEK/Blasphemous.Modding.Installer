@@ -33,7 +33,7 @@ namespace Blasphemous.Modding.Installer
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIHandler));
             _bottom_holder_scroll = new VScrollBar();
-            _bottom_holder = new Panel();
+            _bottom_holder = new BetterPanel();
             _left = new Panel();
             _left_outer = new Panel();
             _left_inner = new Panel();

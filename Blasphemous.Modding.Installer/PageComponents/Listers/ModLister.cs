@@ -30,7 +30,9 @@ internal class ModLister : ILister
         }
     }
 
-    public void RefreshList()
+    public void RefreshList() => RefreshList(false);
+
+    public void RefreshList(bool resetScroll)
     {
         if (Core.CurrentPage.Lister != this)
             return;
@@ -38,16 +40,19 @@ internal class ModLister : ILister
         Logger.Info("Refreshing list of mods");
         var display = _sorter.Sort(_filter.Filter(_mods));
 
-        _background.VerticalScroll.Value = 0;
-
+        int scrollAmount = resetScroll ? 0 : _background.VerticalScroll.Value;
         int idx = 0;
-        ClearList();
 
+        ClearList();
         foreach (Mod mod in display)
         {
             mod.SetUIPosition(idx++);
             mod.SetUIVisibility(true);
         }
+
+        _background.AutoScroll = false;
+        _background.VerticalScroll.Value = scrollAmount;
+        _background.AutoScroll = true;
 
         _background.BackColor = display.Count() % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
     }

@@ -30,7 +30,9 @@ internal class SkinLister : ILister
         }
     }
 
-    public void RefreshList()
+    public void RefreshList() => RefreshList(false);
+
+    public void RefreshList(bool resetScroll)
     {
         if (Core.CurrentPage.Lister != this)
             return;
@@ -38,7 +40,8 @@ internal class SkinLister : ILister
         Logger.Info("Refreshing list of skins");
         var display = _sorter.Sort(_filter.Filter(_skins));
 
-        _background.VerticalScroll.Value = 0;
+        if (resetScroll)
+            _background.VerticalScroll.Value = 0;
 
         int idx = 0;
         ClearList();

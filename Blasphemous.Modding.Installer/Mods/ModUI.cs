@@ -72,7 +72,7 @@ internal class ModUI
 
         // Panels
 
-        outerPanel = new Panel
+        outerPanel = new BetterPanel
         {
             Name = mod.Data.name,
             Parent = parentPanel,
@@ -81,7 +81,7 @@ internal class ModUI
             Size = new Size(parentPanel.Width, Sizes.MOD_HEIGHT),
         };
 
-        innerPanel = new Panel
+        innerPanel = new BetterPanel
         {
             Name = mod.Data.name,
             Parent = outerPanel,
@@ -92,7 +92,7 @@ internal class ModUI
 
         // Left side
 
-        nameText = new Label
+        nameText = new BetterLabel
         {
             Name = mod.Data.name,
             Parent = innerPanel,
@@ -104,7 +104,7 @@ internal class ModUI
             Font = Fonts.MOD_NAME,
         };
 
-        authorText = new Label
+        authorText = new BetterLabel
         {
             Name = mod.Data.name,
             Parent = innerPanel,
@@ -118,7 +118,7 @@ internal class ModUI
 
         // Right side
 
-        updateButton = new Button
+        updateButton = new BetterButton
         {
             Name = mod.Data.name,
             Parent = innerPanel,
@@ -138,7 +138,7 @@ internal class ModUI
         updateButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
         updateButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
-        readmeButton = new Button
+        readmeButton = new BetterButton
         {
             Name = mod.Data.name,
             Parent = innerPanel,
@@ -157,7 +157,7 @@ internal class ModUI
         readmeButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
         readmeButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
-        installButton = new Button
+        installButton = new BetterButton
         {
             Name = mod.Data.name,
             Parent = innerPanel,
@@ -173,7 +173,7 @@ internal class ModUI
         installButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
         installButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
-        enableButton = new Button
+        enableButton = new BetterButton
         {
             Name = mod.Data.name,
             Parent = innerPanel,

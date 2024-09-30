@@ -98,7 +98,7 @@ public partial class UIHandler : BasaltForm
         }
 
         // Refresh all ui elements on the page
-        currentPage.Lister.RefreshList();
+        currentPage.Lister.RefreshList(true);
         currentPage.Grouper.RefreshAll();
 
         // Handle UI for sorting and filtering
@@ -226,7 +226,7 @@ public partial class UIHandler : BasaltForm
         Logger.Info($"Changing sort to {index}");
 
         Core.SettingsHandler.Properties.CurrentSort = (SortType)index;
-        Core.CurrentPage.Lister.RefreshList();
+        Core.CurrentPage.Lister.RefreshList(false);
     }
 
     private void ChangedFilterOption(object sender, EventArgs e)
@@ -238,7 +238,7 @@ public partial class UIHandler : BasaltForm
         Logger.Info($"Changing filter to {index}");
 
         Core.SettingsHandler.Properties.CurrentFilter = (FilterType)index;
-        Core.CurrentPage.Lister.RefreshList();
+        Core.CurrentPage.Lister.RefreshList(false);
     }
 
     // Side section bottom

@@ -115,7 +115,7 @@ internal class Mod
 
         UpdateUI();
         if (refreshList)
-            ModPage.Lister.RefreshList();
+            ModPage.Lister.RefreshList(false);
     }
 
     private async Task DownloadMod(string zipCache)
@@ -155,7 +155,7 @@ internal class Mod
         RemoveUnusedDlls();
         UpdateUI();
         if (refreshList)
-            ModPage.Lister.RefreshList();
+            ModPage.Lister.RefreshList(false);
     }
 
     public void Enable(bool skipDepend, bool refreshList)
@@ -174,7 +174,7 @@ internal class Mod
 
         UpdateUI();
         if (refreshList)
-            ModPage.Lister.RefreshList();
+            ModPage.Lister.RefreshList(false);
     }
 
     public void Disable(bool skipDepend, bool refreshList)
@@ -193,7 +193,7 @@ internal class Mod
 
         UpdateUI();
         if (refreshList)
-            ModPage.Lister.RefreshList();
+            ModPage.Lister.RefreshList(false);
     }
 
     // Helper methods

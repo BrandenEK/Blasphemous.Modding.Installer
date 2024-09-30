@@ -1,7 +1,7 @@
 ﻿
 namespace Blasphemous.Modding.Installer.UIComponents;
 
-public class TransparentButton : Button
+public class TransparentButton : BetterButton
 {
     public TransparentButton()
     {
