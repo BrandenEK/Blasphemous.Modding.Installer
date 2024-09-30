@@ -69,7 +69,7 @@ static class Core
         var blas2modGrouper = new ModGrouper(blas2modTitle, blas2mods);
 
         // Listers
-        var testLister= new ModLister();
+        var testLister = new ModLister(UIHandler.GetUIElementByType(SectionType.Blas2Mods), blas2mods);
 
         // UI holders
         var blas1modUI = new GenericUIHolder<Mod>(UIHandler.GetUIElementByType(SectionType.Blas1Mods), blas1mods);
@@ -86,6 +86,7 @@ static class Core
             Path.Combine(CacheFolder, "blas1mods.json"),
             "https://raw.githubusercontent.com/BrandenEK/Blasphemous.Modding.Installer/main/BlasphemousMods.json",
             blas1modUI,
+            testLister,
             blas1modSorter,
             blas1mods,
             SectionType.Blas1Mods);
@@ -100,6 +101,7 @@ static class Core
             Path.Combine(CacheFolder, "blas2mods.json"),
             "https://raw.githubusercontent.com/BrandenEK/Blasphemous.Modding.Installer/main/BlasphemousIIMods.json",
             blas2modUI,
+            testLister,
             blas2modSorter,
             blas2mods,
             SectionType.Blas2Mods);

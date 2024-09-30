@@ -1,5 +1,6 @@
 ﻿using Basalt.Framework.Logging;
 using Blasphemous.Modding.Installer.Mods;
+using Blasphemous.Modding.Installer.PageComponents.Listers;
 using Blasphemous.Modding.Installer.PageComponents.Sorters;
 using Blasphemous.Modding.Installer.PageComponents.UIHolders;
 using Newtonsoft.Json;
@@ -11,17 +12,19 @@ internal class ModLoader : ILoader
     private readonly string _localDataPath;
     private readonly string _remoteDataPath;
     private readonly IUIHolder _uiHolder;
+    private readonly ILister _lister;
     private readonly ISorter _sorter;
     private readonly List<Mod> _mods;
     private readonly SectionType _modType;
 
     private bool _loadedData;
 
-    public ModLoader(string localDataPath, string remoteDataPath, IUIHolder uiHolder, ISorter sorter, List<Mod> mods, SectionType modType)
+    public ModLoader(string localDataPath, string remoteDataPath, IUIHolder uiHolder, ILister lister, ISorter sorter, List<Mod> mods, SectionType modType)
     {
         _localDataPath = localDataPath;
         _remoteDataPath = remoteDataPath;
         _uiHolder = uiHolder;
+        _lister = lister;
         _sorter = sorter;
         _mods = mods;
         _modType = modType;
@@ -63,6 +66,7 @@ internal class ModLoader : ILoader
         }
 
         Logger.Warn($"Loaded {_mods.Count} local mods");
+        _lister.RefreshList();
         _uiHolder.SetBackgroundColor();
         _sorter.Sort();
     }
@@ -108,6 +112,7 @@ internal class ModLoader : ILoader
         }
 
         SaveLocalData();
+        _lister.RefreshList();
         _uiHolder.SetBackgroundColor();
         _sorter.Sort();
     }
