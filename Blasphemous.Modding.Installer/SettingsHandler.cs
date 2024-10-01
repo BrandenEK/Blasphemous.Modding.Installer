@@ -23,10 +23,10 @@ internal class SettingsHandler
         //Settings.Default.Blas1SkinTime = Properties.Blas1SkinTime;
         //Settings.Default.Blas2ModTime = Properties.Blas2ModTime;
 
-        Settings.Default.Blas1LaunchMods = Properties.Blas1Launch.RunModded;
-        Settings.Default.Blas2LaunchMods = Properties.Blas2Launch.RunModded;
-        Settings.Default.Blas1LaunchConsole = Properties.Blas1Launch.RunConsole;
-        Settings.Default.Blas2LaunchConsole = Properties.Blas2Launch.RunConsole;
+        //Settings.Default.Blas1LaunchMods = Properties.Blas1Launch.RunModded;
+        //Settings.Default.Blas2LaunchMods = Properties.Blas2Launch.RunModded;
+        //Settings.Default.Blas1LaunchConsole = Properties.Blas1Launch.RunConsole;
+        //Settings.Default.Blas2LaunchConsole = Properties.Blas2Launch.RunConsole;
 
         Settings.Default.Save();
     }
@@ -51,16 +51,16 @@ internal class SettingsHandler
             //Blas1SkinTime = Settings.Default.Blas1SkinTime,
             //Blas2ModTime = Settings.Default.Blas2ModTime,
 
-            Blas1Launch = new LaunchOptions()
-            {
-                RunModded = Settings.Default.Blas1LaunchMods,
-                RunConsole = Settings.Default.Blas1LaunchConsole,
-            },
-            Blas2Launch = new LaunchOptions()
-            {
-                RunModded = Settings.Default.Blas2LaunchMods,
-                RunConsole = Settings.Default.Blas2LaunchConsole,
-            },
+            //Blas1Launch = new LaunchOptions()
+            //{
+            //    RunModded = Settings.Default.Blas1LaunchMods,
+            //    RunConsole = Settings.Default.Blas1LaunchConsole,
+            //},
+            //Blas2Launch = new LaunchOptions()
+            //{
+            //    RunModded = Settings.Default.Blas2LaunchMods,
+            //    RunConsole = Settings.Default.Blas2LaunchConsole,
+            //},
         };
     }
 }

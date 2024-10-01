@@ -1,4 +1,5 @@
 ﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Config;
 using Blasphemous.Modding.Installer.PageComponents.Validators;
 using System.Diagnostics;
 
@@ -7,19 +8,19 @@ namespace Blasphemous.Modding.Installer.PageComponents.Starters;
 internal class Blas1Starter : IGameStarter
 {
     private readonly IValidator _validator;
+    private readonly GameSettings _settings;
 
-    public Blas1Starter(IValidator validator)
+    public Blas1Starter(IValidator validator, GameSettings settings)
     {
         _validator = validator;
+        _settings = settings;
     }
 
     public void Start()
     {
-        LaunchOptions launch = Core.SettingsHandler.Properties.CurrentLaunchOptions;
-
-        if (!SetConfigProperty("doorstop_config.ini", "General", "enabled", launch.RunModded))
+        if (!SetConfigProperty("doorstop_config.ini", "General", "enabled", _settings.Launch.RunModded))
             return;
-        if (!SetConfigProperty(Path.Combine("BepInEx", "config", "BepInEx.cfg"), "Logging.Console", "Enabled", launch.RunConsole))
+        if (!SetConfigProperty(Path.Combine("BepInEx", "config", "BepInEx.cfg"), "Logging.Console", "Enabled", _settings.Launch.RunConsole))
             return;
 
         StartProcess();

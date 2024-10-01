@@ -130,7 +130,7 @@ public partial class UIHandler : BasaltForm
         }
         RunWithoutEvents(() =>
         {
-            _left_sort_options.SelectedIndex = (int)Core.CurrentPage.PageSettings.Sort;
+            _left_sort_options.SelectedIndex = (int)currentPage.PageSettings.Sort;
         });
 
         _left_filter_options.Items.Clear();
@@ -147,7 +147,7 @@ public partial class UIHandler : BasaltForm
         }
         RunWithoutEvents(() =>
         {
-            _left_filter_options.SelectedIndex = (int)Core.CurrentPage.PageSettings.Filter;
+            _left_filter_options.SelectedIndex = (int)currentPage.PageSettings.Filter;
         });
 
         // Handle UI for grouping
@@ -161,7 +161,7 @@ public partial class UIHandler : BasaltForm
         _left_details.Visible = validated;
 
         // Handle UI for starting
-        LaunchOptions launch = Core.SettingsHandler.Properties.CurrentLaunchOptions;
+        LaunchSettings launch = currentPage.GameSettings.Launch;
         _left_start.Visible = validated;
         RunWithoutEvents(() =>
         {
@@ -284,11 +284,8 @@ public partial class UIHandler : BasaltForm
             return;
 
         Logger.Info("Updating launch options");
-        Core.SettingsHandler.Properties.CurrentLaunchOptions = new LaunchOptions()
-        {
-            RunModded = _left_start_modded.Checked,
-            RunConsole = _left_start_console.Checked,
-        };
+        Core.CurrentPage.GameSettings.Launch.RunModded = _left_start_modded.Checked;
+        Core.CurrentPage.GameSettings.Launch.RunConsole = _left_start_console.Checked;
     }
 
     private void ClickedStart(object sender, EventArgs e)

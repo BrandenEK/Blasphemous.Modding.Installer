@@ -7,8 +7,8 @@ public class OldSettings
     public string Blas2RootFolder { get; set; } = string.Empty;
     //public SectionType CurrentSection { get; set; }
 
-    public LaunchOptions Blas1Launch { get; set; }
-    public LaunchOptions Blas2Launch { get; set; }
+    //public LaunchOptions Blas1Launch { get; set; }
+    //public LaunchOptions Blas2Launch { get; set; }
 
     //public SortType Blas1ModSort { get; set; }
     //public SortType Blas1SkinSort { get; set; }
@@ -54,33 +54,33 @@ public class OldSettings
 
     // Launch options
 
-    public LaunchOptions GetLaunchOptions(SectionType section)
-    {
-        return section switch
-        {
-            SectionType.Blas1Mods => Blas1Launch,
-            SectionType.Blas1Skins => Blas1Launch,
-            SectionType.Blas2Mods => Blas2Launch,
-            _ => throw new ArgumentException("Invalid section type", nameof(section))
-        };
-    }
+    //public LaunchOptions GetLaunchOptions(SectionType section)
+    //{
+    //    return section switch
+    //    {
+    //        SectionType.Blas1Mods => Blas1Launch,
+    //        SectionType.Blas1Skins => Blas1Launch,
+    //        SectionType.Blas2Mods => Blas2Launch,
+    //        _ => throw new ArgumentException("Invalid section type", nameof(section))
+    //    };
+    //}
 
-    public void SetLaunchOptions(SectionType section, LaunchOptions launch)
-    {
-        switch (section)
-        {
-            case SectionType.Blas1Mods: Blas1Launch = launch; break;
-            case SectionType.Blas1Skins: Blas1Launch = launch; break;
-            case SectionType.Blas2Mods: Blas2Launch = launch; break;
-            default: throw new ArgumentException("Invalid section type", nameof(section));
-        }
-    }
+    //public void SetLaunchOptions(SectionType section, LaunchOptions launch)
+    //{
+    //    switch (section)
+    //    {
+    //        case SectionType.Blas1Mods: Blas1Launch = launch; break;
+    //        case SectionType.Blas1Skins: Blas1Launch = launch; break;
+    //        case SectionType.Blas2Mods: Blas2Launch = launch; break;
+    //        default: throw new ArgumentException("Invalid section type", nameof(section));
+    //    }
+    //}
 
-    public LaunchOptions CurrentLaunchOptions
-    {
-        get => GetLaunchOptions(Core.TempConfig.LastSection);
-        set => SetLaunchOptions(Core.TempConfig.LastSection, value);
-    }
+    //public LaunchOptions CurrentLaunchOptions
+    //{
+    //    get => GetLaunchOptions(Core.TempConfig.LastSection);
+    //    set => SetLaunchOptions(Core.TempConfig.LastSection, value);
+    //}
 
     // Sort type
 
@@ -171,16 +171,4 @@ public class OldSettings
     //    get => GetTime(Core.TempConfig.LastSection);
     //    set => SetTime(Core.TempConfig.LastSection, value);
     //}
-}
-
-public struct LaunchOptions
-{
-    public bool RunModded { get; set; }
-    public bool RunConsole { get; set; }
-
-    public LaunchOptions(bool runModded, bool runConsole)
-    {
-        RunModded = runModded;
-        RunConsole = runConsole;
-    }
 }

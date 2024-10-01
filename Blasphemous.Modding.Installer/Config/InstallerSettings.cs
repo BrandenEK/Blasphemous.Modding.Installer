@@ -54,7 +54,7 @@ public class GameSettings
 {
     public string Id { get; set; } = string.Empty;
     public string RootFolder { get; set; } = string.Empty;
-    public LaunchOptions LaunchOptions { get; set; } = new LaunchOptions(true, true);
+    public LaunchSettings Launch { get; set; } = new();
 }
 
 public class PageSettings
@@ -63,4 +63,10 @@ public class PageSettings
     public SortType Sort { get; set; } = SortType.Name;
     public FilterType Filter { get; set; } = FilterType.All;
     public DateTime Time { get; set; } = DateTime.Now;
+}
+
+public class LaunchSettings
+{
+    public bool RunModded { get; set; } = true;
+    public bool RunConsole { get; set; } = true;
 }

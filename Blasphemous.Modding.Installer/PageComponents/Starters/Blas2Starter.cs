@@ -1,4 +1,5 @@
 ﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Config;
 using Blasphemous.Modding.Installer.PageComponents.Validators;
 using System.Diagnostics;
 
@@ -7,20 +8,21 @@ namespace Blasphemous.Modding.Installer.PageComponents.Starters;
 internal class Blas2Starter : IGameStarter
 {
     private readonly IValidator _validator;
+    private readonly GameSettings _settings;
 
-    public Blas2Starter(IValidator validator)
+    public Blas2Starter(IValidator validator, GameSettings settings)
     {
         _validator = validator;
+        _settings = settings;
     }
 
     public void Start()
     {
-        LaunchOptions launch = Core.SettingsHandler.Properties.CurrentLaunchOptions;
         string args = string.Empty;
 
-        if (!launch.RunModded)
+        if (!_settings.Launch.RunModded)
             args += "--no-mods ";
-        if (!launch.RunConsole)
+        if (!_settings.Launch.RunConsole)
             args += "--melonloader.hideconsole ";
 
         StartProcess(args.Trim());

@@ -140,8 +140,8 @@ static class Core
             iconLoader);
 
         // Starters
-        var blas1Starter = new Blas1Starter(blas1Validator);
-        var blas2Starter = new Blas2Starter(blas2Validator);
+        var blas1Starter = new Blas1Starter(blas1Validator, blas1gameSettings);
+        var blas2Starter = new Blas2Starter(blas2Validator, blas2gameSettings);
 
         // Previewers
         var modPreviewer = new ModPreviewer(UIHandler.PreviewName, UIHandler.PreviewDescription, UIHandler.PreviewVersion);
