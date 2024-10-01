@@ -19,9 +19,9 @@ internal class SettingsHandler
         //Settings.Default.Blas1SkinFilter = (byte)Properties.Blas1SkinFilter;
         //Settings.Default.Blas2ModFilter = (byte)Properties.Blas2ModFilter;
 
-        Settings.Default.Blas1ModTime = Properties.Blas1ModTime;
-        Settings.Default.Blas1SkinTime = Properties.Blas1SkinTime;
-        Settings.Default.Blas2ModTime = Properties.Blas2ModTime;
+        //Settings.Default.Blas1ModTime = Properties.Blas1ModTime;
+        //Settings.Default.Blas1SkinTime = Properties.Blas1SkinTime;
+        //Settings.Default.Blas2ModTime = Properties.Blas2ModTime;
 
         Settings.Default.Blas1LaunchMods = Properties.Blas1Launch.RunModded;
         Settings.Default.Blas2LaunchMods = Properties.Blas2Launch.RunModded;
@@ -47,9 +47,9 @@ internal class SettingsHandler
             //Blas1SkinFilter = (FilterType)Settings.Default.Blas1SkinFilter,
             //Blas2ModFilter = (FilterType)Settings.Default.Blas2ModFilter,
 
-            Blas1ModTime = Settings.Default.Blas1ModTime,
-            Blas1SkinTime = Settings.Default.Blas1SkinTime,
-            Blas2ModTime = Settings.Default.Blas2ModTime,
+            //Blas1ModTime = Settings.Default.Blas1ModTime,
+            //Blas1SkinTime = Settings.Default.Blas1SkinTime,
+            //Blas2ModTime = Settings.Default.Blas2ModTime,
 
             Blas1Launch = new LaunchOptions()
             {

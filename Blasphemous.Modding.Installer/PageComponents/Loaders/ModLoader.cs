@@ -1,4 +1,5 @@
 ﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Config;
 using Blasphemous.Modding.Installer.Mods;
 using Blasphemous.Modding.Installer.PageComponents.Listers;
 using Newtonsoft.Json;
@@ -13,10 +14,11 @@ internal class ModLoader : ILoader
     private readonly ILister _lister;
     private readonly List<Mod> _mods;
     private readonly SectionType _modType;
+    private readonly PageSettings _settings;
 
     private bool _loadedData;
 
-    public ModLoader(string localDataPath, string remoteDataPath, bool ignoreTime, ILister lister, List<Mod> mods, SectionType modType)
+    public ModLoader(string localDataPath, string remoteDataPath, bool ignoreTime, ILister lister, List<Mod> mods, SectionType modType, PageSettings settings)
     {
         _localDataPath = localDataPath;
         _remoteDataPath = remoteDataPath;
@@ -24,6 +26,7 @@ internal class ModLoader : ILoader
         _lister = lister;
         _mods = mods;
         _modType = modType;
+        _settings = settings;
     }
 
     public void LoadAllData()
@@ -33,12 +36,11 @@ internal class ModLoader : ILoader
 
         LoadLocalMods();
 
-        if (_ignoreTime || DateTime.Now >= Core.SettingsHandler.Properties.CurrentTime)
+        if (_ignoreTime || DateTime.Now >= _settings.Time)
         {
             LoadRemoteMods();
-            DateTime next = DateTime.Now.AddHours(0.5);
-            Core.SettingsHandler.Properties.SetTime(_modType, next);
-            Logger.Warn($"Next remote loading: {next}");
+            _settings.Time = DateTime.Now.AddHours(0.5);
+            Logger.Warn($"Next remote loading: {_settings.Time}");
         }
         else
         {

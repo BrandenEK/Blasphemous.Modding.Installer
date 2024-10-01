@@ -102,21 +102,24 @@ static class Core
             cmd.IgnoreTime,
             blas1modLister,
             blas1mods,
-            SectionType.Blas1Mods);
+            SectionType.Blas1Mods,
+            blas1modPageSettings);
         var blas1skinLoader = new SkinLoader(
             Path.Combine(CacheFolder, "blas1skins.json"),
             "blasphemous1",
             cmd.IgnoreTime,
             blas1skinLister,
             blas1skins,
-            SectionType.Blas1Skins);
+            SectionType.Blas1Skins,
+            blas1skinPageSettings);
         var blas2modLoader = new ModLoader(
             Path.Combine(CacheFolder, "blas2mods.json"),
             "https://raw.githubusercontent.com/BrandenEK/Blasphemous.Modding.Installer/main/BlasphemousIIMods.json",
             cmd.IgnoreTime,
             blas2modLister,
             blas2mods,
-            SectionType.Blas2Mods);
+            SectionType.Blas2Mods,
+            blas2modPageSettings);
 
         // Validators
         var blas1Validator = new Blas1Validator(

@@ -1,4 +1,5 @@
 ﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Config;
 using Blasphemous.Modding.Installer.PageComponents.Listers;
 using Blasphemous.Modding.Installer.Skins;
 using Newtonsoft.Json;
@@ -13,10 +14,11 @@ internal class SkinLoader : ILoader
     private readonly ILister _lister;
     private readonly List<Skin> _skins;
     private readonly SectionType _skinType;
+    private readonly PageSettings _settings;
 
     private bool _loadedData;
 
-    public SkinLoader(string localDataPath, string remoteDataPath, bool ignoreTime, ILister lister, List<Skin> skins, SectionType skinType)
+    public SkinLoader(string localDataPath, string remoteDataPath, bool ignoreTime, ILister lister, List<Skin> skins, SectionType skinType, PageSettings settings)
     {
         _localDataPath = localDataPath;
         _remoteDataPath = remoteDataPath;
@@ -24,6 +26,7 @@ internal class SkinLoader : ILoader
         _lister = lister;
         _skins = skins;
         _skinType = skinType;
+        _settings = settings;
     }
 
     public void LoadAllData()
@@ -33,12 +36,11 @@ internal class SkinLoader : ILoader
 
         LoadLocalSkins();
 
-        if (_ignoreTime || DateTime.Now >= Core.SettingsHandler.Properties.CurrentTime)
+        if (_ignoreTime || DateTime.Now >= _settings.Time)
         {
             LoadRemoteSkins();
-            DateTime next = DateTime.Now.AddHours(0.5);
-            Core.SettingsHandler.Properties.SetTime(_skinType, next);
-            Logger.Warn($"Next remote loading: {next}");
+            _settings.Time = DateTime.Now.AddHours(0.5);
+            Logger.Warn($"Next remote loading: {_settings.Time}");
         }
         else
         {

@@ -18,9 +18,9 @@ public class OldSettings
     //public FilterType Blas1SkinFilter { get; set; }
     //public FilterType Blas2ModFilter { get; set; }
 
-    public DateTime Blas1ModTime { get; set; }
-    public DateTime Blas1SkinTime { get; set; }
-    public DateTime Blas2ModTime { get; set; }
+    //public DateTime Blas1ModTime { get; set; }
+    //public DateTime Blas1SkinTime { get; set; }
+    //public DateTime Blas2ModTime { get; set; }
 
     // Root path
 
@@ -144,33 +144,33 @@ public class OldSettings
 
     // Update time
 
-    public DateTime GetTime(SectionType section)
-    {
-        return section switch
-        {
-            SectionType.Blas1Mods => Blas1ModTime,
-            SectionType.Blas1Skins => Blas1SkinTime,
-            SectionType.Blas2Mods => Blas2ModTime,
-            _ => throw new ArgumentException("Invalid section type", nameof(section))
-        };
-    }
+    //public DateTime GetTime(SectionType section)
+    //{
+    //    return section switch
+    //    {
+    //        SectionType.Blas1Mods => Blas1ModTime,
+    //        SectionType.Blas1Skins => Blas1SkinTime,
+    //        SectionType.Blas2Mods => Blas2ModTime,
+    //        _ => throw new ArgumentException("Invalid section type", nameof(section))
+    //    };
+    //}
 
-    public void SetTime(SectionType section, DateTime time)
-    {
-        switch (section)
-        {
-            case SectionType.Blas1Mods: Blas1ModTime = time; break;
-            case SectionType.Blas1Skins: Blas1SkinTime = time; break;
-            case SectionType.Blas2Mods: Blas2ModTime = time; break;
-            default: throw new ArgumentException("Invalid section type", nameof(section));
-        }
-    }
+    //public void SetTime(SectionType section, DateTime time)
+    //{
+    //    switch (section)
+    //    {
+    //        case SectionType.Blas1Mods: Blas1ModTime = time; break;
+    //        case SectionType.Blas1Skins: Blas1SkinTime = time; break;
+    //        case SectionType.Blas2Mods: Blas2ModTime = time; break;
+    //        default: throw new ArgumentException("Invalid section type", nameof(section));
+    //    }
+    //}
 
-    public DateTime CurrentTime
-    {
-        get => GetTime(Core.TempConfig.LastSection);
-        set => SetTime(Core.TempConfig.LastSection, value);
-    }
+    //public DateTime CurrentTime
+    //{
+    //    get => GetTime(Core.TempConfig.LastSection);
+    //    set => SetTime(Core.TempConfig.LastSection, value);
+    //}
 }
 
 public struct LaunchOptions
