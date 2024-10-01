@@ -124,7 +124,6 @@ static class Core
 
         // Validators
         var blas1Validator = new StandardValidator(
-            "blas1tools",
             Path.Combine("C:", "Program Files (x86)", "Steam", "steamapps", "common", "Blasphemous"),
             "Blasphemous.exe",
             Path.Combine("BepInEx", "patchers", "BepInEx.MultiFolderLoader.dll"),
@@ -133,7 +132,6 @@ static class Core
             iconLoader,
             blas1gameSettings);
         var blas2Validator = new StandardValidator(
-            "blas2tools",
             Path.Combine("C:", "Program Files (x86)", "Steam", "steamapps", "common", "Blasphemous 2"),
             "Blasphemous 2.exe",
             Path.Combine("MelonLoader", "net6", "MelonLoader.dll"),

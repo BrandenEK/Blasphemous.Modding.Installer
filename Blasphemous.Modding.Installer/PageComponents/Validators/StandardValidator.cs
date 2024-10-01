@@ -8,7 +8,6 @@ namespace Blasphemous.Modding.Installer.PageComponents.Validators;
 
 internal class StandardValidator : IValidator
 {
-    private readonly string _cacheDir;
     private readonly string _defaultPath;
     private readonly string _exeName;
     private readonly string _localVersionPath;
@@ -21,9 +20,8 @@ internal class StandardValidator : IValidator
     private ToolStatus _currentStatus = ToolStatus.Invalid;
     private string _remoteVersion = string.Empty;
 
-    public StandardValidator(string cacheDir, string defaultPath, string exeName, string localVersionPath, string remoteDownloadPath, string remoteVersionPath, IIconLoader iconLoader, GameSettings settings)
+    public StandardValidator(string defaultPath, string exeName, string localVersionPath, string remoteDownloadPath, string remoteVersionPath, IIconLoader iconLoader, GameSettings settings)
     {
-        _cacheDir = cacheDir;
         _defaultPath = defaultPath;
         _exeName = exeName;
         _localVersionPath = localVersionPath;
@@ -174,7 +172,7 @@ internal class StandardValidator : IValidator
 
     private async Task DownloadModdingTools()
     {
-        string toolsCache = Path.Combine(Core.CacheFolder, _cacheDir, _remoteVersion, "data.zip");
+        string toolsCache = Path.Combine(Core.CacheFolder, $"{_settings.Id}tools", _remoteVersion, "data.zip");
         Directory.CreateDirectory(Path.GetDirectoryName(toolsCache)!);
 
         // If tools dont already exist in cache, download from web
