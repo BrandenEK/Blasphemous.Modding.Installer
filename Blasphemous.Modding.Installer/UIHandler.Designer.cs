@@ -30,7 +30,6 @@ namespace Blasphemous.Modding.Installer
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIHandler));
             _bottom_holder_scroll = new VScrollBar();
             _bottom_holder = new Panel();
@@ -83,7 +82,6 @@ namespace Blasphemous.Modding.Installer
             _middle_inner = new Panel();
             _middle_path = new Label();
             _middle_tools = new Panel();
-            _tooltip = new ToolTip(components);
             _bottom_holder.SuspendLayout();
             _left.SuspendLayout();
             _left_outer.SuspendLayout();
@@ -638,11 +636,11 @@ namespace Blasphemous.Modding.Installer
             // 
             // _middle_tools_icon
             // 
-            _middle_tools_icon.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            _middle_tools_icon.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             _middle_tools_icon.BackColor = Color.Transparent;
             _middle_tools_icon.BackgroundImageLayout = ImageLayout.Zoom;
             _middle_tools_icon.Cursor = Cursors.Hand;
-            _middle_tools_icon.Location = new Point(150, 0);
+            _middle_tools_icon.Location = new Point(275, 0);
             _middle_tools_icon.Name = "_middle_tools_icon";
             _middle_tools_icon.Size = new Size(25, 25);
             _middle_tools_icon.TabIndex = 8;
@@ -651,16 +649,16 @@ namespace Blasphemous.Modding.Installer
             // 
             // _middle_tools_text
             // 
-            _middle_tools_text.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            _middle_tools_text.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             _middle_tools_text.BackColor = Color.FromArgb(0, 0, 0, 0);
             _middle_tools_text.Cursor = Cursors.Hand;
-            _middle_tools_text.Font = new Font("Trebuchet MS", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            _middle_tools_text.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
             _middle_tools_text.Location = new Point(0, 1);
             _middle_tools_text.Name = "_middle_tools_text";
-            _middle_tools_text.Size = new Size(150, 25);
+            _middle_tools_text.Size = new Size(275, 25);
             _middle_tools_text.TabIndex = 7;
-            _middle_tools_text.Text = "Modding Tools";
-            _middle_tools_text.TextAlign = ContentAlignment.MiddleCenter;
+            _middle_tools_text.Text = "Modding tools";
+            _middle_tools_text.TextAlign = ContentAlignment.MiddleRight;
             _middle_tools_text.Click += ClickedToolsStatus;
             // 
             // _bottom
@@ -724,19 +722,11 @@ namespace Blasphemous.Modding.Installer
             _middle_tools.BackColor = Color.FromArgb(0, 0, 0, 0);
             _middle_tools.Controls.Add(_middle_tools_icon);
             _middle_tools.Controls.Add(_middle_tools_text);
-            _middle_tools.Location = new Point(1140, 1);
+            _middle_tools.Location = new Point(1000, 1);
             _middle_tools.Name = "_middle_tools";
-            _middle_tools.Size = new Size(180, 25);
+            _middle_tools.Size = new Size(300, 25);
             _middle_tools.TabIndex = 9;
             _middle_tools.Visible = false;
-            // 
-            // _tooltip
-            // 
-            _tooltip.AutomaticDelay = 100;
-            _tooltip.AutoPopDelay = 100000;
-            _tooltip.InitialDelay = 100;
-            _tooltip.ReshowDelay = 100;
-            _tooltip.ShowAlways = true;
             // 
             // UIHandler
             // 
@@ -820,7 +810,6 @@ namespace Blasphemous.Modding.Installer
         private Panel _middle;
         private Panel _middle_outer;
         private Panel _middle_inner;
-        private ToolTip _tooltip;
         private Panel _middle_tools;
         private Label _middle_path;
         private ComboBox _left_sort_options;

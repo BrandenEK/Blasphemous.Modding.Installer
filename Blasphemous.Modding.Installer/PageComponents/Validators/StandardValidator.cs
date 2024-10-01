@@ -119,9 +119,9 @@ internal class StandardValidator : IValidator
         {
             ToolStatus.Checking => "Checking for updates...",
             ToolStatus.Downloading => "Downloading...",
-            ToolStatus.NotInstalled => "Not installed - Click to download",
-            ToolStatus.InstalledNotUpdated => "Update available - Click to download",
-            ToolStatus.InstalledAndUpdated => "Installed and updated",
+            ToolStatus.NotInstalled => "Click to download modding tools",
+            ToolStatus.InstalledNotUpdated => "Click to update modding tools",
+            ToolStatus.InstalledAndUpdated => "Modding tools are up to date",
             _ => throw new Exception($"Invalid tool status: {_currentStatus}")
         };
 
