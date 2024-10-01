@@ -15,9 +15,9 @@ internal class SettingsHandler
         //Settings.Default.Blas1SkinSort = (byte)Properties.Blas1SkinSort;
         //Settings.Default.Blas2ModSort = (byte)Properties.Blas2ModSort;
 
-        Settings.Default.Blas1ModFilter = (byte)Properties.Blas1ModFilter;
-        Settings.Default.Blas1SkinFilter = (byte)Properties.Blas1SkinFilter;
-        Settings.Default.Blas2ModFilter = (byte)Properties.Blas2ModFilter;
+        //Settings.Default.Blas1ModFilter = (byte)Properties.Blas1ModFilter;
+        //Settings.Default.Blas1SkinFilter = (byte)Properties.Blas1SkinFilter;
+        //Settings.Default.Blas2ModFilter = (byte)Properties.Blas2ModFilter;
 
         Settings.Default.Blas1ModTime = Properties.Blas1ModTime;
         Settings.Default.Blas1SkinTime = Properties.Blas1SkinTime;
@@ -43,9 +43,9 @@ internal class SettingsHandler
             //Blas1SkinSort = (SortType)Settings.Default.Blas1SkinSort,
             //Blas2ModSort = (SortType)Settings.Default.Blas2ModSort,
 
-            Blas1ModFilter = (FilterType)Settings.Default.Blas1ModFilter,
-            Blas1SkinFilter = (FilterType)Settings.Default.Blas1SkinFilter,
-            Blas2ModFilter = (FilterType)Settings.Default.Blas2ModFilter,
+            //Blas1ModFilter = (FilterType)Settings.Default.Blas1ModFilter,
+            //Blas1SkinFilter = (FilterType)Settings.Default.Blas1SkinFilter,
+            //Blas2ModFilter = (FilterType)Settings.Default.Blas2ModFilter,
 
             Blas1ModTime = Settings.Default.Blas1ModTime,
             Blas1SkinTime = Settings.Default.Blas1SkinTime,

@@ -1,19 +1,20 @@
-﻿using Blasphemous.Modding.Installer.Mods;
+﻿using Blasphemous.Modding.Installer.Config;
+using Blasphemous.Modding.Installer.Mods;
 
 namespace Blasphemous.Modding.Installer.PageComponents.Filters;
 
 internal class ModFilter : IFilter<Mod>
 {
-    private readonly SectionType _section;
+    private readonly PageSettings _settings;
 
-    public ModFilter(SectionType section)
+    public ModFilter(PageSettings settings)
     {
-        _section = section;
+        _settings = settings;
     }
 
     public IEnumerable<Mod> Filter(IEnumerable<Mod> list)
     {
-        FilterType filter = Core.SettingsHandler.Properties.GetFilter(_section);
+        FilterType filter = _settings.Filter;
 
         return filter switch
         {

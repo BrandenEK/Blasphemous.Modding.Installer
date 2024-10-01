@@ -81,9 +81,9 @@ static class Core
         var blas2modSorter = new ModSorter(blas2modPageSettings);
 
         // Filters
-        var blas1modFilter = new ModFilter(SectionType.Blas1Mods);
-        var blas1skinFilter = new SkinFilter(SectionType.Blas1Skins);
-        var blas2modFilter = new ModFilter(SectionType.Blas2Mods);
+        var blas1modFilter = new ModFilter(blas1modPageSettings);
+        var blas1skinFilter = new SkinFilter(blas1skinPageSettings);
+        var blas2modFilter = new ModFilter(blas2modPageSettings);
 
         // Groupers
         var blas1modGrouper = new ModGrouper(blas1modTitle, blas1mods, blas1modFilter);

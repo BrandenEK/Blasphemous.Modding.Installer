@@ -147,7 +147,7 @@ public partial class UIHandler : BasaltForm
         }
         RunWithoutEvents(() =>
         {
-            _left_filter_options.SelectedIndex = (int)Core.SettingsHandler.Properties.CurrentFilter;
+            _left_filter_options.SelectedIndex = (int)Core.CurrentPage.PageSettings.Filter;
         });
 
         // Handle UI for grouping
@@ -250,7 +250,7 @@ public partial class UIHandler : BasaltForm
         int index = _left_filter_options.SelectedIndex;
         Logger.Info($"Changing filter to {index}");
 
-        Core.SettingsHandler.Properties.CurrentFilter = (FilterType)index;
+        Core.CurrentPage.PageSettings.Filter = (FilterType)index;
         Core.CurrentPage.Lister.RefreshList();
     }
 

@@ -14,9 +14,9 @@ public class OldSettings
     //public SortType Blas1SkinSort { get; set; }
     //public SortType Blas2ModSort { get; set; }
 
-    public FilterType Blas1ModFilter { get; set; }
-    public FilterType Blas1SkinFilter { get; set; }
-    public FilterType Blas2ModFilter { get; set; }
+    //public FilterType Blas1ModFilter { get; set; }
+    //public FilterType Blas1SkinFilter { get; set; }
+    //public FilterType Blas2ModFilter { get; set; }
 
     public DateTime Blas1ModTime { get; set; }
     public DateTime Blas1SkinTime { get; set; }
@@ -114,33 +114,33 @@ public class OldSettings
 
     // Filter type
 
-    public FilterType GetFilter(SectionType section)
-    {
-        return section switch
-        {
-            SectionType.Blas1Mods => Blas1ModFilter,
-            SectionType.Blas1Skins => Blas1SkinFilter,
-            SectionType.Blas2Mods => Blas2ModFilter,
-            _ => throw new ArgumentException("Invalid section type", nameof(section))
-        };
-    }
+    //public FilterType GetFilter(SectionType section)
+    //{
+    //    return section switch
+    //    {
+    //        SectionType.Blas1Mods => Blas1ModFilter,
+    //        SectionType.Blas1Skins => Blas1SkinFilter,
+    //        SectionType.Blas2Mods => Blas2ModFilter,
+    //        _ => throw new ArgumentException("Invalid section type", nameof(section))
+    //    };
+    //}
 
-    public void SetFilter(SectionType section, FilterType filter)
-    {
-        switch (section)
-        {
-            case SectionType.Blas1Mods: Blas1ModFilter = filter; break;
-            case SectionType.Blas1Skins: Blas1SkinFilter = filter; break;
-            case SectionType.Blas2Mods: Blas2ModFilter = filter; break;
-            default: throw new ArgumentException("Invalid section type", nameof(section));
-        }
-    }
+    //public void SetFilter(SectionType section, FilterType filter)
+    //{
+    //    switch (section)
+    //    {
+    //        case SectionType.Blas1Mods: Blas1ModFilter = filter; break;
+    //        case SectionType.Blas1Skins: Blas1SkinFilter = filter; break;
+    //        case SectionType.Blas2Mods: Blas2ModFilter = filter; break;
+    //        default: throw new ArgumentException("Invalid section type", nameof(section));
+    //    }
+    //}
 
-    public FilterType CurrentFilter
-    {
-        get => GetFilter(Core.TempConfig.LastSection);
-        set => SetFilter(Core.TempConfig.LastSection, value);
-    }
+    //public FilterType CurrentFilter
+    //{
+    //    get => GetFilter(Core.TempConfig.LastSection);
+    //    set => SetFilter(Core.TempConfig.LastSection, value);
+    //}
 
     // Update time
 
