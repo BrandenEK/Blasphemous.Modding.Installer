@@ -15,3 +15,12 @@ public enum SortType
     InitialRelease,
     LatestRelease,
 }
+
+public enum FilterType
+{
+    All,
+    NotInstalled,
+    Installed,
+    Disabled,
+    Enabled,
+}

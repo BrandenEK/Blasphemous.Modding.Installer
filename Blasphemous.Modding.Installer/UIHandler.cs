@@ -101,8 +101,9 @@ public partial class UIHandler : BasaltForm
         currentPage.Lister.RefreshList();
         currentPage.Grouper.RefreshAll();
 
-        // Handle UI for sorting
+        // Handle UI for sorting and filtering
         _left_sort.Visible = validated;
+
         _left_sort_options.Items.Clear();
         if (currentPage.Grouper.CanSortByCreation)
         {
@@ -117,6 +118,23 @@ public partial class UIHandler : BasaltForm
         RunWithoutEvents(() =>
         {
             _left_sort_options.SelectedIndex = (int)Core.SettingsHandler.Properties.CurrentSort;
+        });
+
+        _left_filter_options.Items.Clear();
+        _left_filter_options.Items.Add("All");
+        if (currentPage.Grouper.CanInstall)
+        {
+            _left_filter_options.Items.Add("Not installed");
+            _left_filter_options.Items.Add("Installed");
+        }
+        if (currentPage.Grouper.CanEnable)
+        {
+            _left_filter_options.Items.Add("Disabled");
+            _left_filter_options.Items.Add("Enabled");
+        }
+        RunWithoutEvents(() =>
+        {
+            _left_filter_options.SelectedIndex = (int)Core.SettingsHandler.Properties.CurrentFilter;
         });
 
         // Handle UI for grouping
@@ -208,6 +226,18 @@ public partial class UIHandler : BasaltForm
         Logger.Info($"Changing sort to {index}");
 
         Core.SettingsHandler.Properties.CurrentSort = (SortType)index;
+        Core.CurrentPage.Lister.RefreshList();
+    }
+
+    private void ChangedFilterOption(object sender, EventArgs e)
+    {
+        if (_disableEvents)
+            return;
+
+        int index = _left_filter_options.SelectedIndex;
+        Logger.Info($"Changing filter to {index}");
+
+        Core.SettingsHandler.Properties.CurrentFilter = (FilterType)index;
         Core.CurrentPage.Lister.RefreshList();
     }
 

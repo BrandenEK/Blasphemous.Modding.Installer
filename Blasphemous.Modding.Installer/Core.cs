@@ -1,6 +1,7 @@
 ﻿using Basalt.BetterForms;
 using Basalt.Framework.Logging;
 using Blasphemous.Modding.Installer.Mods;
+using Blasphemous.Modding.Installer.PageComponents.Filters;
 using Blasphemous.Modding.Installer.PageComponents.Groupers;
 using Blasphemous.Modding.Installer.PageComponents.Listers;
 using Blasphemous.Modding.Installer.PageComponents.Loaders;
@@ -64,20 +65,25 @@ static class Core
         string blas1skinTitle = "Blasphemous Skins";
         string blas2modTitle = "Blasphemous II Mods";
 
-        // Groupers
-        var blas1modGrouper = new ModGrouper(blas1modTitle, blas1mods);
-        var blas1skinGrouper = new SkinGrouper(blas1skinTitle, blas1skins);
-        var blas2modGrouper = new ModGrouper(blas2modTitle, blas2mods);
-
         // Sorters
         var blas1modSorter = new ModSorter(SectionType.Blas1Mods);
         var blas1skinSorter = new SkinSorter(SectionType.Blas1Skins);
         var blas2modSorter = new ModSorter(SectionType.Blas2Mods);
 
+        // Filters
+        var blas1modFilter = new ModFilter(SectionType.Blas1Mods);
+        var blas1skinFilter = new SkinFilter(SectionType.Blas1Skins);
+        var blas2modFilter = new ModFilter(SectionType.Blas2Mods);
+
+        // Groupers
+        var blas1modGrouper = new ModGrouper(blas1modTitle, blas1mods, blas1modFilter);
+        var blas1skinGrouper = new SkinGrouper(blas1skinTitle, blas1skins, blas1skinFilter);
+        var blas2modGrouper = new ModGrouper(blas2modTitle, blas2mods, blas2modFilter);
+
         // Listers
-        var blas1modLister = new ModLister(UIHandler.DataHolder, blas1mods, blas1modSorter);
-        var blas1skinLister = new SkinLister(UIHandler.DataHolder, blas1skins, blas1skinSorter);
-        var blas2modLister = new ModLister(UIHandler.DataHolder, blas2mods, blas2modSorter);
+        var blas1modLister = new ModLister(UIHandler.DataHolder, blas1mods, blas1modSorter, blas1modFilter);
+        var blas1skinLister = new SkinLister(UIHandler.DataHolder, blas1skins, blas1skinSorter, blas1skinFilter);
+        var blas2modLister = new ModLister(UIHandler.DataHolder, blas2mods, blas2modSorter, blas2modFilter);
 
         // Loaders
         var blas1modLoader = new ModLoader(

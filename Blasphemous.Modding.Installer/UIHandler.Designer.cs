@@ -391,7 +391,7 @@ namespace Blasphemous.Modding.Installer
             _left_filter_options.Name = "_left_filter_options";
             _left_filter_options.Size = new Size(121, 26);
             _left_filter_options.TabIndex = 14;
-            _left_filter_options.Visible = false;
+            _left_filter_options.SelectedIndexChanged += ChangedFilterOption;
             // 
             // _left_filter_text
             // 
@@ -403,7 +403,6 @@ namespace Blasphemous.Modding.Installer
             _left_filter_text.Size = new Size(78, 20);
             _left_filter_text.TabIndex = 13;
             _left_filter_text.Text = "Filter by:";
-            _left_filter_text.Visible = false;
             // 
             // _left_sort_options
             // 

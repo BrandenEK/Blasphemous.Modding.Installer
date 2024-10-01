@@ -211,5 +211,41 @@ namespace Blasphemous.Modding.Installer.Properties {
                 this["Blas2LaunchConsole"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte Blas1ModFilter {
+            get {
+                return ((byte)(this["Blas1ModFilter"]));
+            }
+            set {
+                this["Blas1ModFilter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte Blas1SkinFilter {
+            get {
+                return ((byte)(this["Blas1SkinFilter"]));
+            }
+            set {
+                this["Blas1SkinFilter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte Blas2ModFilter {
+            get {
+                return ((byte)(this["Blas2ModFilter"]));
+            }
+            set {
+                this["Blas2ModFilter"] = value;
+            }
+        }
     }
 }

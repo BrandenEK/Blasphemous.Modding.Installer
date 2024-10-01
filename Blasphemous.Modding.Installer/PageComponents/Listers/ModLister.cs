@@ -1,5 +1,6 @@
 ﻿using Basalt.Framework.Logging;
 using Blasphemous.Modding.Installer.Mods;
+using Blasphemous.Modding.Installer.PageComponents.Filters;
 using Blasphemous.Modding.Installer.PageComponents.Sorters;
 
 namespace Blasphemous.Modding.Installer.PageComponents.Listers;
@@ -10,13 +11,15 @@ internal class ModLister : ILister
     private readonly List<Mod> _mods;
 
     private readonly ISorter<Mod> _sorter;
+    private readonly IFilter<Mod> _filter;
 
-    public ModLister(Panel background, List<Mod> mods, ISorter<Mod> sorter)
+    public ModLister(Panel background, List<Mod> mods, ISorter<Mod> sorter, IFilter<Mod> filter)
     {
         _background = background;
         _mods = mods;
 
         _sorter = sorter;
+        _filter = filter;
     }
 
     public void ClearList()
@@ -29,12 +32,17 @@ internal class ModLister : ILister
 
     public void RefreshList()
     {
+        if (Core.CurrentPage.Lister != this)
+            return;
+
         Logger.Info("Refreshing list of mods");
-        var display = _sorter.Sort(_mods);
+        var display = _sorter.Sort(_filter.Filter(_mods));
 
         _background.VerticalScroll.Value = 0;
 
         int idx = 0;
+        ClearList();
+
         foreach (Mod mod in display)
         {
             mod.SetUIPosition(idx++);
