@@ -21,6 +21,7 @@ public partial class UIHandler : BasaltForm
     protected override void OnFormClose(FormClosingEventArgs e)
     {
         Core.SettingsHandler.Save();
+        Core.Temp_SaveConfig();
     }
 
     public static bool PromptQuestion(string title, string question)

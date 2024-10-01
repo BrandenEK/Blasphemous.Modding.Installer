@@ -12,6 +12,8 @@ using Blasphemous.Modding.Installer.PageComponents.Validators;
 using Blasphemous.Modding.Installer.PageComponents.Validators.IconLoaders;
 using Blasphemous.Modding.Installer.Properties;
 using Blasphemous.Modding.Installer.Skins;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace Blasphemous.Modding.Installer;
 
@@ -33,7 +35,7 @@ static class Core
     static void TemporaryClearDataFolder()
     {
         // Delete all files other than the log
-        foreach (var file in Directory.GetFiles(InstallerFolder).Where(x => Path.GetExtension(x) != ".log"))
+        foreach (var file in Directory.GetFiles(InstallerFolder).Where(x => Path.GetExtension(x) != ".log" && Path.GetExtension(x) != ".cfg"))
         {
             Logger.Debug($"Deleting {file} from the installer folder");
             File.Delete(file);
@@ -50,6 +52,9 @@ static class Core
     static void InitializeCore(UIHandler form, InstallerCommand cmd)
     {
         TemporaryClearDataFolder();
+
+        Blasphemous.Modding.Installer.Config.InstallerSettings settings = LoadSettings();
+        settings.LastSection = SectionType.Blas2Mods;
 
         UIHandler = form;
         SettingsHandler = new SettingsHandler();
@@ -161,6 +166,45 @@ static class Core
         _pages.Add(SectionType.Blas1Mods, blas1modPage);
         _pages.Add(SectionType.Blas1Skins, blas1skinPage);
         _pages.Add(SectionType.Blas2Mods, blas2modPage);
+    }
+
+    // Config
+
+    private static Blasphemous.Modding.Installer.Config.InstallerSettings _tempConfig = new();
+
+    public static void Temp_SaveConfig()
+    {
+        SaveSettings(_tempConfig);
+    }
+
+    private static void SaveSettings(Blasphemous.Modding.Installer.Config.InstallerSettings cfg)
+    {
+        JsonSerializerSettings settings = new()
+        {
+            ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            Formatting = Formatting.Indented
+        };
+
+        string json = JsonConvert.SerializeObject(cfg, settings);
+        File.WriteAllText(Path.Combine(Core.InstallerFolder, "Settings.cfg"), json);
+    }
+
+    private static Blasphemous.Modding.Installer.Config.InstallerSettings LoadSettings()
+    {
+        string path = Path.Combine(Core.InstallerFolder, "Settings.cfg");
+
+        var cfg = new Blasphemous.Modding.Installer.Config.InstallerSettings();
+        try
+        {
+            cfg = JsonConvert.DeserializeObject<Blasphemous.Modding.Installer.Config.InstallerSettings>(File.ReadAllText(path))!;
+        }
+        catch
+        {
+            Logger.Error($"Failed to read config from {path}");
+        }
+
+        SaveSettings(cfg);
+        return _tempConfig = cfg;
     }
 
     public static UIHandler UIHandler { get; private set; }
