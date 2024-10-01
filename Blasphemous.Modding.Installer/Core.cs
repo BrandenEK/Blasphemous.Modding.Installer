@@ -103,7 +103,8 @@ static class Core
             blas1modLister,
             blas1mods,
             SectionType.Blas1Mods,
-            blas1modPageSettings);
+            blas1modPageSettings,
+            blas1gameSettings);
         var blas1skinLoader = new SkinLoader(
             Path.Combine(CacheFolder, "blas1skins.json"),
             "blasphemous1",
@@ -111,7 +112,8 @@ static class Core
             blas1skinLister,
             blas1skins,
             SectionType.Blas1Skins,
-            blas1skinPageSettings);
+            blas1skinPageSettings,
+            blas1gameSettings);
         var blas2modLoader = new ModLoader(
             Path.Combine(CacheFolder, "blas2mods.json"),
             "https://raw.githubusercontent.com/BrandenEK/Blasphemous.Modding.Installer/main/BlasphemousIIMods.json",
@@ -119,25 +121,27 @@ static class Core
             blas2modLister,
             blas2mods,
             SectionType.Blas2Mods,
-            blas2modPageSettings);
+            blas2modPageSettings,
+            blas2gameSettings);
 
         // Validators
-        var blas1Validator = new Blas1Validator(
+        var blas1Validator = new StandardValidator(
             "blas1tools",
             Path.Combine("C:", "Program Files (x86)", "Steam", "steamapps", "common", "Blasphemous"),
             "Blasphemous.exe",
             Path.Combine("BepInEx", "patchers", "BepInEx.MultiFolderLoader.dll"),
             "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-windows.zip",
             "https://raw.githubusercontent.com/BrandenEK/Blasphemous.ModdingTools/main/modding-tools-windows.version",
-            iconLoader);
-        var blas2Validator = new Blas2Validator(
+            iconLoader,
+            blas1gameSettings);
+        var blas2Validator = new StandardValidator(
             "blas2tools",
             Path.Combine("C:", "Program Files (x86)", "Steam", "steamapps", "common", "Blasphemous 2"),
             "Blasphemous 2.exe",
             Path.Combine("MelonLoader", "net6", "MelonLoader.dll"),
             "https://github.com/BrandenEK/BlasII.ModdingTools/raw/main/modding-tools-windows.zip",
             "https://raw.githubusercontent.com/BrandenEK/BlasII.ModdingTools/main/modding-tools-windows.version",
-            iconLoader);
+            iconLoader, blas2gameSettings);
 
         // Starters
         var blas1Starter = new Blas1Starter(blas1Validator, blas1gameSettings);

@@ -30,7 +30,7 @@ internal class Blas2Starter : IGameStarter
 
     private void StartProcess(string args)
     {
-        string gameDir = Core.SettingsHandler.Properties.Blas2RootFolder;
+        string gameDir = _settings.RootFolder;
         string gameExe = Path.Combine(gameDir, _validator.ExeName);
         Logger.Info("Starting process at " + gameExe);
 

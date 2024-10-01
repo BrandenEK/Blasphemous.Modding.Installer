@@ -1,4 +1,5 @@
 ﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Config;
 using Blasphemous.Modding.Installer.Extensions;
 using Newtonsoft.Json;
 
@@ -8,13 +9,15 @@ internal class Skin
 {
     private readonly SkinUI _ui;
     private readonly SectionType _skinType;
+    private readonly GameSettings _settings;
 
     private bool _downloading;
 
-    public Skin(SkinData data, SectionType skinType)
+    public Skin(SkinData data, SectionType skinType, GameSettings settings)
     {
         Data = data;
         _skinType = skinType;
+        _settings = settings;
         _ui = new SkinUI(this);
         SetUIVisibility(false);
         SetUIPosition(-1);
@@ -57,7 +60,7 @@ internal class Skin
 
     // Paths
 
-    private string RootFolder => Core.SettingsHandler.Properties.GetRootPath(_skinType);
+    private string RootFolder => _settings.RootFolder;
     public string PathToSkinFolder => $"{RootFolder}/Modding/skins/{Data.id}";
 
     private string SubFolder => "blasphemous1";

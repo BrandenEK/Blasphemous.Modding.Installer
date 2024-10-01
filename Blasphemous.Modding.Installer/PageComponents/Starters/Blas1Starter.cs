@@ -28,7 +28,7 @@ internal class Blas1Starter : IGameStarter
 
     private bool SetConfigProperty(string fileName, string sectionName, string propertyName, bool value)
     {
-        string path = Path.Combine(Core.SettingsHandler.Properties.Blas1RootFolder, fileName);
+        string path = Path.Combine(_settings.RootFolder, fileName);
 
         // Ensure file exists
         if (!File.Exists(path))
@@ -77,7 +77,7 @@ internal class Blas1Starter : IGameStarter
 
     private void StartProcess()
     {
-        string gameDir = Core.SettingsHandler.Properties.Blas1RootFolder;
+        string gameDir = _settings.RootFolder;
         string gameExe = Path.Combine(gameDir, _validator.ExeName);
         Logger.Info("Starting process at " + gameExe);
 

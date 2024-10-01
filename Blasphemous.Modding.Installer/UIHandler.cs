@@ -64,7 +64,7 @@ public partial class UIHandler : BasaltForm
         if (dialog.ShowDialog() == DialogResult.OK)
         {
             string path = Path.GetDirectoryName(dialog.FileName)!;
-            validator.SetRootPath(path);
+            Core.CurrentPage.GameSettings.RootFolder = path;
             OpenSection(Core.TempConfig.LastSection);
 
             // Not necessary since we just opened a new section

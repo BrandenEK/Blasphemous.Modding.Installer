@@ -8,8 +8,8 @@ internal class SettingsHandler
 
     public void Save()
     {
-        Settings.Default.Blas1RootFolder = Properties.Blas1RootFolder;
-        Settings.Default.Blas2RootFolder = Properties.Blas2RootFolder;
+        //Settings.Default.Blas1RootFolder = Properties.Blas1RootFolder;
+        //Settings.Default.Blas2RootFolder = Properties.Blas2RootFolder;
 
         //Settings.Default.Blas1ModSort = (byte)Properties.Blas1ModSort;
         //Settings.Default.Blas1SkinSort = (byte)Properties.Blas1SkinSort;
@@ -36,8 +36,8 @@ internal class SettingsHandler
 
         Properties = new OldSettings()
         {
-            Blas1RootFolder = Settings.Default.Blas1RootFolder,
-            Blas2RootFolder = Settings.Default.Blas2RootFolder,
+            //Blas1RootFolder = Settings.Default.Blas1RootFolder,
+            //Blas2RootFolder = Settings.Default.Blas2RootFolder,
 
             //Blas1ModSort = (SortType)Settings.Default.Blas1ModSort,
             //Blas1SkinSort = (SortType)Settings.Default.Blas1SkinSort,

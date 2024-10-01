@@ -14,11 +14,12 @@ internal class ModLoader : ILoader
     private readonly ILister _lister;
     private readonly List<Mod> _mods;
     private readonly SectionType _modType;
-    private readonly PageSettings _settings;
+    private readonly PageSettings _pageSettings;
+    private readonly GameSettings _gameSettings;
 
     private bool _loadedData;
 
-    public ModLoader(string localDataPath, string remoteDataPath, bool ignoreTime, ILister lister, List<Mod> mods, SectionType modType, PageSettings settings)
+    public ModLoader(string localDataPath, string remoteDataPath, bool ignoreTime, ILister lister, List<Mod> mods, SectionType modType, PageSettings pageSettings, GameSettings gameSettings)
     {
         _localDataPath = localDataPath;
         _remoteDataPath = remoteDataPath;
@@ -26,7 +27,8 @@ internal class ModLoader : ILoader
         _lister = lister;
         _mods = mods;
         _modType = modType;
-        _settings = settings;
+        _pageSettings = pageSettings;
+        _gameSettings = gameSettings;
     }
 
     public void LoadAllData()
@@ -36,11 +38,11 @@ internal class ModLoader : ILoader
 
         LoadLocalMods();
 
-        if (_ignoreTime || DateTime.Now >= _settings.Time)
+        if (_ignoreTime || DateTime.Now >= _pageSettings.Time)
         {
             LoadRemoteMods();
-            _settings.Time = DateTime.Now.AddHours(0.5);
-            Logger.Warn($"Next remote loading: {_settings.Time}");
+            _pageSettings.Time = DateTime.Now.AddHours(0.5);
+            Logger.Warn($"Next remote loading: {_pageSettings.Time}");
         }
         else
         {
@@ -59,7 +61,7 @@ internal class ModLoader : ILoader
 
             for (int i = 0; i < localData.Length; i++)
             {
-                _mods.Add(new Mod(localData[i], _modType));
+                _mods.Add(new Mod(localData[i], _modType, _gameSettings));
             }
         }
 
@@ -97,7 +99,7 @@ internal class ModLoader : ILoader
             }
             else
             {
-                newMods.Add(new Mod(fullData, _modType));
+                newMods.Add(new Mod(fullData, _modType, _gameSettings));
             }
         }
 

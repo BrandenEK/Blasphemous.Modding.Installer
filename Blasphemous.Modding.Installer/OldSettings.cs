@@ -3,8 +3,8 @@ namespace Blasphemous.Modding.Installer;
 
 public class OldSettings
 {
-    public string Blas1RootFolder { get; set; } = string.Empty;
-    public string Blas2RootFolder { get; set; } = string.Empty;
+    //public string Blas1RootFolder { get; set; } = string.Empty;
+    //public string Blas2RootFolder { get; set; } = string.Empty;
     //public SectionType CurrentSection { get; set; }
 
     //public LaunchOptions Blas1Launch { get; set; }
@@ -24,33 +24,33 @@ public class OldSettings
 
     // Root path
 
-    public string GetRootPath(SectionType section)
-    {
-        return section switch
-        {
-            SectionType.Blas1Mods => Blas1RootFolder,
-            SectionType.Blas1Skins => Blas1RootFolder,
-            SectionType.Blas2Mods => Blas2RootFolder,
-            _ => throw new ArgumentException("Invalid section type", nameof(section))
-        };
-    }
+    //public string GetRootPath(SectionType section)
+    //{
+    //    return section switch
+    //    {
+    //        SectionType.Blas1Mods => Blas1RootFolder,
+    //        SectionType.Blas1Skins => Blas1RootFolder,
+    //        SectionType.Blas2Mods => Blas2RootFolder,
+    //        _ => throw new ArgumentException("Invalid section type", nameof(section))
+    //    };
+    //}
 
-    public void SetRootPath(SectionType section, string path)
-    {
-        switch (section)
-        {
-            case SectionType.Blas1Mods: Blas1RootFolder = path; break;
-            case SectionType.Blas1Skins: Blas1RootFolder = path; break;
-            case SectionType.Blas2Mods: Blas2RootFolder = path; break;
-            default: throw new ArgumentException("Invalid section type", nameof(section));
-        }
-    }
+    //public void SetRootPath(SectionType section, string path)
+    //{
+    //    switch (section)
+    //    {
+    //        case SectionType.Blas1Mods: Blas1RootFolder = path; break;
+    //        case SectionType.Blas1Skins: Blas1RootFolder = path; break;
+    //        case SectionType.Blas2Mods: Blas2RootFolder = path; break;
+    //        default: throw new ArgumentException("Invalid section type", nameof(section));
+    //    }
+    //}
 
-    public string CurrentRootPath
-    {
-        get => GetRootPath(Core.TempConfig.LastSection);
-        set => SetRootPath(Core.TempConfig.LastSection, value);
-    }
+    //public string CurrentRootPath
+    //{
+    //    get => GetRootPath(Core.TempConfig.LastSection);
+    //    set => SetRootPath(Core.TempConfig.LastSection, value);
+    //}
 
     // Launch options
 
