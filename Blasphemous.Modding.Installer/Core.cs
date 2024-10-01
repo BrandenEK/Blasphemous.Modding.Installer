@@ -54,6 +54,11 @@ static class Core
         TemporaryClearDataFolder();
 
         Blasphemous.Modding.Installer.Config.InstallerSettings settings = LoadSettings();
+        var blas1gameSettings = settings.GetGameSettings("blas1");
+        var blas2gameSettings = settings.GetGameSettings("blas2");
+        var blas1modPageSettings = settings.GetPageSettings("blas1mods");
+        var blas1skinPageSettings = settings.GetPageSettings("blas1skins");
+        var blas2modPageSettings = settings.GetPageSettings("blas2mods");
 
         UIHandler = form;
         SettingsHandler = new SettingsHandler();

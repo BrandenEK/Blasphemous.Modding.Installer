@@ -9,6 +9,38 @@ public class InstallerSettings
 
     public List<GameSettings> Games { get; set; } = new();
     public List<PageSettings> Pages { get; set; } = new();
+
+    public GameSettings GetGameSettings(string id)
+    {
+        var settings = Games.FirstOrDefault(x => x.Id == id);
+        return settings ?? CreateNewGame(id);
+    }
+
+    private GameSettings CreateNewGame(string id)
+    {
+        var settings = new GameSettings()
+        {
+            Id = id
+        };
+        Games.Add(settings);
+        return settings;
+    }
+
+    public PageSettings GetPageSettings(string id)
+    {
+        var settings = Pages.FirstOrDefault(x => x.Id == id);
+        return settings ?? CreateNewPage(id);
+    }
+
+    private PageSettings CreateNewPage(string id)
+    {
+        var settings = new PageSettings()
+        {
+            Id = id
+        };
+        Pages.Add(settings);
+        return settings;
+    }
 }
 
 public class WindowSettings
