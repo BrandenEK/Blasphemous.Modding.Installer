@@ -7,6 +7,8 @@
 ### Automatic installation (Windows only)
 1. Download the most recent version of the installer from the [Releases](https://github.com/BrandenEK/Blasphemous.Modding.Installer/releases) page
 2. Run the 'BlasModInstaller.exe' program (You may need to install the .net runtime)
+3. Locate the exe file for the game through the UI
+4. Install the modding tools for the game through the UI
 
 ---
 
