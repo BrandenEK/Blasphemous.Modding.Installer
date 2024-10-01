@@ -30,7 +30,6 @@ namespace Blasphemous.Modding.Installer
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIHandler));
             _bottom_holder_scroll = new VScrollBar();
             _bottom_holder = new Panel();
@@ -83,7 +82,6 @@ namespace Blasphemous.Modding.Installer
             _middle_inner = new Panel();
             _middle_path = new Label();
             _middle_tools = new Panel();
-            _tooltip = new ToolTip(components);
             _bottom_holder.SuspendLayout();
             _left.SuspendLayout();
             _left_outer.SuspendLayout();
@@ -730,14 +728,6 @@ namespace Blasphemous.Modding.Installer
             _middle_tools.TabIndex = 9;
             _middle_tools.Visible = false;
             // 
-            // _tooltip
-            // 
-            _tooltip.AutomaticDelay = 100;
-            _tooltip.AutoPopDelay = 100000;
-            _tooltip.InitialDelay = 100;
-            _tooltip.ReshowDelay = 100;
-            _tooltip.ShowAlways = true;
-            // 
             // UIHandler
             // 
             AutoScaleDimensions = new SizeF(6F, 15F);
@@ -820,7 +810,6 @@ namespace Blasphemous.Modding.Installer
         private Panel _middle;
         private Panel _middle_outer;
         private Panel _middle_inner;
-        private ToolTip _tooltip;
         private Panel _middle_tools;
         private Label _middle_path;
         private ComboBox _left_sort_options;

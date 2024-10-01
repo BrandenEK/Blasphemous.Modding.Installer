@@ -200,9 +200,6 @@ public partial class UIHandler : BasaltForm
 
         _middle_tools_text.Text = text;
         _middle_tools_icon.BackgroundImage = icon;
-        _tooltip.RemoveAll();
-        //_tooltip.SetToolTip(_middle_tools_text, text);
-        //_tooltip.SetToolTip(_middle_tools_icon, text);
     }
 
     public void ShowToolStatus()
