@@ -20,7 +20,7 @@ public partial class UIHandler : BasaltForm
         foreach (var page in Core.AllPages)
             page.Previewer.Clear();
 
-        OpenSection(Core.SettingsHandler.Properties.CurrentSection);
+        OpenSection(Core.TempConfig.LastSection);
     }
 
     protected override void OnFormClose(FormClosingEventArgs e)
@@ -65,7 +65,7 @@ public partial class UIHandler : BasaltForm
         {
             string path = Path.GetDirectoryName(dialog.FileName)!;
             validator.SetRootPath(path);
-            OpenSection(Core.SettingsHandler.Properties.CurrentSection);
+            OpenSection(Core.TempConfig.LastSection);
 
             // Not necessary since we just opened a new section
             //OnPathChanged?.Invoke(path);
@@ -93,7 +93,8 @@ public partial class UIHandler : BasaltForm
         Core.CurrentPage.Previewer.Clear();
         Core.CurrentPage.Lister.ClearList();
 
-        Core.SettingsHandler.Properties.CurrentSection = section;
+        //Core.SettingsHandler.Properties.CurrentSection = section;
+        Core.TempConfig.LastSection = section;
         var currentPage = Core.CurrentPage;
 
         // Update background and info

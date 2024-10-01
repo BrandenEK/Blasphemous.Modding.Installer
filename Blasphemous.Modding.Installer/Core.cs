@@ -212,7 +212,7 @@ static class Core
 
     private static readonly Dictionary<SectionType, InstallerPage> _pages = new();
 
-    public static InstallerPage CurrentPage => _pages[SettingsHandler.Properties.CurrentSection];
+    public static InstallerPage CurrentPage => _pages[TempConfig.LastSection];
     public static IEnumerable<InstallerPage> AllPages => _pages.Values;
 
     public static InstallerPage Blas1ModPage => _pages[SectionType.Blas1Mods];

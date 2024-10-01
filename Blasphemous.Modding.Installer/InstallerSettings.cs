@@ -5,7 +5,7 @@ public class InstallerSettings
 {
     public string Blas1RootFolder { get; set; } = string.Empty;
     public string Blas2RootFolder { get; set; } = string.Empty;
-    public SectionType CurrentSection { get; set; }
+    //public SectionType CurrentSection { get; set; }
 
     public LaunchOptions Blas1Launch { get; set; }
     public LaunchOptions Blas2Launch { get; set; }
@@ -48,8 +48,8 @@ public class InstallerSettings
 
     public string CurrentRootPath
     {
-        get => GetRootPath(CurrentSection);
-        set => SetRootPath(CurrentSection, value);
+        get => GetRootPath(Core.TempConfig.LastSection);
+        set => SetRootPath(Core.TempConfig.LastSection, value);
     }
 
     // Launch options
@@ -78,8 +78,8 @@ public class InstallerSettings
 
     public LaunchOptions CurrentLaunchOptions
     {
-        get => GetLaunchOptions(CurrentSection);
-        set => SetLaunchOptions(CurrentSection, value);
+        get => GetLaunchOptions(Core.TempConfig.LastSection);
+        set => SetLaunchOptions(Core.TempConfig.LastSection, value);
     }
 
     // Sort type
@@ -108,8 +108,8 @@ public class InstallerSettings
 
     public SortType CurrentSort
     {
-        get => GetSort(CurrentSection);
-        set => SetSort(CurrentSection, value);
+        get => GetSort(Core.TempConfig.LastSection);
+        set => SetSort(Core.TempConfig.LastSection, value);
     }
 
     // Filter type
@@ -138,8 +138,8 @@ public class InstallerSettings
 
     public FilterType CurrentFilter
     {
-        get => GetFilter(CurrentSection);
-        set => SetFilter(CurrentSection, value);
+        get => GetFilter(Core.TempConfig.LastSection);
+        set => SetFilter(Core.TempConfig.LastSection, value);
     }
 
     // Update time
@@ -168,8 +168,8 @@ public class InstallerSettings
 
     public DateTime CurrentTime
     {
-        get => GetTime(CurrentSection);
-        set => SetTime(CurrentSection, value);
+        get => GetTime(Core.TempConfig.LastSection);
+        set => SetTime(Core.TempConfig.LastSection, value);
     }
 }
 
