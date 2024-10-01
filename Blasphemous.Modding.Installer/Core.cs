@@ -95,7 +95,6 @@ static class Core
 
         // Loaders
         var blas1modLoader = new ModLoader(
-            Path.Combine(CacheFolder, "blas1mods.json"),
             "https://raw.githubusercontent.com/BrandenEK/Blasphemous.Modding.Installer/main/BlasphemousMods.json",
             cmd.IgnoreTime,
             blas1modLister,
@@ -104,7 +103,6 @@ static class Core
             blas1modPageSettings,
             blas1gameSettings);
         var blas1skinLoader = new SkinLoader(
-            Path.Combine(CacheFolder, "blas1skins.json"),
             "blasphemous1",
             cmd.IgnoreTime,
             blas1skinLister,
@@ -113,7 +111,6 @@ static class Core
             blas1skinPageSettings,
             blas1gameSettings);
         var blas2modLoader = new ModLoader(
-            Path.Combine(CacheFolder, "blas2mods.json"),
             "https://raw.githubusercontent.com/BrandenEK/Blasphemous.Modding.Installer/main/BlasphemousIIMods.json",
             cmd.IgnoreTime,
             blas2modLister,

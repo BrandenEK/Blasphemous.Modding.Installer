@@ -18,16 +18,17 @@ internal class ModLoader : ILoader
 
     private bool _loadedData;
 
-    public ModLoader(string localDataPath, string remoteDataPath, bool ignoreTime, ILister lister, List<Mod> mods, SectionType modType, PageSettings pageSettings, GameSettings gameSettings)
+    public ModLoader(string remoteDataPath, bool ignoreTime, ILister lister, List<Mod> mods, SectionType modType, PageSettings pageSettings, GameSettings gameSettings)
     {
-        _localDataPath = localDataPath;
+        _pageSettings = pageSettings;
+        _gameSettings = gameSettings;
+
+        _localDataPath = Path.Combine(Core.CacheFolder, $"{_pageSettings.Id}.json");
         _remoteDataPath = remoteDataPath;
         _ignoreTime = ignoreTime;
         _lister = lister;
         _mods = mods;
         _modType = modType;
-        _pageSettings = pageSettings;
-        _gameSettings = gameSettings;
     }
 
     public void LoadAllData()
