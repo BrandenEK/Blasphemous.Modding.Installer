@@ -37,6 +37,24 @@ namespace Blasphemous.Modding.Installer
             _left = new Panel();
             _left_outer = new Panel();
             _left_inner = new Panel();
+            _left_holder = new Panel();
+            _left_start = new Panel();
+            _left_start_console = new CheckBox();
+            _left_start_modded = new CheckBox();
+            _left_start_button = new TransparentButton();
+            _left_start_divider = new Panel();
+            _left_all = new Panel();
+            _left_all_install = new TransparentButton();
+            _left_all_enable = new TransparentButton();
+            _left_all_uninstall = new TransparentButton();
+            _left_all_disable = new TransparentButton();
+            _left_all_divider = new Panel();
+            _left_sort = new Panel();
+            _left_filter_options = new ComboBox();
+            _left_filter_text = new Label();
+            _left_sort_options = new ComboBox();
+            _left_sort_text = new Label();
+            _left_sort_divider = new Panel();
             _left_details = new Panel();
             _left_details_divider = new Panel();
             _left_details_outer = new Panel();
@@ -44,28 +62,11 @@ namespace Blasphemous.Modding.Installer
             _left_details_version = new Label();
             _left_details_desc = new Label();
             _left_details_name = new Label();
-            _left_start = new Panel();
-            _left_start_console = new CheckBox();
-            _left_start_modded = new CheckBox();
-            _left_start_button = new TransparentButton();
-            _left_start_divider = new Panel();
             _left_page = new Panel();
             _left_page_blas1mod = new TransparentButton();
             _left_page_blas1skin = new TransparentButton();
             _left_page_blas2mod = new TransparentButton();
             _left_page_divider = new Panel();
-            _left_sort = new Panel();
-            _left_filter_options = new ComboBox();
-            _left_filter_text = new Label();
-            _left_sort_options = new ComboBox();
-            _left_sort_text = new Label();
-            _left_sort_divider = new Panel();
-            _left_all = new Panel();
-            _left_all_install = new TransparentButton();
-            _left_all_enable = new TransparentButton();
-            _left_all_uninstall = new TransparentButton();
-            _left_all_disable = new TransparentButton();
-            _left_all_divider = new Panel();
             _top = new Panel();
             _top_outer = new Panel();
             _top_inner = new Panel();
@@ -87,13 +88,14 @@ namespace Blasphemous.Modding.Installer
             _left.SuspendLayout();
             _left_outer.SuspendLayout();
             _left_inner.SuspendLayout();
+            _left_holder.SuspendLayout();
+            _left_start.SuspendLayout();
+            _left_all.SuspendLayout();
+            _left_sort.SuspendLayout();
             _left_details.SuspendLayout();
             _left_details_outer.SuspendLayout();
             _left_details_inner.SuspendLayout();
-            _left_start.SuspendLayout();
             _left_page.SuspendLayout();
-            _left_sort.SuspendLayout();
-            _left_all.SuspendLayout();
             _top.SuspendLayout();
             _top_outer.SuspendLayout();
             _top_inner.SuspendLayout();
@@ -153,87 +155,23 @@ namespace Blasphemous.Modding.Installer
             // 
             _left_inner.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             _left_inner.BackColor = Color.FromArgb(30, 30, 30);
-            _left_inner.Controls.Add(_left_details);
-            _left_inner.Controls.Add(_left_start);
-            _left_inner.Controls.Add(_left_page);
-            _left_inner.Controls.Add(_left_sort);
-            _left_inner.Controls.Add(_left_all);
+            _left_inner.Controls.Add(_left_holder);
             _left_inner.Location = new Point(0, 0);
             _left_inner.Name = "_left_inner";
             _left_inner.Size = new Size(248, 861);
             _left_inner.TabIndex = 8;
             // 
-            // _left_details
+            // _left_holder
             // 
-            _left_details.Controls.Add(_left_details_divider);
-            _left_details.Controls.Add(_left_details_outer);
-            _left_details.Location = new Point(15, 160);
-            _left_details.Name = "_left_details";
-            _left_details.Size = new Size(220, 190);
-            _left_details.TabIndex = 25;
-            // 
-            // _left_details_divider
-            // 
-            _left_details_divider.Anchor = AnchorStyles.Bottom;
-            _left_details_divider.BackColor = SystemColors.ButtonHighlight;
-            _left_details_divider.Location = new Point(29, 188);
-            _left_details_divider.Name = "_left_details_divider";
-            _left_details_divider.Size = new Size(160, 1);
-            _left_details_divider.TabIndex = 22;
-            // 
-            // _left_details_outer
-            // 
-            _left_details_outer.BackColor = Color.Black;
-            _left_details_outer.Controls.Add(_left_details_inner);
-            _left_details_outer.Location = new Point(0, 20);
-            _left_details_outer.Name = "_left_details_outer";
-            _left_details_outer.Size = new Size(220, 150);
-            _left_details_outer.TabIndex = 7;
-            // 
-            // _left_details_inner
-            // 
-            _left_details_inner.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            _left_details_inner.BackColor = Color.FromArgb(40, 40, 40);
-            _left_details_inner.BackgroundImageLayout = ImageLayout.Stretch;
-            _left_details_inner.Controls.Add(_left_details_version);
-            _left_details_inner.Controls.Add(_left_details_desc);
-            _left_details_inner.Controls.Add(_left_details_name);
-            _left_details_inner.Location = new Point(2, 2);
-            _left_details_inner.Name = "_left_details_inner";
-            _left_details_inner.Size = new Size(216, 146);
-            _left_details_inner.TabIndex = 0;
-            // 
-            // _left_details_version
-            // 
-            _left_details_version.Font = new Font("Trebuchet MS", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            _left_details_version.ForeColor = Color.White;
-            _left_details_version.Location = new Point(3, 100);
-            _left_details_version.Name = "_left_details_version";
-            _left_details_version.Size = new Size(210, 40);
-            _left_details_version.TabIndex = 2;
-            _left_details_version.Text = "Latest version";
-            _left_details_version.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // _left_details_desc
-            // 
-            _left_details_desc.Font = new Font("Trebuchet MS", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            _left_details_desc.ForeColor = Color.White;
-            _left_details_desc.Location = new Point(3, 35);
-            _left_details_desc.Name = "_left_details_desc";
-            _left_details_desc.Size = new Size(210, 60);
-            _left_details_desc.TabIndex = 1;
-            _left_details_desc.Text = "Description";
-            // 
-            // _left_details_name
-            // 
-            _left_details_name.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            _left_details_name.ForeColor = Color.White;
-            _left_details_name.Location = new Point(3, 5);
-            _left_details_name.Name = "_left_details_name";
-            _left_details_name.Size = new Size(210, 20);
-            _left_details_name.TabIndex = 0;
-            _left_details_name.Text = "Name";
-            _left_details_name.TextAlign = ContentAlignment.MiddleCenter;
+            _left_holder.Controls.Add(_left_start);
+            _left_holder.Controls.Add(_left_all);
+            _left_holder.Controls.Add(_left_sort);
+            _left_holder.Controls.Add(_left_details);
+            _left_holder.Controls.Add(_left_page);
+            _left_holder.Location = new Point(15, 15);
+            _left_holder.Name = "_left_holder";
+            _left_holder.Size = new Size(220, 800);
+            _left_holder.TabIndex = 26;
             // 
             // _left_start
             // 
@@ -241,7 +179,8 @@ namespace Blasphemous.Modding.Installer
             _left_start.Controls.Add(_left_start_modded);
             _left_start.Controls.Add(_left_start_button);
             _left_start.Controls.Add(_left_start_divider);
-            _left_start.Location = new Point(15, 560);
+            _left_start.Dock = DockStyle.Top;
+            _left_start.Location = new Point(0, 545);
             _left_start.Name = "_left_start";
             _left_start.Size = new Size(220, 120);
             _left_start.TabIndex = 24;
@@ -299,142 +238,6 @@ namespace Blasphemous.Modding.Installer
             _left_start_divider.TabIndex = 23;
             _left_start_divider.Visible = false;
             // 
-            // _left_page
-            // 
-            _left_page.Controls.Add(_left_page_blas1mod);
-            _left_page.Controls.Add(_left_page_blas1skin);
-            _left_page.Controls.Add(_left_page_blas2mod);
-            _left_page.Controls.Add(_left_page_divider);
-            _left_page.Location = new Point(15, 15);
-            _left_page.Name = "_left_page";
-            _left_page.Size = new Size(220, 145);
-            _left_page.TabIndex = 14;
-            // 
-            // _left_page_blas1mod
-            // 
-            _left_page_blas1mod.BackColor = Color.FromArgb(30, 30, 30);
-            _left_page_blas1mod.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
-            _left_page_blas1mod.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
-            _left_page_blas1mod.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
-            _left_page_blas1mod.FlatStyle = FlatStyle.Flat;
-            _left_page_blas1mod.Font = new Font("Trebuchet MS", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            _left_page_blas1mod.ForeColor = SystemColors.ButtonHighlight;
-            _left_page_blas1mod.Location = new Point(0, 0);
-            _left_page_blas1mod.Name = "_left_page_blas1mod";
-            _left_page_blas1mod.Size = new Size(220, 35);
-            _left_page_blas1mod.TabIndex = 1;
-            _left_page_blas1mod.Text = "Blasphemous Mods";
-            _left_page_blas1mod.UseVisualStyleBackColor = false;
-            _left_page_blas1mod.Click += ClickedBlas1Mods;
-            // 
-            // _left_page_blas1skin
-            // 
-            _left_page_blas1skin.BackColor = Color.FromArgb(30, 30, 30);
-            _left_page_blas1skin.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
-            _left_page_blas1skin.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
-            _left_page_blas1skin.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
-            _left_page_blas1skin.FlatStyle = FlatStyle.Flat;
-            _left_page_blas1skin.Font = new Font("Trebuchet MS", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            _left_page_blas1skin.ForeColor = SystemColors.ButtonHighlight;
-            _left_page_blas1skin.Location = new Point(0, 45);
-            _left_page_blas1skin.Name = "_left_page_blas1skin";
-            _left_page_blas1skin.Size = new Size(220, 35);
-            _left_page_blas1skin.TabIndex = 2;
-            _left_page_blas1skin.Text = "Blasphemous Skins";
-            _left_page_blas1skin.UseVisualStyleBackColor = false;
-            _left_page_blas1skin.Click += ClickedBlas1Skins;
-            // 
-            // _left_page_blas2mod
-            // 
-            _left_page_blas2mod.BackColor = Color.FromArgb(30, 30, 30);
-            _left_page_blas2mod.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
-            _left_page_blas2mod.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
-            _left_page_blas2mod.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
-            _left_page_blas2mod.FlatStyle = FlatStyle.Flat;
-            _left_page_blas2mod.Font = new Font("Trebuchet MS", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            _left_page_blas2mod.ForeColor = SystemColors.ButtonHighlight;
-            _left_page_blas2mod.Location = new Point(0, 90);
-            _left_page_blas2mod.Name = "_left_page_blas2mod";
-            _left_page_blas2mod.Size = new Size(220, 35);
-            _left_page_blas2mod.TabIndex = 3;
-            _left_page_blas2mod.Text = "Blasphemous II Mods";
-            _left_page_blas2mod.UseVisualStyleBackColor = false;
-            _left_page_blas2mod.Click += ClickedBlas2Mods;
-            // 
-            // _left_page_divider
-            // 
-            _left_page_divider.Anchor = AnchorStyles.Bottom;
-            _left_page_divider.BackColor = SystemColors.ButtonHighlight;
-            _left_page_divider.Location = new Point(29, 143);
-            _left_page_divider.Name = "_left_page_divider";
-            _left_page_divider.Size = new Size(160, 1);
-            _left_page_divider.TabIndex = 21;
-            // 
-            // _left_sort
-            // 
-            _left_sort.Controls.Add(_left_filter_options);
-            _left_sort.Controls.Add(_left_filter_text);
-            _left_sort.Controls.Add(_left_sort_options);
-            _left_sort.Controls.Add(_left_sort_text);
-            _left_sort.Controls.Add(_left_sort_divider);
-            _left_sort.Location = new Point(15, 350);
-            _left_sort.Name = "_left_sort";
-            _left_sort.Size = new Size(220, 100);
-            _left_sort.TabIndex = 13;
-            // 
-            // _left_filter_options
-            // 
-            _left_filter_options.DropDownStyle = ComboBoxStyle.DropDownList;
-            _left_filter_options.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            _left_filter_options.FormattingEnabled = true;
-            _left_filter_options.Location = new Point(87, 55);
-            _left_filter_options.Name = "_left_filter_options";
-            _left_filter_options.Size = new Size(121, 26);
-            _left_filter_options.TabIndex = 14;
-            _left_filter_options.SelectedIndexChanged += ChangedFilterOption;
-            // 
-            // _left_filter_text
-            // 
-            _left_filter_text.AutoSize = true;
-            _left_filter_text.Font = new Font("Trebuchet MS", 11.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
-            _left_filter_text.ForeColor = SystemColors.ButtonHighlight;
-            _left_filter_text.Location = new Point(5, 55);
-            _left_filter_text.Name = "_left_filter_text";
-            _left_filter_text.Size = new Size(78, 20);
-            _left_filter_text.TabIndex = 13;
-            _left_filter_text.Text = "Filter by:";
-            // 
-            // _left_sort_options
-            // 
-            _left_sort_options.DropDownStyle = ComboBoxStyle.DropDownList;
-            _left_sort_options.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            _left_sort_options.FormattingEnabled = true;
-            _left_sort_options.Location = new Point(87, 15);
-            _left_sort_options.Name = "_left_sort_options";
-            _left_sort_options.Size = new Size(121, 26);
-            _left_sort_options.TabIndex = 12;
-            _left_sort_options.SelectedIndexChanged += ChangedSortOption;
-            // 
-            // _left_sort_text
-            // 
-            _left_sort_text.AutoSize = true;
-            _left_sort_text.Font = new Font("Trebuchet MS", 11.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
-            _left_sort_text.ForeColor = SystemColors.ButtonHighlight;
-            _left_sort_text.Location = new Point(5, 15);
-            _left_sort_text.Name = "_left_sort_text";
-            _left_sort_text.Size = new Size(67, 20);
-            _left_sort_text.TabIndex = 11;
-            _left_sort_text.Text = "Sort by:";
-            // 
-            // _left_sort_divider
-            // 
-            _left_sort_divider.Anchor = AnchorStyles.Bottom;
-            _left_sort_divider.BackColor = SystemColors.ButtonHighlight;
-            _left_sort_divider.Location = new Point(29, 98);
-            _left_sort_divider.Name = "_left_sort_divider";
-            _left_sort_divider.Size = new Size(160, 1);
-            _left_sort_divider.TabIndex = 22;
-            // 
             // _left_all
             // 
             _left_all.Controls.Add(_left_all_install);
@@ -442,7 +245,8 @@ namespace Blasphemous.Modding.Installer
             _left_all.Controls.Add(_left_all_uninstall);
             _left_all.Controls.Add(_left_all_disable);
             _left_all.Controls.Add(_left_all_divider);
-            _left_all.Location = new Point(15, 450);
+            _left_all.Dock = DockStyle.Top;
+            _left_all.Location = new Point(0, 435);
             _left_all.Name = "_left_all";
             _left_all.Size = new Size(220, 110);
             _left_all.TabIndex = 14;
@@ -523,6 +327,217 @@ namespace Blasphemous.Modding.Installer
             _left_all_divider.Name = "_left_all_divider";
             _left_all_divider.Size = new Size(160, 1);
             _left_all_divider.TabIndex = 23;
+            // 
+            // _left_sort
+            // 
+            _left_sort.Controls.Add(_left_filter_options);
+            _left_sort.Controls.Add(_left_filter_text);
+            _left_sort.Controls.Add(_left_sort_options);
+            _left_sort.Controls.Add(_left_sort_text);
+            _left_sort.Controls.Add(_left_sort_divider);
+            _left_sort.Dock = DockStyle.Top;
+            _left_sort.Location = new Point(0, 335);
+            _left_sort.Name = "_left_sort";
+            _left_sort.Size = new Size(220, 100);
+            _left_sort.TabIndex = 13;
+            // 
+            // _left_filter_options
+            // 
+            _left_filter_options.DropDownStyle = ComboBoxStyle.DropDownList;
+            _left_filter_options.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_filter_options.FormattingEnabled = true;
+            _left_filter_options.Location = new Point(87, 55);
+            _left_filter_options.Name = "_left_filter_options";
+            _left_filter_options.Size = new Size(121, 26);
+            _left_filter_options.TabIndex = 14;
+            _left_filter_options.SelectedIndexChanged += ChangedFilterOption;
+            // 
+            // _left_filter_text
+            // 
+            _left_filter_text.AutoSize = true;
+            _left_filter_text.Font = new Font("Trebuchet MS", 11.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            _left_filter_text.ForeColor = SystemColors.ButtonHighlight;
+            _left_filter_text.Location = new Point(5, 55);
+            _left_filter_text.Name = "_left_filter_text";
+            _left_filter_text.Size = new Size(78, 20);
+            _left_filter_text.TabIndex = 13;
+            _left_filter_text.Text = "Filter by:";
+            // 
+            // _left_sort_options
+            // 
+            _left_sort_options.DropDownStyle = ComboBoxStyle.DropDownList;
+            _left_sort_options.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_sort_options.FormattingEnabled = true;
+            _left_sort_options.Location = new Point(87, 15);
+            _left_sort_options.Name = "_left_sort_options";
+            _left_sort_options.Size = new Size(121, 26);
+            _left_sort_options.TabIndex = 12;
+            _left_sort_options.SelectedIndexChanged += ChangedSortOption;
+            // 
+            // _left_sort_text
+            // 
+            _left_sort_text.AutoSize = true;
+            _left_sort_text.Font = new Font("Trebuchet MS", 11.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            _left_sort_text.ForeColor = SystemColors.ButtonHighlight;
+            _left_sort_text.Location = new Point(5, 15);
+            _left_sort_text.Name = "_left_sort_text";
+            _left_sort_text.Size = new Size(67, 20);
+            _left_sort_text.TabIndex = 11;
+            _left_sort_text.Text = "Sort by:";
+            // 
+            // _left_sort_divider
+            // 
+            _left_sort_divider.Anchor = AnchorStyles.Bottom;
+            _left_sort_divider.BackColor = SystemColors.ButtonHighlight;
+            _left_sort_divider.Location = new Point(29, 98);
+            _left_sort_divider.Name = "_left_sort_divider";
+            _left_sort_divider.Size = new Size(160, 1);
+            _left_sort_divider.TabIndex = 22;
+            // 
+            // _left_details
+            // 
+            _left_details.Controls.Add(_left_details_divider);
+            _left_details.Controls.Add(_left_details_outer);
+            _left_details.Dock = DockStyle.Top;
+            _left_details.Location = new Point(0, 145);
+            _left_details.Name = "_left_details";
+            _left_details.Size = new Size(220, 190);
+            _left_details.TabIndex = 25;
+            // 
+            // _left_details_divider
+            // 
+            _left_details_divider.Anchor = AnchorStyles.Bottom;
+            _left_details_divider.BackColor = SystemColors.ButtonHighlight;
+            _left_details_divider.Location = new Point(29, 188);
+            _left_details_divider.Name = "_left_details_divider";
+            _left_details_divider.Size = new Size(160, 1);
+            _left_details_divider.TabIndex = 22;
+            // 
+            // _left_details_outer
+            // 
+            _left_details_outer.BackColor = Color.Black;
+            _left_details_outer.Controls.Add(_left_details_inner);
+            _left_details_outer.Location = new Point(0, 20);
+            _left_details_outer.Name = "_left_details_outer";
+            _left_details_outer.Size = new Size(220, 150);
+            _left_details_outer.TabIndex = 7;
+            // 
+            // _left_details_inner
+            // 
+            _left_details_inner.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            _left_details_inner.BackColor = Color.FromArgb(40, 40, 40);
+            _left_details_inner.BackgroundImageLayout = ImageLayout.Stretch;
+            _left_details_inner.Controls.Add(_left_details_version);
+            _left_details_inner.Controls.Add(_left_details_desc);
+            _left_details_inner.Controls.Add(_left_details_name);
+            _left_details_inner.Location = new Point(2, 2);
+            _left_details_inner.Name = "_left_details_inner";
+            _left_details_inner.Size = new Size(216, 146);
+            _left_details_inner.TabIndex = 0;
+            // 
+            // _left_details_version
+            // 
+            _left_details_version.Font = new Font("Trebuchet MS", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_details_version.ForeColor = Color.White;
+            _left_details_version.Location = new Point(3, 100);
+            _left_details_version.Name = "_left_details_version";
+            _left_details_version.Size = new Size(210, 40);
+            _left_details_version.TabIndex = 2;
+            _left_details_version.Text = "Latest version";
+            _left_details_version.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // _left_details_desc
+            // 
+            _left_details_desc.Font = new Font("Trebuchet MS", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_details_desc.ForeColor = Color.White;
+            _left_details_desc.Location = new Point(3, 35);
+            _left_details_desc.Name = "_left_details_desc";
+            _left_details_desc.Size = new Size(210, 60);
+            _left_details_desc.TabIndex = 1;
+            _left_details_desc.Text = "Description";
+            // 
+            // _left_details_name
+            // 
+            _left_details_name.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_details_name.ForeColor = Color.White;
+            _left_details_name.Location = new Point(3, 5);
+            _left_details_name.Name = "_left_details_name";
+            _left_details_name.Size = new Size(210, 20);
+            _left_details_name.TabIndex = 0;
+            _left_details_name.Text = "Name";
+            _left_details_name.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // _left_page
+            // 
+            _left_page.Controls.Add(_left_page_blas1mod);
+            _left_page.Controls.Add(_left_page_blas1skin);
+            _left_page.Controls.Add(_left_page_blas2mod);
+            _left_page.Controls.Add(_left_page_divider);
+            _left_page.Dock = DockStyle.Top;
+            _left_page.Location = new Point(0, 0);
+            _left_page.Name = "_left_page";
+            _left_page.Size = new Size(220, 145);
+            _left_page.TabIndex = 14;
+            // 
+            // _left_page_blas1mod
+            // 
+            _left_page_blas1mod.BackColor = Color.FromArgb(30, 30, 30);
+            _left_page_blas1mod.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
+            _left_page_blas1mod.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
+            _left_page_blas1mod.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
+            _left_page_blas1mod.FlatStyle = FlatStyle.Flat;
+            _left_page_blas1mod.Font = new Font("Trebuchet MS", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_page_blas1mod.ForeColor = SystemColors.ButtonHighlight;
+            _left_page_blas1mod.Location = new Point(0, 0);
+            _left_page_blas1mod.Name = "_left_page_blas1mod";
+            _left_page_blas1mod.Size = new Size(220, 35);
+            _left_page_blas1mod.TabIndex = 1;
+            _left_page_blas1mod.Text = "Blasphemous Mods";
+            _left_page_blas1mod.UseVisualStyleBackColor = false;
+            _left_page_blas1mod.Click += ClickedBlas1Mods;
+            // 
+            // _left_page_blas1skin
+            // 
+            _left_page_blas1skin.BackColor = Color.FromArgb(30, 30, 30);
+            _left_page_blas1skin.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
+            _left_page_blas1skin.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
+            _left_page_blas1skin.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
+            _left_page_blas1skin.FlatStyle = FlatStyle.Flat;
+            _left_page_blas1skin.Font = new Font("Trebuchet MS", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_page_blas1skin.ForeColor = SystemColors.ButtonHighlight;
+            _left_page_blas1skin.Location = new Point(0, 45);
+            _left_page_blas1skin.Name = "_left_page_blas1skin";
+            _left_page_blas1skin.Size = new Size(220, 35);
+            _left_page_blas1skin.TabIndex = 2;
+            _left_page_blas1skin.Text = "Blasphemous Skins";
+            _left_page_blas1skin.UseVisualStyleBackColor = false;
+            _left_page_blas1skin.Click += ClickedBlas1Skins;
+            // 
+            // _left_page_blas2mod
+            // 
+            _left_page_blas2mod.BackColor = Color.FromArgb(30, 30, 30);
+            _left_page_blas2mod.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
+            _left_page_blas2mod.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
+            _left_page_blas2mod.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
+            _left_page_blas2mod.FlatStyle = FlatStyle.Flat;
+            _left_page_blas2mod.Font = new Font("Trebuchet MS", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_page_blas2mod.ForeColor = SystemColors.ButtonHighlight;
+            _left_page_blas2mod.Location = new Point(0, 90);
+            _left_page_blas2mod.Name = "_left_page_blas2mod";
+            _left_page_blas2mod.Size = new Size(220, 35);
+            _left_page_blas2mod.TabIndex = 3;
+            _left_page_blas2mod.Text = "Blasphemous II Mods";
+            _left_page_blas2mod.UseVisualStyleBackColor = false;
+            _left_page_blas2mod.Click += ClickedBlas2Mods;
+            // 
+            // _left_page_divider
+            // 
+            _left_page_divider.Anchor = AnchorStyles.Bottom;
+            _left_page_divider.BackColor = SystemColors.ButtonHighlight;
+            _left_page_divider.Location = new Point(29, 143);
+            _left_page_divider.Name = "_left_page_divider";
+            _left_page_divider.Size = new Size(160, 1);
+            _left_page_divider.TabIndex = 21;
             // 
             // _top
             // 
@@ -741,15 +756,16 @@ namespace Blasphemous.Modding.Installer
             _left.ResumeLayout(false);
             _left_outer.ResumeLayout(false);
             _left_inner.ResumeLayout(false);
+            _left_holder.ResumeLayout(false);
+            _left_start.ResumeLayout(false);
+            _left_start.PerformLayout();
+            _left_all.ResumeLayout(false);
+            _left_sort.ResumeLayout(false);
+            _left_sort.PerformLayout();
             _left_details.ResumeLayout(false);
             _left_details_outer.ResumeLayout(false);
             _left_details_inner.ResumeLayout(false);
-            _left_start.ResumeLayout(false);
-            _left_start.PerformLayout();
             _left_page.ResumeLayout(false);
-            _left_sort.ResumeLayout(false);
-            _left_sort.PerformLayout();
-            _left_all.ResumeLayout(false);
             _top.ResumeLayout(false);
             _top_outer.ResumeLayout(false);
             _top_inner.ResumeLayout(false);
@@ -817,6 +833,7 @@ namespace Blasphemous.Modding.Installer
         private CheckBox _left_start_console;
         private Panel _left_details;
         private Panel _left_details_divider;
+        private Panel _left_holder;
     }
 }
 
