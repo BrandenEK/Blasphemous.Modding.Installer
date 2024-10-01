@@ -659,7 +659,7 @@ namespace Blasphemous.Modding.Installer
             _middle_tools_text.Name = "_middle_tools_text";
             _middle_tools_text.Size = new Size(275, 25);
             _middle_tools_text.TabIndex = 7;
-            _middle_tools_text.Text = "Modding Tools";
+            _middle_tools_text.Text = "Modding tools";
             _middle_tools_text.TextAlign = ContentAlignment.MiddleRight;
             _middle_tools_text.Click += ClickedToolsStatus;
             // 
