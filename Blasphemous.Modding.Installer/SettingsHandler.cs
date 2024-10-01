@@ -47,9 +47,9 @@ internal class SettingsHandler
 
     public void Load()
     {
-        Core.UIHandler.WindowState = Settings.Default.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
-        Core.UIHandler.Location = Settings.Default.Location;
-        Core.UIHandler.Size = Settings.Default.Size;
+        //Core.UIHandler.WindowState = Settings.Default.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+        //Core.UIHandler.Location = Settings.Default.Location;
+        //Core.UIHandler.Size = Settings.Default.Size;
 
         Properties = new InstallerSettings()
         {

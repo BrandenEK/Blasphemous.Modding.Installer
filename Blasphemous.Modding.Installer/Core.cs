@@ -54,7 +54,6 @@ static class Core
         TemporaryClearDataFolder();
 
         Blasphemous.Modding.Installer.Config.InstallerSettings settings = LoadSettings();
-        settings.LastSection = SectionType.Blas2Mods;
 
         UIHandler = form;
         SettingsHandler = new SettingsHandler();
@@ -170,11 +169,11 @@ static class Core
 
     // Config
 
-    private static Blasphemous.Modding.Installer.Config.InstallerSettings _tempConfig = new();
+    public static Blasphemous.Modding.Installer.Config.InstallerSettings TempConfig { get; private set; } = new();
 
     public static void Temp_SaveConfig()
     {
-        SaveSettings(_tempConfig);
+        SaveSettings(TempConfig);
     }
 
     private static void SaveSettings(Blasphemous.Modding.Installer.Config.InstallerSettings cfg)
@@ -204,7 +203,7 @@ static class Core
         }
 
         SaveSettings(cfg);
-        return _tempConfig = cfg;
+        return TempConfig = cfg;
     }
 
     public static UIHandler UIHandler { get; private set; }
