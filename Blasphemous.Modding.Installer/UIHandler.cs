@@ -1,6 +1,5 @@
 ﻿using Basalt.BetterForms;
 using Basalt.Framework.Logging;
-using Blasphemous.Modding.Installer.Config;
 using Blasphemous.Modding.Installer.PageComponents.Validators;
 
 namespace Blasphemous.Modding.Installer;
@@ -11,7 +10,7 @@ public partial class UIHandler : BasaltForm
 
     protected override void OnFormOpenPost()
     {
-        Core.SettingsHandler.Load();
+        // Load window state
         WindowSettings window = Core.TempConfig.Window;
         WindowState = window.IsMaximized ? FormWindowState.Maximized : FormWindowState.Normal;
         Location = window.Location;
@@ -25,7 +24,7 @@ public partial class UIHandler : BasaltForm
 
     protected override void OnFormClose(FormClosingEventArgs e)
     {
-        Core.SettingsHandler.Save();
+        // Save window state
         Core.TempConfig.Window = new WindowSettings()
         {
             Location = WindowState == FormWindowState.Normal ? Location : RestoreBounds.Location,

@@ -1,5 +1,4 @@
 ﻿using Basalt.Framework.Logging;
-using Blasphemous.Modding.Installer.Config;
 using Blasphemous.Modding.Installer.Extensions;
 using Blasphemous.Modding.Installer.PageComponents.Loaders;
 using Ionic.Zip;

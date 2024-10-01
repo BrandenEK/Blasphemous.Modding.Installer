@@ -1,5 +1,4 @@
-﻿using Blasphemous.Modding.Installer.Config;
-using Blasphemous.Modding.Installer.PageComponents.Groupers;
+﻿using Blasphemous.Modding.Installer.PageComponents.Groupers;
 using Blasphemous.Modding.Installer.PageComponents.Listers;
 using Blasphemous.Modding.Installer.PageComponents.Loaders;
 using Blasphemous.Modding.Installer.PageComponents.Previewers;

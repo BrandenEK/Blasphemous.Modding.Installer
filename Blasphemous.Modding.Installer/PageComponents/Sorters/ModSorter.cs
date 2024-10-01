@@ -1,5 +1,4 @@
-﻿using Blasphemous.Modding.Installer.Config;
-using Blasphemous.Modding.Installer.Mods;
+﻿using Blasphemous.Modding.Installer.Mods;
 
 namespace Blasphemous.Modding.Installer.PageComponents.Sorters;
 

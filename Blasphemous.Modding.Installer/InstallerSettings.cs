@@ -1,5 +1,4 @@
-﻿
-namespace Blasphemous.Modding.Installer.Config;
+﻿namespace Blasphemous.Modding.Installer;
 
 public class InstallerSettings
 {

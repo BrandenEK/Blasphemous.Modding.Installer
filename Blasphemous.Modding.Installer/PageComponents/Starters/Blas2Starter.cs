@@ -1,5 +1,4 @@
 ﻿using Basalt.Framework.Logging;
-using Blasphemous.Modding.Installer.Config;
 using Blasphemous.Modding.Installer.PageComponents.Validators;
 using System.Diagnostics;
 

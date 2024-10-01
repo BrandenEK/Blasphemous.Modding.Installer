@@ -1,6 +1,5 @@
 ﻿using Basalt.BetterForms;
 using Basalt.Framework.Logging;
-using Blasphemous.Modding.Installer.Config;
 using Blasphemous.Modding.Installer.Mods;
 using Blasphemous.Modding.Installer.PageComponents.Filters;
 using Blasphemous.Modding.Installer.PageComponents.Groupers;
@@ -62,7 +61,6 @@ static class Core
         var blas2modPageSettings = settings.GetPageSettings("blas2mods");
 
         UIHandler = form;
-        SettingsHandler = new SettingsHandler();
         GithubHandler = new GithubHandler(cmd.GithubToken);
 
         IIconLoader iconLoader = new EmbeddedIconLoader();
@@ -226,7 +224,6 @@ static class Core
     }
 
     public static UIHandler UIHandler { get; private set; }
-    public static SettingsHandler SettingsHandler { get; private set; }
     public static GithubHandler GithubHandler { get; private set; }
 
     private static readonly Dictionary<SectionType, InstallerPage> _pages = new();
