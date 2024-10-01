@@ -1,7 +1,7 @@
 ﻿
 namespace Blasphemous.Modding.Installer;
 
-public class InstallerSettings
+public class OldSettings
 {
     public string Blas1RootFolder { get; set; } = string.Empty;
     public string Blas2RootFolder { get; set; } = string.Empty;

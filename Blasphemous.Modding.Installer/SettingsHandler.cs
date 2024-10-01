@@ -4,7 +4,7 @@ namespace Blasphemous.Modding.Installer;
 
 internal class SettingsHandler
 {
-    public InstallerSettings Properties { get; private set; } = new();
+    public OldSettings Properties { get; private set; } = new();
 
     public void Save()
     {
@@ -34,7 +34,7 @@ internal class SettingsHandler
     public void Load()
     {
 
-        Properties = new InstallerSettings()
+        Properties = new OldSettings()
         {
             Blas1RootFolder = Settings.Default.Blas1RootFolder,
             Blas2RootFolder = Settings.Default.Blas2RootFolder,

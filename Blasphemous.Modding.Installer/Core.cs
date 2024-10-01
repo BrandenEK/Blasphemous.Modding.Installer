@@ -1,5 +1,6 @@
 ﻿using Basalt.BetterForms;
 using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Config;
 using Blasphemous.Modding.Installer.Mods;
 using Blasphemous.Modding.Installer.PageComponents.Filters;
 using Blasphemous.Modding.Installer.PageComponents.Groupers;
@@ -53,7 +54,7 @@ static class Core
     {
         TemporaryClearDataFolder();
 
-        Blasphemous.Modding.Installer.Config.InstallerSettings settings = LoadSettings();
+        InstallerSettings settings = LoadSettings();
         var blas1gameSettings = settings.GetGameSettings("blas1");
         var blas2gameSettings = settings.GetGameSettings("blas2");
         var blas1modPageSettings = settings.GetPageSettings("blas1mods");
@@ -174,14 +175,14 @@ static class Core
 
     // Config
 
-    public static Blasphemous.Modding.Installer.Config.InstallerSettings TempConfig { get; private set; } = new();
+    public static InstallerSettings TempConfig { get; private set; } = new();
 
     public static void Temp_SaveConfig()
     {
         SaveSettings(TempConfig);
     }
 
-    private static void SaveSettings(Blasphemous.Modding.Installer.Config.InstallerSettings cfg)
+    private static void SaveSettings(InstallerSettings cfg)
     {
         JsonSerializerSettings settings = new()
         {
@@ -193,14 +194,14 @@ static class Core
         File.WriteAllText(Path.Combine(Core.InstallerFolder, "Settings.cfg"), json);
     }
 
-    private static Blasphemous.Modding.Installer.Config.InstallerSettings LoadSettings()
+    private static InstallerSettings LoadSettings()
     {
         string path = Path.Combine(Core.InstallerFolder, "Settings.cfg");
 
-        var cfg = new Blasphemous.Modding.Installer.Config.InstallerSettings();
+        var cfg = new InstallerSettings();
         try
         {
-            cfg = JsonConvert.DeserializeObject<Blasphemous.Modding.Installer.Config.InstallerSettings>(File.ReadAllText(path))!;
+            cfg = JsonConvert.DeserializeObject<InstallerSettings>(File.ReadAllText(path))!;
         }
         catch
         {
