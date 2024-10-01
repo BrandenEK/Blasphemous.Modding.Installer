@@ -4,16 +4,16 @@ namespace Blasphemous.Modding.Installer.PageComponents.Filters;
 
 internal class SkinFilter : IFilter<Skin>
 {
-    private readonly SectionType _section;
+    private readonly PageSettings _settings;
 
-    public SkinFilter(SectionType section)
+    public SkinFilter(PageSettings settings)
     {
-        _section = section;
+        _settings = settings;
     }
 
     public IEnumerable<Skin> Filter(IEnumerable<Skin> list)
     {
-        FilterType filter = Core.SettingsHandler.Properties.GetFilter(_section);
+        FilterType filter = _settings.Filter;
 
         return filter switch
         {

@@ -1,186 +1,71 @@
-﻿
-namespace Blasphemous.Modding.Installer;
+﻿namespace Blasphemous.Modding.Installer;
 
 public class InstallerSettings
 {
-    public string Blas1RootFolder { get; set; } = string.Empty;
-    public string Blas2RootFolder { get; set; } = string.Empty;
-    public SectionType CurrentSection { get; set; }
+    public WindowSettings Window { get; set; } = new();
 
-    public LaunchOptions Blas1Launch { get; set; }
-    public LaunchOptions Blas2Launch { get; set; }
+    public SectionType LastSection { get; set; } = SectionType.Blas1Mods;
 
-    public SortType Blas1ModSort { get; set; }
-    public SortType Blas1SkinSort { get; set; }
-    public SortType Blas2ModSort { get; set; }
+    public List<GameSettings> Games { get; set; } = new();
+    public List<PageSettings> Pages { get; set; } = new();
 
-    public FilterType Blas1ModFilter { get; set; }
-    public FilterType Blas1SkinFilter { get; set; }
-    public FilterType Blas2ModFilter { get; set; }
-
-    public DateTime Blas1ModTime { get; set; }
-    public DateTime Blas1SkinTime { get; set; }
-    public DateTime Blas2ModTime { get; set; }
-
-    // Root path
-
-    public string GetRootPath(SectionType section)
+    public GameSettings GetGameSettings(string id)
     {
-        return section switch
+        var settings = Games.FirstOrDefault(x => x.Id == id);
+        return settings ?? CreateNewGame(id);
+    }
+
+    private GameSettings CreateNewGame(string id)
+    {
+        var settings = new GameSettings()
         {
-            SectionType.Blas1Mods => Blas1RootFolder,
-            SectionType.Blas1Skins => Blas1RootFolder,
-            SectionType.Blas2Mods => Blas2RootFolder,
-            _ => throw new ArgumentException("Invalid section type", nameof(section))
+            Id = id
         };
+        Games.Add(settings);
+        return settings;
     }
 
-    public void SetRootPath(SectionType section, string path)
+    public PageSettings GetPageSettings(string id)
     {
-        switch (section)
+        var settings = Pages.FirstOrDefault(x => x.Id == id);
+        return settings ?? CreateNewPage(id);
+    }
+
+    private PageSettings CreateNewPage(string id)
+    {
+        var settings = new PageSettings()
         {
-            case SectionType.Blas1Mods: Blas1RootFolder = path; break;
-            case SectionType.Blas1Skins: Blas1RootFolder = path; break;
-            case SectionType.Blas2Mods: Blas2RootFolder = path; break;
-            default: throw new ArgumentException("Invalid section type", nameof(section));
-        }
-    }
-
-    public string CurrentRootPath
-    {
-        get => GetRootPath(CurrentSection);
-        set => SetRootPath(CurrentSection, value);
-    }
-
-    // Launch options
-
-    public LaunchOptions GetLaunchOptions(SectionType section)
-    {
-        return section switch
-        {
-            SectionType.Blas1Mods => Blas1Launch,
-            SectionType.Blas1Skins => Blas1Launch,
-            SectionType.Blas2Mods => Blas2Launch,
-            _ => throw new ArgumentException("Invalid section type", nameof(section))
+            Id = id
         };
-    }
-
-    public void SetLaunchOptions(SectionType section, LaunchOptions launch)
-    {
-        switch (section)
-        {
-            case SectionType.Blas1Mods: Blas1Launch = launch; break;
-            case SectionType.Blas1Skins: Blas1Launch = launch; break;
-            case SectionType.Blas2Mods: Blas2Launch = launch; break;
-            default: throw new ArgumentException("Invalid section type", nameof(section));
-        }
-    }
-
-    public LaunchOptions CurrentLaunchOptions
-    {
-        get => GetLaunchOptions(CurrentSection);
-        set => SetLaunchOptions(CurrentSection, value);
-    }
-
-    // Sort type
-
-    public SortType GetSort(SectionType section)
-    {
-        return section switch
-        {
-            SectionType.Blas1Mods => Blas1ModSort,
-            SectionType.Blas1Skins => Blas1SkinSort,
-            SectionType.Blas2Mods => Blas2ModSort,
-            _ => throw new ArgumentException("Invalid section type", nameof(section))
-        };
-    }
-
-    public void SetSort(SectionType section, SortType sort)
-    {
-        switch (section)
-        {
-            case SectionType.Blas1Mods: Blas1ModSort = sort; break;
-            case SectionType.Blas1Skins: Blas1SkinSort = sort; break;
-            case SectionType.Blas2Mods: Blas2ModSort = sort; break;
-            default: throw new ArgumentException("Invalid section type", nameof(section));
-        }
-    }
-
-    public SortType CurrentSort
-    {
-        get => GetSort(CurrentSection);
-        set => SetSort(CurrentSection, value);
-    }
-
-    // Filter type
-
-    public FilterType GetFilter(SectionType section)
-    {
-        return section switch
-        {
-            SectionType.Blas1Mods => Blas1ModFilter,
-            SectionType.Blas1Skins => Blas1SkinFilter,
-            SectionType.Blas2Mods => Blas2ModFilter,
-            _ => throw new ArgumentException("Invalid section type", nameof(section))
-        };
-    }
-
-    public void SetFilter(SectionType section, FilterType filter)
-    {
-        switch (section)
-        {
-            case SectionType.Blas1Mods: Blas1ModFilter = filter; break;
-            case SectionType.Blas1Skins: Blas1SkinFilter = filter; break;
-            case SectionType.Blas2Mods: Blas2ModFilter = filter; break;
-            default: throw new ArgumentException("Invalid section type", nameof(section));
-        }
-    }
-
-    public FilterType CurrentFilter
-    {
-        get => GetFilter(CurrentSection);
-        set => SetFilter(CurrentSection, value);
-    }
-
-    // Update time
-
-    public DateTime GetTime(SectionType section)
-    {
-        return section switch
-        {
-            SectionType.Blas1Mods => Blas1ModTime,
-            SectionType.Blas1Skins => Blas1SkinTime,
-            SectionType.Blas2Mods => Blas2ModTime,
-            _ => throw new ArgumentException("Invalid section type", nameof(section))
-        };
-    }
-
-    public void SetTime(SectionType section, DateTime time)
-    {
-        switch (section)
-        {
-            case SectionType.Blas1Mods: Blas1ModTime = time; break;
-            case SectionType.Blas1Skins: Blas1SkinTime = time; break;
-            case SectionType.Blas2Mods: Blas2ModTime = time; break;
-            default: throw new ArgumentException("Invalid section type", nameof(section));
-        }
-    }
-
-    public DateTime CurrentTime
-    {
-        get => GetTime(CurrentSection);
-        set => SetTime(CurrentSection, value);
+        Pages.Add(settings);
+        return settings;
     }
 }
 
-public struct LaunchOptions
+public class WindowSettings
 {
-    public bool RunModded { get; set; }
-    public bool RunConsole { get; set; }
+    public Point Location { get; set; } = new Point(0, 0);
+    public Size Size { get; set; } = new Size(1, 1);
+    public bool IsMaximized { get; set; } = true;
+}
 
-    public LaunchOptions(bool runModded, bool runConsole)
-    {
-        RunModded = runModded;
-        RunConsole = runConsole;
-    }
+public class GameSettings
+{
+    public string Id { get; set; } = string.Empty;
+    public string RootFolder { get; set; } = string.Empty;
+    public LaunchSettings Launch { get; set; } = new();
+}
+
+public class PageSettings
+{
+    public string Id { get; set; } = string.Empty;
+    public SortType Sort { get; set; } = SortType.Name;
+    public FilterType Filter { get; set; } = FilterType.All;
+    public DateTime Time { get; set; } = DateTime.Now;
+}
+
+public class LaunchSettings
+{
+    public bool RunModded { get; set; } = true;
+    public bool RunConsole { get; set; } = true;
 }

@@ -7,20 +7,21 @@ namespace Blasphemous.Modding.Installer.PageComponents.Starters;
 internal class Blas2Starter : IGameStarter
 {
     private readonly IValidator _validator;
+    private readonly GameSettings _settings;
 
-    public Blas2Starter(IValidator validator)
+    public Blas2Starter(IValidator validator, GameSettings settings)
     {
         _validator = validator;
+        _settings = settings;
     }
 
     public void Start()
     {
-        LaunchOptions launch = Core.SettingsHandler.Properties.CurrentLaunchOptions;
         string args = string.Empty;
 
-        if (!launch.RunModded)
+        if (!_settings.Launch.RunModded)
             args += "--no-mods ";
-        if (!launch.RunConsole)
+        if (!_settings.Launch.RunConsole)
             args += "--melonloader.hideconsole ";
 
         StartProcess(args.Trim());
@@ -28,7 +29,7 @@ internal class Blas2Starter : IGameStarter
 
     private void StartProcess(string args)
     {
-        string gameDir = Core.SettingsHandler.Properties.Blas2RootFolder;
+        string gameDir = _settings.RootFolder;
         string gameExe = Path.Combine(gameDir, _validator.ExeName);
         Logger.Info("Starting process at " + gameExe);
 

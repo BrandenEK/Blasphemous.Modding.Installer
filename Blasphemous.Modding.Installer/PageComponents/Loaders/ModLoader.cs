@@ -13,12 +13,17 @@ internal class ModLoader : ILoader
     private readonly ILister _lister;
     private readonly List<Mod> _mods;
     private readonly SectionType _modType;
+    private readonly PageSettings _pageSettings;
+    private readonly GameSettings _gameSettings;
 
     private bool _loadedData;
 
-    public ModLoader(string localDataPath, string remoteDataPath, bool ignoreTime, ILister lister, List<Mod> mods, SectionType modType)
+    public ModLoader(string remoteDataPath, bool ignoreTime, ILister lister, List<Mod> mods, SectionType modType, PageSettings pageSettings, GameSettings gameSettings)
     {
-        _localDataPath = localDataPath;
+        _pageSettings = pageSettings;
+        _gameSettings = gameSettings;
+
+        _localDataPath = Path.Combine(Core.CacheFolder, $"{_pageSettings.Id}.json");
         _remoteDataPath = remoteDataPath;
         _ignoreTime = ignoreTime;
         _lister = lister;
@@ -33,12 +38,11 @@ internal class ModLoader : ILoader
 
         LoadLocalMods();
 
-        if (_ignoreTime || DateTime.Now >= Core.SettingsHandler.Properties.CurrentTime)
+        if (_ignoreTime || DateTime.Now >= _pageSettings.Time)
         {
             LoadRemoteMods();
-            DateTime next = DateTime.Now.AddHours(0.5);
-            Core.SettingsHandler.Properties.SetTime(_modType, next);
-            Logger.Warn($"Next remote loading: {next}");
+            _pageSettings.Time = DateTime.Now.AddHours(0.5);
+            Logger.Warn($"Next remote loading: {_pageSettings.Time}");
         }
         else
         {
@@ -57,7 +61,7 @@ internal class ModLoader : ILoader
 
             for (int i = 0; i < localData.Length; i++)
             {
-                _mods.Add(new Mod(localData[i], _modType));
+                _mods.Add(new Mod(localData[i], _modType, _gameSettings));
             }
         }
 
@@ -95,7 +99,7 @@ internal class ModLoader : ILoader
             }
             else
             {
-                newMods.Add(new Mod(fullData, _modType));
+                newMods.Add(new Mod(fullData, _modType, _gameSettings));
             }
         }
 

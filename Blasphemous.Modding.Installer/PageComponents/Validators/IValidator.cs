@@ -4,8 +4,6 @@ internal interface IValidator
 {
     void OnClickToolStatus();
 
-    void SetRootPath(string path);
-
     string ExeName { get; }
     string DefaultPath { get; }
 

@@ -10,17 +10,28 @@ public partial class UIHandler : BasaltForm
 
     protected override void OnFormOpenPost()
     {
-        Core.SettingsHandler.Load();
+        // Load window state
+        WindowSettings window = Core.TempConfig.Window;
+        WindowState = window.IsMaximized ? FormWindowState.Maximized : FormWindowState.Normal;
+        Location = window.Location;
+        Size = window.Size;
 
         foreach (var page in Core.AllPages)
             page.Previewer.Clear();
 
-        OpenSection(Core.SettingsHandler.Properties.CurrentSection);
+        OpenSection(Core.TempConfig.LastSection);
     }
 
     protected override void OnFormClose(FormClosingEventArgs e)
     {
-        Core.SettingsHandler.Save();
+        // Save window state
+        Core.TempConfig.Window = new WindowSettings()
+        {
+            Location = WindowState == FormWindowState.Normal ? Location : RestoreBounds.Location,
+            Size = WindowState == FormWindowState.Normal ? Size : RestoreBounds.Size,
+            IsMaximized = WindowState == FormWindowState.Maximized
+        };
+        Core.Temp_SaveConfig();
     }
 
     public static bool PromptQuestion(string title, string question)
@@ -52,8 +63,8 @@ public partial class UIHandler : BasaltForm
         if (dialog.ShowDialog() == DialogResult.OK)
         {
             string path = Path.GetDirectoryName(dialog.FileName)!;
-            validator.SetRootPath(path);
-            OpenSection(Core.SettingsHandler.Properties.CurrentSection);
+            Core.CurrentPage.GameSettings.RootFolder = path;
+            OpenSection(Core.TempConfig.LastSection);
 
             // Not necessary since we just opened a new section
             //OnPathChanged?.Invoke(path);
@@ -81,7 +92,8 @@ public partial class UIHandler : BasaltForm
         Core.CurrentPage.Previewer.Clear();
         Core.CurrentPage.Lister.ClearList();
 
-        Core.SettingsHandler.Properties.CurrentSection = section;
+        //Core.SettingsHandler.Properties.CurrentSection = section;
+        Core.TempConfig.LastSection = section;
         var currentPage = Core.CurrentPage;
 
         // Update background and info
@@ -117,7 +129,7 @@ public partial class UIHandler : BasaltForm
         }
         RunWithoutEvents(() =>
         {
-            _left_sort_options.SelectedIndex = (int)Core.SettingsHandler.Properties.CurrentSort;
+            _left_sort_options.SelectedIndex = (int)currentPage.PageSettings.Sort;
         });
 
         _left_filter_options.Items.Clear();
@@ -134,7 +146,7 @@ public partial class UIHandler : BasaltForm
         }
         RunWithoutEvents(() =>
         {
-            _left_filter_options.SelectedIndex = (int)Core.SettingsHandler.Properties.CurrentFilter;
+            _left_filter_options.SelectedIndex = (int)currentPage.PageSettings.Filter;
         });
 
         // Handle UI for grouping
@@ -148,7 +160,7 @@ public partial class UIHandler : BasaltForm
         _left_details.Visible = validated;
 
         // Handle UI for starting
-        LaunchOptions launch = Core.SettingsHandler.Properties.CurrentLaunchOptions;
+        LaunchSettings launch = currentPage.GameSettings.Launch;
         _left_start.Visible = validated;
         RunWithoutEvents(() =>
         {
@@ -225,7 +237,7 @@ public partial class UIHandler : BasaltForm
         int index = _left_sort_options.SelectedIndex;
         Logger.Info($"Changing sort to {index}");
 
-        Core.SettingsHandler.Properties.CurrentSort = (SortType)index;
+        Core.CurrentPage.PageSettings.Sort = (SortType)index;
         Core.CurrentPage.Lister.RefreshList();
     }
 
@@ -237,7 +249,7 @@ public partial class UIHandler : BasaltForm
         int index = _left_filter_options.SelectedIndex;
         Logger.Info($"Changing filter to {index}");
 
-        Core.SettingsHandler.Properties.CurrentFilter = (FilterType)index;
+        Core.CurrentPage.PageSettings.Filter = (FilterType)index;
         Core.CurrentPage.Lister.RefreshList();
     }
 
@@ -271,11 +283,8 @@ public partial class UIHandler : BasaltForm
             return;
 
         Logger.Info("Updating launch options");
-        Core.SettingsHandler.Properties.CurrentLaunchOptions = new LaunchOptions()
-        {
-            RunModded = _left_start_modded.Checked,
-            RunConsole = _left_start_console.Checked,
-        };
+        Core.CurrentPage.GameSettings.Launch.RunModded = _left_start_modded.Checked;
+        Core.CurrentPage.GameSettings.Launch.RunConsole = _left_start_console.Checked;
     }
 
     private void ClickedStart(object sender, EventArgs e)

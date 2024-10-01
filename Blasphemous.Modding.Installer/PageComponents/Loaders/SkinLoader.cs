@@ -13,12 +13,17 @@ internal class SkinLoader : ILoader
     private readonly ILister _lister;
     private readonly List<Skin> _skins;
     private readonly SectionType _skinType;
+    private readonly PageSettings _pageSettings;
+    private readonly GameSettings _gameSettings;
 
     private bool _loadedData;
 
-    public SkinLoader(string localDataPath, string remoteDataPath, bool ignoreTime, ILister lister, List<Skin> skins, SectionType skinType)
+    public SkinLoader(string remoteDataPath, bool ignoreTime, ILister lister, List<Skin> skins, SectionType skinType, PageSettings pageSettings, GameSettings gameSettings)
     {
-        _localDataPath = localDataPath;
+        _pageSettings = pageSettings;
+        _gameSettings = gameSettings;
+
+        _localDataPath = Path.Combine(Core.CacheFolder, $"{_pageSettings.Id}.json");
         _remoteDataPath = remoteDataPath;
         _ignoreTime = ignoreTime;
         _lister = lister;
@@ -33,12 +38,11 @@ internal class SkinLoader : ILoader
 
         LoadLocalSkins();
 
-        if (_ignoreTime || DateTime.Now >= Core.SettingsHandler.Properties.CurrentTime)
+        if (_ignoreTime || DateTime.Now >= _pageSettings.Time)
         {
             LoadRemoteSkins();
-            DateTime next = DateTime.Now.AddHours(0.5);
-            Core.SettingsHandler.Properties.SetTime(_skinType, next);
-            Logger.Warn($"Next remote loading: {next}");
+            _pageSettings.Time = DateTime.Now.AddHours(0.5);
+            Logger.Warn($"Next remote loading: {_pageSettings.Time}");
         }
         else
         {
@@ -57,7 +61,7 @@ internal class SkinLoader : ILoader
 
             for (int i = 0; i < localData.Length; i++)
             {
-                _skins.Add(new Skin(localData[i], _skinType));
+                _skins.Add(new Skin(localData[i], _skinType, _gameSettings));
             }
         }
 
@@ -90,7 +94,7 @@ internal class SkinLoader : ILoader
             }
             else
             {
-                newSkins.Add(new Skin(data, _skinType));
+                newSkins.Add(new Skin(data, _skinType, _gameSettings));
             }
         }
 

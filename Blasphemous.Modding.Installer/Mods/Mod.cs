@@ -11,13 +11,15 @@ internal class Mod
 {
     private readonly ModUI _ui;
     private readonly SectionType _modType;
+    private readonly GameSettings _settings;
 
     private bool _downloading = false;
 
-    public Mod(ModData data, SectionType modType)
+    public Mod(ModData data, SectionType modType, GameSettings settings)
     {
         Data = data;
         _modType = modType;
+        _settings = settings;
         _ui = new ModUI(this);
         SetUIVisibility(false);
         SetUIPosition(-1);
@@ -68,7 +70,7 @@ internal class Mod
 
     // Paths
 
-    private string RootFolder => Core.SettingsHandler.Properties.GetRootPath(_modType);
+    private string RootFolder => _settings.RootFolder;
     public string GithubLink => $"https://github.com/{Data.githubAuthor}/{Data.githubRepo}";
 
     public string PathToEnabledPlugin => $"{RootFolder}/Modding/plugins/{Data.pluginFile}";

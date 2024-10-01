@@ -4,16 +4,16 @@ namespace Blasphemous.Modding.Installer.PageComponents.Sorters;
 
 internal class SkinSorter : ISorter<Skin>
 {
-    private readonly SectionType _section;
+    private readonly PageSettings _settings;
 
-    public SkinSorter(SectionType section)
+    public SkinSorter(PageSettings settings)
     {
-        _section = section;
+        _settings = settings;
     }
 
     public IEnumerable<Skin> Sort(IEnumerable<Skin> list)
     {
-        var comparer = new SkinPropertyComparer(Core.SettingsHandler.Properties.GetSort(_section));
+        var comparer = new SkinPropertyComparer(_settings.Sort);
 
         return list
             .OrderBy(mod => mod, comparer)

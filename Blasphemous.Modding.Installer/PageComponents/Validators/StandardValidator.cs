@@ -6,9 +6,8 @@ using System.Diagnostics;
 
 namespace Blasphemous.Modding.Installer.PageComponents.Validators;
 
-internal abstract class StandardValidator : IValidator
+internal class StandardValidator : IValidator
 {
-    private readonly string _cacheDir;
     private readonly string _defaultPath;
     private readonly string _exeName;
     private readonly string _localVersionPath;
@@ -16,15 +15,13 @@ internal abstract class StandardValidator : IValidator
     private readonly string _remoteVersionPath;
 
     private readonly IIconLoader _iconLoader;
+    private readonly GameSettings _settings;
 
     private ToolStatus _currentStatus = ToolStatus.Invalid;
     private string _remoteVersion = string.Empty;
 
-    protected abstract string RootFolder { get; set; }
-
-    public StandardValidator(string cacheDir, string defaultPath, string exeName, string localVersionPath, string remoteDownloadPath, string remoteVersionPath, IIconLoader iconLoader)
+    public StandardValidator(string defaultPath, string exeName, string localVersionPath, string remoteDownloadPath, string remoteVersionPath, IIconLoader iconLoader, GameSettings settings)
     {
-        _cacheDir = cacheDir;
         _defaultPath = defaultPath;
         _exeName = exeName;
         _localVersionPath = localVersionPath;
@@ -32,6 +29,7 @@ internal abstract class StandardValidator : IValidator
         _remoteVersionPath = remoteVersionPath;
 
         _iconLoader = iconLoader;
+        _settings = settings;
 
         UIHandler.OnPageOpened += OnPageOpened;
         //UIHandler.OnPathChanged += OnPathChanged;
@@ -43,7 +41,7 @@ internal abstract class StandardValidator : IValidator
             return;
 
         bool isValid = IsRootFolderValid;
-        Core.UIHandler.UpdateRootFolderText(isValid ? RootFolder : $"Click to locate {_exeName}");
+        Core.UIHandler.UpdateRootFolderText(isValid ? _settings.RootFolder : $"Click to locate {_exeName}");
 
         if (!isValid)
         {
@@ -174,7 +172,7 @@ internal abstract class StandardValidator : IValidator
 
     private async Task DownloadModdingTools()
     {
-        string toolsCache = Path.Combine(Core.CacheFolder, _cacheDir, _remoteVersion, "data.zip");
+        string toolsCache = Path.Combine(Core.CacheFolder, $"{_settings.Id}tools", _remoteVersion, "data.zip");
         Directory.CreateDirectory(Path.GetDirectoryName(toolsCache)!);
 
         // If tools dont already exist in cache, download from web
@@ -188,19 +186,14 @@ internal abstract class StandardValidator : IValidator
         // Extract data in cache to game folder
         using ZipFile zipFile = ZipFile.Read(toolsCache);
         foreach (ZipEntry file in zipFile)
-            file.Extract(RootFolder, ExtractExistingFileAction.OverwriteSilently);
-    }
-
-    public void SetRootPath(string path)
-    {
-        RootFolder = path;
+            file.Extract(_settings.RootFolder, ExtractExistingFileAction.OverwriteSilently);
     }
 
     public bool IsRootFolderValid
     {
         get
         {
-            string path = Path.Combine(RootFolder, _exeName);
+            string path = Path.Combine(_settings.RootFolder, _exeName);
             return File.Exists(path);
         }
     }
@@ -209,7 +202,7 @@ internal abstract class StandardValidator : IValidator
     {
         get
         {
-            string path = Path.Combine(RootFolder, _localVersionPath);
+            string path = Path.Combine(_settings.RootFolder, _localVersionPath);
             return File.Exists(path);
         }
     }
@@ -218,7 +211,7 @@ internal abstract class StandardValidator : IValidator
     {
         get
         {
-            string path = Path.Combine(RootFolder, _localVersionPath);
+            string path = Path.Combine(_settings.RootFolder, _localVersionPath);
             var localVersion = new Version(FileVersionInfo.GetVersionInfo(path).FileVersion!);
             var remoteVersion = new Version(_remoteVersion);
 
@@ -227,7 +220,7 @@ internal abstract class StandardValidator : IValidator
     }
 
     public string ExeName => _exeName;
-    public string DefaultPath => string.IsNullOrEmpty(RootFolder) ? _defaultPath : RootFolder;
+    public string DefaultPath => string.IsNullOrEmpty(_settings.RootFolder) ? _defaultPath : _settings.RootFolder;
 
     enum ToolStatus
     {

@@ -7,19 +7,19 @@ namespace Blasphemous.Modding.Installer.PageComponents.Starters;
 internal class Blas1Starter : IGameStarter
 {
     private readonly IValidator _validator;
+    private readonly GameSettings _settings;
 
-    public Blas1Starter(IValidator validator)
+    public Blas1Starter(IValidator validator, GameSettings settings)
     {
         _validator = validator;
+        _settings = settings;
     }
 
     public void Start()
     {
-        LaunchOptions launch = Core.SettingsHandler.Properties.CurrentLaunchOptions;
-
-        if (!SetConfigProperty("doorstop_config.ini", "General", "enabled", launch.RunModded))
+        if (!SetConfigProperty("doorstop_config.ini", "General", "enabled", _settings.Launch.RunModded))
             return;
-        if (!SetConfigProperty(Path.Combine("BepInEx", "config", "BepInEx.cfg"), "Logging.Console", "Enabled", launch.RunConsole))
+        if (!SetConfigProperty(Path.Combine("BepInEx", "config", "BepInEx.cfg"), "Logging.Console", "Enabled", _settings.Launch.RunConsole))
             return;
 
         StartProcess();
@@ -27,7 +27,7 @@ internal class Blas1Starter : IGameStarter
 
     private bool SetConfigProperty(string fileName, string sectionName, string propertyName, bool value)
     {
-        string path = Path.Combine(Core.SettingsHandler.Properties.Blas1RootFolder, fileName);
+        string path = Path.Combine(_settings.RootFolder, fileName);
 
         // Ensure file exists
         if (!File.Exists(path))
@@ -76,7 +76,7 @@ internal class Blas1Starter : IGameStarter
 
     private void StartProcess()
     {
-        string gameDir = Core.SettingsHandler.Properties.Blas1RootFolder;
+        string gameDir = _settings.RootFolder;
         string gameExe = Path.Combine(gameDir, _validator.ExeName);
         Logger.Info("Starting process at " + gameExe);
 

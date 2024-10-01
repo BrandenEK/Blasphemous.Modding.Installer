@@ -19,7 +19,10 @@ internal class InstallerPage
     private readonly IValidator _validator;
     private readonly IGameStarter _starter;
 
-    public InstallerPage(string title, Bitmap image, IGrouper grouper, ILister lister, ILoader loader, IPreviewer previewer, IValidator validator, IGameStarter starter)
+    public PageSettings PageSettings { get; }
+    public GameSettings GameSettings { get; }
+
+    public InstallerPage(string title, Bitmap image, IGrouper grouper, ILister lister, ILoader loader, IPreviewer previewer, IValidator validator, IGameStarter starter, PageSettings pageSettings, GameSettings gameSettings)
     {
         _title = title;
         _image = image;
@@ -30,6 +33,9 @@ internal class InstallerPage
         _previewer = previewer;
         _validator = validator;
         _starter = starter;
+
+        PageSettings = pageSettings;
+        GameSettings = gameSettings;
     }
 
     public string Title => _title;
