@@ -1,8 +1,8 @@
 ﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Extensions;
 using Blasphemous.Modding.Installer.PageComponents.Loaders;
 using Ionic.Zip;
 using System.Diagnostics;
-using System.Net;
 using System.Text;
 
 namespace Blasphemous.Modding.Installer.Mods;
@@ -11,14 +11,17 @@ internal class Mod
 {
     private readonly ModUI _ui;
     private readonly SectionType _modType;
+    private readonly GameSettings _settings;
 
     private bool _downloading = false;
 
-    public Mod(ModData data, Panel panel, SectionType modType)
+    public Mod(ModData data, SectionType modType, GameSettings settings)
     {
         Data = data;
         _modType = modType;
-        _ui = new ModUI(this, panel);
+        _settings = settings;
+        _ui = new ModUI(this);
+        SetUIVisibility(false);
         SetUIPosition(-1);
         UpdateUI();
     }
@@ -67,7 +70,7 @@ internal class Mod
 
     // Paths
 
-    private string RootFolder => Core.SettingsHandler.Properties.GetRootPath(_modType);
+    private string RootFolder => _settings.RootFolder;
     public string GithubLink => $"https://github.com/{Data.githubAuthor}/{Data.githubRepo}";
 
     public string PathToEnabledPlugin => $"{RootFolder}/Modding/plugins/{Data.pluginFile}";
@@ -108,11 +111,9 @@ internal class Mod
         }
 
         // Extract data in cache to game folder
-        using (ZipFile zipFile = ZipFile.Read(zipCache))
-        {
-            foreach (ZipEntry file in zipFile)
-                file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
-        }
+        using ZipFile zipFile = ZipFile.Read(zipCache);
+        foreach (ZipEntry file in zipFile)
+            file.Extract(installPath, ExtractExistingFileAction.OverwriteSilently);
 
         UpdateUI();
     }
@@ -120,15 +121,14 @@ internal class Mod
     private async Task DownloadMod(string zipCache)
     {
         Logger.Warn($"Downloading mod ({Data.name}) from web");
-        using (WebClient client = new WebClient())
-        {
-            _downloading = true;
-            _ui.ShowDownloadingStatus();
+        using var client = new HttpClient();
 
-            await client.DownloadFileTaskAsync(new Uri(Data.latestDownloadURL), zipCache);
+        _downloading = true;
+        _ui.ShowDownloadingStatus();
 
-            _downloading = false;
-        }
+        await client.DownloadFileAsync(new Uri(Data.latestDownloadURL), zipCache);
+
+        _downloading = false;
     }
 
     public void Uninstall(bool skipDepend)
@@ -166,10 +166,8 @@ internal class Mod
         string disabled = PathToDisabledPlugin;
         if (File.Exists(disabled))
         {
-            if (!File.Exists(enabled))
-                File.Move(disabled, enabled);
-            else
-                File.Delete(disabled);
+            Directory.CreateDirectory(Path.GetDirectoryName(enabled)!);
+            File.Move(disabled, enabled, true);
         }
 
         UpdateUI();
@@ -185,10 +183,8 @@ internal class Mod
         string disabled = PathToDisabledPlugin;
         if (File.Exists(enabled))
         {
-            if (!File.Exists(disabled))
-                File.Move(enabled, disabled);
-            else
-                File.Delete(enabled);
+            Directory.CreateDirectory(Path.GetDirectoryName(disabled)!);
+            File.Move(enabled, disabled, true);
         }
 
         UpdateUI();
@@ -327,6 +323,11 @@ internal class Mod
     public void SetUIPosition(int modIdx)
     {
         _ui.SetPosition(modIdx);
+    }
+
+    public void SetUIVisibility(bool visible)
+    {
+        _ui.SetVisibility(visible);
     }
 
     public void OnStartHover() => ModPage.Previewer.PreviewMod(this);

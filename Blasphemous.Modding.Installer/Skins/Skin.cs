@@ -1,6 +1,6 @@
 ﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Extensions;
 using Newtonsoft.Json;
-using System.Net;
 
 namespace Blasphemous.Modding.Installer.Skins;
 
@@ -8,14 +8,17 @@ internal class Skin
 {
     private readonly SkinUI _ui;
     private readonly SectionType _skinType;
+    private readonly GameSettings _settings;
 
     private bool _downloading;
 
-    public Skin(SkinData data, Panel panel, SectionType skinType)
+    public Skin(SkinData data, SectionType skinType, GameSettings settings)
     {
         Data = data;
         _skinType = skinType;
-        _ui = new SkinUI(this, panel);
+        _settings = settings;
+        _ui = new SkinUI(this);
+        SetUIVisibility(false);
         SetUIPosition(-1);
         UpdateUI();
     }
@@ -56,7 +59,7 @@ internal class Skin
 
     // Paths
 
-    private string RootFolder => Core.SettingsHandler.Properties.GetRootPath(_skinType);
+    private string RootFolder => _settings.RootFolder;
     public string PathToSkinFolder => $"{RootFolder}/Modding/skins/{Data.id}";
 
     private string SubFolder => "blasphemous1";
@@ -99,16 +102,15 @@ internal class Skin
     private async Task DownloadSkin(string infoCache, string textureCache)
     {
         Logger.Warn($"Downloading skin texture ({Data.name}) from web");
-        using (WebClient client = new WebClient())
-        {
-            _downloading = true;
-            _ui.ShowDownloadingStatus();
+        using var client = new HttpClient();
 
-            await client.DownloadFileTaskAsync(new Uri(InfoURL), infoCache);
-            await client.DownloadFileTaskAsync(new Uri(TextureURL), textureCache);
+        _downloading = true;
+        _ui.ShowDownloadingStatus();
 
-            _downloading = false;
-        }
+        await client.DownloadFileAsync(new Uri(InfoURL), infoCache);
+        await client.DownloadFileAsync(new Uri(TextureURL), textureCache);
+
+        _downloading = false;
     }
 
     public void Uninstall()
@@ -152,6 +154,11 @@ internal class Skin
     public void SetUIPosition(int skinIdx)
     {
         _ui.SetPosition(skinIdx);
+    }
+
+    public void SetUIVisibility(bool visible)
+    {
+        _ui.SetVisibility(visible);
     }
 
     public void OnStartHover() => SkinPage.Previewer.PreviewSkin(this);

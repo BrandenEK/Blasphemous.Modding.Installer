@@ -55,13 +55,19 @@ internal class ModUI
         outerPanel.Location = new Point(0, (Sizes.MOD_HEIGHT - 2) * modIdx - 2);
     }
 
+    public void SetVisibility(bool visible)
+    {
+        outerPanel.Visible = visible;
+    }
+
     private bool IsDependencyMod(Mod mod)
     {
         return mod.Data.name == "Modding API" || mod.Data.name.EndsWith("Framework");
     }
 
-    public ModUI(Mod mod, Panel parentPanel)
+    public ModUI(Mod mod)
     {
+        Panel parentPanel = Core.UIHandler.DataHolder;
         parentPanel.AutoScroll = false;
 
         // Panels

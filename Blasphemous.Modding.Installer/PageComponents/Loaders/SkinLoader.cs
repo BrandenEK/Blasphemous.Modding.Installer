@@ -1,6 +1,5 @@
 ﻿using Basalt.Framework.Logging;
-using Blasphemous.Modding.Installer.PageComponents.Sorters;
-using Blasphemous.Modding.Installer.PageComponents.UIHolders;
+using Blasphemous.Modding.Installer.PageComponents.Listers;
 using Blasphemous.Modding.Installer.Skins;
 using Newtonsoft.Json;
 
@@ -10,19 +9,24 @@ internal class SkinLoader : ILoader
 {
     private readonly string _localDataPath;
     private readonly string _remoteDataPath;
-    private readonly IUIHolder _uiHolder;
-    private readonly ISorter _sorter;
+    private readonly bool _ignoreTime;
+    private readonly ILister _lister;
     private readonly List<Skin> _skins;
     private readonly SectionType _skinType;
+    private readonly PageSettings _pageSettings;
+    private readonly GameSettings _gameSettings;
 
     private bool _loadedData;
 
-    public SkinLoader(string localDataPath, string remoteDataPath, IUIHolder uiHolder, ISorter sorter, List<Skin> skins, SectionType skinType)
+    public SkinLoader(string remoteDataPath, bool ignoreTime, ILister lister, List<Skin> skins, SectionType skinType, PageSettings pageSettings, GameSettings gameSettings)
     {
-        _localDataPath = localDataPath;
+        _pageSettings = pageSettings;
+        _gameSettings = gameSettings;
+
+        _localDataPath = Path.Combine(Core.CacheFolder, $"{_pageSettings.Id}.json");
         _remoteDataPath = remoteDataPath;
-        _uiHolder = uiHolder;
-        _sorter = sorter;
+        _ignoreTime = ignoreTime;
+        _lister = lister;
         _skins = skins;
         _skinType = skinType;
     }
@@ -34,12 +38,11 @@ internal class SkinLoader : ILoader
 
         LoadLocalSkins();
 
-        if (Core.TempIgnoreTime || DateTime.Now >= Core.SettingsHandler.Properties.CurrentTime)
+        if (_ignoreTime || DateTime.Now >= _pageSettings.Time)
         {
             LoadRemoteSkins();
-            DateTime next = DateTime.Now.AddHours(0.5);
-            Core.SettingsHandler.Properties.SetTime(_skinType, next);
-            Logger.Warn($"Next remote loading: {next}");
+            _pageSettings.Time = DateTime.Now.AddHours(0.5);
+            Logger.Warn($"Next remote loading: {_pageSettings.Time}");
         }
         else
         {
@@ -58,53 +61,49 @@ internal class SkinLoader : ILoader
 
             for (int i = 0; i < localData.Length; i++)
             {
-                _skins.Add(new Skin(localData[i], _uiHolder.SectionPanel, _skinType));
+                _skins.Add(new Skin(localData[i], _skinType, _gameSettings));
             }
         }
 
         Logger.Warn($"Loaded {_skins.Count} local skins");
-        _uiHolder.SetBackgroundColor();
-        _sorter.Sort();
+        _lister.RefreshList();
     }
 
     private async void LoadRemoteSkins()
     {
         var newSkins = new List<Skin>();
+        using var client = new HttpClient();
 
-        using (HttpClient client = new HttpClient())
-        {
-            IReadOnlyList<Octokit.RepositoryContent> contents =
+        IReadOnlyList<Octokit.RepositoryContent> contents =
                 await Core.GithubHandler.GetRepositoryDirectoryAsync("BrandenEK", "Blasphemous-Custom-Skins", _remoteDataPath);
 
-            if (contents is null)
-                return;
+        if (contents is null)
+            return;
 
-            foreach (var item in contents)
+        foreach (var item in contents)
+        {
+            string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{_remoteDataPath}/{item.Name}/info.txt");
+            SkinData data = JsonConvert.DeserializeObject<SkinData>(json)!;
+
+            Skin? localSkin = FindSkin(data.id);
+            if (localSkin != null)
             {
-                string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{_remoteDataPath}/{item.Name}/info.txt");
-                SkinData data = JsonConvert.DeserializeObject<SkinData>(json)!;
-
-                Skin? localSkin = FindSkin(data.id);
-                if (localSkin != null)
-                {
-                    localSkin.Data = data;
-                    localSkin.UpdateUI();
-                    newSkins.Add(localSkin);
-                }
-                else
-                {
-                    newSkins.Add(new Skin(data, _uiHolder.SectionPanel, _skinType));
-                }
+                localSkin.Data = data;
+                localSkin.UpdateUI();
+                newSkins.Add(localSkin);
             }
-
-            Logger.Warn($"Loaded {contents.Count} global skins");
-            _skins.Clear();
-            _skins.AddRange(newSkins);
+            else
+            {
+                newSkins.Add(new Skin(data, _skinType, _gameSettings));
+            }
         }
 
+        Logger.Warn($"Loaded {contents.Count} global skins");
+        _skins.Clear();
+        _skins.AddRange(newSkins);
+
         SaveLocalData();
-        _uiHolder.SetBackgroundColor();
-        _sorter.Sort();
+        _lister.RefreshList();
     }
 
     private void SaveLocalData()

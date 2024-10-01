@@ -6,19 +6,32 @@ namespace Blasphemous.Modding.Installer;
 
 public partial class UIHandler : BasaltForm
 {
+    private bool _disableEvents = false;
+
     protected override void OnFormOpenPost()
     {
-        Core.SettingsHandler.Load();
+        // Load window state
+        WindowSettings window = Core.TempConfig.Window;
+        WindowState = window.IsMaximized ? FormWindowState.Maximized : FormWindowState.Normal;
+        Location = window.Location;
+        Size = window.Size;
 
         foreach (var page in Core.AllPages)
             page.Previewer.Clear();
 
-        OpenSection(Core.SettingsHandler.Properties.CurrentSection);
+        OpenSection(Core.TempConfig.LastSection);
     }
 
     protected override void OnFormClose(FormClosingEventArgs e)
     {
-        Core.SettingsHandler.Save();
+        // Save window state
+        Core.TempConfig.Window = new WindowSettings()
+        {
+            Location = WindowState == FormWindowState.Normal ? Location : RestoreBounds.Location,
+            Size = WindowState == FormWindowState.Normal ? Size : RestoreBounds.Size,
+            IsMaximized = WindowState == FormWindowState.Maximized
+        };
+        Core.Temp_SaveConfig();
     }
 
     public static bool PromptQuestion(string title, string question)
@@ -26,12 +39,14 @@ public partial class UIHandler : BasaltForm
         return MessageBox.Show(question, title, MessageBoxButtons.OKCancel) == DialogResult.OK;
     }
 
-    // Update installer
+    private void RunWithoutEvents(Action action)
+    {
+        _disableEvents = true;
+        action();
+        _disableEvents = false;
+    }
 
-    public void UpdatePanelSetVisible(bool visible) => _top_warning_outer.Visible = visible;
-
-    // Validation screen
-
+    // Maybe move this to the StandardValidator?? But it calls OpenSection
     private void PromptForRootFolder()
     {
         Logger.Warn("Prompting for root folder");
@@ -47,45 +62,18 @@ public partial class UIHandler : BasaltForm
 
         if (dialog.ShowDialog() == DialogResult.OK)
         {
-            validator.SetRootPath(Path.GetDirectoryName(dialog.FileName));
-            OpenSection(Core.SettingsHandler.Properties.CurrentSection);
+            string path = Path.GetDirectoryName(dialog.FileName)!;
+            Core.CurrentPage.GameSettings.RootFolder = path;
+            OpenSection(Core.TempConfig.LastSection);
+
+            // Not necessary since we just opened a new section
+            //OnPathChanged?.Invoke(path);
         }
     }
 
-    private async void DownloadTools()
-    {
-        _bottom_validation_tools.Enabled = false;
-        _bottom_validation_tools.Text = "Installing...";
-        await Core.CurrentPage.Validator.InstallModdingTools();
-        OpenSection(Core.SettingsHandler.Properties.CurrentSection);
-    }
+    // UI retrieval
 
-    private void ClickLocationButton(object sender, EventArgs e) => PromptForRootFolder();
-
-    private void ClickToolsButton(object sender, EventArgs e) => DownloadTools();
-
-    // ...
-
-    private void StartGameProcess(bool useModded)
-    {
-        Logger.Info($"Starting {Core.SettingsHandler.Properties.CurrentSection} game as {(useModded ? "Modded" : "Vanilla")}");
-
-        if (useModded)
-            Core.CurrentPage.GameStarter.StartModded();
-        else
-            Core.CurrentPage.GameStarter.StartVanilla();
-    }
-
-    public Panel GetUIElementByType(SectionType type)
-    {
-        return type switch
-        {
-            SectionType.Blas1Mods => _bottom_blas1mod,
-            SectionType.Blas1Skins => _bottom_blas1skin,
-            SectionType.Blas2Mods => _bottom_blas2mod,
-            _ => throw new Exception("Invalid section type: " + type),
-        };
-    }
+    public Panel DataHolder => _bottom_holder;
 
     public Label PreviewName => _left_details_name;
     public Label PreviewDescription => _left_details_desc;
@@ -99,19 +87,13 @@ public partial class UIHandler : BasaltForm
         _top_text.Focus();
     }
 
-    private void SetSortByBox(SortType sort)
-    {
-        _left_sort_name.Checked = sort == SortType.Name;
-        _left_sort_author.Checked = sort == SortType.Author;
-        _left_sort_initialRelease.Checked = sort == SortType.InitialRelease;
-        _left_sort_latestRelease.Checked = sort == SortType.LatestRelease;
-    }
-
     private void OpenSection(SectionType section)
     {
         Core.CurrentPage.Previewer.Clear();
+        Core.CurrentPage.Lister.ClearList();
 
-        Core.SettingsHandler.Properties.CurrentSection = section;
+        //Core.SettingsHandler.Properties.CurrentSection = section;
+        Core.TempConfig.LastSection = section;
         var currentPage = Core.CurrentPage;
 
         // Update background and info
@@ -119,64 +101,125 @@ public partial class UIHandler : BasaltForm
         _top_inner.BackgroundImage = currentPage.Image;
 
         // Validate the status of mods
-        bool folderValid = currentPage.Validator.IsRootFolderValid;
-        bool toolsInstalled = folderValid && currentPage.Validator.AreModdingToolsInstalled;
-        bool toolsUpdated = toolsInstalled && currentPage.Validator.AreModdingToolsUpdated;
-
-        bool validated = toolsUpdated;
+        bool validated = currentPage.Validator.IsRootFolderValid;
         Logger.Info("Modding status validation: " + validated);
 
         if (validated)
         {
-            SetSortByBox(Core.SettingsHandler.Properties.CurrentSort);
             currentPage.Loader.LoadAllData();
-            _bottom_validation.Visible = false;
         }
-        else
-        {
-            _bottom_validation.Visible = true;
-            _bottom_validation_location.Enabled = !folderValid;
-            _bottom_validation_location.Text = "Locate " + currentPage.Validator.ExeName;
-            _bottom_validation_tools.Enabled = folderValid;
-            _bottom_validation_tools.Text = (toolsInstalled ? "Update" : "Install") + " modding tools";
-        }
-
-        // Show the correct page element
-        currentPage.UIHolder.SectionPanel.Visible = validated;
-        foreach (var page in Core.AllPages)
-            if (page != currentPage)
-                page.UIHolder.SectionPanel.Visible = false;
 
         // Refresh all ui elements on the page
+        currentPage.Lister.RefreshList();
         currentPage.Grouper.RefreshAll();
 
-        // Only show side buttons under certain conditions
-        _left_divider1.Visible = validated;
-
+        // Handle UI for sorting and filtering
         _left_sort.Visible = validated;
-        _left_sort_name.Visible = validated && currentPage.Grouper.CanSortByCreation;
-        _left_sort_author.Visible = validated && currentPage.Grouper.CanSortByCreation;
-        _left_sort_initialRelease.Visible = currentPage.Grouper.CanSortByDate;
-        _left_sort_latestRelease.Visible = currentPage.Grouper.CanSortByDate;
 
-        _left_divider2.Visible = validated;
+        _left_sort_options.Items.Clear();
+        if (currentPage.Grouper.CanSortByCreation)
+        {
+            _left_sort_options.Items.Add("Name");
+            _left_sort_options.Items.Add("Author");
+        }
+        if (currentPage.Grouper.CanSortByDate)
+        {
+            _left_sort_options.Items.Add("Initial release");
+            _left_sort_options.Items.Add("Latest release");
+        }
+        RunWithoutEvents(() =>
+        {
+            _left_sort_options.SelectedIndex = (int)currentPage.PageSettings.Sort;
+        });
 
-        _left_all_install.Visible = validated && currentPage.Grouper.CanInstall;
-        _left_all_uninstall.Visible = validated && currentPage.Grouper.CanInstall;
-        _left_all_enable.Visible = validated && currentPage.Grouper.CanEnable;
-        _left_all_disable.Visible = validated && currentPage.Grouper.CanEnable;
+        _left_filter_options.Items.Clear();
+        _left_filter_options.Items.Add("All");
+        if (currentPage.Grouper.CanInstall)
+        {
+            _left_filter_options.Items.Add("Not installed");
+            _left_filter_options.Items.Add("Installed");
+        }
+        if (currentPage.Grouper.CanEnable)
+        {
+            _left_filter_options.Items.Add("Disabled");
+            _left_filter_options.Items.Add("Enabled");
+        }
+        RunWithoutEvents(() =>
+        {
+            _left_filter_options.SelectedIndex = (int)currentPage.PageSettings.Filter;
+        });
 
-        _left_divider3.Visible = validated;
+        // Handle UI for grouping
+        _left_all.Visible = validated;
+        _left_all_install.Visible = currentPage.Grouper.CanInstall;
+        _left_all_uninstall.Visible = currentPage.Grouper.CanInstall;
+        _left_all_enable.Visible = currentPage.Grouper.CanEnable;
+        _left_all_disable.Visible = currentPage.Grouper.CanEnable;
 
-        _left_details_outer.Visible = validated;
-        _left_startVanilla.ExpectedVisibility = validated;
-        _left_startModded.ExpectedVisibility = validated;
-        _left_changePath.ExpectedVisibility = validated;
+        // Handle UI for previewing
+        _left_details.Visible = validated;
+
+        // Handle UI for starting
+        LaunchSettings launch = currentPage.GameSettings.Launch;
+        _left_start.Visible = validated;
+        RunWithoutEvents(() =>
+        {
+            _left_start_modded.Checked = launch.RunModded;
+            _left_start_console.Checked = launch.RunConsole;
+        });
+
+        Logger.Debug($"Opened page: {currentPage.Title}");
+        OnPageOpened?.Invoke(currentPage);
     }
 
-    private void ClickInstallerUpdateLink(object sender, LinkLabelLinkClickedEventArgs e) => Core.GithubHandler.OpenInstallerLink();
+    // Top section
 
-    #region Side section top
+    public void UpdateVersionWarningVisibility(bool visible)
+    {
+        _top_warning_outer.Visible = visible;
+    }
+
+    private void ClickedVersionWarning(object sender, LinkLabelLinkClickedEventArgs e) => Core.GithubHandler.OpenInstallerLink();
+
+    // Middle section path
+
+    public void UpdateRootFolderText(string text)
+    {
+        _middle_path.Text = text;
+        _middle_path.Width = _middle_path.PreferredWidth;
+    }
+
+    private void ClickedRootFolder(object sender, EventArgs e) => PromptForRootFolder();
+
+    // Middle section tools
+
+    public void UpdateToolStatus(string text, Bitmap icon)
+    {
+        Logger.Info("Updating tool status UI");
+        ShowToolStatus();
+
+        _middle_tools_icon.BackgroundImage = icon;
+        _tooltip.RemoveAll();
+        _tooltip.SetToolTip(_middle_tools_text, text);
+        _tooltip.SetToolTip(_middle_tools_icon, text);
+    }
+
+    public void ShowToolStatus()
+    {
+        _middle_tools.Visible = true;
+    }
+
+    public void HideToolStatus()
+    {
+        _middle_tools.Visible = false;
+    }
+
+    private void ClickedToolsStatus(object sender, EventArgs e)
+    {
+        Core.CurrentPage.Validator.OnClickToolStatus();
+    }
+
+    // Side section top
 
     private void ClickedBlas1Mods(object sender, EventArgs e) => OpenSection(SectionType.Blas1Mods);
 
@@ -184,39 +227,33 @@ public partial class UIHandler : BasaltForm
 
     private void ClickedBlas2Mods(object sender, EventArgs e) => OpenSection(SectionType.Blas2Mods);
 
-    private void ClickedSettings(object sender, EventArgs e) { }
+    // Side section middle
 
-    #endregion Side section top
-
-    #region Side section middle
-
-    private void ClickedSortByName(object sender, EventArgs e)
+    private void ChangedSortOption(object sender, EventArgs e)
     {
-        Core.SettingsHandler.Properties.CurrentSort = SortType.Name;
-        Core.CurrentPage.Sorter.Sort();
+        if (_disableEvents)
+            return;
+
+        int index = _left_sort_options.SelectedIndex;
+        Logger.Info($"Changing sort to {index}");
+
+        Core.CurrentPage.PageSettings.Sort = (SortType)index;
+        Core.CurrentPage.Lister.RefreshList();
     }
 
-    private void ClickedSortByAuthor(object sender, EventArgs e)
+    private void ChangedFilterOption(object sender, EventArgs e)
     {
-        Core.SettingsHandler.Properties.CurrentSort = SortType.Author;
-        Core.CurrentPage.Sorter.Sort();
+        if (_disableEvents)
+            return;
+
+        int index = _left_filter_options.SelectedIndex;
+        Logger.Info($"Changing filter to {index}");
+
+        Core.CurrentPage.PageSettings.Filter = (FilterType)index;
+        Core.CurrentPage.Lister.RefreshList();
     }
 
-    private void ClickedSortByInitialRelease(object sender, EventArgs e)
-    {
-        Core.SettingsHandler.Properties.CurrentSort = SortType.InitialRelease;
-        Core.CurrentPage.Sorter.Sort();
-    }
-
-    private void ClickedSortByLatestRelease(object sender, EventArgs e)
-    {
-        Core.SettingsHandler.Properties.CurrentSort = SortType.LatestRelease;
-        Core.CurrentPage.Sorter.Sort();
-    }
-
-    #endregion Side section middle
-
-    #region Side section bottom
+    // Side section bottom
 
     private void ClickedInstallAll(object sender, EventArgs e)
     {
@@ -238,15 +275,29 @@ public partial class UIHandler : BasaltForm
         Core.CurrentPage.Grouper.DisableAll();
     }
 
-    #endregion Side section bottom
+    // Side section lower
 
-    #region Side section lower
+    private void CheckedStartOption(object sender, EventArgs e)
+    {
+        if (_disableEvents)
+            return;
 
-    private void ClickedStartVanilla(object sender, EventArgs e) => StartGameProcess(false);
+        Logger.Info("Updating launch options");
+        Core.CurrentPage.GameSettings.Launch.RunModded = _left_start_modded.Checked;
+        Core.CurrentPage.GameSettings.Launch.RunConsole = _left_start_console.Checked;
+    }
 
-    private void ClickedStartModded(object sender, EventArgs e) => StartGameProcess(true);
+    private void ClickedStart(object sender, EventArgs e)
+    {
+        Logger.Info($"Starting {Core.CurrentPage.Title} game");
+        Core.CurrentPage.GameStarter.Start();
+    }
 
-    private void ClickedChangePath(object sender, EventArgs e) => PromptForRootFolder();
+    // Events
 
-    #endregion Side section lower
+    internal delegate void PageDelegate(InstallerPage page);
+    internal static PageDelegate? OnPageOpened;
+
+    internal delegate void PathDelegate(string path);
+    internal static PathDelegate? OnPathChanged;
 }

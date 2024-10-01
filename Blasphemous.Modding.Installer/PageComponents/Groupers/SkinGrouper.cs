@@ -1,4 +1,5 @@
 ﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.PageComponents.Filters;
 using Blasphemous.Modding.Installer.Skins;
 
 namespace Blasphemous.Modding.Installer.PageComponents.Groupers;
@@ -8,15 +9,19 @@ internal class SkinGrouper : IGrouper
     private readonly string _title;
     private readonly IEnumerable<Skin> _skins;
 
-    public SkinGrouper(string title, IEnumerable<Skin> skins)
+    private readonly IFilter<Skin> _filter;
+
+    public SkinGrouper(string title, IEnumerable<Skin> skins, IFilter<Skin> filter)
     {
         _title = title;
         _skins = skins;
+
+        _filter = filter;
     }
 
     public void InstallAll()
     {
-        IEnumerable<Skin> toInstall = _skins.Where(x => !x.Installed || x.UpdateAvailable);
+        IEnumerable<Skin> toInstall = _filter.Filter(_skins).Where(x => !x.Installed || x.UpdateAvailable);
 
         if (!UIHandler.PromptQuestion(_title, $"Are you sure you wish to install {toInstall.Count()} skins?"))
             return;
@@ -31,7 +36,7 @@ internal class SkinGrouper : IGrouper
 
     public void UninstallAll()
     {
-        IEnumerable<Skin> toUninstall = _skins.Where(x => x.Installed);
+        IEnumerable<Skin> toUninstall = _filter.Filter(_skins).Where(x => x.Installed);
 
         if (!UIHandler.PromptQuestion(_title, $"Are you sure you wish to uninstall {toUninstall.Count()} skins?"))
             return;

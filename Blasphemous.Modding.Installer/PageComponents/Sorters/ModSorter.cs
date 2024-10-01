@@ -1,41 +1,25 @@
 ﻿using Blasphemous.Modding.Installer.Mods;
-using Blasphemous.Modding.Installer.PageComponents.UIHolders;
 
 namespace Blasphemous.Modding.Installer.PageComponents.Sorters;
 
-internal class ModSorter : ISorter
+internal class ModSorter : ISorter<Mod>
 {
-    private readonly IUIHolder _uiHolder;
-    private readonly List<Mod> _mods;
-    private readonly SectionType _section;
+    private readonly PageSettings _settings;
 
-    public ModSorter(IUIHolder uiHolder, List<Mod> mods, SectionType section)
+    public ModSorter(PageSettings settings)
     {
-        _uiHolder = uiHolder;
-        _mods = mods;
-        _section = section;
+        _settings = settings;
     }
 
-    public void Sort()
+    public IEnumerable<Mod> Sort(IEnumerable<Mod> list)
     {
-        var comparer = new ModPropertyComparer(Core.SettingsHandler.Properties.GetSort(_section));
+        var comparer = new ModPropertyComparer(_settings.Sort);
 
-        var sorted = _mods
+        return list
             .OrderBy(mod => GetModPriority(mod))
             .ThenBy(mod => mod, comparer)
             .ThenBy(mod => mod.Data.name)
             .ToArray();
-
-        _mods.Clear();
-        _mods.AddRange(sorted);
-
-        _uiHolder.SectionPanel.VerticalScroll.Value = 0;
-
-        int idx = 0;
-        foreach (Mod mod in _mods)
-        {
-            mod.SetUIPosition(idx++);
-        }
     }
 
     private int GetModPriority(Mod mod)

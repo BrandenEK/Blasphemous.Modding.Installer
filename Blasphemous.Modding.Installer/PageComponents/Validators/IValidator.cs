@@ -2,15 +2,10 @@
 
 internal interface IValidator
 {
-    Task InstallModdingTools();
-
-    void SetRootPath(string path);
+    void OnClickToolStatus();
 
     string ExeName { get; }
     string DefaultPath { get; }
 
     bool IsRootFolderValid { get; }
-
-    bool AreModdingToolsInstalled { get; }
-    bool AreModdingToolsUpdated { get; }
 }

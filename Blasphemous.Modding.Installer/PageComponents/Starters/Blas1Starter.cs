@@ -7,53 +7,76 @@ namespace Blasphemous.Modding.Installer.PageComponents.Starters;
 internal class Blas1Starter : IGameStarter
 {
     private readonly IValidator _validator;
+    private readonly GameSettings _settings;
 
-    public Blas1Starter(IValidator validator)
+    public Blas1Starter(IValidator validator, GameSettings settings)
     {
         _validator = validator;
+        _settings = settings;
     }
 
-    public void StartModded()
+    public void Start()
     {
-        if (SetConfigProperty(true))
-            StartProcess();
+        if (!SetConfigProperty("doorstop_config.ini", "General", "enabled", _settings.Launch.RunModded))
+            return;
+        if (!SetConfigProperty(Path.Combine("BepInEx", "config", "BepInEx.cfg"), "Logging.Console", "Enabled", _settings.Launch.RunConsole))
+            return;
+
+        StartProcess();
     }
 
-    public void StartVanilla()
+    private bool SetConfigProperty(string fileName, string sectionName, string propertyName, bool value)
     {
-        if (SetConfigProperty(false))
-            StartProcess();
-    }
+        string path = Path.Combine(_settings.RootFolder, fileName);
 
-    private bool SetConfigProperty(bool enabled)
-    {
-        string gameDir = Core.SettingsHandler.Properties.Blas1RootFolder;
-        string configPath = Path.Combine(gameDir, "doorstop_config.ini");
-
-        // Ensure doorstop file exists
-        if (!File.Exists(configPath))
+        // Ensure file exists
+        if (!File.Exists(path))
         {
-            FailWithMessage($"Could not find config file at {configPath}");
+            FailWithMessage($"Could not find config file at {path}");
             return false;
         }
 
+        // Try to set the property
         try
         {
-            string[] lines = File.ReadAllLines(configPath);
-            lines[2] = $"enabled={enabled.ToString().ToLower()}";
-            File.WriteAllLines(configPath, lines);
-            return true;
+            string[] lines = File.ReadAllLines(path);
+
+            bool foundSection = false;
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (foundSection)
+                {
+                    if (lines[i].StartsWith('['))
+                        break;
+
+                    if (lines[i].StartsWith(propertyName))
+                    {
+                        lines[i] = $"{propertyName} = {value.ToString().ToLower()}";
+                        File.WriteAllLines(path, lines);
+
+                        Logger.Info($"Wrote {propertyName} property to {fileName}");
+                        return true;
+                    }
+                }
+                else
+                {
+                    if (lines[i] == $"[{sectionName}]")
+                        foundSection = true;
+                }
+            }
+
+            throw new Exception();
         }
         catch
         {
-            FailWithMessage("Failed to write enabled property to doorstop config");
+            FailWithMessage($"Failed to write {propertyName} property to {fileName}");
             return false;
         }
     }
 
     private void StartProcess()
     {
-        string gameDir = Core.SettingsHandler.Properties.Blas1RootFolder;
+        string gameDir = _settings.RootFolder;
         string gameExe = Path.Combine(gameDir, _validator.ExeName);
         Logger.Info("Starting process at " + gameExe);
 

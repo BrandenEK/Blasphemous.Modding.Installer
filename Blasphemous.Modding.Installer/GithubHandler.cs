@@ -97,7 +97,7 @@ internal class GithubHandler
         if (newestVersion.CompareTo(currentVersion) > 0)
         {
             _installerLatestReleaseLink = latestRelease.HtmlUrl;
-            Core.UIHandler.UpdatePanelSetVisible(true);
+            Core.UIHandler.UpdateVersionWarningVisibility(true);
         }
 
         Logger.Info("Remaining api calls: " + (_client.GetLastApiInfo()?.RateLimit.Remaining + 1));
