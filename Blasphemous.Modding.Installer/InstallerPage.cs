@@ -1,4 +1,5 @@
-﻿using Blasphemous.Modding.Installer.PageComponents.Groupers;
+﻿using Blasphemous.Modding.Installer.Config;
+using Blasphemous.Modding.Installer.PageComponents.Groupers;
 using Blasphemous.Modding.Installer.PageComponents.Listers;
 using Blasphemous.Modding.Installer.PageComponents.Loaders;
 using Blasphemous.Modding.Installer.PageComponents.Previewers;
@@ -19,7 +20,10 @@ internal class InstallerPage
     private readonly IValidator _validator;
     private readonly IGameStarter _starter;
 
-    public InstallerPage(string title, Bitmap image, IGrouper grouper, ILister lister, ILoader loader, IPreviewer previewer, IValidator validator, IGameStarter starter)
+    public PageSettings PageSettings { get; }
+    public GameSettings GameSettings { get; }
+
+    public InstallerPage(string title, Bitmap image, IGrouper grouper, ILister lister, ILoader loader, IPreviewer previewer, IValidator validator, IGameStarter starter, PageSettings pageSettings, GameSettings gameSettings)
     {
         _title = title;
         _image = image;
@@ -30,6 +34,9 @@ internal class InstallerPage
         _previewer = previewer;
         _validator = validator;
         _starter = starter;
+
+        PageSettings = pageSettings;
+        GameSettings = gameSettings;
     }
 
     public string Title => _title;

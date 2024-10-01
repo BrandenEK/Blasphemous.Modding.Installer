@@ -150,7 +150,9 @@ static class Core
             blas1modLoader,
             modPreviewer,
             blas1Validator,
-            blas1Starter);
+            blas1Starter,
+            blas1modPageSettings,
+            blas1gameSettings);
 
         var blas1skinPage = new InstallerPage(blas1skinTitle, Resources.background1,
             blas1skinGrouper,
@@ -158,7 +160,9 @@ static class Core
             blas1skinLoader,
             skinPreviewer,
             blas1Validator,
-            blas1Starter);
+            blas1Starter,
+            blas1skinPageSettings,
+            blas1gameSettings);
 
         var blas2modPage = new InstallerPage(blas2modTitle, Resources.background2,
             blas2modGrouper,
@@ -166,7 +170,9 @@ static class Core
             blas2modLoader,
             modPreviewer,
             blas2Validator,
-            blas2Starter);
+            blas2Starter,
+            blas2modPageSettings,
+            blas2gameSettings);
 
         _pages.Add(SectionType.Blas1Mods, blas1modPage);
         _pages.Add(SectionType.Blas1Skins, blas1skinPage);
