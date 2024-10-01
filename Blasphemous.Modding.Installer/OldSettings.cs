@@ -10,9 +10,9 @@ public class OldSettings
     public LaunchOptions Blas1Launch { get; set; }
     public LaunchOptions Blas2Launch { get; set; }
 
-    public SortType Blas1ModSort { get; set; }
-    public SortType Blas1SkinSort { get; set; }
-    public SortType Blas2ModSort { get; set; }
+    //public SortType Blas1ModSort { get; set; }
+    //public SortType Blas1SkinSort { get; set; }
+    //public SortType Blas2ModSort { get; set; }
 
     public FilterType Blas1ModFilter { get; set; }
     public FilterType Blas1SkinFilter { get; set; }
@@ -84,33 +84,33 @@ public class OldSettings
 
     // Sort type
 
-    public SortType GetSort(SectionType section)
-    {
-        return section switch
-        {
-            SectionType.Blas1Mods => Blas1ModSort,
-            SectionType.Blas1Skins => Blas1SkinSort,
-            SectionType.Blas2Mods => Blas2ModSort,
-            _ => throw new ArgumentException("Invalid section type", nameof(section))
-        };
-    }
+    //public SortType GetSort(SectionType section)
+    //{
+    //    return section switch
+    //    {
+    //        SectionType.Blas1Mods => Blas1ModSort,
+    //        SectionType.Blas1Skins => Blas1SkinSort,
+    //        SectionType.Blas2Mods => Blas2ModSort,
+    //        _ => throw new ArgumentException("Invalid section type", nameof(section))
+    //    };
+    //}
 
-    public void SetSort(SectionType section, SortType sort)
-    {
-        switch (section)
-        {
-            case SectionType.Blas1Mods: Blas1ModSort = sort; break;
-            case SectionType.Blas1Skins: Blas1SkinSort = sort; break;
-            case SectionType.Blas2Mods: Blas2ModSort = sort; break;
-            default: throw new ArgumentException("Invalid section type", nameof(section));
-        }
-    }
+    //public void SetSort(SectionType section, SortType sort)
+    //{
+    //    switch (section)
+    //    {
+    //        case SectionType.Blas1Mods: Blas1ModSort = sort; break;
+    //        case SectionType.Blas1Skins: Blas1SkinSort = sort; break;
+    //        case SectionType.Blas2Mods: Blas2ModSort = sort; break;
+    //        default: throw new ArgumentException("Invalid section type", nameof(section));
+    //    }
+    //}
 
-    public SortType CurrentSort
-    {
-        get => GetSort(Core.TempConfig.LastSection);
-        set => SetSort(Core.TempConfig.LastSection, value);
-    }
+    //public SortType CurrentSort
+    //{
+    //    get => GetSort(Core.TempConfig.LastSection);
+    //    set => SetSort(Core.TempConfig.LastSection, value);
+    //}
 
     // Filter type
 

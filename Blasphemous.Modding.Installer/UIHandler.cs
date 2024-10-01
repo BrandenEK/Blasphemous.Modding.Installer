@@ -130,7 +130,7 @@ public partial class UIHandler : BasaltForm
         }
         RunWithoutEvents(() =>
         {
-            _left_sort_options.SelectedIndex = (int)Core.SettingsHandler.Properties.CurrentSort;
+            _left_sort_options.SelectedIndex = (int)Core.CurrentPage.PageSettings.Sort;
         });
 
         _left_filter_options.Items.Clear();
@@ -238,7 +238,7 @@ public partial class UIHandler : BasaltForm
         int index = _left_sort_options.SelectedIndex;
         Logger.Info($"Changing sort to {index}");
 
-        Core.SettingsHandler.Properties.CurrentSort = (SortType)index;
+        Core.CurrentPage.PageSettings.Sort = (SortType)index;
         Core.CurrentPage.Lister.RefreshList();
     }
 

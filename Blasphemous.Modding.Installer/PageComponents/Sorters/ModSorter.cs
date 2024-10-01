@@ -1,19 +1,20 @@
-﻿using Blasphemous.Modding.Installer.Mods;
+﻿using Blasphemous.Modding.Installer.Config;
+using Blasphemous.Modding.Installer.Mods;
 
 namespace Blasphemous.Modding.Installer.PageComponents.Sorters;
 
 internal class ModSorter : ISorter<Mod>
 {
-    private readonly SectionType _section;
+    private readonly PageSettings _settings;
 
-    public ModSorter(SectionType section)
+    public ModSorter(PageSettings settings)
     {
-        _section = section;
+        _settings = settings;
     }
 
     public IEnumerable<Mod> Sort(IEnumerable<Mod> list)
     {
-        var comparer = new ModPropertyComparer(Core.SettingsHandler.Properties.GetSort(_section));
+        var comparer = new ModPropertyComparer(_settings.Sort);
 
         return list
             .OrderBy(mod => GetModPriority(mod))

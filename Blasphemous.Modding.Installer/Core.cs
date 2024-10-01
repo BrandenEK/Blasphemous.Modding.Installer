@@ -76,9 +76,9 @@ static class Core
         string blas2modTitle = "Blasphemous II Mods";
 
         // Sorters
-        var blas1modSorter = new ModSorter(SectionType.Blas1Mods);
-        var blas1skinSorter = new SkinSorter(SectionType.Blas1Skins);
-        var blas2modSorter = new ModSorter(SectionType.Blas2Mods);
+        var blas1modSorter = new ModSorter(blas1modPageSettings);
+        var blas1skinSorter = new SkinSorter(blas1skinPageSettings);
+        var blas2modSorter = new ModSorter(blas2modPageSettings);
 
         // Filters
         var blas1modFilter = new ModFilter(SectionType.Blas1Mods);
