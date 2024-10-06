@@ -205,8 +205,13 @@ public partial class UIHandler : BasaltForm
     public void UpdatePreview(string name, string description, string version, Bitmap? image)
     {
         _left_details_name.Text = name;
+        _left_details_name.Visible = !string.IsNullOrEmpty(name);
+
         _left_details_desc.Text = description;
+        _left_details_desc.Visible = !string.IsNullOrEmpty(description);
+
         _left_details_version.Text = version;
+        _left_details_version.Visible = !string.IsNullOrEmpty(version);
 
         _left_details_inner.BackgroundImage?.Dispose();
         _left_details_inner.BackgroundImage = image;
