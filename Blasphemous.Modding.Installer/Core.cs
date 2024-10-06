@@ -12,8 +12,6 @@ using Blasphemous.Modding.Installer.PageComponents.Validators;
 using Blasphemous.Modding.Installer.PageComponents.Validators.IconLoaders;
 using Blasphemous.Modding.Installer.Properties;
 using Blasphemous.Modding.Installer.Skins;
-using Newtonsoft.Json.Serialization;
-using Newtonsoft.Json;
 
 namespace Blasphemous.Modding.Installer;
 
@@ -22,7 +20,7 @@ static class Core
     [STAThread]
     static void Main()
     {
-        BasaltApplication.Run<UIHandler, InstallerCommand>(InitializeCore, "Blasphemous Mod Installer", new string[]
+        BasaltApplication.Run<UIHandler, InstallerCommand, InstallerSettings>(InitializeCore, "Blasphemous Mod Installer", new string[]
         {
             InstallerFolder, CacheFolder
         });
@@ -49,11 +47,11 @@ static class Core
         }
     }
 
-    static void InitializeCore(UIHandler form, InstallerCommand cmd)
+    static void InitializeCore(UIHandler form, InstallerCommand cmd, InstallerSettings settings)
     {
         TemporaryClearDataFolder();
 
-        InstallerSettings settings = LoadSettings();
+        TempConfig = settings;
         var blas1gameSettings = settings.GetGameSettings("blas1");
         var blas2gameSettings = settings.GetGameSettings("blas2");
         var blas1modPageSettings = settings.GetPageSettings("blas1mods");
@@ -182,41 +180,6 @@ static class Core
     // Config
 
     public static InstallerSettings TempConfig { get; private set; } = new();
-
-    public static void Temp_SaveConfig()
-    {
-        SaveSettings(TempConfig);
-    }
-
-    private static void SaveSettings(InstallerSettings cfg)
-    {
-        JsonSerializerSettings settings = new()
-        {
-            ContractResolver = new CamelCasePropertyNamesContractResolver(),
-            Formatting = Formatting.Indented
-        };
-
-        string json = JsonConvert.SerializeObject(cfg, settings);
-        File.WriteAllText(Path.Combine(Core.InstallerFolder, "Settings.cfg"), json);
-    }
-
-    private static InstallerSettings LoadSettings()
-    {
-        string path = Path.Combine(Core.InstallerFolder, "Settings.cfg");
-
-        var cfg = new InstallerSettings();
-        try
-        {
-            cfg = JsonConvert.DeserializeObject<InstallerSettings>(File.ReadAllText(path))!;
-        }
-        catch
-        {
-            Logger.Error($"Failed to read config from {path}");
-        }
-
-        SaveSettings(cfg);
-        return TempConfig = cfg;
-    }
 
     public static UIHandler UIHandler { get; private set; }
     public static GithubHandler GithubHandler { get; private set; }

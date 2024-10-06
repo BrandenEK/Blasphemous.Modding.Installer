@@ -8,30 +8,12 @@ public partial class UIHandler : BasaltForm
 {
     private bool _disableEvents = false;
 
-    protected override void OnFormOpenPost()
+    protected override void OnFormOpen()
     {
-        // Load window state
-        WindowSettings window = Core.TempConfig.Window;
-        WindowState = window.IsMaximized ? FormWindowState.Maximized : FormWindowState.Normal;
-        Location = window.Location;
-        Size = window.Size;
-
         foreach (var page in Core.AllPages)
             page.Previewer.Clear();
 
         OpenSection(Core.TempConfig.LastSection);
-    }
-
-    protected override void OnFormClose(FormClosingEventArgs e)
-    {
-        // Save window state
-        Core.TempConfig.Window = new WindowSettings()
-        {
-            Location = WindowState == FormWindowState.Normal ? Location : RestoreBounds.Location,
-            Size = WindowState == FormWindowState.Normal ? Size : RestoreBounds.Size,
-            IsMaximized = WindowState == FormWindowState.Maximized
-        };
-        Core.Temp_SaveConfig();
     }
 
     public static bool PromptQuestion(string title, string question)
