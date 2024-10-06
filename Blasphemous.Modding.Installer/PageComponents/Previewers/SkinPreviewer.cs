@@ -8,18 +8,13 @@ namespace Blasphemous.Modding.Installer.PageComponents.Previewers;
 
 internal class SkinPreviewer : IPreviewer
 {
-    private readonly Panel _background;
-
-    public SkinPreviewer(Panel background)
-    {
-        _background = background;
-    }
-
     public void PreviewMod(Mod mod) => throw new NotImplementedException();
 
     public async void PreviewSkin(Skin skin)
     {
-        _background.BackgroundImage = await LoadPreviewImageAsync(skin);
+        Bitmap image = await LoadPreviewImageAsync(skin);
+
+        Core.UIHandler.UpdatePreview(string.Empty, string.Empty, string.Empty, image);
     }
 
     private async Task<Bitmap> LoadPreviewImageAsync(Skin skin)
@@ -51,7 +46,6 @@ internal class SkinPreviewer : IPreviewer
 
     public void Clear()
     {
-        _background.BackgroundImage?.Dispose();
-        _background.BackgroundImage = null;
+        Core.UIHandler.ClearPreview();
     }
 }

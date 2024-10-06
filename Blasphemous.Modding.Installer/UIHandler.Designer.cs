@@ -435,6 +435,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_details_version
             // 
+            _left_details_version.BackColor = Color.FromArgb(40, 40, 40);
             _left_details_version.Font = new Font("Trebuchet MS", 9F, FontStyle.Regular, GraphicsUnit.Point);
             _left_details_version.ForeColor = Color.White;
             _left_details_version.Location = new Point(3, 100);
@@ -446,6 +447,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_details_desc
             // 
+            _left_details_desc.BackColor = Color.FromArgb(40, 40, 40);
             _left_details_desc.Font = new Font("Trebuchet MS", 9F, FontStyle.Regular, GraphicsUnit.Point);
             _left_details_desc.ForeColor = Color.White;
             _left_details_desc.Location = new Point(3, 35);
@@ -456,6 +458,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_details_name
             // 
+            _left_details_name.BackColor = Color.FromArgb(40, 40, 40);
             _left_details_name.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
             _left_details_name.ForeColor = Color.White;
             _left_details_name.Location = new Point(3, 5);
