@@ -1,9 +1,9 @@
-﻿namespace Blasphemous.Modding.Installer;
+﻿using Basalt.BetterForms;
 
-public class InstallerSettings
+namespace Blasphemous.Modding.Installer;
+
+public class InstallerSettings : BasaltSettings
 {
-    public WindowSettings Window { get; set; } = new();
-
     public SectionType LastSection { get; set; } = SectionType.Blas1Mods;
 
     public List<GameSettings> Games { get; set; } = new();
@@ -40,13 +40,6 @@ public class InstallerSettings
         Pages.Add(settings);
         return settings;
     }
-}
-
-public class WindowSettings
-{
-    public Point Location { get; set; } = new Point(0, 0);
-    public Size Size { get; set; } = new Size(1, 1);
-    public bool IsMaximized { get; set; } = true;
 }
 
 public class GameSettings
