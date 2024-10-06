@@ -19,7 +19,9 @@ internal class SkinPreviewer : IPreviewer
 
     public async void PreviewSkin(Skin skin)
     {
-        _background.BackgroundImage = await LoadPreviewImageAsync(skin);
+        Bitmap image = await LoadPreviewImageAsync(skin);
+
+        Core.UIHandler.UpdatePreview(string.Empty, string.Empty, string.Empty, image);
     }
 
     private async Task<Bitmap> LoadPreviewImageAsync(Skin skin)
@@ -51,7 +53,8 @@ internal class SkinPreviewer : IPreviewer
 
     public void Clear()
     {
-        _background.BackgroundImage?.Dispose();
-        _background.BackgroundImage = null;
+        //_background.BackgroundImage?.Dispose();
+        //_background.BackgroundImage = null;
+        Core.UIHandler.ClearPreview();
     }
 }

@@ -10,7 +10,7 @@ public partial class UIHandler : BasaltForm
 
     protected override void OnFormOpen()
     {
-        UpdatePreview(string.Empty, string.Empty, string.Empty, null);
+        ClearPreview();
         OpenSection(Core.TempConfig.LastSection);
     }
 
@@ -215,6 +215,16 @@ public partial class UIHandler : BasaltForm
 
         _left_details_inner.BackgroundImage?.Dispose();
         _left_details_inner.BackgroundImage = image;
+    }
+
+    public void ClearPreview()
+    {
+        _left_details_name.Text = string.Empty;
+        _left_details_desc.Text = string.Empty;
+        _left_details_version.Text = string.Empty;
+
+        _left_details_inner.BackgroundImage?.Dispose();
+        _left_details_inner.BackgroundImage = null;
     }
 
     // Side section sorting
