@@ -8,7 +8,7 @@ public partial class UIHandler : BasaltForm
 {
     private bool _disableEvents = false;
 
-    protected override void OnFormOpenPost()
+    protected override void OnFormOpen()
     {
         // Load window state
         WindowSettings window = Core.TempConfig.Window;
