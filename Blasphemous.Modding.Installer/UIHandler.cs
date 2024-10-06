@@ -10,9 +10,7 @@ public partial class UIHandler : BasaltForm
 
     protected override void OnFormOpen()
     {
-        foreach (var page in Core.AllPages)
-            page.Previewer.Clear();
-
+        UpdatePreview(string.Empty, string.Empty, string.Empty, null);
         OpenSection(Core.TempConfig.LastSection);
     }
 
@@ -199,7 +197,7 @@ public partial class UIHandler : BasaltForm
         Core.CurrentPage.Validator.OnClickToolStatus();
     }
 
-    // Side section top
+    // Side section paging
 
     private void ClickedBlas1Mods(object sender, EventArgs e) => OpenSection(SectionType.Blas1Mods);
 
@@ -207,7 +205,19 @@ public partial class UIHandler : BasaltForm
 
     private void ClickedBlas2Mods(object sender, EventArgs e) => OpenSection(SectionType.Blas2Mods);
 
-    // Side section middle
+    // Side section previewing
+
+    public void UpdatePreview(string name, string description, string version, Bitmap? image)
+    {
+        _left_details_name.Text = name;
+        _left_details_desc.Text = description;
+        _left_details_version.Text = version;
+
+        _left_details_inner.BackgroundImage?.Dispose();
+        _left_details_inner.BackgroundImage = image;
+    }
+
+    // Side section sorting
 
     private void ChangedSortOption(object sender, EventArgs e)
     {
@@ -233,7 +243,7 @@ public partial class UIHandler : BasaltForm
         Core.CurrentPage.Lister.RefreshList();
     }
 
-    // Side section bottom
+    // Side section grouping
 
     private void ClickedInstallAll(object sender, EventArgs e)
     {
@@ -255,7 +265,7 @@ public partial class UIHandler : BasaltForm
         Core.CurrentPage.Grouper.DisableAll();
     }
 
-    // Side section lower
+    // Side section starting
 
     private void CheckedStartOption(object sender, EventArgs e)
     {
