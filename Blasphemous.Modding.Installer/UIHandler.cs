@@ -55,11 +55,6 @@ public partial class UIHandler : BasaltForm
 
     public Panel DataHolder => _bottom_holder;
 
-    public Label PreviewName => _left_details_name;
-    public Label PreviewDescription => _left_details_desc;
-    public Label PreviewVersion => _left_details_version;
-    public Panel PreviewBackground => _left_details_inner;
-
     // UI focusing
 
     public void RemoveButtonFocus(object? sender, EventArgs e)
@@ -219,12 +214,7 @@ public partial class UIHandler : BasaltForm
 
     public void ClearPreview()
     {
-        _left_details_name.Text = string.Empty;
-        _left_details_desc.Text = string.Empty;
-        _left_details_version.Text = string.Empty;
-
-        _left_details_inner.BackgroundImage?.Dispose();
-        _left_details_inner.BackgroundImage = null;
+        UpdatePreview(string.Empty, string.Empty, string.Empty, null);
     }
 
     // Side section sorting

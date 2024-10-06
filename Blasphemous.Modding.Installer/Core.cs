@@ -139,8 +139,8 @@ static class Core
         var blas2Starter = new Blas2Starter(blas2Validator, blas2gameSettings);
 
         // Previewers
-        var modPreviewer = new ModPreviewer(UIHandler.PreviewName, UIHandler.PreviewDescription, UIHandler.PreviewVersion);
-        var skinPreviewer = new SkinPreviewer(UIHandler.PreviewBackground);
+        var modPreviewer = new ModPreviewer();
+        var skinPreviewer = new SkinPreviewer();
 
         var blas1modPage = new InstallerPage(blas1modTitle, Resources.background1,
             blas1modGrouper,
