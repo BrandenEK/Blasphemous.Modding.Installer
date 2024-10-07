@@ -476,6 +476,7 @@ namespace Blasphemous.Modding.Installer
             // _left_page
             // 
             _left_page.AutoSize = true;
+            _left_page.BackColor = Color.FromArgb(30, 30, 30);
             _left_page.Controls.Add(_left_page_blas1mod);
             _left_page.Controls.Add(_left_page_blas1skin);
             _left_page.Controls.Add(_left_page_blas2mod);
@@ -554,6 +555,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _top
             // 
+            _top.AutoSize = true;
             _top.BackColor = Color.SpringGreen;
             _top.Controls.Add(_top_outer);
             _top.Dock = DockStyle.Top;
@@ -564,6 +566,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _top_outer
             // 
+            _top_outer.AutoSize = true;
             _top_outer.BackColor = Color.Black;
             _top_outer.Controls.Add(_top_inner);
             _top_outer.Dock = DockStyle.Fill;
@@ -575,6 +578,7 @@ namespace Blasphemous.Modding.Installer
             // _top_inner
             // 
             _top_inner.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            _top_inner.AutoSize = true;
             _top_inner.BackColor = Color.Maroon;
             _top_inner.BackgroundImage = Properties.Resources.background1;
             _top_inner.BackgroundImageLayout = ImageLayout.Center;
@@ -651,7 +655,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _middle_tools_icon
             // 
-            _middle_tools_icon.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            _middle_tools_icon.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             _middle_tools_icon.BackColor = Color.Transparent;
             _middle_tools_icon.BackgroundImageLayout = ImageLayout.Zoom;
             _middle_tools_icon.Cursor = Cursors.Hand;
@@ -664,7 +668,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _middle_tools_text
             // 
-            _middle_tools_text.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            _middle_tools_text.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             _middle_tools_text.BackColor = Color.FromArgb(0, 0, 0, 0);
             _middle_tools_text.Cursor = Cursors.Hand;
             _middle_tools_text.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
@@ -678,6 +682,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _bottom
             // 
+            _bottom.AutoSize = true;
             _bottom.BackColor = Color.Firebrick;
             _bottom.Controls.Add(_bottom_holder);
             _bottom.Dock = DockStyle.Fill;
@@ -688,6 +693,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _middle
             // 
+            _middle.AutoSize = true;
             _middle.BackColor = Color.MediumOrchid;
             _middle.Controls.Add(_middle_outer);
             _middle.Dock = DockStyle.Top;
@@ -698,6 +704,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _middle_outer
             // 
+            _middle_outer.AutoSize = true;
             _middle_outer.BackColor = Color.Black;
             _middle_outer.Controls.Add(_middle_inner);
             _middle_outer.Dock = DockStyle.Fill;
@@ -709,6 +716,7 @@ namespace Blasphemous.Modding.Installer
             // _middle_inner
             // 
             _middle_inner.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            _middle_inner.AutoSize = true;
             _middle_inner.BackColor = SystemColors.WindowFrame;
             _middle_inner.Controls.Add(_middle_path);
             _middle_inner.Controls.Add(_middle_tools);
@@ -719,13 +727,14 @@ namespace Blasphemous.Modding.Installer
             // 
             // _middle_path
             // 
-            _middle_path.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            _middle_path.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            _middle_path.AutoSize = true;
             _middle_path.BackColor = Color.FromArgb(0, 0, 0, 0);
             _middle_path.Cursor = Cursors.Hand;
             _middle_path.Font = new Font("Trebuchet MS", 12F, FontStyle.Italic, GraphicsUnit.Point);
             _middle_path.Location = new Point(10, 2);
             _middle_path.Name = "_middle_path";
-            _middle_path.Size = new Size(1000, 25);
+            _middle_path.Size = new Size(132, 22);
             _middle_path.TabIndex = 9;
             _middle_path.Text = "Root Folder text";
             _middle_path.TextAlign = ContentAlignment.MiddleLeft;
@@ -733,7 +742,8 @@ namespace Blasphemous.Modding.Installer
             // 
             // _middle_tools
             // 
-            _middle_tools.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            _middle_tools.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            _middle_tools.AutoSize = true;
             _middle_tools.BackColor = Color.FromArgb(0, 0, 0, 0);
             _middle_tools.Controls.Add(_middle_tools_icon);
             _middle_tools.Controls.Add(_middle_tools_text);
@@ -777,7 +787,9 @@ namespace Blasphemous.Modding.Installer
             _left_page.ResumeLayout(false);
             _left_page.PerformLayout();
             _top.ResumeLayout(false);
+            _top.PerformLayout();
             _top_outer.ResumeLayout(false);
+            _top_outer.PerformLayout();
             _top_inner.ResumeLayout(false);
             _top_warning_outer.ResumeLayout(false);
             _top_warning_inner.ResumeLayout(false);
@@ -785,8 +797,11 @@ namespace Blasphemous.Modding.Installer
             ((System.ComponentModel.ISupportInitialize)_middle_tools_icon).EndInit();
             _bottom.ResumeLayout(false);
             _middle.ResumeLayout(false);
+            _middle.PerformLayout();
             _middle_outer.ResumeLayout(false);
+            _middle_outer.PerformLayout();
             _middle_inner.ResumeLayout(false);
+            _middle_inner.PerformLayout();
             _middle_tools.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
