@@ -251,6 +251,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_all_install
             // 
+            _left_all_install.AutoSize = true;
             _left_all_install.BackColor = Color.FromArgb(30, 30, 30);
             _left_all_install.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
             _left_all_install.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
@@ -268,6 +269,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_all_enable
             // 
+            _left_all_enable.AutoSize = true;
             _left_all_enable.BackColor = Color.FromArgb(30, 30, 30);
             _left_all_enable.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
             _left_all_enable.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
@@ -285,6 +287,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_all_uninstall
             // 
+            _left_all_uninstall.AutoSize = true;
             _left_all_uninstall.BackColor = Color.FromArgb(30, 30, 30);
             _left_all_uninstall.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
             _left_all_uninstall.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
@@ -294,7 +297,7 @@ namespace Blasphemous.Modding.Installer
             _left_all_uninstall.ForeColor = SystemColors.ButtonHighlight;
             _left_all_uninstall.Location = new Point(115, 15);
             _left_all_uninstall.Name = "_left_all_uninstall";
-            _left_all_uninstall.Size = new Size(100, 35);
+            _left_all_uninstall.Size = new Size(102, 35);
             _left_all_uninstall.TabIndex = 5;
             _left_all_uninstall.Text = "Uninstall all";
             _left_all_uninstall.UseVisualStyleBackColor = false;
@@ -302,6 +305,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_all_disable
             // 
+            _left_all_disable.AutoSize = true;
             _left_all_disable.BackColor = Color.FromArgb(30, 30, 30);
             _left_all_disable.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
             _left_all_disable.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
@@ -482,6 +486,8 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_page_blas1mod
             // 
+            _left_page_blas1mod.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            _left_page_blas1mod.AutoSize = true;
             _left_page_blas1mod.BackColor = Color.FromArgb(30, 30, 30);
             _left_page_blas1mod.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
             _left_page_blas1mod.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
@@ -491,7 +497,7 @@ namespace Blasphemous.Modding.Installer
             _left_page_blas1mod.ForeColor = SystemColors.ButtonHighlight;
             _left_page_blas1mod.Location = new Point(0, 0);
             _left_page_blas1mod.Name = "_left_page_blas1mod";
-            _left_page_blas1mod.Size = new Size(220, 35);
+            _left_page_blas1mod.Size = new Size(220, 36);
             _left_page_blas1mod.TabIndex = 1;
             _left_page_blas1mod.Text = "Blasphemous Mods";
             _left_page_blas1mod.UseVisualStyleBackColor = false;
@@ -499,6 +505,8 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_page_blas1skin
             // 
+            _left_page_blas1skin.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            _left_page_blas1skin.AutoSize = true;
             _left_page_blas1skin.BackColor = Color.FromArgb(30, 30, 30);
             _left_page_blas1skin.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
             _left_page_blas1skin.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
@@ -508,7 +516,7 @@ namespace Blasphemous.Modding.Installer
             _left_page_blas1skin.ForeColor = SystemColors.ButtonHighlight;
             _left_page_blas1skin.Location = new Point(0, 45);
             _left_page_blas1skin.Name = "_left_page_blas1skin";
-            _left_page_blas1skin.Size = new Size(220, 35);
+            _left_page_blas1skin.Size = new Size(220, 36);
             _left_page_blas1skin.TabIndex = 2;
             _left_page_blas1skin.Text = "Blasphemous Skins";
             _left_page_blas1skin.UseVisualStyleBackColor = false;
@@ -516,6 +524,8 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_page_blas2mod
             // 
+            _left_page_blas2mod.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            _left_page_blas2mod.AutoSize = true;
             _left_page_blas2mod.BackColor = Color.FromArgb(30, 30, 30);
             _left_page_blas2mod.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
             _left_page_blas2mod.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
@@ -525,7 +535,7 @@ namespace Blasphemous.Modding.Installer
             _left_page_blas2mod.ForeColor = SystemColors.ButtonHighlight;
             _left_page_blas2mod.Location = new Point(0, 90);
             _left_page_blas2mod.Name = "_left_page_blas2mod";
-            _left_page_blas2mod.Size = new Size(220, 35);
+            _left_page_blas2mod.Size = new Size(220, 36);
             _left_page_blas2mod.TabIndex = 3;
             _left_page_blas2mod.Text = "Blasphemous II Mods";
             _left_page_blas2mod.UseVisualStyleBackColor = false;
@@ -753,12 +763,14 @@ namespace Blasphemous.Modding.Installer
             _left_start.ResumeLayout(false);
             _left_start.PerformLayout();
             _left_all.ResumeLayout(false);
+            _left_all.PerformLayout();
             _left_sort.ResumeLayout(false);
             _left_sort.PerformLayout();
             _left_details.ResumeLayout(false);
             _left_details_outer.ResumeLayout(false);
             _left_details_inner.ResumeLayout(false);
             _left_page.ResumeLayout(false);
+            _left_page.PerformLayout();
             _top.ResumeLayout(false);
             _top_outer.ResumeLayout(false);
             _top_inner.ResumeLayout(false);
