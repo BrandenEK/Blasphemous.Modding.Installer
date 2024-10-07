@@ -640,7 +640,7 @@ namespace Blasphemous.Modding.Installer
             // _middle_tools_icon
             // 
             _middle_tools_icon.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            _middle_tools_icon.BackColor = Color.Transparent;
+            _middle_tools_icon.BackColor = SystemColors.WindowFrame;
             _middle_tools_icon.BackgroundImageLayout = ImageLayout.Zoom;
             _middle_tools_icon.Cursor = Cursors.Hand;
             _middle_tools_icon.Location = new Point(275, 0);
@@ -653,9 +653,9 @@ namespace Blasphemous.Modding.Installer
             // _middle_tools_text
             // 
             _middle_tools_text.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            _middle_tools_text.BackColor = Color.FromArgb(0, 0, 0, 0);
+            _middle_tools_text.BackColor = SystemColors.WindowFrame;
             _middle_tools_text.Cursor = Cursors.Hand;
-            _middle_tools_text.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            _middle_tools_text.Font = new Font("Trebuchet MS", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
             _middle_tools_text.Location = new Point(0, 1);
             _middle_tools_text.Name = "_middle_tools_text";
             _middle_tools_text.Size = new Size(275, 25);
@@ -708,7 +708,7 @@ namespace Blasphemous.Modding.Installer
             // _middle_path
             // 
             _middle_path.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            _middle_path.BackColor = Color.FromArgb(0, 0, 0, 0);
+            _middle_path.BackColor = SystemColors.WindowFrame;
             _middle_path.Cursor = Cursors.Hand;
             _middle_path.Font = new Font("Trebuchet MS", 12F, FontStyle.Italic, GraphicsUnit.Point);
             _middle_path.Location = new Point(10, 2);
@@ -722,7 +722,7 @@ namespace Blasphemous.Modding.Installer
             // _middle_tools
             // 
             _middle_tools.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            _middle_tools.BackColor = Color.FromArgb(0, 0, 0, 0);
+            _middle_tools.BackColor = SystemColors.WindowFrame;
             _middle_tools.Controls.Add(_middle_tools_icon);
             _middle_tools.Controls.Add(_middle_tools_text);
             _middle_tools.Location = new Point(1000, 1);
