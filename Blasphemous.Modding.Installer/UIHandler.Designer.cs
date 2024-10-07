@@ -131,6 +131,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left
             // 
+            _left.AutoSize = true;
             _left.BackColor = Color.SkyBlue;
             _left.Controls.Add(_left_outer);
             _left.Dock = DockStyle.Left;
@@ -141,6 +142,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_outer
             // 
+            _left_outer.AutoSize = true;
             _left_outer.BackColor = Color.Black;
             _left_outer.Controls.Add(_left_inner);
             _left_outer.Dock = DockStyle.Fill;
@@ -152,6 +154,7 @@ namespace Blasphemous.Modding.Installer
             // _left_inner
             // 
             _left_inner.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            _left_inner.AutoSize = true;
             _left_inner.BackColor = Color.FromArgb(30, 30, 30);
             _left_inner.Controls.Add(_left_holder);
             _left_inner.Location = new Point(0, 0);
@@ -161,6 +164,8 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_holder
             // 
+            _left_holder.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            _left_holder.AutoSize = true;
             _left_holder.Controls.Add(_left_start);
             _left_holder.Controls.Add(_left_all);
             _left_holder.Controls.Add(_left_sort);
@@ -470,6 +475,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_page
             // 
+            _left_page.AutoSize = true;
             _left_page.Controls.Add(_left_page_blas1mod);
             _left_page.Controls.Add(_left_page_blas1skin);
             _left_page.Controls.Add(_left_page_blas2mod);
@@ -753,9 +759,13 @@ namespace Blasphemous.Modding.Installer
             Name = "UIHandler";
             _bottom_holder.ResumeLayout(false);
             _left.ResumeLayout(false);
+            _left.PerformLayout();
             _left_outer.ResumeLayout(false);
+            _left_outer.PerformLayout();
             _left_inner.ResumeLayout(false);
+            _left_inner.PerformLayout();
             _left_holder.ResumeLayout(false);
+            _left_holder.PerformLayout();
             _left_start.ResumeLayout(false);
             _left_start.PerformLayout();
             _left_all.ResumeLayout(false);
@@ -779,6 +789,7 @@ namespace Blasphemous.Modding.Installer
             _middle_inner.ResumeLayout(false);
             _middle_tools.ResumeLayout(false);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
