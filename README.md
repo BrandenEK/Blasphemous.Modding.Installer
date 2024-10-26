@@ -21,6 +21,7 @@
       - Blasphemous 2 ([Windows](https://github.com/BrandenEK/BlasII.ModdingTools/raw/main/modding-tools-windows.zip)/Linux/Mac)
    - Extract the contents of the zip file into the game's root directory
    - You should now have a folder called "Modding" in the same folder as "Blasphemous.exe" or "Blasphemous 2.exe"
+   - If using Steam on unix, follow the [BepInEx docs](https://docs.bepinex.dev/articles/advanced/steam_interop.html) to configure it properly
 2. Install or update the mod
    - On the mod's github page, navigate to the latest release
    - Download the file called "ModName.zip" and extract the contents of the zip file into the "Modding" folder
