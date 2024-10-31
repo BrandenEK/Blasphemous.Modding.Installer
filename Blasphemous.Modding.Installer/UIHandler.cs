@@ -284,6 +284,13 @@ public partial class UIHandler : BasaltForm
 
     private void ClickedStart(object sender, EventArgs e)
     {
+        if (!Core.CurrentPage.Validator.AreModdingToolsInstalled)
+        {
+            Logger.Warn("Tried to start game without modding tools");
+            MessageBox.Show("You need to install the modding tools first!", $"Can not launch {Core.CurrentPage.Validator.ExeName}");
+            return;
+        }
+
         Logger.Info($"Starting {Core.CurrentPage.Title} game");
         Core.CurrentPage.GameStarter.Start();
     }
