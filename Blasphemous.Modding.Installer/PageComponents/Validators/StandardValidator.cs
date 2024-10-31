@@ -193,6 +193,9 @@ internal class StandardValidator : IValidator
     {
         get
         {
+            if (string.IsNullOrEmpty(_settings.RootFolder))
+                return false;
+
             string path = Path.Combine(_settings.RootFolder, _exeName);
             return File.Exists(path);
         }
