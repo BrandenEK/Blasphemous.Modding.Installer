@@ -201,7 +201,7 @@ internal class StandardValidator : IValidator
         }
     }
 
-    private bool AreModdingToolsInstalled
+    public bool AreModdingToolsInstalled
     {
         get
         {
@@ -210,7 +210,7 @@ internal class StandardValidator : IValidator
         }
     }
 
-    private bool AreModdingToolsUpdated
+    public bool AreModdingToolsUpdated
     {
         get
         {
