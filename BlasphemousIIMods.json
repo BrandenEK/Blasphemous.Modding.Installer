@@ -16,7 +16,7 @@
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "BlasII.CheatConsole",
     "PluginFile": "CheatConsole.dll",
-    "Dependencies": [ "Modding API" ]
+    "Dependencies": [ "Modding API", "UI Framework" ]
   },
   {
     "Name": "Debug Mod",
@@ -26,7 +26,7 @@
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "BlasII.DebugMod",
     "PluginFile": "DebugMod.dll",
-    "Dependencies": [ "Modding API" ]
+    "Dependencies": [ "Modding API", "UI Framework" ]
   },
   {
     "Name": "Save and Quit",
@@ -47,7 +47,7 @@
     "GithubRepo": "BlasII.Randomizer",
     "PluginFile": "Randomizer.dll",
     "RequiredDlls": [ "LogicParser.dll" ],
-    "Dependencies": [ "Modding API", "Quality of Life" ]
+    "Dependencies": [ "Modding API", "Menu Framework", "UI Framework", "Quality of Life" ]
   },
   {
     "Name": "Quality of Life",
@@ -65,9 +65,29 @@
     "Description": "An in-game map tracker for the Blasphemous 2 Randomizer",
     "InitialReleaseDate": "2023-12-30",
     "GithubAuthor": "BrandenEK",
-    "GithubRepo": "BlasII.Randomizer.Map",
+    "GithubRepo": "BlasII.Randomizer.MapTracker",
     "PluginFile": "RandoMap.dll",
     "RequiredDlls": [ "LogicParser.dll" ],
-    "Dependencies": [ "Modding API", "Quality of Life", "Randomizer" ]
+    "Dependencies": [ "Modding API", "UI Framework", "Randomizer" ]
+  },
+  {
+    "Name": "UI Framework",
+    "Author": "Damocles",
+    "Description": "Framework that allows other mods to easily create UI",
+    "InitialReleaseDate": "2024-10-15",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "BlasII.Framework.UI",
+    "PluginFile": "UIFramework.dll",
+    "Dependencies": [ "Modding API" ]
+  },
+  {
+    "Name": "Menu Framework",
+    "Author": "Damocles",
+    "Description": "Framework that allows other mods to implement start game menus",
+    "InitialReleaseDate": "2024-10-29",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "BlasII.Framework.Menus",
+    "PluginFile": "MenuFramework.dll",
+    "Dependencies": [ "Modding API", "UI Framework" ]
   }
 ]
