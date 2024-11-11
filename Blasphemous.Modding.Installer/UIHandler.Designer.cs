@@ -37,6 +37,7 @@ namespace Blasphemous.Modding.Installer
             _left_outer = new Panel();
             _left_inner = new Panel();
             _left_holder = new Panel();
+            _left_links = new Panel();
             _left_start = new Panel();
             _left_start_console = new CheckBox();
             _left_start_modded = new CheckBox();
@@ -161,6 +162,8 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_holder
             // 
+            _left_holder.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            _left_holder.Controls.Add(_left_links);
             _left_holder.Controls.Add(_left_start);
             _left_holder.Controls.Add(_left_all);
             _left_holder.Controls.Add(_left_sort);
@@ -168,8 +171,17 @@ namespace Blasphemous.Modding.Installer
             _left_holder.Controls.Add(_left_page);
             _left_holder.Location = new Point(15, 15);
             _left_holder.Name = "_left_holder";
-            _left_holder.Size = new Size(220, 800);
+            _left_holder.Size = new Size(220, 835);
             _left_holder.TabIndex = 26;
+            // 
+            // _left_links
+            // 
+            _left_links.BackColor = Color.FromArgb(30, 30, 30);
+            _left_links.Dock = DockStyle.Bottom;
+            _left_links.Location = new Point(0, 735);
+            _left_links.Name = "_left_links";
+            _left_links.Size = new Size(220, 100);
+            _left_links.TabIndex = 24;
             // 
             // _left_start
             // 
@@ -838,6 +850,7 @@ namespace Blasphemous.Modding.Installer
         private Panel _left_details;
         private Panel _left_details_divider;
         private Panel _left_holder;
+        private Panel _left_links;
     }
 }
 
