@@ -627,7 +627,7 @@ namespace Blasphemous.Modding.Installer
             _top_warning_image.Anchor = AnchorStyles.Left;
             _top_warning_image.BackColor = Color.Black;
             _top_warning_image.BackgroundImageLayout = ImageLayout.Stretch;
-            _top_warning_image.Image = Properties.Resources.skinPreview;
+            _top_warning_image.Image = Properties.Resources.warning;
             _top_warning_image.Location = new Point(10, 20);
             _top_warning_image.Name = "_top_warning_image";
             _top_warning_image.Size = new Size(36, 36);
