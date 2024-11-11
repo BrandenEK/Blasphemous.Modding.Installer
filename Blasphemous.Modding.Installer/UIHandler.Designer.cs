@@ -37,7 +37,9 @@ namespace Blasphemous.Modding.Installer
             _left_outer = new Panel();
             _left_inner = new Panel();
             _left_holder = new Panel();
-            _left_links = new Panel();
+            _left_links = new PanelWithCutoff();
+            _left_discord_image = new PictureBox();
+            _left_discord_text = new Label();
             _left_start = new Panel();
             _left_start_console = new CheckBox();
             _left_start_modded = new CheckBox();
@@ -88,6 +90,8 @@ namespace Blasphemous.Modding.Installer
             _left_outer.SuspendLayout();
             _left_inner.SuspendLayout();
             _left_holder.SuspendLayout();
+            _left_links.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)_left_discord_image).BeginInit();
             _left_start.SuspendLayout();
             _left_all.SuspendLayout();
             _left_sort.SuspendLayout();
@@ -176,12 +180,34 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_links
             // 
+            _left_links.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             _left_links.BackColor = Color.FromArgb(30, 30, 30);
-            _left_links.Dock = DockStyle.Bottom;
+            _left_links.Controls.Add(_left_discord_image);
+            _left_links.Controls.Add(_left_discord_text);
+            _left_links.ExpectedVisibility = true;
             _left_links.Location = new Point(0, 735);
             _left_links.Name = "_left_links";
             _left_links.Size = new Size(220, 100);
             _left_links.TabIndex = 24;
+            _left_links.VerticalCutoff = 660;
+            // 
+            // _left_discord_image
+            // 
+            _left_discord_image.Location = new Point(44, 31);
+            _left_discord_image.Name = "_left_discord_image";
+            _left_discord_image.Size = new Size(100, 50);
+            _left_discord_image.TabIndex = 1;
+            _left_discord_image.TabStop = false;
+            // 
+            // _left_discord_text
+            // 
+            _left_discord_text.AutoSize = true;
+            _left_discord_text.ForeColor = SystemColors.ButtonHighlight;
+            _left_discord_text.Location = new Point(98, 12);
+            _left_discord_text.Name = "_left_discord_text";
+            _left_discord_text.Size = new Size(91, 16);
+            _left_discord_text.TabIndex = 0;
+            _left_discord_text.Text = "Join the discord!";
             // 
             // _left_start
             // 
@@ -772,6 +798,9 @@ namespace Blasphemous.Modding.Installer
             _left_outer.ResumeLayout(false);
             _left_inner.ResumeLayout(false);
             _left_holder.ResumeLayout(false);
+            _left_links.ResumeLayout(false);
+            _left_links.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)_left_discord_image).EndInit();
             _left_start.ResumeLayout(false);
             _left_start.PerformLayout();
             _left_all.ResumeLayout(false);
@@ -850,7 +879,9 @@ namespace Blasphemous.Modding.Installer
         private Panel _left_details;
         private Panel _left_details_divider;
         private Panel _left_holder;
-        private Panel _left_links;
+        private PanelWithCutoff _left_links;
+        private PictureBox _left_discord_image;
+        private Label _left_discord_text;
     }
 }
 
