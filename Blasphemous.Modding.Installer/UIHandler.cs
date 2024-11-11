@@ -295,6 +295,18 @@ public partial class UIHandler : BasaltForm
         Core.CurrentPage.GameStarter.Start();
     }
 
+    // Side section links
+
+    private void ClickedDiscordLink(object sender, EventArgs e)
+    {
+        Logger.Info("Opening discord link!");
+    }
+
+    private void ClickedGithubLink(object sender, EventArgs e)
+    {
+        Logger.Info("Opening github link!");
+    }
+
     // Events
 
     internal delegate void PageDelegate(InstallerPage page);

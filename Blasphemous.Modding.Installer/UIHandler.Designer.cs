@@ -38,6 +38,8 @@ namespace Blasphemous.Modding.Installer
             _left_inner = new Panel();
             _left_holder = new Panel();
             _left_links = new PanelWithCutoff();
+            _left_github_text = new Label();
+            _left_github_image = new PictureBox();
             _left_discord_image = new PictureBox();
             _left_discord_text = new Label();
             _left_start = new Panel();
@@ -85,14 +87,13 @@ namespace Blasphemous.Modding.Installer
             _middle_inner = new Panel();
             _middle_path = new Label();
             _middle_tools = new Panel();
-            _left_github_image = new PictureBox();
-            _left_github_text = new Label();
             _bottom_holder.SuspendLayout();
             _left.SuspendLayout();
             _left_outer.SuspendLayout();
             _left_inner.SuspendLayout();
             _left_holder.SuspendLayout();
             _left_links.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)_left_github_image).BeginInit();
             ((System.ComponentModel.ISupportInitialize)_left_discord_image).BeginInit();
             _left_start.SuspendLayout();
             _left_all.SuspendLayout();
@@ -113,7 +114,6 @@ namespace Blasphemous.Modding.Installer
             _middle_outer.SuspendLayout();
             _middle_inner.SuspendLayout();
             _middle_tools.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)_left_github_image).BeginInit();
             SuspendLayout();
             // 
             // _bottom_holder_scroll
@@ -196,8 +196,34 @@ namespace Blasphemous.Modding.Installer
             _left_links.TabIndex = 24;
             _left_links.VerticalCutoff = 660;
             // 
+            // _left_github_text
+            // 
+            _left_github_text.Cursor = Cursors.Hand;
+            _left_github_text.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_github_text.ForeColor = SystemColors.ButtonHighlight;
+            _left_github_text.Location = new Point(62, 56);
+            _left_github_text.Name = "_left_github_text";
+            _left_github_text.Size = new Size(146, 36);
+            _left_github_text.TabIndex = 3;
+            _left_github_text.Text = "Contribute on github!";
+            _left_github_text.TextAlign = ContentAlignment.MiddleLeft;
+            _left_github_text.Click += ClickedGithubLink;
+            // 
+            // _left_github_image
+            // 
+            _left_github_image.Cursor = Cursors.Hand;
+            _left_github_image.Image = Properties.Resources.github;
+            _left_github_image.Location = new Point(20, 56);
+            _left_github_image.Name = "_left_github_image";
+            _left_github_image.Size = new Size(36, 36);
+            _left_github_image.SizeMode = PictureBoxSizeMode.Zoom;
+            _left_github_image.TabIndex = 2;
+            _left_github_image.TabStop = false;
+            _left_github_image.Click += ClickedGithubLink;
+            // 
             // _left_discord_image
             // 
+            _left_discord_image.Cursor = Cursors.Hand;
             _left_discord_image.Image = Properties.Resources.discord;
             _left_discord_image.Location = new Point(20, 10);
             _left_discord_image.Name = "_left_discord_image";
@@ -205,9 +231,11 @@ namespace Blasphemous.Modding.Installer
             _left_discord_image.SizeMode = PictureBoxSizeMode.Zoom;
             _left_discord_image.TabIndex = 1;
             _left_discord_image.TabStop = false;
+            _left_discord_image.Click += ClickedDiscordLink;
             // 
             // _left_discord_text
             // 
+            _left_discord_text.Cursor = Cursors.Hand;
             _left_discord_text.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             _left_discord_text.ForeColor = SystemColors.ButtonHighlight;
             _left_discord_text.Location = new Point(62, 10);
@@ -216,6 +244,7 @@ namespace Blasphemous.Modding.Installer
             _left_discord_text.TabIndex = 0;
             _left_discord_text.Text = "Join the discord!";
             _left_discord_text.TextAlign = ContentAlignment.MiddleLeft;
+            _left_discord_text.Click += ClickedDiscordLink;
             // 
             // _left_start
             // 
@@ -787,27 +816,6 @@ namespace Blasphemous.Modding.Installer
             _middle_tools.TabIndex = 9;
             _middle_tools.Visible = false;
             // 
-            // _left_github_image
-            // 
-            _left_github_image.Image = Properties.Resources.github;
-            _left_github_image.Location = new Point(20, 56);
-            _left_github_image.Name = "_left_github_image";
-            _left_github_image.Size = new Size(36, 36);
-            _left_github_image.SizeMode = PictureBoxSizeMode.Zoom;
-            _left_github_image.TabIndex = 2;
-            _left_github_image.TabStop = false;
-            // 
-            // _left_github_text
-            // 
-            _left_github_text.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            _left_github_text.ForeColor = SystemColors.ButtonHighlight;
-            _left_github_text.Location = new Point(62, 56);
-            _left_github_text.Name = "_left_github_text";
-            _left_github_text.Size = new Size(146, 36);
-            _left_github_text.TabIndex = 3;
-            _left_github_text.Text = "Contribute on github!";
-            _left_github_text.TextAlign = ContentAlignment.MiddleLeft;
-            // 
             // UIHandler
             // 
             AutoScaleDimensions = new SizeF(6F, 15F);
@@ -828,6 +836,7 @@ namespace Blasphemous.Modding.Installer
             _left_inner.ResumeLayout(false);
             _left_holder.ResumeLayout(false);
             _left_links.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)_left_github_image).EndInit();
             ((System.ComponentModel.ISupportInitialize)_left_discord_image).EndInit();
             _left_start.ResumeLayout(false);
             _left_start.PerformLayout();
@@ -852,7 +861,6 @@ namespace Blasphemous.Modding.Installer
             _middle_outer.ResumeLayout(false);
             _middle_inner.ResumeLayout(false);
             _middle_tools.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)_left_github_image).EndInit();
             ResumeLayout(false);
         }
 
