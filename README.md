@@ -30,6 +30,11 @@
 
 ---
 
+### Community discord
+There is now a Blasphemous Modding discord server.  Click [here](https://discord.gg/aBe22Q7d5A) to join!
+
+---
+
 ### Command line arguments
 - ```-[g]ithub {token}``` Uses your GitHub OAuth token to increase the API rate limit
 - ```-[i]gnore``` Ignores the wait time of 30 mins before mod versions are rechecked
