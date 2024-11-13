@@ -1,6 +1,7 @@
 ﻿using Basalt.BetterForms;
 using Basalt.Framework.Logging;
 using Blasphemous.Modding.Installer.PageComponents.Validators;
+using System.Diagnostics;
 
 namespace Blasphemous.Modding.Installer;
 
@@ -293,6 +294,55 @@ public partial class UIHandler : BasaltForm
 
         Logger.Info($"Starting {Core.CurrentPage.Title} game");
         Core.CurrentPage.GameStarter.Start();
+    }
+
+    // Side section links
+
+    private void OpenLink(string link)
+    {
+        try
+        {
+            Process.Start(new ProcessStartInfo(link)
+            {
+                UseShellExecute = true
+            });
+        }
+        catch
+        {
+            MessageBox.Show("Faield to open link!", "Invalid Link");
+        }
+    }
+
+    private void ClickedDiscordLink(object sender, EventArgs e)
+    {
+        Logger.Info("Opening discord link!");
+        OpenLink("https://discord.gg/aBe22Q7d5A");
+    }
+
+    private void ClickedGithubLink(object sender, EventArgs e)
+    {
+        Logger.Info("Opening github link!");
+        OpenLink("https://github.com/BrandenEK/Blasphemous.Modding.Installer");
+    }
+
+    private void StartedHoverDiscord(object sender, EventArgs e)
+    {
+        _left_discord_text.Font = Fonts.LINK_HOVERED;
+    }
+
+    private void EndedHoverDiscord(object sender, EventArgs e)
+    {
+        _left_discord_text.Font = Fonts.LINK_NORMAL;
+    }
+
+    private void StartedHoverGithub(object sender, EventArgs e)
+    {
+        _left_github_text.Font = Fonts.LINK_HOVERED;
+    }
+
+    private void EndedHoverGithub(object sender, EventArgs e)
+    {
+        _left_github_text.Font = Fonts.LINK_NORMAL;
     }
 
     // Events
