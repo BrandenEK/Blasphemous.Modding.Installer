@@ -203,11 +203,13 @@ namespace Blasphemous.Modding.Installer
             _left_github_text.ForeColor = SystemColors.ButtonHighlight;
             _left_github_text.Location = new Point(62, 56);
             _left_github_text.Name = "_left_github_text";
-            _left_github_text.Size = new Size(146, 36);
+            _left_github_text.Size = new Size(146, 40);
             _left_github_text.TabIndex = 3;
             _left_github_text.Text = "Contribute on github!";
             _left_github_text.TextAlign = ContentAlignment.MiddleLeft;
             _left_github_text.Click += ClickedGithubLink;
+            _left_github_text.MouseEnter += StartedHoverGithub;
+            _left_github_text.MouseLeave += EndedHoverGithub;
             // 
             // _left_github_image
             // 
@@ -220,6 +222,8 @@ namespace Blasphemous.Modding.Installer
             _left_github_image.TabIndex = 2;
             _left_github_image.TabStop = false;
             _left_github_image.Click += ClickedGithubLink;
+            _left_github_image.MouseEnter += StartedHoverGithub;
+            _left_github_image.MouseLeave += EndedHoverGithub;
             // 
             // _left_discord_image
             // 
@@ -232,6 +236,8 @@ namespace Blasphemous.Modding.Installer
             _left_discord_image.TabIndex = 1;
             _left_discord_image.TabStop = false;
             _left_discord_image.Click += ClickedDiscordLink;
+            _left_discord_image.MouseEnter += StartedHoverDiscord;
+            _left_discord_image.MouseLeave += EndedHoverDiscord;
             // 
             // _left_discord_text
             // 
@@ -245,6 +251,8 @@ namespace Blasphemous.Modding.Installer
             _left_discord_text.Text = "Join the discord!";
             _left_discord_text.TextAlign = ContentAlignment.MiddleLeft;
             _left_discord_text.Click += ClickedDiscordLink;
+            _left_discord_text.MouseEnter += StartedHoverDiscord;
+            _left_discord_text.MouseLeave += EndedHoverDiscord;
             // 
             // _left_start
             // 

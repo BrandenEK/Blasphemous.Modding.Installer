@@ -26,6 +26,9 @@ public static class Fonts
     public readonly static Font SKIN_AUTHOR = new Font("Verdana", 12, FontStyle.Italic);
 
     public readonly static Font BUTTON = new Font("Trebuchet MS", 8, FontStyle.Bold);
+
+    public static readonly Font LINK_NORMAL = new Font("Trebuchet MS", 9.75f);
+    public static readonly Font LINK_HOVERED = new Font("Trebuchet MS", 11);
 }
 
 public static class Sizes

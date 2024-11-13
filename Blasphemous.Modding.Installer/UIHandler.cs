@@ -325,6 +325,26 @@ public partial class UIHandler : BasaltForm
         OpenLink("https://github.com/BrandenEK/Blasphemous.Modding.Installer");
     }
 
+    private void StartedHoverDiscord(object sender, EventArgs e)
+    {
+        _left_discord_text.Font = Fonts.LINK_HOVERED;
+    }
+
+    private void EndedHoverDiscord(object sender, EventArgs e)
+    {
+        _left_discord_text.Font = Fonts.LINK_NORMAL;
+    }
+
+    private void StartedHoverGithub(object sender, EventArgs e)
+    {
+        _left_github_text.Font = Fonts.LINK_HOVERED;
+    }
+
+    private void EndedHoverGithub(object sender, EventArgs e)
+    {
+        _left_github_text.Font = Fonts.LINK_NORMAL;
+    }
+
     // Events
 
     internal delegate void PageDelegate(InstallerPage page);
