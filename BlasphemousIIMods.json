@@ -89,5 +89,15 @@
     "GithubRepo": "BlasII.Framework.Menus",
     "PluginFile": "MenuFramework.dll",
     "Dependencies": [ "Modding API", "UI Framework" ]
+  },
+  {
+    "Name": "Custom Skins",
+    "Author": "Damocles",
+    "Description": "Allows using custom player skins made by the community",
+    "InitialReleaseDate": "2024-12-03",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "BlasII.CustomSkins",
+    "PluginFile": "CustomSkins.dll",
+    "Dependencies": [ "Modding API", "Cheat Console" ]
   }
 ]
