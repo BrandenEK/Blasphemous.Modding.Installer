@@ -99,5 +99,15 @@
     "GithubRepo": "BlasII.CustomSkins",
     "PluginFile": "CustomSkins.dll",
     "Dependencies": [ "Modding API", "Cheat Console" ]
+  },
+  {
+    "Name": "Glitch Reviver",
+    "Author": "Damocles",
+    "Description": "Reintroduces a variety of useful glitches that have been patched",
+    "InitialReleaseDate": "2024-12-12",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "BlasII.GlitchReviver",
+    "PluginFile": "GlitchReviver.dll",
+    "Dependencies": [ "Modding API" ]
   }
 ]
