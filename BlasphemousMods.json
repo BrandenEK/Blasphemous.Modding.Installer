@@ -223,14 +223,14 @@
     "Dependencies": [ "Modding API", "UI Framework" ]
   },
   {
-    "Name": "Localization Patcher",
+    "Name": "Localization Framework",
     "Author": "NewbieElton",
     "Description": "Allows customizing localization texts of Blasphemous",
     "InitialReleaseDate": "2024-06-05",
     "GithubAuthor": "EltonZhang777",
-    "GithubRepo": "Blasphemous.LocalizationPatcher",
-    "PluginFile": "LocalizationPatcher.dll",
-    "Dependencies": [ "Modding API" ]
+    "GithubRepo": "Blasphemous.Framework.Localization",
+    "PluginFile": "LocalizationFramework.dll",
+    "Dependencies": [ "Modding API", "Cheat Console" ]
   },
   {
     "Name": "Credits Framework",
