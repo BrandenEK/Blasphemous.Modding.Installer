@@ -46,8 +46,8 @@
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "BlasII.Randomizer",
     "PluginFile": "Randomizer.dll",
-    "RequiredDlls": [ "LogicParser.dll" ],
-    "Dependencies": [ "Modding API", "Menu Framework", "UI Framework", "Quality of Life" ]
+    "RequiredDlls": [ "LogicParser.dll", "Basalt.LogicParser.dll" ],
+    "Dependencies": [ "Modding API", "Menu Framework", "UI Framework" ]
   },
   {
     "Name": "Quality of Life",
@@ -67,7 +67,7 @@
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "BlasII.Randomizer.MapTracker",
     "PluginFile": "RandoMap.dll",
-    "RequiredDlls": [ "LogicParser.dll" ],
+    "RequiredDlls": [ "LogicParser.dll", "Basalt.LogicParser.dll" ],
     "Dependencies": [ "Modding API", "UI Framework", "Randomizer" ]
   },
   {
