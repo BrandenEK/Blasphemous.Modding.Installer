@@ -8,11 +8,18 @@ internal partial class SkinPreviewPrompt : Form
     {
         InitializeComponent();
 
-        Bitmap preview = LoadPreview();
-
         Text = skin.Data.name;
+        DisplayPreviewImage(skin);
+    }
+
+    private async void DisplayPreviewImage(Skin skin)
+    {
+        Bitmap preview = LoadPreview();
+        await Task.Delay(2000);
+
         ClientSize = preview.Size;
         BackgroundImage = preview;
+        _text.Visible = false;
     }
 
     private Bitmap LoadPreview()

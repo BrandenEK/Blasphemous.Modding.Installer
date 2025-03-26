@@ -28,13 +28,26 @@ partial class SkinPreviewPrompt
     /// </summary>
     private void InitializeComponent()
     {
+        _text = new Label();
         SuspendLayout();
+        // 
+        // _text
+        // 
+        _text.Dock = DockStyle.Fill;
+        _text.Font = new Font("Segoe UI Semibold", 24F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+        _text.Location = new Point(0, 0);
+        _text.Name = "_text";
+        _text.Size = new Size(784, 561);
+        _text.TabIndex = 0;
+        _text.Text = "Loading preview...";
+        _text.TextAlign = ContentAlignment.MiddleCenter;
         // 
         // SkinPreviewPrompt
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(784, 411);
+        ClientSize = new Size(784, 561);
+        Controls.Add(_text);
         FormBorderStyle = FormBorderStyle.FixedToolWindow;
         MaximizeBox = false;
         MinimizeBox = false;
@@ -45,4 +58,6 @@ partial class SkinPreviewPrompt
     }
 
     #endregion
+
+    private Label _text;
 }
