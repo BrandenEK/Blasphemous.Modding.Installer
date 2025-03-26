@@ -1,5 +1,7 @@
-﻿using Blasphemous.Modding.Installer.Extensions;
+﻿using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Extensions;
 using Blasphemous.Modding.Installer.Mods;
+using Blasphemous.Modding.Installer.Prompts;
 using Blasphemous.Modding.Installer.UIComponents;
 
 namespace Blasphemous.Modding.Installer.Skins;
@@ -17,6 +19,8 @@ internal class SkinUI
     private readonly Button previewButton;
 
     private readonly RowColorer _colorer;
+
+    private readonly Skin _skin;
 
     public void UpdateUI(string name, string author, bool installed, bool canUpdate)
     {
@@ -58,6 +62,7 @@ internal class SkinUI
     {
         Panel parentPanel = Core.UIHandler.DataHolder;
         parentPanel.AutoScroll = false;
+        _skin = skin;
 
         // Panels
 
@@ -142,7 +147,7 @@ internal class SkinUI
             TabStop = false,
         };
         previewButton.FlatAppearance.BorderColor = Color.Black;
-        //previewButton.Click += skin.ClickedPreviewIdle;
+        previewButton.Click += OnClickPreview;
         previewButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
         previewButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
@@ -166,5 +171,13 @@ internal class SkinUI
         innerPanel.AddMouseEnterEvent(skin.OnStartHover);
         innerPanel.AddMouseLeaveEvent(skin.OnEndHover);
         parentPanel.AutoScroll = true;
+    }
+
+    private void OnClickPreview(object? _, EventArgs __)
+    {
+        Logger.Info($"Opening skin preview for {_skin.Data.id}");
+
+        var prompt = new SkinPreviewPrompt();
+        prompt.ShowDialog();
     }
 }
