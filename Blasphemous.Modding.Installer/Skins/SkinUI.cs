@@ -177,7 +177,7 @@ internal class SkinUI
     {
         Logger.Info($"Opening skin preview for {_skin.Data.id}");
 
-        var prompt = new SkinPreviewPrompt();
+        var prompt = new SkinPreviewPrompt(_skin);
         prompt.ShowDialog();
     }
 }
