@@ -4,17 +4,17 @@ namespace Blasphemous.Modding.Installer.Prompts;
 
 internal partial class SkinPreviewPrompt : Form
 {
-    public SkinPreviewPrompt(Skin skin)
+    public SkinPreviewPrompt(Skin skin, int scale)
     {
         InitializeComponent();
 
         Text = skin.Data.name;
-        DisplayPreviewImage(skin);
+        DisplayPreviewImage(skin, scale);
     }
 
-    private async void DisplayPreviewImage(Skin skin)
+    private async void DisplayPreviewImage(Skin skin, int scale)
     {
-        Bitmap preview = LoadPreview();
+        Bitmap preview = LoadPreview(scale);
         await Task.Delay(2000);
 
         ClientSize = preview.Size;
@@ -22,11 +22,22 @@ internal partial class SkinPreviewPrompt : Form
         _text.Visible = false;
     }
 
-    private Bitmap LoadPreview()
+    private Bitmap LoadPreview(int scale)
     {
         string path = Path.Combine(Environment.CurrentDirectory, "preview.png");
-        using var temp = new Bitmap(path);
 
-        return new Bitmap(temp);
+        using var temp = new Bitmap(path);
+        var image = new Bitmap(temp.Width * scale, temp.Height * scale);
+
+        for (int x = 0; x < image.Width; x++)
+        {
+            for (int y = 0; y < image.Height; y++)
+            {
+                Color pixel = temp.GetPixel(x / scale, y / scale);
+                image.SetPixel(x, y, pixel);
+            }
+        }
+
+        return image;
     }
 }
