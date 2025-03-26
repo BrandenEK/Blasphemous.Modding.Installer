@@ -317,7 +317,7 @@ internal class Mod
 
     public void UpdateUI()
     {
-        _ui.UpdateUI(Data.name, (Installed ? LocalVersion.ToString(3) : Data.latestVersion), Data.author, Installed, Enabled, UpdateAvailable);
+        _ui.UpdateUI(Data.name, (Installed ? LocalVersion.ToString(3) : Data.latestVersion), Data.author, Data.description, Installed, Enabled, UpdateAvailable);
     }
 
     public void SetUIPosition(int modIdx)

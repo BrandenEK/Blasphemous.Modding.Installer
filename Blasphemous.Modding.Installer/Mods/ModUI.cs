@@ -10,6 +10,7 @@ internal class ModUI
 
     private readonly Label nameText;
     private readonly Label authorText;
+    private readonly Label descText;
 
     private readonly Button updateButton;
     private readonly Button readmeButton;
@@ -18,14 +19,16 @@ internal class ModUI
 
     private readonly RowColorer _colorer;
 
-    public void UpdateUI(string name, string version, string author, bool installed, bool enabled, bool canUpdate)
+    public void UpdateUI(string name, string version, string author, string desc, bool installed, bool enabled, bool canUpdate)
     {
         // Text
         nameText.Text = $"{name} (v{version})";
-        nameText.Size = new Size(nameText.PreferredWidth, 30);
+        nameText.Size = new Size(nameText.PreferredWidth, nameText.Height);
         authorText.Text = "by " + author;
         authorText.Location = new Point(nameText.PreferredWidth + 15, authorText.Location.Y);
-        authorText.Size = new Size(authorText.PreferredWidth, 20);
+        authorText.Size = new Size(authorText.PreferredWidth, authorText.Height);
+        descText.Text = desc;
+        descText.Size = new Size(descText.PreferredWidth, descText.Height);
 
         // Install button
         installButton.Text = installed ? "Installed" : "Not installed";
@@ -78,7 +81,7 @@ internal class ModUI
             Parent = parentPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
             BackColor = Color.Black,
-            Size = new Size(parentPanel.Width, Sizes.MOD_HEIGHT + 4),
+            Size = new Size(parentPanel.Width, Sizes.MOD_HEIGHT),
         };
 
         innerPanel = new Panel
@@ -87,7 +90,7 @@ internal class ModUI
             Parent = outerPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
             Location = new Point(0, 2),
-            Size = new Size(parentPanel.Width, Sizes.MOD_HEIGHT),
+            Size = new Size(parentPanel.Width, Sizes.MOD_HEIGHT - 4),
         };
 
         // Left side
@@ -114,6 +117,18 @@ internal class ModUI
             ForeColor = Color.LightGray,
             TextAlign = ContentAlignment.BottomLeft,
             Font = Fonts.MOD_AUTHOR,
+        };
+
+        descText = new Label
+        {
+            Name = mod.Data.name,
+            Parent = innerPanel,
+            Anchor = AnchorStyles.Top | AnchorStyles.Left,
+            Location = new Point(12, 45),
+            Size = new Size(100, 35),
+            ForeColor = Color.LightGray,
+            TextAlign = ContentAlignment.TopLeft,
+            Font = Fonts.MOD_DESC,
         };
 
         // Right side
