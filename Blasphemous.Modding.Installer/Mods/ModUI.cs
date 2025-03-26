@@ -100,8 +100,8 @@ internal class ModUI
             Name = mod.Data.name,
             Parent = innerPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Left,
-            Location = new Point(10, 8),
-            Size = new Size(100, 30),
+            Location = new Point(10, 5),
+            Size = new Size(100, 35),
             ForeColor = IsDependencyMod(mod) ? Colors.SPECIAL : Color.LightGray,
             TextAlign = ContentAlignment.MiddleLeft,
             Font = Fonts.MOD_NAME,
@@ -112,10 +112,10 @@ internal class ModUI
             Name = mod.Data.name,
             Parent = innerPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Left,
-            Location = new Point(200, 13),
-            Size = new Size(100, 20),
+            Location = new Point(200, 5),
+            Size = new Size(100, 35),
             ForeColor = Color.LightGray,
-            TextAlign = ContentAlignment.BottomLeft,
+            TextAlign = ContentAlignment.MiddleLeft,
             Font = Fonts.MOD_AUTHOR,
         };
 
@@ -124,10 +124,10 @@ internal class ModUI
             Name = mod.Data.name,
             Parent = innerPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Left,
-            Location = new Point(12, 45),
+            Location = new Point(12, 40),
             Size = new Size(100, 35),
             ForeColor = Color.LightGray, // Color.FromArgb(0xBF, 0xAF, 0x98),
-            TextAlign = ContentAlignment.TopLeft,
+            TextAlign = ContentAlignment.MiddleLeft,
             Font = Fonts.MOD_DESC,
         };
 
