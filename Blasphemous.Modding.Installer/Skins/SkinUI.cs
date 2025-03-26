@@ -22,10 +22,10 @@ internal class SkinUI
     {
         // Text
         nameText.Text = name;
-        nameText.Size = new Size(nameText.PreferredWidth, 30);
+        nameText.Size = new Size(nameText.PreferredWidth, nameText.Height);
         authorText.Text = "by " + author;
         authorText.Location = new Point(nameText.PreferredWidth + 15, authorText.Location.Y);
-        authorText.Size = new Size(authorText.PreferredWidth, 20);
+        authorText.Size = new Size(authorText.PreferredWidth, authorText.Height);
 
         // Install button
         installButton.Text = installed ? "Installed" : "Not installed";
@@ -86,8 +86,8 @@ internal class SkinUI
             Name = skin.Data.name,
             Parent = innerPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Left,
-            Location = new Point(10, 8),
-            Size = new Size(100, 30),
+            Location = new Point(10, 0),
+            Size = new Size(100, 45),
             ForeColor = Color.LightGray,
             TextAlign = ContentAlignment.MiddleLeft,
             Font = Fonts.SKIN_NAME,
@@ -98,10 +98,10 @@ internal class SkinUI
             Name = skin.Data.name,
             Parent = innerPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Left,
-            Location = new Point(200, 13),
-            Size = new Size(100, 20),
+            Location = new Point(200, 0),
+            Size = new Size(100, 45),
             ForeColor = Color.LightGray,
-            TextAlign = ContentAlignment.BottomLeft,
+            TextAlign = ContentAlignment.MiddleLeft,
             Font = Fonts.SKIN_AUTHOR,
         };
 
@@ -112,8 +112,8 @@ internal class SkinUI
             Name = skin.Data.name,
             Parent = innerPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Right,
-            Location = new Point(parentPanel.Width - 300, 11),
-            Size = new Size(130, 24),
+            Location = new Point(parentPanel.Width -250, 10),
+            Size = new Size(130, 25),
             BackColor = Color.Black,
             ForeColor = Color.White,
             Font = Fonts.BUTTON,
@@ -170,8 +170,8 @@ internal class SkinUI
             Name = skin.Data.name,
             Parent = innerPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Right,
-            Location = new Point(parentPanel.Width - 110, 11),
-            Size = new Size(100, 24),
+            Location = new Point(parentPanel.Width - 110, 10),
+            Size = new Size(100, 25),
             Font = Fonts.BUTTON,
             FlatStyle = FlatStyle.Flat,
             Cursor = Cursors.Hand,
