@@ -112,7 +112,7 @@ internal class SkinUI
             Name = skin.Data.name,
             Parent = innerPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Right,
-            Location = new Point(parentPanel.Width -250, 10),
+            Location = new Point(parentPanel.Width -340, 10),
             Size = new Size(130, 25),
             BackColor = Color.Black,
             ForeColor = Color.White,
