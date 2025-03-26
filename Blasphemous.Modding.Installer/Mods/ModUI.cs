@@ -126,7 +126,7 @@ internal class ModUI
             Anchor = AnchorStyles.Top | AnchorStyles.Left,
             Location = new Point(12, 45),
             Size = new Size(100, 35),
-            ForeColor = Color.LightGray,
+            ForeColor = Color.LightGray, // Color.FromArgb(0xBF, 0xAF, 0x98),
             TextAlign = ContentAlignment.TopLeft,
             Font = Fonts.MOD_DESC,
         };
