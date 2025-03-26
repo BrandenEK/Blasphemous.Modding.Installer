@@ -78,7 +78,7 @@ internal class ModUI
             Parent = parentPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
             BackColor = Color.Black,
-            Size = new Size(parentPanel.Width, Sizes.MOD_HEIGHT),
+            Size = new Size(parentPanel.Width, Sizes.MOD_HEIGHT + 4),
         };
 
         innerPanel = new Panel
@@ -87,7 +87,7 @@ internal class ModUI
             Parent = outerPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
             Location = new Point(0, 2),
-            Size = new Size(parentPanel.Width, Sizes.MOD_HEIGHT - 4),
+            Size = new Size(parentPanel.Width, Sizes.MOD_HEIGHT),
         };
 
         // Left side
@@ -162,8 +162,8 @@ internal class ModUI
             Name = mod.Data.name,
             Parent = innerPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Right,
-            Location = new Point(parentPanel.Width - 190, 11),
-            Size = new Size(100, 24),
+            Location = new Point(parentPanel.Width - 110, 10),
+            Size = new Size(100, 25),
             Font = Fonts.BUTTON,
             FlatStyle = FlatStyle.Flat,
             Cursor = Cursors.Hand,
@@ -178,8 +178,8 @@ internal class ModUI
             Name = mod.Data.name,
             Parent = innerPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Right,
-            Location = new Point(parentPanel.Width - 80, 11),
-            Size = new Size(70, 24),
+            Location = new Point(parentPanel.Width - 110, 45),
+            Size = new Size(100, 25),
             Font = Fonts.BUTTON,
             FlatStyle = FlatStyle.Flat,
             Cursor = Cursors.Hand,
