@@ -1,4 +1,5 @@
 ﻿using Blasphemous.Modding.Installer.Extensions;
+using Blasphemous.Modding.Installer.Mods;
 using Blasphemous.Modding.Installer.UIComponents;
 
 namespace Blasphemous.Modding.Installer.Skins;
@@ -13,8 +14,7 @@ internal class SkinUI
 
     private readonly Button updateButton;
     private readonly Button installButton;
-    //private readonly Button previewIdleButton;
-    //private readonly Button previewChargedButton;
+    private readonly Button previewButton;
 
     private readonly RowColorer _colorer;
 
@@ -127,43 +127,24 @@ internal class SkinUI
         updateButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
         updateButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
-        //previewIdleButton = new Button
-        //{
-        //    Name = skin.Data.name,
-        //    Parent = innerPanel,
-        //    Anchor = AnchorStyles.Top | AnchorStyles.Right,
-        //    Location = new Point(parentPanel.Width - 390, 11),
-        //    Size = new Size(110, 24),
-        //    BackColor = Colors.BLUE,
-        //    Font = Fonts.BUTTON,
-        //    Text = "Preview Idle",
-        //    FlatStyle = FlatStyle.Flat,
-        //    Cursor = Cursors.Hand,
-        //    TabStop = false,
-        //};
-        //previewIdleButton.FlatAppearance.BorderColor = Color.Black;
-        //previewIdleButton.Click += skin.ClickedPreviewIdle;
-        //previewIdleButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
-        //previewIdleButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
-
-        //previewChargedButton = new Button
-        //{
-        //    Name = skin.Data.name,
-        //    Parent = innerPanel,
-        //    Anchor = AnchorStyles.Top | AnchorStyles.Right,
-        //    Location = new Point(parentPanel.Width - 260, 11),
-        //    Size = new Size(110, 24),
-        //    BackColor = Colors.BLUE,
-        //    Font = Fonts.BUTTON,
-        //    Text = "Preview Charged",
-        //    FlatStyle = FlatStyle.Flat,
-        //    Cursor = Cursors.Hand,
-        //    TabStop = false,
-        //};
-        //previewChargedButton.FlatAppearance.BorderColor = Color.Black;
-        //previewChargedButton.Click += skin.ClickedPreviewCharged;
-        //previewChargedButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
-        //previewChargedButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
+        previewButton = new Button
+        {
+            Name = skin.Data.name,
+            Parent = innerPanel,
+            Anchor = AnchorStyles.Top | AnchorStyles.Right,
+            Location = new Point(parentPanel.Width - 200, 10),
+            Size = new Size(80, 25),
+            BackColor = Colors.BLUE,
+            Font = Fonts.BUTTON,
+            Text = "Preview",
+            FlatStyle = FlatStyle.Flat,
+            Cursor = Cursors.Hand,
+            TabStop = false,
+        };
+        previewButton.FlatAppearance.BorderColor = Color.Black;
+        //previewButton.Click += skin.ClickedPreviewIdle;
+        previewButton.MouseUp += Core.UIHandler.RemoveButtonFocus;
+        previewButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
         installButton = new Button
         {
