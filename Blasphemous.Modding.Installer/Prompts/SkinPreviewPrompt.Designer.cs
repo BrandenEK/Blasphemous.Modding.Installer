@@ -48,6 +48,7 @@ partial class SkinPreviewPrompt
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(17, 8, 3);
+        BackgroundImageLayout = ImageLayout.Center;
         ClientSize = new Size(784, 561);
         Controls.Add(_text);
         FormBorderStyle = FormBorderStyle.FixedToolWindow;

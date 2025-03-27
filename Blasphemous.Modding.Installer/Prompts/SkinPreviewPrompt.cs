@@ -17,7 +17,11 @@ internal partial class SkinPreviewPrompt : Form
         Bitmap preview = LoadPreview(scale);
         await Task.Delay(2000);
 
-        ClientSize = preview.Size;
+        Size currentSize = ClientSize;
+        ClientSize = preview.Size + new Size(100, 100);
+        Size sizeDifference = (ClientSize - currentSize) / 2;
+
+        Location -= sizeDifference;
         BackgroundImage = preview;
         _text.Visible = false;
     }
