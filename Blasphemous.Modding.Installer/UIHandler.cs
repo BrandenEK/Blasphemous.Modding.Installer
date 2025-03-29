@@ -65,7 +65,6 @@ public partial class UIHandler : BasaltForm
 
     private void OpenSection(SectionType section)
     {
-        Core.CurrentPage.Previewer.Clear();
         Core.CurrentPage.Lister.ClearList();
 
         //Core.SettingsHandler.Properties.CurrentSection = section;

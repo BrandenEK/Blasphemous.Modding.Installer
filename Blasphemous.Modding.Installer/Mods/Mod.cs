@@ -329,8 +329,4 @@ internal class Mod
     {
         _ui.SetVisibility(visible);
     }
-
-    public void OnStartHover() => ModPage.Previewer.PreviewMod(this);
-
-    public void OnEndHover() => ModPage.Previewer.Clear();
 }
