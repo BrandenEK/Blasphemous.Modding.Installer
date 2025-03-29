@@ -11,7 +11,6 @@ public partial class UIHandler : BasaltForm
 
     protected override void OnFormOpen()
     {
-        ClearPreview();
         OpenSection(Core.TempConfig.LastSection);
     }
 
@@ -131,9 +130,6 @@ public partial class UIHandler : BasaltForm
         _left_all_enable.Visible = currentPage.Grouper.CanEnable;
         _left_all_disable.Visible = currentPage.Grouper.CanEnable;
 
-        // Handle UI for previewing
-        _left_details.Visible = validated;
-
         // Handle UI for starting
         LaunchSettings launch = currentPage.GameSettings.Launch;
         _left_start.Visible = validated;
@@ -199,28 +195,6 @@ public partial class UIHandler : BasaltForm
     private void ClickedBlas1Skins(object sender, EventArgs e) => OpenSection(SectionType.Blas1Skins);
 
     private void ClickedBlas2Mods(object sender, EventArgs e) => OpenSection(SectionType.Blas2Mods);
-
-    // Side section previewing
-
-    public void UpdatePreview(string name, string description, string version, Bitmap? image)
-    {
-        _left_details_name.Text = name;
-        _left_details_name.Visible = !string.IsNullOrEmpty(name);
-
-        _left_details_desc.Text = description;
-        _left_details_desc.Visible = !string.IsNullOrEmpty(description);
-
-        _left_details_version.Text = version;
-        _left_details_version.Visible = !string.IsNullOrEmpty(version);
-
-        _left_details_inner.BackgroundImage?.Dispose();
-        _left_details_inner.BackgroundImage = image;
-    }
-
-    public void ClearPreview()
-    {
-        UpdatePreview(string.Empty, string.Empty, string.Empty, null);
-    }
 
     // Side section sorting
 
