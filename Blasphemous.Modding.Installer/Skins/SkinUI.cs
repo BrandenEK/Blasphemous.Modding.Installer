@@ -1,6 +1,4 @@
 ﻿using Basalt.Framework.Logging;
-using Blasphemous.Modding.Installer.Extensions;
-using Blasphemous.Modding.Installer.Mods;
 using Blasphemous.Modding.Installer.Prompts;
 using Blasphemous.Modding.Installer.UIComponents;
 
@@ -168,8 +166,6 @@ internal class SkinUI
         installButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
         _colorer = new RowColorer(innerPanel, new Control[] { installButton });
-        innerPanel.AddMouseEnterEvent(skin.OnStartHover);
-        innerPanel.AddMouseLeaveEvent(skin.OnEndHover);
         parentPanel.AutoScroll = true;
     }
 

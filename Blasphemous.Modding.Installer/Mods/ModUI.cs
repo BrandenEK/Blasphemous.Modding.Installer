@@ -1,5 +1,4 @@
-﻿using Blasphemous.Modding.Installer.Extensions;
-using Blasphemous.Modding.Installer.UIComponents;
+﻿using Blasphemous.Modding.Installer.UIComponents;
 
 namespace Blasphemous.Modding.Installer.Mods;
 
@@ -205,8 +204,6 @@ internal class ModUI
         enableButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
         _colorer = new RowColorer(innerPanel, new Control[] { installButton, enableButton });
-        innerPanel.AddMouseEnterEvent(mod.OnStartHover);
-        innerPanel.AddMouseLeaveEvent(mod.OnEndHover);
         parentPanel.AutoScroll = true;
     }
 }

@@ -5,7 +5,6 @@ using Blasphemous.Modding.Installer.PageComponents.Filters;
 using Blasphemous.Modding.Installer.PageComponents.Groupers;
 using Blasphemous.Modding.Installer.PageComponents.Listers;
 using Blasphemous.Modding.Installer.PageComponents.Loaders;
-using Blasphemous.Modding.Installer.PageComponents.Previewers;
 using Blasphemous.Modding.Installer.PageComponents.Sorters;
 using Blasphemous.Modding.Installer.PageComponents.Starters;
 using Blasphemous.Modding.Installer.PageComponents.Validators;
@@ -138,15 +137,10 @@ static class Core
         var blas1Starter = new Blas1Starter(blas1Validator, blas1gameSettings);
         var blas2Starter = new Blas2Starter(blas2Validator, blas2gameSettings);
 
-        // Previewers
-        var modPreviewer = new ModPreviewer();
-        var skinPreviewer = new SkinPreviewer();
-
         var blas1modPage = new InstallerPage(blas1modTitle, Resources.background1,
             blas1modGrouper,
             blas1modLister,
             blas1modLoader,
-            modPreviewer,
             blas1Validator,
             blas1Starter,
             blas1modPageSettings,
@@ -156,7 +150,6 @@ static class Core
             blas1skinGrouper,
             blas1skinLister,
             blas1skinLoader,
-            skinPreviewer,
             blas1Validator,
             blas1Starter,
             blas1skinPageSettings,
@@ -166,7 +159,6 @@ static class Core
             blas2modGrouper,
             blas2modLister,
             blas2modLoader,
-            modPreviewer,
             blas2Validator,
             blas2Starter,
             blas2modPageSettings,
