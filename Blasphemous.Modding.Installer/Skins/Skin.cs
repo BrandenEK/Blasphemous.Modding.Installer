@@ -25,7 +25,9 @@ internal class Skin
 
     public SkinData Data { get; set; }
 
-    private InstallerPage SkinPage => Core.Blas1SkinPage;
+    private InstallerPage SkinPage => _skinType == SectionType.Blas1Skins
+        ? Core.Blas1SkinPage
+        : Core.Blas2SkinPage;
 
     public bool Installed => File.Exists(PathToSkinFolder + "/info.txt");
 
@@ -62,14 +64,16 @@ internal class Skin
     private string RootFolder => _settings.RootFolder;
     public string PathToSkinFolder => $"{RootFolder}/Modding/skins/{Data.id}";
 
-    private string SubFolder => "blasphemous1";
-    public string InfoURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/info.txt";
-    public string TextureURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/texture.png";
-    public string PreviewURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/preview.png";
+    public string GithubSubFolder => _skinType == SectionType.Blas1Skins ? "blasphemous1" : "blasphemous2";
+    public string CacheSubFolder => _skinType == SectionType.Blas1Skins ? "blas1skins" : "blas2skins";
+
+    public string InfoURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous.Community.Skins/main/{GithubSubFolder}/{Data.id}/info.txt";
+    public string TextureURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous.Community.Skins/main/{GithubSubFolder}/{Data.id}/texture.png";
+    public string PreviewURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous.Community.Skins/main/{GithubSubFolder}/{Data.id}/preview.png";
 
     public bool ExistsInCache(string fileName, out string cachePath)
     {
-        cachePath = $"{Core.CacheFolder}/blas1skins/{Data.id}/{Data.version}/{fileName}";
+        cachePath = $"{Core.CacheFolder}/{CacheSubFolder}/{Data.id}/{Data.version}/{fileName}";
         Directory.CreateDirectory(Path.GetDirectoryName(cachePath));
 
         return File.Exists(cachePath) && new FileInfo(cachePath).Length > 0;
