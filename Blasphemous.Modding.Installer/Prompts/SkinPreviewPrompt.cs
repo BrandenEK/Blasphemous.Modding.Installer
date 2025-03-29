@@ -1,6 +1,5 @@
 ﻿using Basalt.Framework.Logging;
 using Blasphemous.Modding.Installer.Extensions;
-using Blasphemous.Modding.Installer.Properties;
 using Blasphemous.Modding.Installer.Skins;
 
 namespace Blasphemous.Modding.Installer.Prompts;
@@ -26,12 +25,28 @@ internal partial class SkinPreviewPrompt : Form
             return;
         }
 
+        // Attempt to download the file from the web
+        try
+        {
+            await DownloadImageToFile(skin.PreviewURL, cachePath);
+        }
+        catch (Exception ex)
+        {
+            ShowFailure(ex.ToString());
+            return;
+        }
+
+        cacheHit = skin.GetPreviewCachePath(out cachePath);
+
+        // Skin preview now exists in the cache
+        if (cacheHit)
+        {
+            ShowPreview(LoadImageFromFile(cachePath));
+            return;
+        }
+
+        // Preview still couldnt be loaded
         ShowFailure($"Preview could not be loaded!");
-
-        //Bitmap preview = LoadPreview();
-        //await Task.Delay(2000);
-
-        //ShowPreview(preview);
     }
 
     private void ShowPreview(Bitmap preview)
@@ -56,39 +71,19 @@ internal partial class SkinPreviewPrompt : Form
         return new Bitmap(image);
     }
 
-    private Bitmap LoadPreview()
+    private static async Task DownloadImageToFile(string url, string path)
     {
-        string path = Path.Combine(Environment.CurrentDirectory, "preview.png");
-        using var temp = new Bitmap(path);
+        using var client = new HttpClient();
 
-        return new Bitmap(temp);
-    }
-
-    private async Task<Bitmap> LoadPreviewAsync(Skin skin)
-    {
-        // Check for file in the cache
-        bool previewExists = skin.ExistsInCache("preview.png", out string previewCache);
-
-        // If it was missing, download it from web to cache
-        if (!previewExists)
+        try
         {
-            Logger.Warn($"Downloading skin preview ({skin.Data.name}) from web");
-            using var client = new HttpClient();
-
-            try
-            {
-                await client.DownloadFileAsync(new Uri(skin.PreviewURL), previewCache);
-                return new Bitmap(previewCache);
-            }
-            catch (Exception e)
-            {
-                Logger.Error("Failed to load skin preview: " + e.Message);
-                return Resources.warning;
-            }
+            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+            await client.DownloadFileAsync(new Uri(url), path);
         }
-
-        // Create new image from preview in cache
-        return new Bitmap(previewCache);
+        catch (Exception ex)
+        {
+            Logger.Error(ex);
+        }
     }
 
     //private Bitmap LoadPreview(int scale)

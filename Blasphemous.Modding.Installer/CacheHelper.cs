@@ -10,7 +10,6 @@ internal static class CacheHelper
     public static bool GetPreviewCachePath(this Skin skin, out string cachePath)
     {
         cachePath = $"{Core.CacheFolder}/blas1skins/{skin.Data.id}/{skin.Data.version}/preview.png";
-        Directory.CreateDirectory(Path.GetDirectoryName(cachePath)!);
 
         return File.Exists(cachePath) && new FileInfo(cachePath).Length > 0;
     }
