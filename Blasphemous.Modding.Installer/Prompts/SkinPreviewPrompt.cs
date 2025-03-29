@@ -28,7 +28,7 @@ internal partial class SkinPreviewPrompt : Form
         // Attempt to download the file from the web
         try
         {
-            await DownloadImageToFile(skin.PreviewURL, cachePath);
+            await Task.WhenAll(DownloadImageToFile(skin.PreviewURL, cachePath), Task.Delay(500));
         }
         catch (Exception ex)
         {
@@ -55,9 +55,9 @@ internal partial class SkinPreviewPrompt : Form
         ClientSize = preview.Size + new Size(100, 100);
         Size sizeDifference = (ClientSize - currentSize) / 2;
 
-        Location -= sizeDifference;
-        BackgroundImage = preview;
         _text.Visible = false;
+        BackgroundImage = preview;
+        Location -= sizeDifference;
     }
 
     private void ShowFailure(string message)
