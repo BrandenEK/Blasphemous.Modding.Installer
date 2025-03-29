@@ -1,6 +1,7 @@
 ﻿using Basalt.Framework.Logging;
 using Blasphemous.Modding.Installer.Extensions;
 using Blasphemous.Modding.Installer.Skins;
+using System.Text;
 
 namespace Blasphemous.Modding.Installer.Prompts;
 
@@ -29,24 +30,20 @@ internal partial class SkinPreviewPrompt : Form
         try
         {
             await Task.WhenAll(DownloadImageToFile(skin.PreviewURL, cachePath), Task.Delay(500));
+            ShowPreview(LoadImageFromFile(cachePath));
         }
         catch (Exception ex)
         {
-            ShowFailure(ex.ToString());
-            return;
+            string message = new StringBuilder()
+                .AppendLine("Failed to load preview:")
+                .AppendLine(ex.GetType().Name)
+                .AppendLine()
+                .AppendLine(ex.Message)
+                .ToString();
+
+            Logger.Error(ex);
+            ShowFailure(message);
         }
-
-        cacheHit = skin.GetPreviewCachePath(out cachePath);
-
-        // Skin preview now exists in the cache
-        if (cacheHit)
-        {
-            ShowPreview(LoadImageFromFile(cachePath));
-            return;
-        }
-
-        // Preview still couldnt be loaded
-        ShowFailure($"Preview could not be loaded!");
     }
 
     private void ShowPreview(Bitmap preview)
@@ -73,17 +70,10 @@ internal partial class SkinPreviewPrompt : Form
 
     private static async Task DownloadImageToFile(string url, string path)
     {
-        using var client = new HttpClient();
+        Directory.CreateDirectory(Path.GetDirectoryName(path)!);
 
-        try
-        {
-            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
-            await client.DownloadFileAsync(new Uri(url), path);
-        }
-        catch (Exception ex)
-        {
-            Logger.Error(ex);
-        }
+        using var client = new HttpClient();
+        await client.DownloadFileAsync(new Uri(url), path);
     }
 
     //private Bitmap LoadPreview(int scale)
