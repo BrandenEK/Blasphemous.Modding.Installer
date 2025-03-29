@@ -12,9 +12,9 @@ internal class SkinPreviewer : IPreviewer
 
     public async void PreviewSkin(Skin skin)
     {
-        Bitmap image = await LoadPreviewImageAsync(skin);
+        //Bitmap image = await LoadPreviewImageAsync(skin);
 
-        Core.UIHandler.UpdatePreview(string.Empty, string.Empty, string.Empty, image);
+        Core.UIHandler.UpdatePreview(string.Empty, string.Empty, string.Empty, Resources.warning);
     }
 
     private async Task<Bitmap> LoadPreviewImageAsync(Skin skin)
