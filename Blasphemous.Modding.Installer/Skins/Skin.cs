@@ -160,8 +160,4 @@ internal class Skin
     {
         _ui.SetVisibility(visible);
     }
-
-    public void OnStartHover() => SkinPage.Previewer.PreviewSkin(this);
-
-    public void OnEndHover() => SkinPage.Previewer.Clear();
 }

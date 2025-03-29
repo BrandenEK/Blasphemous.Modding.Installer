@@ -21,6 +21,7 @@ public static class Fonts
 {
     public readonly static Font MOD_NAME = new Font("Verdana", 14, FontStyle.Bold);
     public readonly static Font MOD_AUTHOR = new Font("Verdana", 12, FontStyle.Italic);
+    public readonly static Font MOD_DESC = new Font("Verdana", 10, FontStyle.Regular);
 
     public readonly static Font SKIN_NAME = new Font("Verdana", 14, FontStyle.Bold);
     public readonly static Font SKIN_AUTHOR = new Font("Verdana", 12, FontStyle.Italic);
@@ -33,6 +34,6 @@ public static class Fonts
 
 public static class Sizes
 {
-    public const int MOD_HEIGHT = 50;
-    public const int SKIN_HEIGHT = 50;
+    public const int MOD_HEIGHT = 84;
+    public const int SKIN_HEIGHT = 49;
 }

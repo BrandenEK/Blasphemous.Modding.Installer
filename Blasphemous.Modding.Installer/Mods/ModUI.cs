@@ -1,5 +1,4 @@
-﻿using Blasphemous.Modding.Installer.Extensions;
-using Blasphemous.Modding.Installer.UIComponents;
+﻿using Blasphemous.Modding.Installer.UIComponents;
 
 namespace Blasphemous.Modding.Installer.Mods;
 
@@ -10,6 +9,7 @@ internal class ModUI
 
     private readonly Label nameText;
     private readonly Label authorText;
+    private readonly Label descText;
 
     private readonly Button updateButton;
     private readonly Button readmeButton;
@@ -18,14 +18,16 @@ internal class ModUI
 
     private readonly RowColorer _colorer;
 
-    public void UpdateUI(string name, string version, string author, bool installed, bool enabled, bool canUpdate)
+    public void UpdateUI(string name, string version, string author, string desc, bool installed, bool enabled, bool canUpdate)
     {
         // Text
         nameText.Text = $"{name} (v{version})";
-        nameText.Size = new Size(nameText.PreferredWidth, 30);
+        nameText.Size = new Size(nameText.PreferredWidth, nameText.Height);
         authorText.Text = "by " + author;
         authorText.Location = new Point(nameText.PreferredWidth + 15, authorText.Location.Y);
-        authorText.Size = new Size(authorText.PreferredWidth, 20);
+        authorText.Size = new Size(authorText.PreferredWidth, authorText.Height);
+        descText.Text = desc;
+        descText.Size = new Size(descText.PreferredWidth, descText.Height);
 
         // Install button
         installButton.Text = installed ? "Installed" : "Not installed";
@@ -97,8 +99,8 @@ internal class ModUI
             Name = mod.Data.name,
             Parent = innerPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Left,
-            Location = new Point(10, 8),
-            Size = new Size(100, 30),
+            Location = new Point(10, 5),
+            Size = new Size(100, 35),
             ForeColor = IsDependencyMod(mod) ? Colors.SPECIAL : Color.LightGray,
             TextAlign = ContentAlignment.MiddleLeft,
             Font = Fonts.MOD_NAME,
@@ -109,11 +111,23 @@ internal class ModUI
             Name = mod.Data.name,
             Parent = innerPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Left,
-            Location = new Point(200, 13),
-            Size = new Size(100, 20),
+            Location = new Point(200, 5),
+            Size = new Size(100, 35),
             ForeColor = Color.LightGray,
-            TextAlign = ContentAlignment.BottomLeft,
+            TextAlign = ContentAlignment.MiddleLeft,
             Font = Fonts.MOD_AUTHOR,
+        };
+
+        descText = new Label
+        {
+            Name = mod.Data.name,
+            Parent = innerPanel,
+            Anchor = AnchorStyles.Top | AnchorStyles.Left,
+            Location = new Point(12, 40),
+            Size = new Size(100, 35),
+            ForeColor = Color.LightGray, // Color.FromArgb(0xBF, 0xAF, 0x98),
+            TextAlign = ContentAlignment.MiddleLeft,
+            Font = Fonts.MOD_DESC,
         };
 
         // Right side
@@ -123,8 +137,8 @@ internal class ModUI
             Name = mod.Data.name,
             Parent = innerPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Right,
-            Location = new Point(parentPanel.Width - 450, 11),
-            Size = new Size(130, 24),
+            Location = new Point(parentPanel.Width - 330, 10),
+            Size = new Size(130, 25),
             BackColor = Color.Black,
             ForeColor = Color.White,
             Font = Fonts.BUTTON,
@@ -143,8 +157,8 @@ internal class ModUI
             Name = mod.Data.name,
             Parent = innerPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Right,
-            Location = new Point(parentPanel.Width - 290, 11),
-            Size = new Size(70, 24),
+            Location = new Point(parentPanel.Width - 190, 10),
+            Size = new Size(70, 25),
             BackColor = Colors.BLUE,
             Font = Fonts.BUTTON,
             Text = "README",
@@ -162,8 +176,8 @@ internal class ModUI
             Name = mod.Data.name,
             Parent = innerPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Right,
-            Location = new Point(parentPanel.Width - 190, 11),
-            Size = new Size(100, 24),
+            Location = new Point(parentPanel.Width - 110, 10),
+            Size = new Size(100, 25),
             Font = Fonts.BUTTON,
             FlatStyle = FlatStyle.Flat,
             Cursor = Cursors.Hand,
@@ -178,8 +192,8 @@ internal class ModUI
             Name = mod.Data.name,
             Parent = innerPanel,
             Anchor = AnchorStyles.Top | AnchorStyles.Right,
-            Location = new Point(parentPanel.Width - 80, 11),
-            Size = new Size(70, 24),
+            Location = new Point(parentPanel.Width - 110, 45),
+            Size = new Size(100, 25),
             Font = Fonts.BUTTON,
             FlatStyle = FlatStyle.Flat,
             Cursor = Cursors.Hand,
@@ -190,8 +204,6 @@ internal class ModUI
         enableButton.MouseLeave += Core.UIHandler.RemoveButtonFocus;
 
         _colorer = new RowColorer(innerPanel, new Control[] { installButton, enableButton });
-        innerPanel.AddMouseEnterEvent(mod.OnStartHover);
-        innerPanel.AddMouseLeaveEvent(mod.OnEndHover);
         parentPanel.AutoScroll = true;
     }
 }
