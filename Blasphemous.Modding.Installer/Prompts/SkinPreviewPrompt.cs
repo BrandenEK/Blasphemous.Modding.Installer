@@ -7,15 +7,15 @@ namespace Blasphemous.Modding.Installer.Prompts;
 
 internal partial class SkinPreviewPrompt : Form
 {
-    public SkinPreviewPrompt(Skin skin, int scale)
+    public SkinPreviewPrompt(Skin skin)
     {
         InitializeComponent();
 
         Text = skin.Data.name;
-        DisplayPreviewImage(skin, scale);
+        DisplayPreviewImage(skin);
     }
 
-    private async void DisplayPreviewImage(Skin skin, int scale)
+    private async void DisplayPreviewImage(Skin skin)
     {
         bool cacheHit = skin.GetPreviewCachePath(out string cachePath);
 
@@ -29,6 +29,8 @@ internal partial class SkinPreviewPrompt : Form
         // Attempt to download the file from the web
         try
         {
+            Logger.Warn($"Downloading skin preview ({skin.Data.id}) from web");
+
             await Task.WhenAll(DownloadImageToFile(skin.PreviewURL, cachePath), Task.Delay(500));
             ShowPreview(LoadImageFromFile(cachePath));
         }
@@ -75,23 +77,4 @@ internal partial class SkinPreviewPrompt : Form
         using var client = new HttpClient();
         await client.DownloadFileAsync(new Uri(url), path);
     }
-
-    //private Bitmap LoadPreview(int scale)
-    //{
-    //    string path = Path.Combine(Environment.CurrentDirectory, "preview.png");
-
-    //    using var temp = new Bitmap(path);
-    //    var image = new Bitmap(temp.Width * scale, temp.Height * scale);
-
-    //    for (int x = 0; x < image.Width; x++)
-    //    {
-    //        for (int y = 0; y < image.Height; y++)
-    //        {
-    //            Color pixel = temp.GetPixel(x / scale, y / scale);
-    //            image.SetPixel(x, y, pixel);
-    //        }
-    //    }
-
-    //    return image;
-    //}
 }
