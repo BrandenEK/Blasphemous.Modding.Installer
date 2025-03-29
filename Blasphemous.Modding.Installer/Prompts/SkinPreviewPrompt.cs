@@ -26,10 +26,12 @@ internal partial class SkinPreviewPrompt : Form
             return;
         }
 
-        Bitmap preview = LoadPreview();
-        await Task.Delay(2000);
+        ShowFailure($"Preview could not be loaded!");
 
-        ShowPreview(preview);
+        //Bitmap preview = LoadPreview();
+        //await Task.Delay(2000);
+
+        //ShowPreview(preview);
     }
 
     private void ShowPreview(Bitmap preview)
@@ -41,6 +43,11 @@ internal partial class SkinPreviewPrompt : Form
         Location -= sizeDifference;
         BackgroundImage = preview;
         _text.Visible = false;
+    }
+
+    private void ShowFailure(string message)
+    {
+        _text.Text = message;
     }
 
     private static Bitmap LoadImageFromFile(string path)
