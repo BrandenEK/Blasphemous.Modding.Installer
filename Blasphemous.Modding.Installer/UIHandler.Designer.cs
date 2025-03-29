@@ -183,7 +183,7 @@ namespace Blasphemous.Modding.Installer
             _left_links.Name = "_left_links";
             _left_links.Size = new Size(220, 102);
             _left_links.TabIndex = 24;
-            _left_links.VerticalCutoff = 660;
+            _left_links.VerticalCutoff = 400;
             // 
             // _left_github_text
             // 
