@@ -136,6 +136,7 @@ internal class Skin
     {
         Logger.Info($"Installing blas2 skin: {Data.id}");
 
+        // Get all texture files from github
         var files = await Core.GithubHandler.GetRepositoryDirectoryAsync("BrandenEK", "Blasphemous.Community.Skins", $"blasphemous2/{Data.id}/textures");
         if (files == null)
         {
@@ -146,13 +147,15 @@ internal class Skin
         using var client = new HttpClient();
         _downloading = true;
         _ui.ShowDownloadingStatus();
-
+        
+        // Download info to cache
         if (!ExistsInCache("info.txt", out string infoCache))
         {
             Logger.Warn($"Downloading skin info ({Data.id}) from web");
             await client.DownloadFileAsync(new Uri(InfoURL), infoCache);
         }
 
+        // Download all textures to cache
         foreach (var file in files)
         {
             if (ExistsInCache(Path.Combine("textures", file.Name), out string textureCache))
@@ -162,11 +165,19 @@ internal class Skin
             await client.DownloadFileAsync(new Uri(file.DownloadUrl), textureCache);
         }
 
-        // verify skins folder exists
-        // Copy info file and all textures to modding folder
+        string installPath = PathToSkinFolder;
+        Directory.CreateDirectory(installPath);
+        Directory.CreateDirectory(Path.Combine(installPath, "textures"));
+
+        // Copy info file and all textures to skins folder
+        File.Copy(infoCache, Path.Combine(installPath, "info.txt"));
+        foreach (var file in files)
+        {
+            string cachePath = Path.Combine(Core.CacheFolder, CacheSubFolder, Data.id, Data.version, "textures", file.Name);
+            File.Copy(cachePath, Path.Combine(installPath, "textures", file.Name));
+        }
 
         _downloading = false;
-
         UpdateUI();
     }
 
