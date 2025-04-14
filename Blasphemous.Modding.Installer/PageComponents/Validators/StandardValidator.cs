@@ -176,7 +176,7 @@ internal class StandardValidator : IValidator
         Directory.CreateDirectory(Path.GetDirectoryName(toolsCache)!);
 
         // If tools dont already exist in cache, download from web
-        if (!File.Exists(toolsCache))
+        if (!File.Exists(toolsCache) || new FileInfo(toolsCache).Length == 0)
         {
             Logger.Warn("Downloading modding tools from web");
             using var client = new HttpClient();
