@@ -134,7 +134,31 @@ internal class Skin
 
     private async void InstallBlas2Skin()
     {
-        Logger.Warn("Downloading blas2skin" + Data.name);
+        Logger.Info($"Installing blas2 skin: {Data.id}");
+
+        var files = await Core.GithubHandler.GetRepositoryDirectoryAsync("BrandenEK", "Blasphemous.Community.Skins", $"blasphemous2/{Data.id}/textures");
+        using var client = new HttpClient();
+
+        _downloading = true;
+        _ui.ShowDownloadingStatus();
+
+        foreach (var file in files)
+        {
+            Logger.Error(file.Name);
+
+            if (ExistsInCache(Path.Combine("textures", file.Name), out string cachePath))
+                continue;
+
+            Logger.Warn($"Downloading skin texture ({Data.id}/{file.Name}) from web");
+            await client.DownloadFileAsync(new Uri(file.DownloadUrl), cachePath);
+        }
+
+        // verify skins folder exists
+        // Copy info file and all textures to modding folder
+
+        _downloading = false;
+
+        UpdateUI();
     }
 
     public void Uninstall()
