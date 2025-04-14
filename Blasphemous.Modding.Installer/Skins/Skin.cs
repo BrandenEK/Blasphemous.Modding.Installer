@@ -137,20 +137,29 @@ internal class Skin
         Logger.Info($"Installing blas2 skin: {Data.id}");
 
         var files = await Core.GithubHandler.GetRepositoryDirectoryAsync("BrandenEK", "Blasphemous.Community.Skins", $"blasphemous2/{Data.id}/textures");
-        using var client = new HttpClient();
+        if (files == null)
+        {
+            MessageBox.Show("Failed to download skin.  Most likely the GitHub API limit was reached.", Data.name, MessageBoxButtons.OK);
+            return;
+        }
 
+        using var client = new HttpClient();
         _downloading = true;
         _ui.ShowDownloadingStatus();
 
+        if (!ExistsInCache("info.txt", out string infoCache))
+        {
+            Logger.Warn($"Downloading skin info ({Data.id}) from web");
+            await client.DownloadFileAsync(new Uri(InfoURL), infoCache);
+        }
+
         foreach (var file in files)
         {
-            Logger.Error(file.Name);
-
-            if (ExistsInCache(Path.Combine("textures", file.Name), out string cachePath))
+            if (ExistsInCache(Path.Combine("textures", file.Name), out string textureCache))
                 continue;
 
             Logger.Warn($"Downloading skin texture ({Data.id}/{file.Name}) from web");
-            await client.DownloadFileAsync(new Uri(file.DownloadUrl), cachePath);
+            await client.DownloadFileAsync(new Uri(file.DownloadUrl), textureCache);
         }
 
         // verify skins folder exists
