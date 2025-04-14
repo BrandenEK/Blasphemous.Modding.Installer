@@ -83,6 +83,21 @@ internal class Skin
 
     public async void Install()
     {
+        // Very hacky solution to blas2 skins being downloaded differently, but I didn't have time to implement it good
+        // Ideally there will be an IWorker with two different implementors for the skins
+
+        if (_skinType == SectionType.Blas1Skins)
+        {
+            InstallBlas1Skin();
+        }
+        else if (_skinType == SectionType.Blas2Skins)
+        {
+            InstallBlas2Skin();
+        }
+    }
+
+    private async void InstallBlas1Skin()
+    {
         string installPath = PathToSkinFolder;
         Directory.CreateDirectory(installPath);
 
@@ -93,7 +108,7 @@ internal class Skin
         // If they were missing, download them from web to cache
         if (!infoExists || !textureExists)
         {
-            await DownloadSkin(infoCache, textureCache);
+            await DownloadBlas1Skin(infoCache, textureCache);
         }
 
         // Copy files from cache to game folder
@@ -103,7 +118,7 @@ internal class Skin
         UpdateUI();
     }
 
-    private async Task DownloadSkin(string infoCache, string textureCache)
+    private async Task DownloadBlas1Skin(string infoCache, string textureCache)
     {
         Logger.Warn($"Downloading skin texture ({Data.name}) from web");
         using var client = new HttpClient();
@@ -115,6 +130,11 @@ internal class Skin
         await client.DownloadFileAsync(new Uri(TextureURL), textureCache);
 
         _downloading = false;
+    }
+
+    private async void InstallBlas2Skin()
+    {
+        Logger.Warn("Downloading blas2skin" + Data.name);
     }
 
     public void Uninstall()
