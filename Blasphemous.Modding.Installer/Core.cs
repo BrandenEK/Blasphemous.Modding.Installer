@@ -25,31 +25,8 @@ static class Core
         });
     }
 
-    /// <summary>
-    /// When the app is started, clear cache that used to exist in root data folder.
-    /// Get rid of this method after enough time.  Added in 1.6
-    /// </summary>
-    static void TemporaryClearDataFolder()
-    {
-        // Delete all files other than the log
-        foreach (var file in Directory.GetFiles(InstallerFolder).Where(x => Path.GetExtension(x) != ".log" && Path.GetExtension(x) != ".cfg"))
-        {
-            Logger.Debug($"Deleting {file} from the installer folder");
-            File.Delete(file);
-        }
-
-        // Delete all directories other than the cache
-        foreach (var dir in Directory.GetDirectories(InstallerFolder).Where(x => Path.GetFileName(x) != "cache"))
-        {
-            Logger.Debug($"Deleting {dir} from the installer folder");
-            Directory.Delete(dir, true);
-        }
-    }
-
     static void InitializeCore(UIHandler form, InstallerCommand cmd, InstallerSettings settings)
     {
-        TemporaryClearDataFolder();
-
         TempConfig = settings;
         var blas1gameSettings = settings.GetGameSettings("blas1");
         var blas2gameSettings = settings.GetGameSettings("blas2");
