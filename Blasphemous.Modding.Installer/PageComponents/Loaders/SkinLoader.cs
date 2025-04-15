@@ -75,14 +75,14 @@ internal class SkinLoader : ILoader
         using var client = new HttpClient();
 
         IReadOnlyList<Octokit.RepositoryContent> contents =
-                await Core.GithubHandler.GetRepositoryDirectoryAsync("BrandenEK", "Blasphemous-Custom-Skins", _remoteDataPath);
+                await Core.GithubHandler.GetRepositoryDirectoryAsync("BrandenEK", "Blasphemous.Community.Skins", _remoteDataPath);
 
         if (contents is null)
             return;
 
         foreach (var item in contents)
         {
-            string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{_remoteDataPath}/{item.Name}/info.txt");
+            string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous.Community.Skins/main/{_remoteDataPath}/{item.Name}/info.txt");
             SkinData data = JsonConvert.DeserializeObject<SkinData>(json)!;
 
             Skin? localSkin = FindSkin(data.id);

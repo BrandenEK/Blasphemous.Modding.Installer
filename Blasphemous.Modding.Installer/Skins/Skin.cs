@@ -25,7 +25,9 @@ internal class Skin
 
     public SkinData Data { get; set; }
 
-    private InstallerPage SkinPage => Core.Blas1SkinPage;
+    private InstallerPage SkinPage => _skinType == SectionType.Blas1Skins
+        ? Core.Blas1SkinPage
+        : Core.Blas2SkinPage;
 
     public bool Installed => File.Exists(PathToSkinFolder + "/info.txt");
 
@@ -62,14 +64,16 @@ internal class Skin
     private string RootFolder => _settings.RootFolder;
     public string PathToSkinFolder => $"{RootFolder}/Modding/skins/{Data.id}";
 
-    private string SubFolder => "blasphemous1";
-    public string InfoURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/info.txt";
-    public string TextureURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/texture.png";
-    public string PreviewURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous-Custom-Skins/main/{SubFolder}/{Data.id}/preview.png";
+    public string GithubSubFolder => _skinType == SectionType.Blas1Skins ? "blasphemous1" : "blasphemous2";
+    public string CacheSubFolder => _skinType == SectionType.Blas1Skins ? "blas1skins" : "blas2skins";
+
+    public string InfoURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous.Community.Skins/main/{GithubSubFolder}/{Data.id}/info.txt";
+    public string TextureURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous.Community.Skins/main/{GithubSubFolder}/{Data.id}/texture.png";
+    public string PreviewURL => $"https://raw.githubusercontent.com/BrandenEK/Blasphemous.Community.Skins/main/{GithubSubFolder}/{Data.id}/preview.png";
 
     public bool ExistsInCache(string fileName, out string cachePath)
     {
-        cachePath = $"{Core.CacheFolder}/blas1skins/{Data.id}/{Data.version}/{fileName}";
+        cachePath = $"{Core.CacheFolder}/{CacheSubFolder}/{Data.id}/{Data.version}/{fileName}";
         Directory.CreateDirectory(Path.GetDirectoryName(cachePath));
 
         return File.Exists(cachePath) && new FileInfo(cachePath).Length > 0;
@@ -78,6 +82,21 @@ internal class Skin
     // Main methods
 
     public async void Install()
+    {
+        // Very hacky solution to blas2 skins being downloaded differently, but I didn't have time to implement it good
+        // Ideally there will be an IWorker with two different implementors for the skins
+
+        if (_skinType == SectionType.Blas1Skins)
+        {
+            InstallBlas1Skin();
+        }
+        else if (_skinType == SectionType.Blas2Skins)
+        {
+            InstallBlas2Skin();
+        }
+    }
+
+    private async void InstallBlas1Skin()
     {
         string installPath = PathToSkinFolder;
         Directory.CreateDirectory(installPath);
@@ -89,7 +108,7 @@ internal class Skin
         // If they were missing, download them from web to cache
         if (!infoExists || !textureExists)
         {
-            await DownloadSkin(infoCache, textureCache);
+            await DownloadBlas1Skin(infoCache, textureCache);
         }
 
         // Copy files from cache to game folder
@@ -99,7 +118,7 @@ internal class Skin
         UpdateUI();
     }
 
-    private async Task DownloadSkin(string infoCache, string textureCache)
+    private async Task DownloadBlas1Skin(string infoCache, string textureCache)
     {
         Logger.Warn($"Downloading skin texture ({Data.name}) from web");
         using var client = new HttpClient();
@@ -111,6 +130,55 @@ internal class Skin
         await client.DownloadFileAsync(new Uri(TextureURL), textureCache);
 
         _downloading = false;
+    }
+
+    private async void InstallBlas2Skin()
+    {
+        Logger.Info($"Installing blas2 skin: {Data.id}");
+
+        // Get all texture files from github
+        var files = await Core.GithubHandler.GetRepositoryDirectoryAsync("BrandenEK", "Blasphemous.Community.Skins", $"blasphemous2/{Data.id}/textures");
+        if (files == null)
+        {
+            MessageBox.Show("Failed to download skin.  Most likely the GitHub API limit was reached.", Data.name, MessageBoxButtons.OK);
+            return;
+        }
+
+        using var client = new HttpClient();
+        _downloading = true;
+        _ui.ShowDownloadingStatus();
+        
+        // Download info to cache
+        if (!ExistsInCache("info.txt", out string infoCache))
+        {
+            Logger.Warn($"Downloading skin info ({Data.id}) from web");
+            await client.DownloadFileAsync(new Uri(InfoURL), infoCache);
+        }
+
+        // Download all textures to cache
+        foreach (var file in files)
+        {
+            if (ExistsInCache(Path.Combine("textures", file.Name), out string textureCache))
+                continue;
+
+            Logger.Warn($"Downloading skin texture ({Data.id}/{file.Name}) from web");
+            await client.DownloadFileAsync(new Uri(file.DownloadUrl), textureCache);
+        }
+
+        string installPath = PathToSkinFolder;
+        Directory.CreateDirectory(installPath);
+        Directory.CreateDirectory(Path.Combine(installPath, "textures"));
+
+        // Copy info file and all textures to skins folder
+        File.Copy(infoCache, Path.Combine(installPath, "info.txt"));
+        foreach (var file in files)
+        {
+            string cachePath = Path.Combine(Core.CacheFolder, CacheSubFolder, Data.id, Data.version, "textures", file.Name);
+            File.Copy(cachePath, Path.Combine(installPath, "textures", file.Name));
+        }
+
+        _downloading = false;
+        UpdateUI();
     }
 
     public void Uninstall()

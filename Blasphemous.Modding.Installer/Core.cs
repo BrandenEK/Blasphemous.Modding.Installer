@@ -33,6 +33,7 @@ static class Core
         var blas1modPageSettings = settings.GetPageSettings("blas1mods");
         var blas1skinPageSettings = settings.GetPageSettings("blas1skins");
         var blas2modPageSettings = settings.GetPageSettings("blas2mods");
+        var blas2skinPageSettings = settings.GetPageSettings("blas2skins");
 
         UIHandler = form;
         GithubHandler = new GithubHandler(cmd.GithubToken);
@@ -42,30 +43,36 @@ static class Core
         List<Mod> blas1mods = new List<Mod>();
         List<Skin> blas1skins = new List<Skin>();
         List<Mod> blas2mods = new List<Mod>();
+        List<Skin> blas2skins = new List<Skin>();
 
         string blas1modTitle = "Blasphemous Mods";
         string blas1skinTitle = "Blasphemous Skins";
         string blas2modTitle = "Blasphemous II Mods";
+        string blas2skinTitle = "Blasphemous II Skins";
 
         // Sorters
         var blas1modSorter = new ModSorter(blas1modPageSettings);
         var blas1skinSorter = new SkinSorter(blas1skinPageSettings);
         var blas2modSorter = new ModSorter(blas2modPageSettings);
+        var blas2skinSorter = new SkinSorter(blas2skinPageSettings);
 
         // Filters
         var blas1modFilter = new ModFilter(blas1modPageSettings);
         var blas1skinFilter = new SkinFilter(blas1skinPageSettings);
         var blas2modFilter = new ModFilter(blas2modPageSettings);
+        var blas2skinFilter = new SkinFilter(blas2skinPageSettings);
 
         // Groupers
         var blas1modGrouper = new ModGrouper(blas1modTitle, blas1mods, blas1modFilter);
         var blas1skinGrouper = new SkinGrouper(blas1skinTitle, blas1skins, blas1skinFilter);
         var blas2modGrouper = new ModGrouper(blas2modTitle, blas2mods, blas2modFilter);
+        var blas2skinGrouper = new SkinGrouper(blas2skinTitle, blas2skins, blas2skinFilter);
 
         // Listers
         var blas1modLister = new ModLister(UIHandler.DataHolder, blas1mods, blas1modSorter, blas1modFilter);
         var blas1skinLister = new SkinLister(UIHandler.DataHolder, blas1skins, blas1skinSorter, blas1skinFilter);
         var blas2modLister = new ModLister(UIHandler.DataHolder, blas2mods, blas2modSorter, blas2modFilter);
+        var blas2skinLister = new SkinLister(UIHandler.DataHolder, blas2skins, blas2skinSorter, blas2skinFilter);
 
         // Loaders
         var blas1modLoader = new ModLoader(
@@ -91,6 +98,14 @@ static class Core
             blas2mods,
             SectionType.Blas2Mods,
             blas2modPageSettings,
+            blas2gameSettings);
+        var blas2skinLoader = new SkinLoader(
+            "blasphemous2",
+            cmd.IgnoreTime,
+            blas2skinLister,
+            blas2skins,
+            SectionType.Blas2Skins,
+            blas2skinPageSettings,
             blas2gameSettings);
 
         // Validators
@@ -141,9 +156,19 @@ static class Core
             blas2modPageSettings,
             blas2gameSettings);
 
+        var blas2SkinPage = new InstallerPage(blas2skinTitle, Resources.background2,
+            blas2skinGrouper,
+            blas2skinLister,
+            blas2skinLoader,
+            blas2Validator,
+            blas2Starter,
+            blas2skinPageSettings,
+            blas2gameSettings);
+
         _pages.Add(SectionType.Blas1Mods, blas1modPage);
         _pages.Add(SectionType.Blas1Skins, blas1skinPage);
         _pages.Add(SectionType.Blas2Mods, blas2modPage);
+        _pages.Add(SectionType.Blas2Skins, blas2SkinPage);
     }
 
     // Config
@@ -161,6 +186,7 @@ static class Core
     public static InstallerPage Blas1ModPage => _pages[SectionType.Blas1Mods];
     public static InstallerPage Blas1SkinPage => _pages[SectionType.Blas1Skins];
     public static InstallerPage Blas2ModPage => _pages[SectionType.Blas2Mods];
+    public static InstallerPage Blas2SkinPage => _pages[SectionType.Blas2Skins];
 
     public static string InstallerFolder { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "BlasModInstaller");
     public static string CacheFolder { get; } = Path.Combine(InstallerFolder, "cache");

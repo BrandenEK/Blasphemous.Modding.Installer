@@ -196,6 +196,8 @@ public partial class UIHandler : BasaltForm
 
     private void ClickedBlas2Mods(object sender, EventArgs e) => OpenSection(SectionType.Blas2Mods);
 
+    private void ClickedBlas2Skins(object sender, EventArgs e) => OpenSection(SectionType.Blas2Skins);
+
     // Side section sorting
 
     private void ChangedSortOption(object sender, EventArgs e)
