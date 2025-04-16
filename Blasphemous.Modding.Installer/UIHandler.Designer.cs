@@ -261,7 +261,7 @@ namespace Blasphemous.Modding.Installer
             _left_start_console.AutoSize = true;
             _left_start_console.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             _left_start_console.ForeColor = SystemColors.ButtonHighlight;
-            _left_start_console.Location = new Point(20, 42);
+            _left_start_console.Location = new Point(40, 42);
             _left_start_console.Name = "_left_start_console";
             _left_start_console.Size = new Size(125, 22);
             _left_start_console.TabIndex = 25;
@@ -274,7 +274,7 @@ namespace Blasphemous.Modding.Installer
             _left_start_modded.AutoSize = true;
             _left_start_modded.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             _left_start_modded.ForeColor = SystemColors.ButtonHighlight;
-            _left_start_modded.Location = new Point(20, 15);
+            _left_start_modded.Location = new Point(40, 15);
             _left_start_modded.Name = "_left_start_modded";
             _left_start_modded.Size = new Size(99, 22);
             _left_start_modded.TabIndex = 24;
@@ -291,7 +291,7 @@ namespace Blasphemous.Modding.Installer
             _left_start_button.FlatStyle = FlatStyle.Flat;
             _left_start_button.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
             _left_start_button.ForeColor = SystemColors.ButtonHighlight;
-            _left_start_button.Location = new Point(35, 70);
+            _left_start_button.Location = new Point(60, 70);
             _left_start_button.Name = "_left_start_button";
             _left_start_button.Size = new Size(150, 35);
             _left_start_button.TabIndex = 4;
