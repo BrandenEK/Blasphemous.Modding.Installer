@@ -332,9 +332,9 @@ namespace Blasphemous.Modding.Installer
             _left_all_install.FlatStyle = FlatStyle.Flat;
             _left_all_install.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
             _left_all_install.ForeColor = SystemColors.ButtonHighlight;
-            _left_all_install.Location = new Point(5, 15);
+            _left_all_install.Location = new Point(10, 15);
             _left_all_install.Name = "_left_all_install";
-            _left_all_install.Size = new Size(100, 35);
+            _left_all_install.Size = new Size(120, 35);
             _left_all_install.TabIndex = 4;
             _left_all_install.Text = "Install all";
             _left_all_install.UseVisualStyleBackColor = false;
@@ -350,9 +350,9 @@ namespace Blasphemous.Modding.Installer
             _left_all_enable.FlatStyle = FlatStyle.Flat;
             _left_all_enable.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
             _left_all_enable.ForeColor = SystemColors.ButtonHighlight;
-            _left_all_enable.Location = new Point(5, 60);
+            _left_all_enable.Location = new Point(10, 60);
             _left_all_enable.Name = "_left_all_enable";
-            _left_all_enable.Size = new Size(100, 35);
+            _left_all_enable.Size = new Size(120, 35);
             _left_all_enable.TabIndex = 6;
             _left_all_enable.Text = "Enable all";
             _left_all_enable.UseVisualStyleBackColor = false;
@@ -368,9 +368,9 @@ namespace Blasphemous.Modding.Installer
             _left_all_uninstall.FlatStyle = FlatStyle.Flat;
             _left_all_uninstall.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
             _left_all_uninstall.ForeColor = SystemColors.ButtonHighlight;
-            _left_all_uninstall.Location = new Point(115, 15);
+            _left_all_uninstall.Location = new Point(140, 15);
             _left_all_uninstall.Name = "_left_all_uninstall";
-            _left_all_uninstall.Size = new Size(102, 35);
+            _left_all_uninstall.Size = new Size(120, 35);
             _left_all_uninstall.TabIndex = 5;
             _left_all_uninstall.Text = "Uninstall all";
             _left_all_uninstall.UseVisualStyleBackColor = false;
@@ -386,9 +386,9 @@ namespace Blasphemous.Modding.Installer
             _left_all_disable.FlatStyle = FlatStyle.Flat;
             _left_all_disable.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
             _left_all_disable.ForeColor = SystemColors.ButtonHighlight;
-            _left_all_disable.Location = new Point(115, 60);
+            _left_all_disable.Location = new Point(140, 60);
             _left_all_disable.Name = "_left_all_disable";
-            _left_all_disable.Size = new Size(100, 35);
+            _left_all_disable.Size = new Size(120, 35);
             _left_all_disable.TabIndex = 7;
             _left_all_disable.Text = "Disable all";
             _left_all_disable.UseVisualStyleBackColor = false;
