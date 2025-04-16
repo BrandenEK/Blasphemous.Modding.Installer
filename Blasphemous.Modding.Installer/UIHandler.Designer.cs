@@ -303,9 +303,9 @@ namespace Blasphemous.Modding.Installer
             // 
             _left_start_divider.Anchor = AnchorStyles.Bottom;
             _left_start_divider.BackColor = SystemColors.ButtonHighlight;
-            _left_start_divider.Location = new Point(54, 118);
+            _left_start_divider.Location = new Point(25, 118);
             _left_start_divider.Name = "_left_start_divider";
-            _left_start_divider.Size = new Size(160, 1);
+            _left_start_divider.Size = new Size(220, 1);
             _left_start_divider.TabIndex = 23;
             _left_start_divider.Visible = false;
             // 
@@ -398,9 +398,9 @@ namespace Blasphemous.Modding.Installer
             // 
             _left_all_divider.Anchor = AnchorStyles.Bottom;
             _left_all_divider.BackColor = SystemColors.ButtonHighlight;
-            _left_all_divider.Location = new Point(54, 108);
+            _left_all_divider.Location = new Point(25, 108);
             _left_all_divider.Name = "_left_all_divider";
-            _left_all_divider.Size = new Size(160, 1);
+            _left_all_divider.Size = new Size(220, 1);
             _left_all_divider.TabIndex = 23;
             // 
             // _left_sort
@@ -464,9 +464,9 @@ namespace Blasphemous.Modding.Installer
             // 
             _left_sort_divider.Anchor = AnchorStyles.Bottom;
             _left_sort_divider.BackColor = SystemColors.ButtonHighlight;
-            _left_sort_divider.Location = new Point(54, 98);
+            _left_sort_divider.Location = new Point(25, 98);
             _left_sort_divider.Name = "_left_sort_divider";
-            _left_sort_divider.Size = new Size(160, 1);
+            _left_sort_divider.Size = new Size(220, 1);
             _left_sort_divider.TabIndex = 22;
             // 
             // _left_page
@@ -562,9 +562,9 @@ namespace Blasphemous.Modding.Installer
             // 
             _left_page_divider.Anchor = AnchorStyles.Bottom;
             _left_page_divider.BackColor = SystemColors.ButtonHighlight;
-            _left_page_divider.Location = new Point(54, 188);
+            _left_page_divider.Location = new Point(25, 188);
             _left_page_divider.Name = "_left_page_divider";
-            _left_page_divider.Size = new Size(160, 1);
+            _left_page_divider.Size = new Size(220, 1);
             _left_page_divider.TabIndex = 21;
             // 
             // _top
