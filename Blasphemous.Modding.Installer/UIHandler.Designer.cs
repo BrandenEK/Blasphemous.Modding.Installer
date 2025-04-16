@@ -324,7 +324,6 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_all_install
             // 
-            _left_all_install.AutoSize = true;
             _left_all_install.BackColor = Color.FromArgb(30, 30, 30);
             _left_all_install.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
             _left_all_install.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
@@ -342,7 +341,6 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_all_enable
             // 
-            _left_all_enable.AutoSize = true;
             _left_all_enable.BackColor = Color.FromArgb(30, 30, 30);
             _left_all_enable.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
             _left_all_enable.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
@@ -360,7 +358,6 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_all_uninstall
             // 
-            _left_all_uninstall.AutoSize = true;
             _left_all_uninstall.BackColor = Color.FromArgb(30, 30, 30);
             _left_all_uninstall.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
             _left_all_uninstall.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
@@ -378,7 +375,6 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_all_disable
             // 
-            _left_all_disable.AutoSize = true;
             _left_all_disable.BackColor = Color.FromArgb(30, 30, 30);
             _left_all_disable.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
             _left_all_disable.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
@@ -783,7 +779,6 @@ namespace Blasphemous.Modding.Installer
             _left_start.ResumeLayout(false);
             _left_start.PerformLayout();
             _left_all.ResumeLayout(false);
-            _left_all.PerformLayout();
             _left_sort.ResumeLayout(false);
             _left_page.ResumeLayout(false);
             _left_page.PerformLayout();
