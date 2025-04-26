@@ -129,7 +129,7 @@ static class Core
         var blas1Starter = new Blas1Starter(blas1Validator, blas1gameSettings);
         var blas2Starter = new Blas2Starter(blas2Validator, blas2gameSettings);
 
-        var blas1modPage = new InstallerPage(blas1modTitle, Resources.background1,
+        var blas1modPage = new InstallerPage(blas1modTitle, Resources.blas1header,
             blas1modGrouper,
             blas1modLister,
             blas1modLoader,
@@ -138,7 +138,7 @@ static class Core
             blas1modPageSettings,
             blas1gameSettings);
 
-        var blas1skinPage = new InstallerPage(blas1skinTitle, Resources.background1,
+        var blas1skinPage = new InstallerPage(blas1skinTitle, Resources.blas1header,
             blas1skinGrouper,
             blas1skinLister,
             blas1skinLoader,
@@ -147,7 +147,7 @@ static class Core
             blas1skinPageSettings,
             blas1gameSettings);
 
-        var blas2modPage = new InstallerPage(blas2modTitle, Resources.background2,
+        var blas2modPage = new InstallerPage(blas2modTitle, Resources.blas2header,
             blas2modGrouper,
             blas2modLister,
             blas2modLoader,
@@ -156,7 +156,7 @@ static class Core
             blas2modPageSettings,
             blas2gameSettings);
 
-        var blas2SkinPage = new InstallerPage(blas2skinTitle, Resources.background2,
+        var blas2SkinPage = new InstallerPage(blas2skinTitle, Resources.blas2header,
             blas2skinGrouper,
             blas2skinLister,
             blas2skinLoader,

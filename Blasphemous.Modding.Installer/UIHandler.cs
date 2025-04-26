@@ -331,11 +331,11 @@ public partial class UIHandler : BasaltForm
     private void _top_inner_Paint(object sender, PaintEventArgs e)
     {
         //Logger.Info("Repainting header!");
-        using Bitmap image = null;
+        //using Bitmap image = null;
 
-        var g = e.Graphics;
-        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-        g.DrawImage(image, _top_inner.Width - image.Width, y, image.Width, image.Height);
+        //var g = e.Graphics;
+        //g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+        //g.DrawImage(image, _top_inner.Width - image.Width, y, image.Width, image.Height);
     }
 
     int y = -500;
