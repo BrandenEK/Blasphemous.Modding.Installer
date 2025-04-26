@@ -1,5 +1,5 @@
 ﻿using Basalt.BetterForms;
-using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Models;
 using Blasphemous.Modding.Installer.Mods;
 using Blasphemous.Modding.Installer.PageComponents.Filters;
 using Blasphemous.Modding.Installer.PageComponents.Groupers;
@@ -19,6 +19,7 @@ static class Core
     [STAThread]
     static void Main()
     {
+        Initialized = true;
         BasaltApplication.Run<UIHandler, InstallerCommand, InstallerSettings>(InitializeCore, "Blasphemous Mod Installer", new string[]
         {
             InstallerFolder, CacheFolder
@@ -45,10 +46,15 @@ static class Core
         List<Mod> blas2mods = new List<Mod>();
         List<Skin> blas2skins = new List<Skin>();
 
+        // Titles
         string blas1modTitle = "Blasphemous Mods";
         string blas1skinTitle = "Blasphemous Skins";
         string blas2modTitle = "Blasphemous II Mods";
         string blas2skinTitle = "Blasphemous II Skins";
+
+        // Headers
+        var blas1header = new HeaderImage(Resources.blas1header, true, -500);
+        var blas2header = new HeaderImage(Resources.blas2header, true, -340);
 
         // Sorters
         var blas1modSorter = new ModSorter(blas1modPageSettings);
@@ -129,7 +135,7 @@ static class Core
         var blas1Starter = new Blas1Starter(blas1Validator, blas1gameSettings);
         var blas2Starter = new Blas2Starter(blas2Validator, blas2gameSettings);
 
-        var blas1modPage = new InstallerPage(blas1modTitle, Resources.background1,
+        var blas1modPage = new InstallerPage(blas1modTitle, blas1header,
             blas1modGrouper,
             blas1modLister,
             blas1modLoader,
@@ -138,7 +144,7 @@ static class Core
             blas1modPageSettings,
             blas1gameSettings);
 
-        var blas1skinPage = new InstallerPage(blas1skinTitle, Resources.background1,
+        var blas1skinPage = new InstallerPage(blas1skinTitle, blas1header,
             blas1skinGrouper,
             blas1skinLister,
             blas1skinLoader,
@@ -147,7 +153,7 @@ static class Core
             blas1skinPageSettings,
             blas1gameSettings);
 
-        var blas2modPage = new InstallerPage(blas2modTitle, Resources.background2,
+        var blas2modPage = new InstallerPage(blas2modTitle, blas2header,
             blas2modGrouper,
             blas2modLister,
             blas2modLoader,
@@ -156,7 +162,7 @@ static class Core
             blas2modPageSettings,
             blas2gameSettings);
 
-        var blas2SkinPage = new InstallerPage(blas2skinTitle, Resources.background2,
+        var blas2SkinPage = new InstallerPage(blas2skinTitle, blas2header,
             blas2skinGrouper,
             blas2skinLister,
             blas2skinLoader,
@@ -173,6 +179,7 @@ static class Core
 
     // Config
 
+    public static bool Initialized { get; private set; } = false;
     public static InstallerSettings TempConfig { get; private set; } = new();
 
     public static UIHandler UIHandler { get; private set; }
