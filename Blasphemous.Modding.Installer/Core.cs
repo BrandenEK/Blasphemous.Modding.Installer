@@ -19,6 +19,7 @@ static class Core
     [STAThread]
     static void Main()
     {
+        Initialized = true;
         BasaltApplication.Run<UIHandler, InstallerCommand, InstallerSettings>(InitializeCore, "Blasphemous Mod Installer", new string[]
         {
             InstallerFolder, CacheFolder
@@ -178,6 +179,7 @@ static class Core
 
     // Config
 
+    public static bool Initialized { get; private set; } = false;
     public static InstallerSettings TempConfig { get; private set; } = new();
 
     public static UIHandler UIHandler { get; private set; }

@@ -594,7 +594,6 @@ namespace Blasphemous.Modding.Installer
             _top_inner.Name = "_top_inner";
             _top_inner.Size = new Size(1240, 118);
             _top_inner.TabIndex = 1;
-            _top_inner.Paint += _top_inner_Paint;
             // 
             // _top_warning_outer
             // 
