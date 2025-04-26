@@ -586,7 +586,7 @@ namespace Blasphemous.Modding.Installer
             // _top_inner
             // 
             _top_inner.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            _top_inner.BackColor = Color.Maroon;
+            _top_inner.BackColor = Color.Silver;
             _top_inner.BackgroundImageLayout = ImageLayout.None;
             _top_inner.Controls.Add(_top_warning_outer);
             _top_inner.Controls.Add(_top_text);
