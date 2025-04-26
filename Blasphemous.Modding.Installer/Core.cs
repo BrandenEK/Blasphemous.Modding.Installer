@@ -53,8 +53,8 @@ static class Core
         string blas2skinTitle = "Blasphemous II Skins";
 
         // Headers
-        var blas1header = new HeaderImage(Resources.blas1header, -500);
-        var blas2header = new HeaderImage(Resources.blas2header, -340);
+        var blas1header = new HeaderImage(Resources.blas1header, true, -500);
+        var blas2header = new HeaderImage(Resources.blas2header, true, -340);
 
         // Sorters
         var blas1modSorter = new ModSorter(blas1modPageSettings);

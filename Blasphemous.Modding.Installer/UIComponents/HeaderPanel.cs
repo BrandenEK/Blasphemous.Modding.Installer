@@ -19,10 +19,11 @@ public class HeaderPanel : Panel
 
         Logger.Info("Repainting header!");
         HeaderImage header = Core.CurrentPage.Header;
-
+        
         var g = e.Graphics;
-        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-        g.DrawImage(header.Image, Width - header.Image.Width, header.Offset, header.Image.Width, header.Image.Height);
+        var position = new Point(header.FlipAlign ? Width - header.Image.Width : 0, header.Offset);
 
+        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+        g.DrawImage(header.Image, position.X, header.Offset, header.Image.Width, header.Image.Height);
     }
 }
