@@ -67,7 +67,7 @@ namespace Blasphemous.Modding.Installer
             _left_page_divider = new Panel();
             _top = new Panel();
             _top_outer = new Panel();
-            _top_inner = new Panel();
+            _top_inner = new HeaderPanel();
             _top_warning_outer = new Panel();
             _top_warning_inner = new Panel();
             _top_warning_text = new LinkLabel();
@@ -587,14 +587,14 @@ namespace Blasphemous.Modding.Installer
             // 
             _top_inner.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             _top_inner.BackColor = Color.Maroon;
-            _top_inner.BackgroundImage = Properties.Resources.background1;
-            _top_inner.BackgroundImageLayout = ImageLayout.Center;
+            _top_inner.BackgroundImageLayout = ImageLayout.None;
             _top_inner.Controls.Add(_top_warning_outer);
             _top_inner.Controls.Add(_top_text);
             _top_inner.Location = new Point(0, 0);
             _top_inner.Name = "_top_inner";
             _top_inner.Size = new Size(1240, 118);
             _top_inner.TabIndex = 1;
+            _top_inner.Paint += _top_inner_Paint;
             // 
             // _top_warning_outer
             // 
@@ -806,7 +806,7 @@ namespace Blasphemous.Modding.Installer
         private System.Windows.Forms.PictureBox _top_warning_image;
         private System.Windows.Forms.Panel _top_warning_outer;
         private System.Windows.Forms.Panel _top_warning_inner;
-        private System.Windows.Forms.Panel _top_inner;
+        private HeaderPanel _top_inner;
         private System.Windows.Forms.Panel _left_outer;
         private System.Windows.Forms.LinkLabel _top_warning_text;
         private System.Windows.Forms.Label _left_sort_text;

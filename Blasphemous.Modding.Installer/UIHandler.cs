@@ -72,7 +72,7 @@ public partial class UIHandler : BasaltForm
 
         // Update background and info
         _top_text.Text = currentPage.Title;
-        _top_inner.BackgroundImage = currentPage.Image;
+        //_top_inner.BackgroundImage = currentPage.Image;
 
         // Validate the status of mods
         bool validated = currentPage.Validator.IsRootFolderValid;
@@ -327,4 +327,18 @@ public partial class UIHandler : BasaltForm
 
     internal delegate void PathDelegate(string path);
     internal static PathDelegate? OnPathChanged;
+
+    private void _top_inner_Paint(object sender, PaintEventArgs e)
+    {
+        //Logger.Info("Repainting header!");
+        using Bitmap image = null;
+
+        var g = e.Graphics;
+        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+        g.DrawImage(image, _top_inner.Width - image.Width, y, image.Width, image.Height);
+    }
+
+    int y = -500;
+    // blas1 = -500
+    // blas2 = -340
 }
