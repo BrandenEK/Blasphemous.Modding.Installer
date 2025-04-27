@@ -37,7 +37,21 @@ internal class InstallerPage
     }
 
     public string Title => _title;
-    public List<HeaderImage> Headers => _headers;
+    public HeaderImage CurrentHeader
+    {
+        get
+        {
+            HeaderImage? header = _headers.FirstOrDefault(x => x.Name == GameSettings.HeaderImage);
+
+            if (header == null)
+            {
+                header = _headers.First();
+                GameSettings.HeaderImage = header.Name;
+            }
+
+            return header;
+        }
+    }
 
     public IGrouper Grouper => _grouper;
     public ILister Lister => _lister;

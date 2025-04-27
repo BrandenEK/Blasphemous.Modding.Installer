@@ -72,7 +72,7 @@ public partial class UIHandler : BasaltForm
 
         // Update background and info
         _top_text.Text = currentPage.Title;
-        //_top_inner.BackgroundImage = currentPage.Image;
+        _top_inner.ChangeHeader(currentPage.CurrentHeader);
 
         // Validate the status of mods
         bool validated = currentPage.Validator.IsRootFolderValid;
