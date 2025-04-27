@@ -37,6 +37,8 @@ internal class InstallerPage
     }
 
     public string Title => _title;
+
+    public List<HeaderImage> Headers => _headers;
     public HeaderImage CurrentHeader
     {
         get

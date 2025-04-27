@@ -349,35 +349,21 @@ public partial class UIHandler : BasaltForm
 
     private void _menu_title_Opening(object sender, System.ComponentModel.CancelEventArgs e)
     {
-        Logger.Error("Opening title menu");
+        Logger.Info("Opening background selector");
 
-        List<string> items = new List<string>()
-        {
-            "Testing 1",
-            "Testing 2"
-        };
-        selectedIdx = selectedIdx == 0 ? 1 : 0;
-
-        if (items.Count < 1)
-        {
-            Logger.Warn("No items");
-            e.Cancel = true;
-        }
-
+        // Remove old backgrounds
         while (_menu_title.Items.Count > 2)
         {
             _menu_title.Items.RemoveAt(2);
         }
 
-        for (int i = 0; i < items.Count; i++)
+        // Create new backgrounds
+        foreach (string name in Core.CurrentPage.Headers.Select(x => x.Name))
         {
-            ToolStripMenuItem item = (ToolStripMenuItem)_menu_title.Items.Add(items[i]);
-            item.Name = i.ToString();
-            item.Text = items[i];
-            item.Checked = selectedIdx == i;
-            Logger.Warn(item.Name);
+            ToolStripMenuItem item = (ToolStripMenuItem)_menu_title.Items.Add(name);
+            item.Name = name;
+            item.Text = name;
+            item.Checked = name == Core.CurrentPage.GameSettings.HeaderImage;
         }
     }
-
-    int selectedIdx = 0;
 }
