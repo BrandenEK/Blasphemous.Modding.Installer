@@ -53,8 +53,18 @@ static class Core
         string blas2skinTitle = "Blasphemous II Skins";
 
         // Headers
-        var blas1header = new HeaderImage(Resources.blas1header, true, -500);
-        var blas2header = new HeaderImage(Resources.blas2header, true, -340);
+        var blas1headers = new List<HeaderImage>()
+        {
+            new HeaderImage("Convent of Our Lady", Resources.blas1header, true, false, -500),
+            new HeaderImage("Crimson Forest", Resources.blas1forest, false, false, -490),
+            new HeaderImage("The Penitent One", Resources.blas1penitent, false, false, -230),
+        };
+        var blas2headers = new List<HeaderImage>()
+        {
+            new HeaderImage("The Penitent One", Resources.blas2header, true, false, -340),
+            new HeaderImage("Mea Culpa", Resources.blas2meaculpa, false, true, -260),
+            new HeaderImage("The Resting Place", Resources.blas2coffin, false, false, -500),
+        };
 
         // Sorters
         var blas1modSorter = new ModSorter(blas1modPageSettings);
@@ -135,7 +145,7 @@ static class Core
         var blas1Starter = new Blas1Starter(blas1Validator, blas1gameSettings);
         var blas2Starter = new Blas2Starter(blas2Validator, blas2gameSettings);
 
-        var blas1modPage = new InstallerPage(blas1modTitle, blas1header,
+        var blas1modPage = new InstallerPage(blas1modTitle, blas1headers,
             blas1modGrouper,
             blas1modLister,
             blas1modLoader,
@@ -144,7 +154,7 @@ static class Core
             blas1modPageSettings,
             blas1gameSettings);
 
-        var blas1skinPage = new InstallerPage(blas1skinTitle, blas1header,
+        var blas1skinPage = new InstallerPage(blas1skinTitle, blas1headers,
             blas1skinGrouper,
             blas1skinLister,
             blas1skinLoader,
@@ -153,7 +163,7 @@ static class Core
             blas1skinPageSettings,
             blas1gameSettings);
 
-        var blas2modPage = new InstallerPage(blas2modTitle, blas2header,
+        var blas2modPage = new InstallerPage(blas2modTitle, blas2headers,
             blas2modGrouper,
             blas2modLister,
             blas2modLoader,
@@ -162,7 +172,7 @@ static class Core
             blas2modPageSettings,
             blas2gameSettings);
 
-        var blas2SkinPage = new InstallerPage(blas2skinTitle, blas2header,
+        var blas2SkinPage = new InstallerPage(blas2skinTitle, blas2headers,
             blas2skinGrouper,
             blas2skinLister,
             blas2skinLoader,

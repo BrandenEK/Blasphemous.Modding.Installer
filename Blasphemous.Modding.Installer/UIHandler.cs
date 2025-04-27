@@ -1,5 +1,6 @@
 ﻿using Basalt.BetterForms;
 using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Models;
 using Blasphemous.Modding.Installer.PageComponents.Validators;
 using System.Diagnostics;
 
@@ -71,8 +72,7 @@ public partial class UIHandler : BasaltForm
         var currentPage = Core.CurrentPage;
 
         // Update background and info
-        _top_text.Text = currentPage.Title;
-        //_top_inner.BackgroundImage = currentPage.Image;
+        UpdateHeaderSection(currentPage);
 
         // Validate the status of mods
         bool validated = currentPage.Validator.IsRootFolderValid;
@@ -144,6 +144,45 @@ public partial class UIHandler : BasaltForm
     }
 
     // Top section
+
+    private void UpdateHeaderSection(InstallerPage page)
+    {
+        HeaderImage header = page.CurrentHeader;
+
+        _top_text.Text = string.Empty;
+        _top_text.Text = page.Title;
+        _top_text.ForeColor = header.DarkMode ? Color.White : Color.Black;
+        _top_inner.ChangeHeader(header);
+    }
+
+    private void OnClickHeaderMenu(object sender, ToolStripItemClickedEventArgs e)
+    {
+        string name = e.ClickedItem.Name;
+        Logger.Info($"Selecting background: {name}");
+
+        Core.CurrentPage.GameSettings.HeaderImage = name;
+        UpdateHeaderSection(Core.CurrentPage);
+    }
+
+    private void OnOpenHeaderMenu(object sender, System.ComponentModel.CancelEventArgs e)
+    {
+        Logger.Info("Opening background selector");
+
+        // Remove old backgrounds
+        while (_menu_title.Items.Count > 2)
+        {
+            _menu_title.Items.RemoveAt(2);
+        }
+
+        // Create new backgrounds
+        foreach (string name in Core.CurrentPage.Headers.Select(x => x.Name))
+        {
+            ToolStripMenuItem item = (ToolStripMenuItem)_menu_title.Items.Add(name);
+            item.Name = name;
+            item.Text = name;
+            item.Checked = name == Core.CurrentPage.GameSettings.HeaderImage;
+        }
+    }
 
     public void UpdateVersionWarningVisibility(bool visible)
     {

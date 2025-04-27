@@ -30,6 +30,7 @@ namespace Blasphemous.Modding.Installer
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIHandler));
             _bottom_holder_scroll = new VScrollBar();
             _bottom_holder = new Panel();
@@ -73,6 +74,9 @@ namespace Blasphemous.Modding.Installer
             _top_warning_text = new LinkLabel();
             _top_warning_image = new PictureBox();
             _top_text = new Label();
+            _menu_title = new ContextMenuStrip(components);
+            _menu_title_text = new ToolStripMenuItem();
+            _menu_title_split = new ToolStripSeparator();
             _middle_tools_icon = new PictureBox();
             _middle_tools_text = new Label();
             _bottom = new Panel();
@@ -99,6 +103,7 @@ namespace Blasphemous.Modding.Installer
             _top_warning_outer.SuspendLayout();
             _top_warning_inner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)_top_warning_image).BeginInit();
+            _menu_title.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)_middle_tools_icon).BeginInit();
             _bottom.SuspendLayout();
             _middle.SuspendLayout();
@@ -650,14 +655,37 @@ namespace Blasphemous.Modding.Installer
             // _top_text
             // 
             _top_text.BackColor = Color.FromArgb(0, 0, 0, 0);
+            _top_text.ContextMenuStrip = _menu_title;
             _top_text.Dock = DockStyle.Fill;
             _top_text.Font = new Font("Trebuchet MS", 20F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            _top_text.ForeColor = Color.Black;
             _top_text.Location = new Point(0, 0);
             _top_text.Name = "_top_text";
             _top_text.Size = new Size(1240, 118);
             _top_text.TabIndex = 0;
             _top_text.Text = "Blasphemous Mods";
             _top_text.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // _menu_title
+            // 
+            _menu_title.Items.AddRange(new ToolStripItem[] { _menu_title_text, _menu_title_split });
+            _menu_title.Name = "_menu_title";
+            _menu_title.Size = new Size(191, 32);
+            _menu_title.Text = "Choose a background";
+            _menu_title.Opening += OnOpenHeaderMenu;
+            _menu_title.ItemClicked += OnClickHeaderMenu;
+            // 
+            // _menu_title_text
+            // 
+            _menu_title_text.Enabled = false;
+            _menu_title_text.Name = "_menu_title_text";
+            _menu_title_text.Size = new Size(190, 22);
+            _menu_title_text.Text = "Choose a background";
+            // 
+            // _menu_title_split
+            // 
+            _menu_title_split.Name = "_menu_title_split";
+            _menu_title_split.Size = new Size(187, 6);
             // 
             // _middle_tools_icon
             // 
@@ -787,6 +815,7 @@ namespace Blasphemous.Modding.Installer
             _top_warning_outer.ResumeLayout(false);
             _top_warning_inner.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)_top_warning_image).EndInit();
+            _menu_title.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)_middle_tools_icon).EndInit();
             _bottom.ResumeLayout(false);
             _middle.ResumeLayout(false);
@@ -847,6 +876,9 @@ namespace Blasphemous.Modding.Installer
         private Label _left_discord_text;
         private PictureBox _left_github_image;
         private Label _left_github_text;
+        private ContextMenuStrip _menu_title;
+        private ToolStripSeparator _menu_title_split;
+        private ToolStripMenuItem _menu_title_text;
     }
 }
 
