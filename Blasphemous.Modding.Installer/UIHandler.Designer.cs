@@ -672,8 +672,8 @@ namespace Blasphemous.Modding.Installer
             _menu_title.Name = "_menu_title";
             _menu_title.Size = new Size(191, 32);
             _menu_title.Text = "Choose a background";
-            _menu_title.Opening += _menu_title_Opening;
-            _menu_title.ItemClicked += _menu_title_ItemClicked;
+            _menu_title.Opening += OnOpenHeaderMenu;
+            _menu_title.ItemClicked += OnClickHeaderMenu;
             // 
             // _menu_title_text
             // 

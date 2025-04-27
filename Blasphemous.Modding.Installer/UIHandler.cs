@@ -154,6 +154,36 @@ public partial class UIHandler : BasaltForm
         _top_inner.ChangeHeader(header);
     }
 
+    private void OnClickHeaderMenu(object sender, ToolStripItemClickedEventArgs e)
+    {
+        Logger.Info("Clicked something in title menu!");
+
+        Logger.Warn(e.ClickedItem.Name);
+
+        //Logger.Warn(c.Name);
+        //Logger.Warn(e.ClickedItem.Name);
+    }
+
+    private void OnOpenHeaderMenu(object sender, System.ComponentModel.CancelEventArgs e)
+    {
+        Logger.Info("Opening background selector");
+
+        // Remove old backgrounds
+        while (_menu_title.Items.Count > 2)
+        {
+            _menu_title.Items.RemoveAt(2);
+        }
+
+        // Create new backgrounds
+        foreach (string name in Core.CurrentPage.Headers.Select(x => x.Name))
+        {
+            ToolStripMenuItem item = (ToolStripMenuItem)_menu_title.Items.Add(name);
+            item.Name = name;
+            item.Text = name;
+            item.Checked = name == Core.CurrentPage.GameSettings.HeaderImage;
+        }
+    }
+
     public void UpdateVersionWarningVisibility(bool visible)
     {
         _top_warning_outer.Visible = visible;
@@ -336,34 +366,4 @@ public partial class UIHandler : BasaltForm
 
     internal delegate void PathDelegate(string path);
     internal static PathDelegate? OnPathChanged;
-
-    private void _menu_title_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-    {
-        Logger.Info("Clicked something in title menu!");
-
-        Control c = sender as Control;
-
-        //Logger.Warn(c.Name);
-        //Logger.Warn(e.ClickedItem.Name);
-    }
-
-    private void _menu_title_Opening(object sender, System.ComponentModel.CancelEventArgs e)
-    {
-        Logger.Info("Opening background selector");
-
-        // Remove old backgrounds
-        while (_menu_title.Items.Count > 2)
-        {
-            _menu_title.Items.RemoveAt(2);
-        }
-
-        // Create new backgrounds
-        foreach (string name in Core.CurrentPage.Headers.Select(x => x.Name))
-        {
-            ToolStripMenuItem item = (ToolStripMenuItem)_menu_title.Items.Add(name);
-            item.Name = name;
-            item.Text = name;
-            item.Checked = name == Core.CurrentPage.GameSettings.HeaderImage;
-        }
-    }
 }
