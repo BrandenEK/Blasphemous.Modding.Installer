@@ -77,8 +77,6 @@ namespace Blasphemous.Modding.Installer
             _menu_title = new ContextMenuStrip(components);
             _menu_title_text = new ToolStripMenuItem();
             _menu_title_split = new ToolStripSeparator();
-            _menu_title_1 = new ToolStripMenuItem();
-            _menu_title_2 = new ToolStripMenuItem();
             _middle_tools_icon = new PictureBox();
             _middle_tools_text = new Label();
             _bottom = new Panel();
@@ -670,9 +668,9 @@ namespace Blasphemous.Modding.Installer
             // 
             // _menu_title
             // 
-            _menu_title.Items.AddRange(new ToolStripItem[] { _menu_title_text, _menu_title_split, _menu_title_1, _menu_title_2 });
+            _menu_title.Items.AddRange(new ToolStripItem[] { _menu_title_text, _menu_title_split });
             _menu_title.Name = "_menu_title";
-            _menu_title.Size = new Size(191, 76);
+            _menu_title.Size = new Size(191, 32);
             _menu_title.Text = "Choose a background";
             _menu_title.Opening += _menu_title_Opening;
             _menu_title.ItemClicked += _menu_title_ItemClicked;
@@ -688,18 +686,6 @@ namespace Blasphemous.Modding.Installer
             // 
             _menu_title_split.Name = "_menu_title_split";
             _menu_title_split.Size = new Size(187, 6);
-            // 
-            // _menu_title_1
-            // 
-            _menu_title_1.Name = "_menu_title_1";
-            _menu_title_1.Size = new Size(190, 22);
-            _menu_title_1.Text = "Convent";
-            // 
-            // _menu_title_2
-            // 
-            _menu_title_2.Name = "_menu_title_2";
-            _menu_title_2.Size = new Size(190, 22);
-            _menu_title_2.Text = "Red one";
             // 
             // _middle_tools_icon
             // 
@@ -891,8 +877,6 @@ namespace Blasphemous.Modding.Installer
         private PictureBox _left_github_image;
         private Label _left_github_text;
         private ContextMenuStrip _menu_title;
-        private ToolStripMenuItem _menu_title_1;
-        private ToolStripMenuItem _menu_title_2;
         private ToolStripSeparator _menu_title_split;
         private ToolStripMenuItem _menu_title_text;
     }
