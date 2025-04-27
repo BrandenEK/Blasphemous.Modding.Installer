@@ -46,6 +46,7 @@ public class GameSettings
 {
     public string Id { get; set; } = string.Empty;
     public string RootFolder { get; set; } = string.Empty;
+    public string HeaderImage { get; set; } = string.Empty;
     public LaunchSettings Launch { get; set; } = new();
 }
 
