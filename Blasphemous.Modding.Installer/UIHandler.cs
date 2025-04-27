@@ -327,4 +327,48 @@ public partial class UIHandler : BasaltForm
 
     internal delegate void PathDelegate(string path);
     internal static PathDelegate? OnPathChanged;
+
+    private void _menu_title_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+    {
+        Logger.Info("Clicked something in title menu!");
+
+        Control c = sender as Control;
+
+        //Logger.Warn(c.Name);
+        //Logger.Warn(e.ClickedItem.Name);
+    }
+
+    private void _menu_title_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+    {
+        Logger.Error("Opening title menu");
+
+        List<string> items = new List<string>()
+        {
+            "Testing 1",
+            "Testing 2"
+        };
+        selectedIdx = selectedIdx == 0 ? 1 : 0;
+
+        if (items.Count < 1)
+        {
+            Logger.Warn("No items");
+            e.Cancel = true;
+        }
+
+        while (_menu_title.Items.Count > 2)
+        {
+            _menu_title.Items.RemoveAt(2);
+        }
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            ToolStripMenuItem item = (ToolStripMenuItem)_menu_title.Items.Add(items[i]);
+            item.Name = i.ToString();
+            item.Text = items[i];
+            item.Checked = selectedIdx == i;
+            Logger.Warn(item.Name);
+        }
+    }
+
+    int selectedIdx = 0;
 }
