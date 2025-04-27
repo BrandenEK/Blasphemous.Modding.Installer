@@ -1,5 +1,6 @@
 ﻿using Basalt.BetterForms;
 using Basalt.Framework.Logging;
+using Blasphemous.Modding.Installer.Models;
 using Blasphemous.Modding.Installer.PageComponents.Validators;
 using System.Diagnostics;
 
@@ -71,8 +72,7 @@ public partial class UIHandler : BasaltForm
         var currentPage = Core.CurrentPage;
 
         // Update background and info
-        _top_text.Text = currentPage.Title;
-        _top_inner.ChangeHeader(currentPage.CurrentHeader);
+        UpdateHeaderSection(currentPage);
 
         // Validate the status of mods
         bool validated = currentPage.Validator.IsRootFolderValid;
@@ -144,6 +144,15 @@ public partial class UIHandler : BasaltForm
     }
 
     // Top section
+
+    private void UpdateHeaderSection(InstallerPage page)
+    {
+        HeaderImage header = page.CurrentHeader;
+
+        _top_text.Text = page.Title;
+        _top_text.ForeColor = header.DarkMode ? Color.White : Color.Black;
+        _top_inner.ChangeHeader(header);
+    }
 
     public void UpdateVersionWarningVisibility(bool visible)
     {

@@ -55,12 +55,12 @@ static class Core
         // Headers
         var blas1headers = new List<HeaderImage>()
         {
-            new HeaderImage("Convent of Our Lady", Resources.blas1header, true, -500),
+            new HeaderImage("Convent of Our Lady", Resources.blas1header, true, false, -500),
         };
         var blas2headers = new List<HeaderImage>()
         {
-            new HeaderImage("The Penitent One", Resources.blas2header, true, -340),
-            new HeaderImage("Mea Culpa", Resources.blas2meaculpa, false, -260),
+            new HeaderImage("The Penitent One", Resources.blas2header, true, false, -340),
+            new HeaderImage("Mea Culpa", Resources.blas2meaculpa, false, true, -260),
         };
 
         // Sorters

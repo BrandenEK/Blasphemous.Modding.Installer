@@ -660,6 +660,7 @@ namespace Blasphemous.Modding.Installer
             _top_text.ContextMenuStrip = _menu_title;
             _top_text.Dock = DockStyle.Fill;
             _top_text.Font = new Font("Trebuchet MS", 20F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            _top_text.ForeColor = Color.Black;
             _top_text.Location = new Point(0, 0);
             _top_text.Name = "_top_text";
             _top_text.Size = new Size(1240, 118);
