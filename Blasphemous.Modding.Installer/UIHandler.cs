@@ -156,12 +156,11 @@ public partial class UIHandler : BasaltForm
 
     private void OnClickHeaderMenu(object sender, ToolStripItemClickedEventArgs e)
     {
-        Logger.Info("Clicked something in title menu!");
+        string name = e.ClickedItem.Name;
+        Logger.Info($"Selecting background: {name}");
 
-        Logger.Warn(e.ClickedItem.Name);
-
-        //Logger.Warn(c.Name);
-        //Logger.Warn(e.ClickedItem.Name);
+        Core.CurrentPage.GameSettings.HeaderImage = name;
+        UpdateHeaderSection(Core.CurrentPage);
     }
 
     private void OnOpenHeaderMenu(object sender, System.ComponentModel.CancelEventArgs e)
