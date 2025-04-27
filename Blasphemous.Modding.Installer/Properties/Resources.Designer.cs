@@ -63,9 +63,39 @@ namespace Blasphemous.Modding.Installer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap blas1forest {
+            get {
+                object obj = ResourceManager.GetObject("blas1forest", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap blas1header {
             get {
                 object obj = ResourceManager.GetObject("blas1header", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap blas1penitent {
+            get {
+                object obj = ResourceManager.GetObject("blas1penitent", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap blas2coffin {
+            get {
+                object obj = ResourceManager.GetObject("blas2coffin", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

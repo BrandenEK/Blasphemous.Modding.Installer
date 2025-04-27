@@ -149,6 +149,7 @@ public partial class UIHandler : BasaltForm
     {
         HeaderImage header = page.CurrentHeader;
 
+        _top_text.Text = string.Empty;
         _top_text.Text = page.Title;
         _top_text.ForeColor = header.DarkMode ? Color.White : Color.Black;
         _top_inner.ChangeHeader(header);
