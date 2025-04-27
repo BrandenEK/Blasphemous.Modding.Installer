@@ -10,7 +10,7 @@ namespace Blasphemous.Modding.Installer;
 internal class InstallerPage
 {
     private readonly string _title;
-    private readonly HeaderImage _header;
+    private readonly List<HeaderImage> _headers;
 
     private readonly IGrouper _grouper;
     private readonly ILister _lister;
@@ -21,10 +21,10 @@ internal class InstallerPage
     public PageSettings PageSettings { get; }
     public GameSettings GameSettings { get; }
 
-    public InstallerPage(string title, HeaderImage header, IGrouper grouper, ILister lister, ILoader loader, IValidator validator, IGameStarter starter, PageSettings pageSettings, GameSettings gameSettings)
+    public InstallerPage(string title, List<HeaderImage> headers, IGrouper grouper, ILister lister, ILoader loader, IValidator validator, IGameStarter starter, PageSettings pageSettings, GameSettings gameSettings)
     {
         _title = title;
-        _header = header;
+        _headers = headers;
 
         _grouper = grouper;
         _lister = lister;
@@ -37,7 +37,7 @@ internal class InstallerPage
     }
 
     public string Title => _title;
-    public HeaderImage Header => _header;
+    public List<HeaderImage> Headers => _headers;
 
     public IGrouper Grouper => _grouper;
     public ILister Lister => _lister;
