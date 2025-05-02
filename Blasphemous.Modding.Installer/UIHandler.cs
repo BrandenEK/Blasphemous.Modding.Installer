@@ -125,6 +125,7 @@ public partial class UIHandler : BasaltForm
 
         // Handle UI for grouping
         _left_all.Visible = validated;
+        _left_all.Height = currentPage.Grouper.CanEnable ? 110 : 65;
         _left_all_install.Visible = currentPage.Grouper.CanInstall;
         _left_all_uninstall.Visible = currentPage.Grouper.CanInstall;
         _left_all_enable.Visible = currentPage.Grouper.CanEnable;
