@@ -83,7 +83,7 @@ internal class SkinLoader : ILoader
 
         foreach (var item in contents)
         {
-            Skin skin = await LoadSkin(item, client);
+            Skin skin = await LoadSkin(item, client, Core.HTTP_TIMEOUT);
             newSkins.Add(skin);
         }
 
@@ -95,7 +95,7 @@ internal class SkinLoader : ILoader
         _lister.RefreshList();
     }
 
-    private async Task<Skin> LoadSkin(RepositoryContent item, HttpClient client)
+    private async Task<Skin> LoadSkin(RepositoryContent item, HttpClient client, int timeout)
     {
         try
         {
@@ -117,8 +117,8 @@ internal class SkinLoader : ILoader
                 throw;
 
             Logger.Warn($"HTTP 429 error with skin {item.Name}.  Retrying...");
-            await Task.Delay(2000);
-            return await LoadSkin(item, client);
+            await Task.Delay(timeout);
+            return await LoadSkin(item, client, timeout + Core.HTTP_TIMEOUT);
         }
     }
 

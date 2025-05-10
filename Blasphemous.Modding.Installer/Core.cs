@@ -207,4 +207,6 @@ static class Core
 
     public static string InstallerFolder { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "BlasModInstaller");
     public static string CacheFolder { get; } = Path.Combine(InstallerFolder, "cache");
+
+    public const int HTTP_TIMEOUT = 2000;
 }
