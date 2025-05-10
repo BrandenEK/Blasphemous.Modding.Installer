@@ -2,6 +2,7 @@
 using Blasphemous.Modding.Installer.PageComponents.Listers;
 using Blasphemous.Modding.Installer.Skins;
 using Newtonsoft.Json;
+using Octokit;
 
 namespace Blasphemous.Modding.Installer.PageComponents.Loaders;
 
@@ -82,20 +83,8 @@ internal class SkinLoader : ILoader
 
         foreach (var item in contents)
         {
-            string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous.Community.Skins/main/{_remoteDataPath}/{item.Name}/info.txt");
-            SkinData data = JsonConvert.DeserializeObject<SkinData>(json)!;
-
-            Skin? localSkin = FindSkin(data.id);
-            if (localSkin != null)
-            {
-                localSkin.Data = data;
-                localSkin.UpdateUI();
-                newSkins.Add(localSkin);
-            }
-            else
-            {
-                newSkins.Add(new Skin(data, _skinType, _gameSettings));
-            }
+            Skin skin = await LoadSkin(item, client);
+            newSkins.Add(skin);
         }
 
         Logger.Warn($"Loaded {contents.Count} global skins");
@@ -104,6 +93,33 @@ internal class SkinLoader : ILoader
 
         SaveLocalData();
         _lister.RefreshList();
+    }
+
+    private async Task<Skin> LoadSkin(RepositoryContent item, HttpClient client)
+    {
+        try
+        {
+            string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous.Community.Skins/main/{_remoteDataPath}/{item.Name}/info.txt");
+            SkinData data = JsonConvert.DeserializeObject<SkinData>(json)!;
+
+            Skin? localSkin = FindSkin(data.id);
+
+            if (localSkin == null)
+                return new Skin(data, _skinType, _gameSettings);
+
+            localSkin.Data = data;
+            localSkin.UpdateUI();
+            return localSkin;
+        }
+        catch (HttpRequestException ex)
+        {
+            if (ex.StatusCode != System.Net.HttpStatusCode.TooManyRequests)
+                throw;
+
+            Logger.Warn($"HTTP 429 error with skin {item.Name}.  Retrying...");
+            await Task.Delay(2000);
+            return await LoadSkin(item, client);
+        }
     }
 
     private void SaveLocalData()
