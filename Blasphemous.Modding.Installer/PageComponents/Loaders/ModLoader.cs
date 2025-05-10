@@ -1,6 +1,7 @@
 ﻿using Basalt.Framework.Logging;
 using Blasphemous.Modding.Installer.Mods;
 using Blasphemous.Modding.Installer.PageComponents.Listers;
+using Blasphemous.Modding.Installer.Skins;
 using Newtonsoft.Json;
 
 namespace Blasphemous.Modding.Installer.PageComponents.Loaders;
@@ -80,27 +81,10 @@ internal class ModLoader : ILoader
         foreach (var data in remoteData)
         {
             Logger.Info($"Getting latest release for {data.name}");
-            Octokit.Release latestRelease = await Core.GithubHandler.GetLatestReleaseAsync(data.githubAuthor, data.githubRepo);
-            if (latestRelease is null)
-                return;
 
-            Version latestVersion = GithubHandler.CleanSemanticVersion(latestRelease.TagName);
-            string latestDownloadURL = latestRelease.Assets[0].BrowserDownloadUrl;
-            DateTimeOffset latestReleaseDate = latestRelease.CreatedAt;
-
-            Mod? localMod = FindMod(data.name);
-            ModData fullData = new ModData(data, latestVersion.ToString(), latestDownloadURL, latestReleaseDate);
-
-            if (localMod != null)
-            {
-                localMod.Data = fullData;
-                localMod.UpdateUI();
-                newMods.Add(localMod);
-            }
-            else
-            {
-                newMods.Add(new Mod(fullData, _modType, _gameSettings));
-            }
+            Mod? mod = await LoadMod(data, Core.HTTP_TIMEOUT);
+            if (mod != null)
+                newMods.Add(mod);
         }
 
         Logger.Warn($"Loaded {remoteData.Length} global mods");
@@ -109,6 +93,39 @@ internal class ModLoader : ILoader
 
         SaveLocalData();
         _lister.RefreshList();
+    }
+
+    private async Task<Mod?> LoadMod(ModData data, int timeout)
+    {
+        try
+        {
+            Octokit.Release latestRelease = await Core.GithubHandler.GetLatestReleaseAsync(data.githubAuthor, data.githubRepo);
+            if (latestRelease is null)
+                return null;
+
+            Version latestVersion = GithubHandler.CleanSemanticVersion(latestRelease.TagName);
+            string latestDownloadURL = latestRelease.Assets[0].BrowserDownloadUrl;
+            DateTimeOffset latestReleaseDate = latestRelease.CreatedAt;
+
+            Mod? localMod = FindMod(data.name);
+            ModData fullData = new ModData(data, latestVersion.ToString(), latestDownloadURL, latestReleaseDate);
+
+            if (localMod == null)
+                return new Mod(fullData, _modType, _gameSettings);
+
+            localMod.Data = fullData;
+            localMod.UpdateUI();
+            return localMod;
+        }
+        catch (HttpRequestException ex)
+        {
+            if (ex.StatusCode != System.Net.HttpStatusCode.TooManyRequests)
+                throw;
+
+            Logger.Warn($"HTTP 429 error with mod {data.name}.  Retrying...");
+            await Task.Delay(timeout);
+            return await LoadMod(data, timeout + Core.HTTP_TIMEOUT);
+        }
     }
 
     private void SaveLocalData()

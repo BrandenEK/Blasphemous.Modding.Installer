@@ -126,7 +126,7 @@ internal class Mod
         _downloading = true;
         _ui.ShowDownloadingStatus();
 
-        await client.DownloadFileAsync(new Uri(Data.latestDownloadURL), zipCache);
+        await client.DownloadFileAsync(new Uri(Data.latestDownloadURL), zipCache, Core.HTTP_TIMEOUT);
 
         _downloading = false;
     }

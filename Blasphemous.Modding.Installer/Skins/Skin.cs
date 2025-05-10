@@ -126,8 +126,8 @@ internal class Skin
         _downloading = true;
         _ui.ShowDownloadingStatus();
 
-        await client.DownloadFileAsync(new Uri(InfoURL), infoCache);
-        await client.DownloadFileAsync(new Uri(TextureURL), textureCache);
+        await client.DownloadFileAsync(new Uri(InfoURL), infoCache, Core.HTTP_TIMEOUT);
+        await client.DownloadFileAsync(new Uri(TextureURL), textureCache, Core.HTTP_TIMEOUT);
 
         _downloading = false;
     }
@@ -152,7 +152,7 @@ internal class Skin
         if (!ExistsInCache("info.txt", out string infoCache))
         {
             Logger.Warn($"Downloading skin info ({Data.id}) from web");
-            await client.DownloadFileAsync(new Uri(InfoURL), infoCache);
+            await client.DownloadFileAsync(new Uri(InfoURL), infoCache, Core.HTTP_TIMEOUT);
         }
 
         // Download all textures to cache
@@ -162,7 +162,7 @@ internal class Skin
                 continue;
 
             Logger.Warn($"Downloading skin texture ({Data.id}/{file.Name}) from web");
-            await client.DownloadFileAsync(new Uri(file.DownloadUrl), textureCache);
+            await client.DownloadFileAsync(new Uri(file.DownloadUrl), textureCache, Core.HTTP_TIMEOUT);
         }
 
         string installPath = PathToSkinFolder;

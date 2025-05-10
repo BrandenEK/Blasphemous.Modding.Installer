@@ -180,7 +180,7 @@ internal class StandardValidator : IValidator
         {
             Logger.Warn("Downloading modding tools from web");
             using var client = new HttpClient();
-            await client.DownloadFileAsync(new Uri(_remoteDownloadPath), toolsCache);
+            await client.DownloadFileAsync(new Uri(_remoteDownloadPath), toolsCache, Core.HTTP_TIMEOUT);
         }
 
         // Extract data in cache to game folder

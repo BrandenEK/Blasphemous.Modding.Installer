@@ -75,6 +75,6 @@ internal partial class SkinPreviewPrompt : Form
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
 
         using var client = new HttpClient();
-        await client.DownloadFileAsync(new Uri(url), path);
+        await client.DownloadFileAsync(new Uri(url), path, Core.HTTP_TIMEOUT);
     }
 }
