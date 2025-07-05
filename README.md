@@ -18,7 +18,7 @@
 1. Install or update the modding tools
    - Click the link to download the tools for your operating system
       - Blasphemous 1 ([Windows](https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-windows.zip)/[Linux](https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-linux.zip)/[Mac](https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-mac.zip))
-      - Blasphemous 2 ([Windows](https://github.com/BrandenEK/BlasII.ModdingTools/raw/main/modding-tools-windows.zip)/Linux/Mac)
+      - Blasphemous 2 ([Windows](https://github.com/BrandenEK/BlasII.ModdingTools/raw/main/modding-tools-windows.zip)/[Linux](https://github.com/BrandenEK/BlasII.ModdingTools/raw/main/modding-tools-linux.zip)/Mac)
    - Extract the contents of the zip file into the game's root directory
    - You should now have a folder called "Modding" in the same folder as "Blasphemous.exe" or "Blasphemous 2.exe"
    - If using Steam on unix, follow the [BepInEx docs](https://docs.bepinex.dev/articles/advanced/steam_interop.html) to configure it properly
