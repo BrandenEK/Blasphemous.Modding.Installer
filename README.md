@@ -22,6 +22,14 @@
    - Extract the contents of the zip file into the game's root directory
    - You should now have a folder called "Modding" in the same folder as "Blasphemous.exe" or "Blasphemous 2.exe"
    - If using Steam on unix, follow the [BepInEx docs](https://docs.bepinex.dev/articles/advanced/steam_interop.html) to configure it properly
+   - For Blasphemous 2 on Linux:
+      - Download the [MelonLoader installer](https://melonloader.co/download) (for Linux).
+      - Run the installer, select Blasphemous 2, select the latest version (`0.7.1`).
+      - Paste `WINEDLLOVERRIDES="version=n,b" %command%` in the launch options of the game on Steam (see Library > Blasphemous 2 > Properties > General).
+      - Start a first time the game to download and install the dependencies for MelonLoader (this is automatic, but be patient).
+      - Close the game, unzip the [Windows modding tools](https://github.com/BrandenEK/BlasII.ModdingTools/raw/main/modding-tools-windows.zip) inside the game's directory.
+      - Install your mods inside the `Modding` directory.
+      - Start the game.
 2. Install or update the mod
    - On the mod's github page, navigate to the latest release
    - Download the file called "ModName.zip" and extract the contents of the zip file into the "Modding" folder
