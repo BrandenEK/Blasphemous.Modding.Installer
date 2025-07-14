@@ -213,16 +213,6 @@
     "Dependencies": [ "Modding API", "Menu Framework", "Cheat Console" ]
   },
   {
-    "Name": "Damage Numbers Reborn",
-    "Author": "NewbieElton",
-    "Description": "Displays damage numbers with customizable animation and color",
-    "InitialReleaseDate": "2025-07-13",
-    "GithubAuthor": "EltonZhang777",
-    "GithubRepo": "Blasphemous.DamageNumbersReborn",
-    "PluginFile": "DamageNumbersReborn.dll",
-    "Dependencies": [ "Modding API" ]
-  },
-  {
     "Name": "Menu Framework",
     "Author": "Damocles",
     "Description": "Framework that allows other mods to implement start game menus",
@@ -250,6 +240,16 @@
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous.Framework.Credits",
     "PluginFile": "CreditsFramework.dll",
+    "Dependencies": [ "Modding API" ]
+  },
+  {
+    "Name": "Damage Numbers Reborn",
+    "Author": "NewbieElton",
+    "Description": "Displays damage numbers with customizable animation and color",
+    "InitialReleaseDate": "2025-07-13",
+    "GithubAuthor": "EltonZhang777",
+    "GithubRepo": "Blasphemous.DamageNumbersReborn",
+    "PluginFile": "DamageNumbersReborn.dll",
     "Dependencies": [ "Modding API" ]
   }
 ]
