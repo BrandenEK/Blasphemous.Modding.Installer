@@ -47,7 +47,7 @@
     "GithubRepo": "BlasII.Randomizer",
     "PluginFile": "Randomizer.dll",
     "RequiredDlls": [ "LogicParser.dll", "Basalt.LogicParser.dll" ],
-    "Dependencies": [ "Modding API", "Menu Framework", "UI Framework" ]
+    "Dependencies": [ "Modding API", "Menu Framework", "UI Framework", "Quality of Life" ]
   },
   {
     "Name": "Quality of Life",
