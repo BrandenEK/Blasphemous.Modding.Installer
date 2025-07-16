@@ -243,13 +243,13 @@
     "Dependencies": [ "Modding API" ]
   },
   {
-    "Name": "Atrium Of Atonement",
+    "Name": "Damage Numbers Reborn",
     "Author": "NewbieElton",
-    "Description": "Offers bossrush QoL (including loadout selection, challenge single boss, etc.)",
-    "InitialReleaseDate": "2024-08-09",
+    "Description": "Displays damage numbers with customizable animation and color",
+    "InitialReleaseDate": "2025-07-13",
     "GithubAuthor": "EltonZhang777",
-    "GithubRepo": "Blasphemous.AtriumOfAtonement",
-    "PluginFile": "AtriumOfAtonement.dll",
-    "Dependencies": [ "Modding API", "Cheat Console", "Menu Framework", "UI Framework", "Level Framework" ]
+    "GithubRepo": "Blasphemous.DamageNumbersReborn",
+    "PluginFile": "DamageNumbersReborn.dll",
+    "Dependencies": [ "Modding API" ]
   }
 ]
