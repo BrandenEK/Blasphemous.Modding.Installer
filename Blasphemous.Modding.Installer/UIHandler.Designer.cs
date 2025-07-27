@@ -758,15 +758,15 @@ namespace Blasphemous.Modding.Installer
             // _middle_path
             // 
             _middle_path.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            _middle_path.AutoEllipsis = true;
             _middle_path.BackColor = SystemColors.WindowFrame;
             _middle_path.Cursor = Cursors.Hand;
             _middle_path.Font = new Font("Trebuchet MS", 12F, FontStyle.Italic, GraphicsUnit.Point);
-            _middle_path.Location = new Point(10, 0);
+            _middle_path.Location = new Point(10, 2);
             _middle_path.Name = "_middle_path";
-            _middle_path.Size = new Size(1000, 28);
+            _middle_path.Size = new Size(1000, 24);
             _middle_path.TabIndex = 9;
             _middle_path.Text = "Root Folder text";
-            _middle_path.TextAlign = ContentAlignment.MiddleLeft;
             _middle_path.Click += ClickedRootFolder;
             // 
             // _middle_tools

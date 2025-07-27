@@ -203,7 +203,33 @@ public partial class UIHandler : BasaltForm
     public void UpdateRootFolderText(string text)
     {
         _middle_path.Text = text;
-        _middle_path.Width = _middle_path.PreferredWidth;
+        int maxWidth = _middle_inner.Width - _middle_tools.Width - 10;
+
+        _middle_path.Width = Math.Min(maxWidth, _middle_path.PreferredWidth);
+
+        Logger.Info("Preferred: " + _middle_path.PreferredWidth);
+        Logger.Info("Max: " + (_middle_inner.Width - _middle_tools.Width));
+        _middle_inner.Resize += (object? _, EventArgs __) =>
+        {
+            Logger.Error("Resizing it now");
+
+            int maxWidth = _middle_inner.Width - _middle_tools.Width - 10;
+
+            _middle_path.Width = Math.Min(maxWidth, _middle_path.PreferredWidth);
+
+            //if (_middle_path.PreferredWidth <= maxWidth)
+            //    return;
+
+            //Logger.Info("cutoff");
+            //_middle_path.Width = maxWidth;
+
+            //text += "...";
+            //while (_middle_path.PreferredWidth > maxWidth)
+            //{
+            //    StringBuilder sb = new();
+            //    sb.re
+            //}
+        };
     }
 
     private void ClickedRootFolder(object sender, EventArgs e) => PromptForRootFolder();
