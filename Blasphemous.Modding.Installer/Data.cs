@@ -13,6 +13,7 @@ public static class Colors
     public readonly static Color ORANGE = Color.FromArgb(255, 178, 102);
     public readonly static Color BLUE = Color.FromArgb(51, 153, 255);
 
+    public readonly static Color BORDER_SPECIAL = Color.FromArgb(255, 207, 64);
     public readonly static Color BORDER_SELECTED = Color.White;
     public readonly static Color BORDER_UNSELECTED = Color.FromArgb(30, 30, 30);
 }

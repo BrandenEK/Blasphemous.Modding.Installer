@@ -87,6 +87,12 @@ public partial class UIHandler : BasaltForm
         currentPage.Lister.RefreshList();
         currentPage.Grouper.RefreshAll();
 
+        // Handle UI for paging
+        _left_page_blas1mod.SetSpecial(section == SectionType.Blas1Mods);
+        _left_page_blas1skin.SetSpecial(section == SectionType.Blas1Skins);
+        _left_page_blas2mod.SetSpecial(section == SectionType.Blas2Mods);
+        _left_page_blas2skin.SetSpecial(section == SectionType.Blas2Skins);
+
         // Handle UI for sorting and filtering
         _left_sort.Visible = validated;
 
