@@ -109,5 +109,16 @@
     "GithubRepo": "BlasII.GlitchReviver",
     "PluginFile": "GlitchReviver.dll",
     "Dependencies": [ "Modding API" ]
+  },
+  {
+    "Name": "Multiworld",
+    "Author": "Damocles && TRPG",
+    "Description": "A multiworld client that allows the Randomizer to connect to AP",
+    "InitialReleaseDate": "2025-7-27",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "BlasII.Randomizer.Multiworld",
+    "PluginFile": "Multiworld.dll",
+    "RequiredDlls": [ "Archipelago.MultiClient.Net.dll" ],
+    "Dependencies": [ "Modding API", "Menu Framework", "UI Framework", "Randomizer" ]
   }
 ]
