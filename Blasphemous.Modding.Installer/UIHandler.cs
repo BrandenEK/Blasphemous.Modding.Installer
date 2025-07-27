@@ -203,10 +203,16 @@ public partial class UIHandler : BasaltForm
     public void UpdateRootFolderText(string text)
     {
         _middle_path.Text = text;
-        _middle_path.Width = _middle_path.PreferredWidth;
+        ResizedBar(null, new EventArgs());
     }
 
     private void ClickedRootFolder(object sender, EventArgs e) => PromptForRootFolder();
+
+    private void ResizedBar(object? _, EventArgs __)
+    {
+        int maxWidth = _middle_inner.Width - _middle_tools.Width - 10;
+        _middle_path.Width = Math.Min(maxWidth, _middle_path.PreferredWidth);
+    }
 
     // Middle section tools
 
