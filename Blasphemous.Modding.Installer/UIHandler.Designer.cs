@@ -754,6 +754,7 @@ namespace Blasphemous.Modding.Installer
             _middle_inner.Name = "_middle_inner";
             _middle_inner.Size = new Size(1240, 28);
             _middle_inner.TabIndex = 0;
+            _middle_inner.Resize += ResizedBar;
             // 
             // _middle_path
             // 
