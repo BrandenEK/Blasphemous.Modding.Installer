@@ -3,6 +3,9 @@ namespace Blasphemous.Modding.Installer.UIComponents;
 
 public class TransparentButton : Button
 {
+    private bool _isSpecial;
+    private bool _isSelected;
+
     public TransparentButton()
     {
         MouseEnter += ShowSideButtonBorder;
@@ -12,12 +15,27 @@ public class TransparentButton : Button
 
     private void ShowSideButtonBorder(object? _, EventArgs __)
     {
-        FlatAppearance.BorderColor = Colors.BORDER_SELECTED;
+        _isSelected = true;
+        UpdateColors();
     }
 
     private void HideSideButtonBorder(object? _, EventArgs __)
     {
-        FlatAppearance.BorderColor = Colors.BORDER_UNSELECTED;
+        _isSelected = false;
+        UpdateColors();
+
         Core.UIHandler.RemoveButtonFocus(null, new EventArgs());
+    }
+
+    public void SetSpecial(bool isSpecial)
+    {
+        _isSpecial = isSpecial;
+        UpdateColors();
+    }
+
+    private void UpdateColors()
+    {
+        ForeColor = _isSpecial ? Colors.BORDER_SPECIAL : Colors.BORDER_SELECTED;
+        FlatAppearance.BorderColor = _isSelected ? ForeColor : Colors.BORDER_UNSELECTED;
     }
 }
