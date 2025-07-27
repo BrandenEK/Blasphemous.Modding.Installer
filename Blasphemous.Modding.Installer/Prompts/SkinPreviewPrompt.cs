@@ -7,11 +7,15 @@ namespace Blasphemous.Modding.Installer.Prompts;
 
 internal partial class SkinPreviewPrompt : Form
 {
-    public SkinPreviewPrompt(Skin skin)
+    private readonly int _scaleFactor;
+
+    public SkinPreviewPrompt(Skin skin, int scaleFactor)
     {
         InitializeComponent();
 
         Text = skin.Data.name;
+        _scaleFactor = scaleFactor;
+
         DisplayPreviewImage(skin);
     }
 
@@ -64,17 +68,34 @@ internal partial class SkinPreviewPrompt : Form
         _text.Text = message;
     }
 
-    private static Bitmap LoadImageFromFile(string path)
+    private Bitmap LoadImageFromFile(string path)
     {
         using var image = new Bitmap(path);
-        return new Bitmap(image);
+
+        return ScalePreview(image);
     }
 
-    private static async Task DownloadImageToFile(string url, string path)
+    private async Task DownloadImageToFile(string url, string path)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
 
         using var client = new HttpClient();
         await client.DownloadFileAsync(new Uri(url), path, Core.HTTP_TIMEOUT);
+    }
+
+    private Bitmap ScalePreview(Bitmap preview)
+    {
+        var image = new Bitmap(preview.Width * _scaleFactor, preview.Height * _scaleFactor);
+
+        for (int x = 0; x < image.Width; x++)
+        {
+            for (int y = 0; y < image.Height; y++)
+            {
+                Color pixel = preview.GetPixel(x / _scaleFactor, y / _scaleFactor);
+                image.SetPixel(x, y, pixel);
+            }
+        }
+
+        return image;
     }
 }
