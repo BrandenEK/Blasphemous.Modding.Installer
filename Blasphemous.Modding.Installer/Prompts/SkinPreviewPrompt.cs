@@ -7,11 +7,15 @@ namespace Blasphemous.Modding.Installer.Prompts;
 
 internal partial class SkinPreviewPrompt : Form
 {
-    public SkinPreviewPrompt(Skin skin)
+    private readonly int _scaleFactor;
+
+    public SkinPreviewPrompt(Skin skin, int scaleFactor)
     {
         InitializeComponent();
 
         Text = skin.Data.name;
+        _scaleFactor = scaleFactor;
+
         DisplayPreviewImage(skin);
     }
 
