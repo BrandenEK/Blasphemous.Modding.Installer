@@ -4,7 +4,7 @@
 
 ---
 
-### Automatic installation (Windows only)
+### Automatic installation
 1. Download the most recent version of the installer from the [Releases](https://github.com/BrandenEK/Blasphemous.Modding.Installer/releases) page
    - You may need to make an exception for it in your antivirus
 3. Run the 'BlasModInstaller.exe' program
@@ -12,9 +12,20 @@
 4. Locate the exe file for the game through the UI
 5. Install the modding tools for the game through the UI
 
+> [!IMPORTANT]
+> Automatic installation is currently only available on Windows
+
 ---
 
 ### Manual installation
+1. Follow the instructions for the specific operating system you are using
+  - Blasphemous 1 ([Windows](docs/install/blas1_windows.md) &middot; [Linux](docs/install/blas1_linux.md) &middot; [Mac](docs/install/blas1_mac.md))
+  - Blasphemous 2 ([Windows](docs/install/blas2_windows.md) &middot; [Linux](docs/install/blas2_linux.md) &middot; Mac)
+
+---
+
+## Old install info
+
 1. Install or update the modding tools
    - Click the link to download the tools for your operating system
       - Blasphemous 1 ([Windows](https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-windows.zip)/[Linux](https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-linux.zip)/[Mac](https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-mac.zip))
