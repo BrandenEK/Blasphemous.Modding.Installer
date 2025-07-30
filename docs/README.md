@@ -18,9 +18,8 @@
 ---
 
 ### Manual installation
-1. Follow the instructions for the specific operating system you are using
-  - Blasphemous 1 ([Windows](docs/install/blas1_windows.md) &middot; [Linux](docs/install/blas1_linux.md) &middot; [Mac](docs/install/blas1_mac.md))
-  - Blasphemous 2 ([Windows](docs/install/blas2_windows.md) &middot; [Linux](docs/install/blas2_linux.md) &middot; Mac)
+- Blasphemous 1 ([Windows](docs/install/blas1_windows.md) &middot; [Linux](docs/install/blas1_linux.md) &middot; [Mac](docs/install/blas1_mac.md))
+- Blasphemous 2 ([Windows](docs/install/blas2_windows.md) &middot; [Linux](docs/install/blas2_linux.md) &middot; Mac)
 
 ---
 

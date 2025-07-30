@@ -1,0 +1,1 @@
+# Blasphemous 1 Manual Installation (Mac)

@@ -1,0 +1,1 @@
+# Blasphemous 2 Manual Installation (Linux)
