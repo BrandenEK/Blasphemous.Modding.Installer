@@ -18,8 +18,8 @@
 ---
 
 ### Manual installation
-- Blasphemous 1 ([Windows](docs/install/blas1_windows.md) &middot; [Linux](docs/install/blas1_linux.md) &middot; [Mac](docs/install/blas1_mac.md))
-- Blasphemous 2 ([Windows](docs/install/blas2_windows.md) &middot; [Linux](docs/install/blas2_linux.md) &middot; Mac)
+- Blasphemous 1 ([Windows](install/blas1_windows.md) &middot; [Linux](install/blas1_linux.md) &middot; [Mac](install/blas1_mac.md))
+- Blasphemous 2 ([Windows](install/blas2_windows.md) &middot; [Linux](install/blas2_linux.md) &middot; Mac)
 
 ---
 
