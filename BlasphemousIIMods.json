@@ -120,5 +120,15 @@
     "PluginFile": "Multiworld.dll",
     "RequiredDlls": [ "Archipelago.MultiClient.Net.dll" ],
     "Dependencies": [ "Modding API", "Menu Framework", "UI Framework", "Randomizer" ]
+  },
+  {
+    "Name": "Figure Pair Helper",
+    "Author": "TRPG",
+    "Description": "See which figures pair together in the Altarpiece of Favours.",
+    "InitialReleaseDate": "2025-7-29",
+    "GithubAuthor": "TRPG0",
+    "GithubRepo": "Blas2-FigurePairHelper",
+    "PluginFile": "FigurePairHelper.dll",
+    "Dependencies": [ "Modding API" ]
   }
 ]
