@@ -251,5 +251,15 @@
     "GithubRepo": "Blasphemous.DamageNumbersReborn",
     "PluginFile": "DamageNumbersReborn.dll",
     "Dependencies": [ "Modding API" ]
+  },
+  {
+    "Name": "PrayerWheel",
+    "Author": "Neon Pixels",
+    "Description": "Allows selecting the active prayer without opening the inventory menu",
+    "InitialReleaseDate": "2025-08-12",
+    "GithubAuthor": "NeonPixels",
+    "GithubRepo": "blasphemous.prayer-wheel",
+    "PluginFile": "PrayerWheel.dll",
+    "Dependencies": [ "Modding API" ]
   }
 ]
