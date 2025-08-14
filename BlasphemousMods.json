@@ -253,7 +253,7 @@
     "Dependencies": [ "Modding API" ]
   },
   {
-    "Name": "Prayer Wheel",
+    "Name": "PrayerWheel",
     "Author": "Neon Pixels",
     "Description": "Allows selecting the active prayer without opening the inventory menu",
     "InitialReleaseDate": "2025-08-12",
