@@ -124,7 +124,7 @@
   {
     "Name": "Figure Pair Helper",
     "Author": "TRPG",
-    "Description": "See which figures pair together in the Altarpiece of Favours.",
+    "Description": "See which figures pair together in the Altarpiece of Favours",
     "InitialReleaseDate": "2025-7-29",
     "GithubAuthor": "TRPG0",
     "GithubRepo": "Blas2-FigurePairHelper",
@@ -134,7 +134,7 @@
   {
     "Name": "Map Speed",
     "Author": "TRPG",
-    "Description": "Adjust how fast the map moves.",
+    "Description": "Adjust how fast the map moves",
     "InitialReleaseDate": "2025-8-14",
     "GithubAuthor": "TRPG0",
     "GithubRepo": "Blas2-MapSpeed",
