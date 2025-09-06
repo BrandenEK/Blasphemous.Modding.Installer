@@ -25,9 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Basalt.BetterForms" Version="1.2.1" />
+    <PackageReference Include="Basalt.BetterForms" Version="1.2.2" />
     <PackageReference Include="Basalt.CommandParser" Version="1.0.1" />
-    <PackageReference Include="Basalt.Framework.Logging" Version="1.1.1" />
+    <PackageReference Include="Basalt.Framework.Logging" Version="2.0.0" />
     <PackageReference Include="DotNetZip" Version="1.16.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Octokit" Version="9.1.2" />
