@@ -35,6 +35,6 @@ public static class Fonts
 
 public static class Sizes
 {
-    public const int MOD_HEIGHT = 84;
-    public const int SKIN_HEIGHT = 49;
+    public const int MOD_HEIGHT = 184;
+    public const int SKIN_HEIGHT = 119;
 }
