@@ -11,7 +11,7 @@
     <Authors>Damocles</Authors>
     <Company>Damocles</Company>
     <Description>Easily installs mods and skins for Blasphemous 1 and 2</Description>
-    <Version>1.9.2</Version>
+    <Version>1.9.3</Version>
 
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
