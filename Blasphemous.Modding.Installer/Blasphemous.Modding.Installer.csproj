@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Basalt.BetterForms" Version="1.2.2" />
+    <PackageReference Include="Basalt.BetterForms" Version="1.2.3" />
     <PackageReference Include="Basalt.CommandParser" Version="1.0.1" />
     <PackageReference Include="Basalt.Framework.Logging" Version="2.0.0" />
     <PackageReference Include="DotNetZip" Version="1.16.0" />
