@@ -150,5 +150,15 @@
     "GithubRepo": "BlasII.Framework.WeaponEvents",
     "PluginFile": "WeaponEventsFramework.dll",
     "Dependencies": [ "Modding API" ]
+  },
+  {
+    "Name": "Better Weapon Swap",
+    "Author": "salamint",
+    "Description": "Improves weapon swapping by keeping the charge of the different powers for each weapon",
+    "InitialReleaseDate": "2025-12-6",
+    "GithubAuthor": "salamint",
+    "GithubRepo": "BlasII.BetterWeaponSwap",
+    "PluginFile": "BetterWeaponSwap.dll",
+    "Dependencies": [ "Modding API", "Weapon Events Framework" ]
   }
 ]
