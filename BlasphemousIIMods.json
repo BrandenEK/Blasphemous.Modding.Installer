@@ -140,5 +140,15 @@
     "GithubRepo": "Blas2-MapSpeed",
     "PluginFile": "MapSpeed.dll",
     "Dependencies": [ "Modding API" ]
+  },
+  {
+    "Name": "Weapon Events Framework",
+    "Author": "salamint",
+    "Description": "API that allows mods to manage the weapons and attacks of The Penitent One",
+    "InitialReleaseDate": "2025-12-5",
+    "GithubAuthor": "salamint",
+    "GithubRepo": "BlasII.Framework.WeaponEvents",
+    "PluginFile": "WeaponEventsFramework.dll",
+    "Dependencies": [ "Modding API" ]
   }
 ]
