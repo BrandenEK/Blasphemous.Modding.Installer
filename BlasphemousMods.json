@@ -261,5 +261,25 @@
     "GithubRepo": "blasphemous.prayer-wheel",
     "PluginFile": "PrayerWheel.dll",
     "Dependencies": [ "Modding API" ]
+  },
+  {
+	"Name": "Auto Respawn",
+    "Author": "TRPG",
+    "Description": "Automatically respawn after death, without having to input anything",
+    "InitialReleaseDate": "2025-12-10",
+    "GithubAuthor": "TRPG0",
+    "GithubRepo": "Blas-AutoRespawn",
+    "PluginFile": "AutoRespawn.dll",
+    "Dependencies": [ "Modding API" ]
+  },
+  {
+	"Name": "Map Speed",
+    "Author": "TRPG",
+    "Description": "Adjust how fast the map moves",
+    "InitialReleaseDate": "2025-12-10",
+    "GithubAuthor": "TRPG0",
+    "GithubRepo": "Blas-MapSpeed",
+    "PluginFile": "MapSpeed.dll",
+    "Dependencies": [ "Modding API" ]
   }
 ]
