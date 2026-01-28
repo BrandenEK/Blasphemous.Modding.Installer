@@ -160,5 +160,15 @@
     "GithubRepo": "BlasII.BetterWeaponSwap",
     "PluginFile": "BetterWeaponSwap.dll",
     "Dependencies": [ "Modding API", "Weapon Events Framework" ]
+  },
+  {
+    "Name": "Better Saves",
+    "Author": "Damocles",
+    "Description": "Allows creating more save files and naming them",
+    "InitialReleaseDate": "2026-1-28",
+    "GithubAuthor": "BrandenEK",
+    "GithubRepo": "BlasII.BetterSaves",
+    "PluginFile": "BetterSaves.dll",
+    "Dependencies": [ "Modding API", "Cheat Console" ]
   }
 ]
