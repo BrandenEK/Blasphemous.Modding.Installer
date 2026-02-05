@@ -38,7 +38,7 @@
     "GithubAuthor": "BrandenEK",
     "GithubRepo": "Blasphemous.Multiplayer",
     "PluginFile": "BlasClient.dll",
-    "RequiredDlls": [ "SimpleTCP.dll" ],
+    "RequiredDlls": [ "SimpleTCP.dll", "Blasphemous.Multiplayer.Common.dll" ],
     "Dependencies": [ "Modding API", "Cheat Console" ]
   },
   {
