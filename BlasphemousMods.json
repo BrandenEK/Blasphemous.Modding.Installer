@@ -281,5 +281,15 @@
     "GithubRepo": "Blas-MapSpeed",
     "PluginFile": "MapSpeed.dll",
     "Dependencies": [ "Modding API" ]
+  },
+  {
+    "Name": "Inventory Sorting",
+    "Author": "NewbieElton",
+    "Description": "Allows sorting inventory items by multiple ways, including custom sorting",
+    "InitialReleaseDate": "2025-10-02",
+    "GithubAuthor": "EltonZhang777",
+    "GithubRepo": "Blasphemous.InventorySorting",
+    "PluginFile": "InventorySorting.dll",
+    "Dependencies": [ "Modding API", "UI Framework" ]
   }
 ]
