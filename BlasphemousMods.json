@@ -291,5 +291,25 @@
     "GithubRepo": "Blasphemous.InventorySorting",
     "PluginFile": "InventorySorting.dll",
     "Dependencies": [ "Modding API", "UI Framework" ]
+  },
+  {
+    "Name": "Custom Achievements",
+    "Author": "NewbieElton",
+    "Description": "A Blasphemous 1 mod that allows other mods to add custom achievements to the game.",
+    "InitialReleaseDate": "2026-02-19",
+    "GithubAuthor": "EltonZhang777",
+    "GithubRepo": "Blasphemous.CustomAchievements",
+    "PluginFile": "CustomAchievements.dll",
+    "Dependencies": [ "Modding API", "UI Framework" ]
+  },
+  {
+    "Name": "Forgiving Spikes",
+    "Author": "NewbieElton",
+    "Description": "A Blasphemous 1 mod that makes spike, fall, and other trap penalty more forgiving. Highly customizable with other mods or by config.",
+    "InitialReleaseDate": "2026-02-25",
+    "GithubAuthor": "EltonZhang777",
+    "GithubRepo": "Blasphemous.ForgivingSpikes",
+    "PluginFile": "ForgivingSpikes.dll",
+    "Dependencies": [ "Modding API", "Cheat Console" ]
   }
 ]
