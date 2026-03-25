@@ -34,6 +34,7 @@ namespace Blasphemous.Modding.Installer
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIHandler));
             _bottom_holder_scroll = new VScrollBar();
             _bottom_holder = new Panel();
+            _bottom_holder_text = new Label();
             _left = new Panel();
             _left_outer = new Panel();
             _left_inner = new Panel();
@@ -126,12 +127,25 @@ namespace Blasphemous.Modding.Installer
             _bottom_holder.AutoScroll = true;
             _bottom_holder.AutoScrollMargin = new Size(0, 15);
             _bottom_holder.BackColor = Color.FromArgb(52, 52, 52);
+            _bottom_holder.Controls.Add(_bottom_holder_text);
             _bottom_holder.Controls.Add(_bottom_holder_scroll);
             _bottom_holder.Dock = DockStyle.Fill;
             _bottom_holder.Location = new Point(0, 0);
             _bottom_holder.Name = "_bottom_holder";
             _bottom_holder.Size = new Size(1240, 695);
             _bottom_holder.TabIndex = 3;
+            // 
+            // _bottom_holder_text
+            // 
+            _bottom_holder_text.Dock = DockStyle.Fill;
+            _bottom_holder_text.Font = new Font("Trebuchet MS", 24F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            _bottom_holder_text.Location = new Point(0, 0);
+            _bottom_holder_text.Name = "_bottom_holder_text";
+            _bottom_holder_text.Size = new Size(1240, 695);
+            _bottom_holder_text.TabIndex = 3;
+            _bottom_holder_text.Text = "List text";
+            _bottom_holder_text.TextAlign = ContentAlignment.MiddleCenter;
+            _bottom_holder_text.Visible = false;
             // 
             // _left
             // 
@@ -194,7 +208,7 @@ namespace Blasphemous.Modding.Installer
             // _left_github_text
             // 
             _left_github_text.Cursor = Cursors.Hand;
-            _left_github_text.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_github_text.Font = new Font("Trebuchet MS", 9.75F);
             _left_github_text.ForeColor = SystemColors.ButtonHighlight;
             _left_github_text.Location = new Point(62, 56);
             _left_github_text.Name = "_left_github_text";
@@ -237,7 +251,7 @@ namespace Blasphemous.Modding.Installer
             // _left_discord_text
             // 
             _left_discord_text.Cursor = Cursors.Hand;
-            _left_discord_text.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_discord_text.Font = new Font("Trebuchet MS", 9.75F);
             _left_discord_text.ForeColor = SystemColors.ButtonHighlight;
             _left_discord_text.Location = new Point(62, 10);
             _left_discord_text.Name = "_left_discord_text";
@@ -264,7 +278,7 @@ namespace Blasphemous.Modding.Installer
             // _left_start_console
             // 
             _left_start_console.AutoSize = true;
-            _left_start_console.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_start_console.Font = new Font("Trebuchet MS", 9.75F);
             _left_start_console.ForeColor = SystemColors.ButtonHighlight;
             _left_start_console.Location = new Point(40, 42);
             _left_start_console.Name = "_left_start_console";
@@ -277,7 +291,7 @@ namespace Blasphemous.Modding.Installer
             // _left_start_modded
             // 
             _left_start_modded.AutoSize = true;
-            _left_start_modded.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_start_modded.Font = new Font("Trebuchet MS", 9.75F);
             _left_start_modded.ForeColor = SystemColors.ButtonHighlight;
             _left_start_modded.Location = new Point(40, 15);
             _left_start_modded.Name = "_left_start_modded";
@@ -294,7 +308,7 @@ namespace Blasphemous.Modding.Installer
             _left_start_button.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
             _left_start_button.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
             _left_start_button.FlatStyle = FlatStyle.Flat;
-            _left_start_button.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_start_button.Font = new Font("Trebuchet MS", 12F);
             _left_start_button.ForeColor = SystemColors.ButtonHighlight;
             _left_start_button.Location = new Point(60, 70);
             _left_start_button.Name = "_left_start_button";
@@ -334,7 +348,7 @@ namespace Blasphemous.Modding.Installer
             _left_all_install.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
             _left_all_install.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
             _left_all_install.FlatStyle = FlatStyle.Flat;
-            _left_all_install.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_all_install.Font = new Font("Trebuchet MS", 12F);
             _left_all_install.ForeColor = SystemColors.ButtonHighlight;
             _left_all_install.Location = new Point(10, 15);
             _left_all_install.Name = "_left_all_install";
@@ -351,7 +365,7 @@ namespace Blasphemous.Modding.Installer
             _left_all_enable.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
             _left_all_enable.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
             _left_all_enable.FlatStyle = FlatStyle.Flat;
-            _left_all_enable.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_all_enable.Font = new Font("Trebuchet MS", 12F);
             _left_all_enable.ForeColor = SystemColors.ButtonHighlight;
             _left_all_enable.Location = new Point(10, 60);
             _left_all_enable.Name = "_left_all_enable";
@@ -368,7 +382,7 @@ namespace Blasphemous.Modding.Installer
             _left_all_uninstall.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
             _left_all_uninstall.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
             _left_all_uninstall.FlatStyle = FlatStyle.Flat;
-            _left_all_uninstall.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_all_uninstall.Font = new Font("Trebuchet MS", 12F);
             _left_all_uninstall.ForeColor = SystemColors.ButtonHighlight;
             _left_all_uninstall.Location = new Point(140, 15);
             _left_all_uninstall.Name = "_left_all_uninstall";
@@ -385,7 +399,7 @@ namespace Blasphemous.Modding.Installer
             _left_all_disable.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
             _left_all_disable.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
             _left_all_disable.FlatStyle = FlatStyle.Flat;
-            _left_all_disable.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_all_disable.Font = new Font("Trebuchet MS", 12F);
             _left_all_disable.ForeColor = SystemColors.ButtonHighlight;
             _left_all_disable.Location = new Point(140, 60);
             _left_all_disable.Name = "_left_all_disable";
@@ -420,7 +434,7 @@ namespace Blasphemous.Modding.Installer
             // _left_filter_options
             // 
             _left_filter_options.DropDownStyle = ComboBoxStyle.DropDownList;
-            _left_filter_options.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_filter_options.Font = new Font("Trebuchet MS", 9.75F);
             _left_filter_options.FormattingEnabled = true;
             _left_filter_options.Location = new Point(120, 55);
             _left_filter_options.Name = "_left_filter_options";
@@ -430,7 +444,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_filter_text
             // 
-            _left_filter_text.Font = new Font("Trebuchet MS", 11.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            _left_filter_text.Font = new Font("Trebuchet MS", 11.25F, FontStyle.Bold | FontStyle.Italic);
             _left_filter_text.ForeColor = SystemColors.ButtonHighlight;
             _left_filter_text.Location = new Point(10, 55);
             _left_filter_text.Name = "_left_filter_text";
@@ -442,7 +456,7 @@ namespace Blasphemous.Modding.Installer
             // _left_sort_options
             // 
             _left_sort_options.DropDownStyle = ComboBoxStyle.DropDownList;
-            _left_sort_options.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_sort_options.Font = new Font("Trebuchet MS", 9.75F);
             _left_sort_options.FormattingEnabled = true;
             _left_sort_options.Location = new Point(120, 15);
             _left_sort_options.Name = "_left_sort_options";
@@ -452,7 +466,7 @@ namespace Blasphemous.Modding.Installer
             // 
             // _left_sort_text
             // 
-            _left_sort_text.Font = new Font("Trebuchet MS", 11.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            _left_sort_text.Font = new Font("Trebuchet MS", 11.25F, FontStyle.Bold | FontStyle.Italic);
             _left_sort_text.ForeColor = SystemColors.ButtonHighlight;
             _left_sort_text.Location = new Point(10, 15);
             _left_sort_text.Name = "_left_sort_text";
@@ -492,7 +506,7 @@ namespace Blasphemous.Modding.Installer
             _left_page_blas2skin.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
             _left_page_blas2skin.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
             _left_page_blas2skin.FlatStyle = FlatStyle.Flat;
-            _left_page_blas2skin.Font = new Font("Trebuchet MS", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_page_blas2skin.Font = new Font("Trebuchet MS", 14.25F);
             _left_page_blas2skin.ForeColor = SystemColors.ButtonHighlight;
             _left_page_blas2skin.Location = new Point(0, 135);
             _left_page_blas2skin.Name = "_left_page_blas2skin";
@@ -511,7 +525,7 @@ namespace Blasphemous.Modding.Installer
             _left_page_blas1mod.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
             _left_page_blas1mod.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
             _left_page_blas1mod.FlatStyle = FlatStyle.Flat;
-            _left_page_blas1mod.Font = new Font("Trebuchet MS", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_page_blas1mod.Font = new Font("Trebuchet MS", 14.25F);
             _left_page_blas1mod.ForeColor = SystemColors.ButtonHighlight;
             _left_page_blas1mod.Location = new Point(0, 0);
             _left_page_blas1mod.Name = "_left_page_blas1mod";
@@ -530,7 +544,7 @@ namespace Blasphemous.Modding.Installer
             _left_page_blas1skin.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
             _left_page_blas1skin.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
             _left_page_blas1skin.FlatStyle = FlatStyle.Flat;
-            _left_page_blas1skin.Font = new Font("Trebuchet MS", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_page_blas1skin.Font = new Font("Trebuchet MS", 14.25F);
             _left_page_blas1skin.ForeColor = SystemColors.ButtonHighlight;
             _left_page_blas1skin.Location = new Point(0, 45);
             _left_page_blas1skin.Name = "_left_page_blas1skin";
@@ -549,7 +563,7 @@ namespace Blasphemous.Modding.Installer
             _left_page_blas2mod.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 30, 30);
             _left_page_blas2mod.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 30, 30);
             _left_page_blas2mod.FlatStyle = FlatStyle.Flat;
-            _left_page_blas2mod.Font = new Font("Trebuchet MS", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            _left_page_blas2mod.Font = new Font("Trebuchet MS", 14.25F);
             _left_page_blas2mod.ForeColor = SystemColors.ButtonHighlight;
             _left_page_blas2mod.Location = new Point(0, 90);
             _left_page_blas2mod.Name = "_left_page_blas2mod";
@@ -625,7 +639,7 @@ namespace Blasphemous.Modding.Installer
             // _top_warning_text
             // 
             _top_warning_text.Anchor = AnchorStyles.Right;
-            _top_warning_text.Font = new Font("Trebuchet MS", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            _top_warning_text.Font = new Font("Trebuchet MS", 9.75F);
             _top_warning_text.ForeColor = SystemColors.ButtonHighlight;
             _top_warning_text.LinkArea = new LinkArea(57, 8);
             _top_warning_text.LinkColor = Color.Cyan;
@@ -657,7 +671,7 @@ namespace Blasphemous.Modding.Installer
             _top_text.BackColor = Color.FromArgb(0, 0, 0, 0);
             _top_text.ContextMenuStrip = _menu_title;
             _top_text.Dock = DockStyle.Fill;
-            _top_text.Font = new Font("Trebuchet MS", 20F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            _top_text.Font = new Font("Trebuchet MS", 20F, FontStyle.Bold | FontStyle.Italic);
             _top_text.ForeColor = Color.Black;
             _top_text.Location = new Point(0, 0);
             _top_text.Name = "_top_text";
@@ -705,7 +719,7 @@ namespace Blasphemous.Modding.Installer
             _middle_tools_text.BackColor = SystemColors.WindowFrame;
             _middle_tools_text.Cursor = Cursors.Hand;
             _middle_tools_text.Dock = DockStyle.Fill;
-            _middle_tools_text.Font = new Font("Trebuchet MS", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            _middle_tools_text.Font = new Font("Trebuchet MS", 10.8F);
             _middle_tools_text.Location = new Point(0, 0);
             _middle_tools_text.Name = "_middle_tools_text";
             _middle_tools_text.Size = new Size(272, 26);
@@ -762,7 +776,7 @@ namespace Blasphemous.Modding.Installer
             _middle_path.AutoEllipsis = true;
             _middle_path.BackColor = SystemColors.WindowFrame;
             _middle_path.Cursor = Cursors.Hand;
-            _middle_path.Font = new Font("Trebuchet MS", 12F, FontStyle.Italic, GraphicsUnit.Point);
+            _middle_path.Font = new Font("Trebuchet MS", 12F, FontStyle.Italic);
             _middle_path.Location = new Point(10, 2);
             _middle_path.Name = "_middle_path";
             _middle_path.Size = new Size(1000, 24);
@@ -792,7 +806,7 @@ namespace Blasphemous.Modding.Installer
             Controls.Add(_middle);
             Controls.Add(_top);
             Controls.Add(_left);
-            Font = new Font("Trebuchet MS", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Trebuchet MS", 7.8F);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(1280, 720);
             Name = "UIHandler";
@@ -880,6 +894,7 @@ namespace Blasphemous.Modding.Installer
         private ContextMenuStrip _menu_title;
         private ToolStripSeparator _menu_title_split;
         private ToolStripMenuItem _menu_title_text;
+        private Label _bottom_holder_text;
     }
 }
 

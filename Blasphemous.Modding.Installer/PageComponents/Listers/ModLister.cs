@@ -13,6 +13,8 @@ internal class ModLister : ILister
     private readonly ISorter<Mod> _sorter;
     private readonly IFilter<Mod> _filter;
 
+    public bool ShouldHaveItems { get; set; }
+
     public ModLister(Panel background, List<Mod> mods, ISorter<Mod> sorter, IFilter<Mod> filter)
     {
         _background = background;
@@ -50,5 +52,14 @@ internal class ModLister : ILister
         }
 
         _background.BackColor = display.Count() % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
+
+        if (display.Any())
+            Core.UIHandler.UpdateListText(string.Empty);
+        else if (_mods.Any())
+            Core.UIHandler.UpdateListText("No mods are shown as a result of a filter.");
+        else if (ShouldHaveItems)
+            Core.UIHandler.UpdateListText("No mods have been loaded from GitHub yet.  Check again in 30 minutes for the API limit to reset.");
+        else
+            Core.UIHandler.UpdateListText("Checking on GitHub for mods...");
     }
 }

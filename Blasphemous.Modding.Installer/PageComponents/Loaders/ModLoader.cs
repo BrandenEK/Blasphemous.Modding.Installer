@@ -48,6 +48,8 @@ internal class ModLoader : ILoader
         else
         {
             Logger.Warn("Skipping remote loading");
+            _lister.ShouldHaveItems = true;
+            _lister.RefreshList();
         }
 
         _loadedData = true;
@@ -92,6 +94,7 @@ internal class ModLoader : ILoader
         _mods.AddRange(newMods);
 
         SaveLocalData();
+        _lister.ShouldHaveItems = true;
         _lister.RefreshList();
     }
 
