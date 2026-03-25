@@ -34,6 +34,7 @@ namespace Blasphemous.Modding.Installer
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIHandler));
             _bottom_holder_scroll = new VScrollBar();
             _bottom_holder = new Panel();
+            _bottom_holder_text = new Label();
             _left = new Panel();
             _left_outer = new Panel();
             _left_inner = new Panel();
@@ -85,7 +86,6 @@ namespace Blasphemous.Modding.Installer
             _middle_inner = new Panel();
             _middle_path = new Label();
             _middle_tools = new Panel();
-            bottom_holder_text = new Label();
             _bottom_holder.SuspendLayout();
             _left.SuspendLayout();
             _left_outer.SuspendLayout();
@@ -127,13 +127,25 @@ namespace Blasphemous.Modding.Installer
             _bottom_holder.AutoScroll = true;
             _bottom_holder.AutoScrollMargin = new Size(0, 15);
             _bottom_holder.BackColor = Color.FromArgb(52, 52, 52);
-            _bottom_holder.Controls.Add(bottom_holder_text);
+            _bottom_holder.Controls.Add(_bottom_holder_text);
             _bottom_holder.Controls.Add(_bottom_holder_scroll);
             _bottom_holder.Dock = DockStyle.Fill;
             _bottom_holder.Location = new Point(0, 0);
             _bottom_holder.Name = "_bottom_holder";
             _bottom_holder.Size = new Size(1240, 695);
             _bottom_holder.TabIndex = 3;
+            // 
+            // _bottom_holder_text
+            // 
+            _bottom_holder_text.Dock = DockStyle.Fill;
+            _bottom_holder_text.Font = new Font("Trebuchet MS", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            _bottom_holder_text.Location = new Point(0, 0);
+            _bottom_holder_text.Name = "_bottom_holder_text";
+            _bottom_holder_text.Size = new Size(1240, 695);
+            _bottom_holder_text.TabIndex = 3;
+            _bottom_holder_text.Text = "List text";
+            _bottom_holder_text.TextAlign = ContentAlignment.MiddleCenter;
+            _bottom_holder_text.Visible = false;
             // 
             // _left
             // 
@@ -784,18 +796,6 @@ namespace Blasphemous.Modding.Installer
             _middle_tools.TabIndex = 9;
             _middle_tools.Visible = false;
             // 
-            // bottom_holder_text
-            // 
-            bottom_holder_text.Dock = DockStyle.Fill;
-            bottom_holder_text.Font = new Font("Trebuchet MS", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            bottom_holder_text.Location = new Point(0, 0);
-            bottom_holder_text.Name = "bottom_holder_text";
-            bottom_holder_text.Size = new Size(1240, 695);
-            bottom_holder_text.TabIndex = 3;
-            bottom_holder_text.Text = "List text";
-            bottom_holder_text.TextAlign = ContentAlignment.MiddleCenter;
-            bottom_holder_text.Visible = false;
-            // 
             // UIHandler
             // 
             AutoScaleDimensions = new SizeF(6F, 15F);
@@ -894,7 +894,7 @@ namespace Blasphemous.Modding.Installer
         private ContextMenuStrip _menu_title;
         private ToolStripSeparator _menu_title_split;
         private ToolStripMenuItem _menu_title_text;
-        private Label bottom_holder_text;
+        private Label _bottom_holder_text;
     }
 }
 

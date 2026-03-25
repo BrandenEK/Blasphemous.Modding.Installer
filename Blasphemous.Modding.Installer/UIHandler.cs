@@ -240,6 +240,14 @@ public partial class UIHandler : BasaltForm
         Core.CurrentPage.Validator.OnClickToolStatus();
     }
 
+    // Bottom section
+
+    public void UpdateListText(string text)
+    {
+        _bottom_holder_text.Visible = !string.IsNullOrEmpty(text);
+        _bottom_holder_text.Text = text;
+    }
+
     // Side section paging
 
     private void ClickedBlas1Mods(object sender, EventArgs e) => OpenSection(SectionType.Blas1Mods);

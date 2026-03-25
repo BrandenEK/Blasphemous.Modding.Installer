@@ -50,5 +50,6 @@ internal class SkinLister : ILister
         }
 
         _background.BackColor = display.Count() % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
+        Core.UIHandler.UpdateListText("Skin test");
     }
 }
