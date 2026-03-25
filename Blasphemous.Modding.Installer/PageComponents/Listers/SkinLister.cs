@@ -13,6 +13,8 @@ internal class SkinLister : ILister
     private readonly ISorter<Skin> _sorter;
     private readonly IFilter<Skin> _filter;
 
+    public bool ShouldHaveItems { get; set; }
+
     public SkinLister(Panel background, List<Skin> skins, ISorter<Skin> sorter, IFilter<Skin> filter)
     {
         _background = background;
@@ -55,7 +57,9 @@ internal class SkinLister : ILister
             Core.UIHandler.UpdateListText(string.Empty);
         else if (_skins.Any())
             Core.UIHandler.UpdateListText("No skins are shown as a result of a filter.");
-        else
+        else if (ShouldHaveItems)
             Core.UIHandler.UpdateListText("No skins have been loaded from GitHub yet.  Check again in 30 minutes for the API limit to reset.");
+        else
+            Core.UIHandler.UpdateListText("Checking on GitHub for skins...");
     }
 }
