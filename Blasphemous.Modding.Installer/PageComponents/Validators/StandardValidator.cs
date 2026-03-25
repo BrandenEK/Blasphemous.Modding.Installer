@@ -149,6 +149,23 @@ internal class StandardValidator : IValidator
         InvalidateAndUpdateStatus();
     }
 
+    /// <summary>
+    /// This will be very similar to OnClickToolStatus, this is bad, repeated code
+    /// </summary>
+    public async void OnClickDownloadAfterFailedLaunch()
+    {
+        if (AreModdingToolsInstalled || _currentStatus == ToolStatus.Downloading)
+        {
+            Logger.Warn("Skipping download of modding tools");
+            return;
+        }
+
+        Logger.Info("Installing modding tools");
+        SetAndUpdateStatus(ToolStatus.Downloading);
+        await DownloadModdingTools();
+        InvalidateAndUpdateStatus();
+    }
+
     private async void FetchRemoteVersion()
     {
         using var client = new HttpClient();

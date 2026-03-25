@@ -3,6 +3,7 @@
 internal interface IValidator
 {
     void OnClickToolStatus();
+    void OnClickDownloadAfterFailedLaunch();
 
     string ExeName { get; }
     string DefaultPath { get; }
