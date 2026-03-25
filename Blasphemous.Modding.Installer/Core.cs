@@ -20,13 +20,13 @@ static class Core
     static void Main()
     {
         Initialized = true;
-        BasaltApplication.Run<UIHandler, InstallerCommand, InstallerSettings>(InitializeCore, "Blasphemous Mod Installer", new string[]
+        BasaltApplication.Run<UIHandler, InstallerArguments, InstallerSettings>(InitializeCore, "Blasphemous Mod Installer", new string[]
         {
             InstallerFolder, CacheFolder
         });
     }
 
-    static void InitializeCore(UIHandler form, InstallerCommand cmd, InstallerSettings settings)
+    static void InitializeCore(UIHandler form, InstallerArguments args, InstallerSettings settings)
     {
         TempConfig = settings;
         var blas1gameSettings = settings.GetGameSettings("blas1");
@@ -37,7 +37,7 @@ static class Core
         var blas2skinPageSettings = settings.GetPageSettings("blas2skins");
 
         UIHandler = form;
-        GithubHandler = new GithubHandler(cmd.GithubToken);
+        GithubHandler = new GithubHandler(args.GithubToken);
 
         IIconLoader iconLoader = new EmbeddedIconLoader();
 
@@ -93,7 +93,7 @@ static class Core
         // Loaders
         var blas1modLoader = new ModLoader(
             "https://raw.githubusercontent.com/BrandenEK/Blasphemous.Modding.Installer/main/BlasphemousMods.json",
-            cmd.IgnoreTime,
+            args.IgnoreTime,
             blas1modLister,
             blas1mods,
             SectionType.Blas1Mods,
@@ -101,7 +101,7 @@ static class Core
             blas1gameSettings);
         var blas1skinLoader = new SkinLoader(
             "blasphemous1",
-            cmd.IgnoreTime,
+            args.IgnoreTime,
             blas1skinLister,
             blas1skins,
             SectionType.Blas1Skins,
@@ -109,7 +109,7 @@ static class Core
             blas1gameSettings);
         var blas2modLoader = new ModLoader(
             "https://raw.githubusercontent.com/BrandenEK/Blasphemous.Modding.Installer/main/BlasphemousIIMods.json",
-            cmd.IgnoreTime,
+            args.IgnoreTime,
             blas2modLister,
             blas2mods,
             SectionType.Blas2Mods,
@@ -117,7 +117,7 @@ static class Core
             blas2gameSettings);
         var blas2skinLoader = new SkinLoader(
             "blasphemous2",
-            cmd.IgnoreTime,
+            args.IgnoreTime,
             blas2skinLister,
             blas2skins,
             SectionType.Blas2Skins,
