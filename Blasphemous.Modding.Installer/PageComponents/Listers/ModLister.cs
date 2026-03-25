@@ -50,6 +50,12 @@ internal class ModLister : ILister
         }
 
         _background.BackColor = display.Count() % 2 == 0 ? Colors.DARK_GRAY : Colors.LIGHT_GRAY;
-        Core.UIHandler.UpdateListText(string.Empty);
+
+        if (display.Any())
+            Core.UIHandler.UpdateListText(string.Empty);
+        else if (_mods.Any())
+            Core.UIHandler.UpdateListText("No mods are shown as a result of a filter.");
+        else
+            Core.UIHandler.UpdateListText("No mods have been loaded from GitHub yet.  Check again in 30 minutes for the API limit to reset.");
     }
 }

@@ -138,7 +138,7 @@ namespace Blasphemous.Modding.Installer
             // _bottom_holder_text
             // 
             _bottom_holder_text.Dock = DockStyle.Fill;
-            _bottom_holder_text.Font = new Font("Trebuchet MS", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            _bottom_holder_text.Font = new Font("Trebuchet MS", 24F, FontStyle.Italic, GraphicsUnit.Point, 0);
             _bottom_holder_text.Location = new Point(0, 0);
             _bottom_holder_text.Name = "_bottom_holder_text";
             _bottom_holder_text.Size = new Size(1240, 695);
