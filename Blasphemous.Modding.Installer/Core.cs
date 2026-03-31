@@ -130,7 +130,7 @@ static class Core
             "Blasphemous.exe",
             Path.Combine("BepInEx", "patchers", "BepInEx.MultiFolderLoader.dll"),
             "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-windows.zip",
-            "https://raw.githubusercontent.com/BrandenEK/Blasphemous.ModdingTools/main/modding-tools-windows.version",
+            "https://raw.githubusercontent.com/BrandenEK/Blasphemous.ModdingTools/main/win64/.modtools_version",
             iconLoader,
             blas1gameSettings);
         var blas2Validator = new StandardValidator(
@@ -138,7 +138,7 @@ static class Core
             "Blasphemous 2.exe",
             Path.Combine("MelonLoader", "net6", "MelonLoader.dll"),
             "https://github.com/BrandenEK/BlasII.ModdingTools/raw/main/modding-tools-windows.zip",
-            "https://raw.githubusercontent.com/BrandenEK/BlasII.ModdingTools/main/modding-tools-windows.version",
+            "https://raw.githubusercontent.com/BrandenEK/BlasII.ModdingTools/main/win64/.modtools_version",
             iconLoader, blas2gameSettings);
 
         // Starters
