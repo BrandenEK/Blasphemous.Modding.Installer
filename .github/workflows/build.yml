@@ -1,9 +1,13 @@
 
+# Blasphemous tool publisher v1.0.0
 name: Build
 
 on:
   push:
     tags: [ "**" ]
+
+permissions:
+  contents: write
 
 env:
   TOOL_TITLE: Mod Installer
@@ -15,12 +19,12 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 8.0.x
 
     - name: Build Project
       run: |
@@ -35,6 +39,7 @@ jobs:
       with:
         tag_name: ${{ github.ref }}
         release_name: ${{ env.TOOL_TITLE }} v${{ github.ref_name }}
+        draft: true
 
     - name: Upload Release
       uses: actions/upload-release-asset@v1
