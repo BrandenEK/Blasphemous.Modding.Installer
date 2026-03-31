@@ -200,9 +200,20 @@ internal class NewValidator : IValidator
         }
 
         // Extract data in cache to game folder
-        using ZipFile zipFile = ZipFile.Read(toolsCache);
-        foreach (ZipEntry file in zipFile)
-            file.Extract(_settings.RootFolder, ExtractExistingFileAction.OverwriteSilently);
+        try
+        {
+            using ZipFile zipFile = ZipFile.Read(toolsCache);
+            foreach (ZipEntry file in zipFile)
+                file.Extract(_settings.RootFolder, ExtractExistingFileAction.OverwriteSilently);
+        }
+        catch (Exception ex)
+        {
+            Logger.Error($"Failed to install modding tools: {ex}");
+            MessageBox.Show("Failed to download modding tools.  Please try again.", "Error");
+
+            File.Delete(Path.Combine(_settings.RootFolder, _localVersionPath));
+            File.Delete(toolsCache);
+        }
     }
 
     public bool IsRootFolderValid
