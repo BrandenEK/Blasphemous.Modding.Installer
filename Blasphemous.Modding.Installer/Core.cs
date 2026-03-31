@@ -129,7 +129,7 @@ static class Core
             Path.Combine("C:", "Program Files (x86)", "Steam", "steamapps", "common", "Blasphemous"),
             "Blasphemous.exe",
             Path.Combine("BepInEx", "patchers", "BepInEx.MultiFolderLoader.dll"),
-            "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/modding-tools-windows.zip",
+            "https://github.com/BrandenEK/Blasphemous.ModdingTools/raw/main/win64.zip",
             "https://raw.githubusercontent.com/BrandenEK/Blasphemous.ModdingTools/main/win64/.modtools_version",
             iconLoader,
             blas1gameSettings);
@@ -137,7 +137,7 @@ static class Core
             Path.Combine("C:", "Program Files (x86)", "Steam", "steamapps", "common", "Blasphemous 2"),
             "Blasphemous 2.exe",
             Path.Combine("MelonLoader", "net6", "MelonLoader.dll"),
-            "https://github.com/BrandenEK/BlasII.ModdingTools/raw/main/modding-tools-windows.zip",
+            "https://github.com/BrandenEK/BlasII.ModdingTools/raw/main/win64.zip",
             "https://raw.githubusercontent.com/BrandenEK/BlasII.ModdingTools/main/win64/.modtools_version",
             iconLoader, blas2gameSettings);
 
