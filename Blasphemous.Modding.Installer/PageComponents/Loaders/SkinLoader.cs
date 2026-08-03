@@ -102,7 +102,7 @@ internal class SkinLoader : ILoader
     {
         try
         {
-            string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous.Community.Skins/main/{_remoteDataPath}/{item.Name}/info.txt");
+            string json = await client.GetStringAsync($"https://raw.githubusercontent.com/BrandenEK/Blasphemous.Community.Skins/main/{_remoteDataPath}/{item.Name}/{Skin.TempGetInfoFileName(_skinType)}");
             SkinData data = JsonConvert.DeserializeObject<SkinData>(json)!;
 
             Skin? localSkin = FindSkin(data.id);

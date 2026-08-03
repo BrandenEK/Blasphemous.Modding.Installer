@@ -228,4 +228,16 @@ internal class Skin
     {
         _ui.SetVisibility(visible);
     }
+
+    // Temp
+
+    public static string TempGetInfoFileName(SectionType type)
+    {
+        return type switch
+        {
+            SectionType.Blas1Skins => "info.txt",
+            SectionType.Blas2Skins => "info.json",
+            _ => throw new Exception("Dont use this method for mods")
+        };
+    }
 }
