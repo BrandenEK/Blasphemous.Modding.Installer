@@ -59,7 +59,9 @@ internal class SkinLister : ILister
             Core.UIHandler.UpdateListText("No skins are shown as a result of a filter.");
         else if (ShouldHaveItems)
             Core.UIHandler.UpdateListText("No skins have been loaded from GitHub yet.  Check again in 30 minutes for the API limit to reset.");
-        else
+        else if (Core.CurrentPage.Validator.IsRootFolderValid)
             Core.UIHandler.UpdateListText("Checking on GitHub for skins...");
+        else
+            Core.UIHandler.UpdateListText("Locate the game folder using the button above.");
     }
 }
