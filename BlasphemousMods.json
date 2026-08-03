@@ -311,15 +311,5 @@
     "GithubRepo": "Blasphemous.ForgivingSpikes",
     "PluginFile": "ForgivingSpikes.dll",
     "Dependencies": [ "Modding API", "Cheat Console" ]
-  },
-  {
-    "Name": "Game Crasher",
-    "Author": "NewbieElton",
-    "Description": "Crashes the game when detecting specified loaded mods",
-    "InitialReleaseDate": "2026-07-28",
-    "GithubAuthor": "EltonZhang777",
-    "GithubRepo": "Blasphemous.GameCrasher",
-    "PluginFile": "GameCrasher.dll",
-    "Dependencies": [ "Modding API" ]
   }
 ]
